@@ -1,17 +1,11 @@
-# Welcome to MkDocs
+# **Welcome to Tsukimakura's notebook!**
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## **About the author and this website**
 
-## Commands
+I'm a normal undergraduate in ZJU, learning CS. (Still a freshman now)
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Not able to create new things yet.
 
-## Project layout
+Just learn and record!
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+*There will be lots of AI-generated contents in this website, thanks to my learning method.*
