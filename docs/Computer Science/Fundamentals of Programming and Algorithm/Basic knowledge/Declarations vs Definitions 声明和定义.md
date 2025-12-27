@@ -20,7 +20,7 @@ The fundamental difference between a declaration and a definition lies in whethe
 
 In the context of memory allocation, defining a structure type is considered a **Declaration**.
 
-### A. Structure Type Declaration (The Blueprint)
+### A. Structure Type Definition (The Blueprint)
 
 ```c
 struct Student {

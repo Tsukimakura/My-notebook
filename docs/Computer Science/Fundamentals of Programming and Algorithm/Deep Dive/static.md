@@ -24,9 +24,7 @@ The behavior depends on **where** you place the keyword.
 
 ### **Code Example**
 
-codeC
-
-```
+```c
 #include <stdio.h>
 
 void counter() {
@@ -65,9 +63,7 @@ int main() {
 
 **File: module.c**
 
-codeC
-
-```
+```c
 // Only functions inside module.c can see this variable.
 // If another file defines 'int secret', there will be no conflict.
 static int secret = 42; 
@@ -79,9 +75,7 @@ int get_secret() {
 
 **File: main.c**
 
-codeC
-
-```
+```c
 extern int secret; // ERROR: Linker cannot find 'secret'
 ```
 
@@ -106,9 +100,7 @@ extern int secret; // ERROR: Linker cannot find 'secret'
 
 ### **Code Example**
 
-codeC
-
-```
+```c
 // Internal helper function. 
 // Can be named 'init' without clashing with 'init' in other libraries.
 static void internal_helper() {
@@ -138,9 +130,7 @@ To understand static fully, you must look at how C programs use memory segment
 
 If you declare a static variable but do not assign a value, it is guaranteed to be **Zero**:
 
-codeC
-
-```
+```c
 static int x; // x is guaranteed to be 0
 ```
 
@@ -153,13 +143,12 @@ static int x; // x is guaranteed to be 0
 
 ## **Summary Table**
 
-|   |   |   |   |   |   |
-|---|---|---|---|---|---|
-|Concept|Declaration Location|Storage Area|Lifetime|Scope (Visibility)|Linkage|
-|**Local Variable**|Inside Function|**Stack**|Function Block|Inside Function|None|
-|**Static Local**|Inside Function|**Data / BSS**|**Entire Program**|Inside Function|None|
-|**Global Variable**|Outside Function|**Data / BSS**|Entire Program|Entire Project|**External**|
-|**Static Global**|Outside Function|**Data / BSS**|Entire Program|**Current File Only**|**Internal**|
+| Concept             | Declaration Location | Storage Area   | Lifetime           | Scope (Visibility)    | Linkage      |
+| ------------------- | -------------------- | -------------- | ------------------ | --------------------- | ------------ |
+| **Local Variable**  | Inside Function      | **Stack**      | Function Block     | Inside Function       | None         |
+| **Static Local**    | Inside Function      | **Data / BSS** | **Entire Program** | Inside Function       | None         |
+| **Global Variable** | Outside Function     | **Data / BSS** | Entire Program     | Entire Project        | **External** |
+| **Static Global**   | Outside Function     | **Data / BSS** | Entire Program     | **Current File Only** | **Internal** |
 
 ### **Key Takeaways**
 

@@ -8,4 +8,4 @@ Not able to create new things yet.
 
 Just learn and record!
 
-*There will be lots of AI-generated contents in this website, thanks to my learning method.*
+*There will be lots of AI-generated contents on this website, thanks to my learning method.*

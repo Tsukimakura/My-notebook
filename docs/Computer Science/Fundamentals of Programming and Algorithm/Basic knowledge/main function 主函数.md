@@ -75,13 +75,28 @@ If you omit `return 0;` in C99 or later, the compiler **automatically inserts it
 
 ## **4. Example 1: Basic Program**
 
-`#include <stdio.h>  int main(void) {     printf("Hello, world!\n");     return 0; }`
+```c
+#include <stdio.h>
+int main(void) {
+     printf("Hello, world!\n");
+     return 0; 
+}
+```
 
 ---
 
 ## **5. Example 2: Program with Arguments**
 
-`#include <stdio.h>  int main(int argc, char *argv[]) {     printf("Number of arguments: %d\n", argc);     for (int i = 0; i < argc; i++) {         printf("argv[%d] = %s\n", i, argv[i]);     }     return 0; }`
+```c
+#include <stdio.h>  
+int main(int argc, char *argv[]) {
+     printf("Number of arguments: %d\n", argc);
+     for (int i = 0; i < argc; i++) {
+	    printf("argv[%d] = %s\n", i, argv[i]);     
+	}     
+	return 0; 
+}
+```
 
 ---
 
@@ -113,3 +128,4 @@ If you omit `return 0;` in C99 or later, the compiler **automatically inserts it
     but this is compiler-specific and not portable.
 
 [[Command Line Arguments 命令行参数 | Learn more about Command Line Arguments]]
+[[Main Function Return Values]]

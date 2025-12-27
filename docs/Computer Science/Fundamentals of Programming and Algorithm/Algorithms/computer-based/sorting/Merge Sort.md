@@ -1,4 +1,4 @@
-![[merge_sort(wk).png| 翁恺2025程算授课PPT]]
+![alt 翁恺2025程算授课PPT](../../../../Attachments/merge_sort(wk).png)
 - 图片来源与翁恺2025程算授课课件
 
 #### Core idea

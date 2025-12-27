@@ -50,9 +50,7 @@ Below is an implementation of a **Singly Linked List**.
 - **Pointers:** Functions receive Node** head_ref (pointer to the head pointer) so they can modify the actual head of the list in the main function.
     
 
-codeC
-
-```
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
