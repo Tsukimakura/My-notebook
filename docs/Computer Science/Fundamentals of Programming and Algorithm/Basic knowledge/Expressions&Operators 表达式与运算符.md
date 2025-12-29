@@ -72,24 +72,3 @@ char* status = (age >= 18) ? "Adult" : "Minor";
 int a, b, c;
 a = (b = 5, c = 10, b + c);  // a = 15, b = 5, c = 10
 ```
-
-
-#### C Operator Precedence & Associativity Table
-
-| Precedence (High→Low) | Operators                                                                                                                                                                            | Description                                   | Associativity    |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- | ---------------- |
-| **1**                 | `()` `[]` `->` `.`                                                                                                                                                                   | Function call, array subscript, struct member | **Left → Right** |
-| **2**                 | `++` `--` _(postfix)_       `++` `--` _(prefix)_  <br>`+` `-` _(unary)_  <br>`!` `~`  <br>`*` _(dereference)_  <br>`&` _(address-of)_  <br>`sizeof` `_Alignof`<br>type cast `(type)` | Unary operators                               | **Right → Left** |
-| **3**                 | `*` `/` `%`                                                                                                                                                                          | Multiplicative                                | **Left → Right** |
-| **4**                 | `+` `-`                                                                                                                                                                              | Additive                                      | **Left → Right** |
-| **5**                 | `<<` `>>`                                                                                                                                                                            | Bitwise shift                                 | **Left → Right** |
-| **6**                 | `<` `<=` `>` `>=`                                                                                                                                                                    | Relational                                    | **Left → Right** |
-| **7**                 | `==` `!=`                                                                                                                                                                            | Equality                                      | **Left → Right** |
-| **8**                 | `&`                                                                                                                                                                                  | Bitwise AND                                   | **Left → Right** |
-| **9**                 | `^`                                                                                                                                                                                  | Bitwise XOR                                   | **Left → Right** |
-| **10**                | `\|`                                                                                                                                                                                 | Bitwise OR                                    | **Left → Right** |
-| **11**                | `&&`                                                                                                                                                                                 | Logical AND                                   | **Left → Right** |
-| **12**                | `\|\|`                                                                                                                                                                               | Logical OR                                    | **Left → Right** |
-| **13**                | `?:`                                                                                                                                                                                 | Conditional (ternary)                         | **Right → Left** |
-| **14**                | `=` `+=` `-=` `*=` `/=`  <br>`%=` `<<=` `>>=` `&=` `^=` `\|=`                                                                                                                        | Assignment operators                          | **Right → Left** |
-| **15**                | `,`                                                                                                                                                                                  | Comma operator                                | **Left → Right** |
