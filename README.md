@@ -2,7 +2,7 @@
 You can access my notebook by <https://Tsukimakura.github.io/My-notebook/>
 
 The website contains some of my notes of CS learning(main) and other fields.
-Most of the notes on the website have ont been checked yet.
+Most of the notes on the website have not been checked yet.
 I'll keep updating my notes in the future.
 Hope this website helps you.
 
