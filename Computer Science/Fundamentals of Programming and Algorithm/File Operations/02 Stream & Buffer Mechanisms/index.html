@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../../%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90/">
+        <link rel="prev" href="../01%20Computer%20Program%20Execution%20%26%20Basic%20IO%20Principles/">
       
       
-        <link rel="next" href="../%E5%AE%9E%E6%95%B0/">
+        <link rel="next" href="../03%20The%20Core%20of%20File%20Operations--The%20FILE%20Structure/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>函数极限 - Tsukimakura's notebook</title>
+        <title>02 Stream & Buffer Mechanisms - Tsukimakura's notebook</title>
       
     
     
@@ -73,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#1-the-concept-of-streams" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -103,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              函数极限
+              02 Stream & Buffer Mechanisms
             
           </span>
         </div>
@@ -211,19 +216,7 @@
   
   
   
-  
     
-    
-      
-  
-  
-  
-  
-    
-    
-      
-  
-  
   
   
     
@@ -232,42 +225,12 @@
   
   
   
+    
+  
   
     
     
       
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/general%20ideas/Divide-and-conquer/" class="md-tabs__link">
-          
-  
-  
-  Computer Science
-
-        </a>
-      </li>
-    
-  
-
-    
-  
-
-    
-  
-
-    
-  
-
-    
-  
-
-      
-        
   
   
   
@@ -295,7 +258,53 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../Linear%20Algebra/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5/" class="md-tabs__link">
+        <a href="../../Algorithms/computer-based/general%20ideas/Divide-and-conquer/" class="md-tabs__link">
+          
+  
+  
+  Computer Science
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5/" class="md-tabs__link">
           
   
   
@@ -377,24 +386,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -412,7 +426,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -427,6 +441,8 @@
                 
   
   
+    
+  
   
   
     
@@ -437,11 +453,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
         
           
           <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
@@ -462,7 +478,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -630,7 +646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/general%20ideas/Divide-and-conquer/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/general%20ideas/Divide-and-conquer/" class="md-nav__link">
         
   
   
@@ -658,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/general%20ideas/Sorting%20stability/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/general%20ideas/Sorting%20stability/" class="md-nav__link">
         
   
   
@@ -686,7 +702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/general%20ideas/Space%20complexity/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/general%20ideas/Space%20complexity/" class="md-nav__link">
         
   
   
@@ -714,7 +730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/general%20ideas/Time%20complexity/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/general%20ideas/Time%20complexity/" class="md-nav__link">
         
   
   
@@ -800,7 +816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/searching/Binary%20Search/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/searching/Binary%20Search/" class="md-nav__link">
         
   
   
@@ -828,7 +844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/searching/Breadth-First%20Search%20%28BFS%29/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/searching/Breadth-First%20Search%20%28BFS%29/" class="md-nav__link">
         
   
   
@@ -856,7 +872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/searching/Depth-First%20Search%20%28DFS%29/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/searching/Depth-First%20Search%20%28DFS%29/" class="md-nav__link">
         
   
   
@@ -884,7 +900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/searching/Linear%20Search/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/searching/Linear%20Search/" class="md-nav__link">
         
   
   
@@ -970,7 +986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/Bubble%20Sort/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/sorting/Bubble%20Sort/" class="md-nav__link">
         
   
   
@@ -998,7 +1014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/Hash%20Sort%20%28Counting%20Sort%29/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/sorting/Hash%20Sort%20%28Counting%20Sort%29/" class="md-nav__link">
         
   
   
@@ -1026,7 +1042,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/Insertion%20Sort/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/sorting/Insertion%20Sort/" class="md-nav__link">
         
   
   
@@ -1054,7 +1070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/Merge%20Sort/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/sorting/Merge%20Sort/" class="md-nav__link">
         
   
   
@@ -1082,7 +1098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/Quick%20Sort/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/sorting/Quick%20Sort/" class="md-nav__link">
         
   
   
@@ -1110,7 +1126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/Selection%20Sort/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/sorting/Selection%20Sort/" class="md-nav__link">
         
   
   
@@ -1138,7 +1154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/summary%20cheat%20sheet/" class="md-nav__link">
+      <a href="../../Algorithms/computer-based/sorting/summary%20cheat%20sheet/" class="md-nav__link">
         
   
   
@@ -1232,7 +1248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/maths-based/Greatest%20Common%20Divisor%20%28GCD%29/" class="md-nav__link">
+      <a href="../../Algorithms/maths-based/Greatest%20Common%20Divisor%20%28GCD%29/" class="md-nav__link">
         
   
   
@@ -1260,7 +1276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/maths-based/Monte%20Carlo%20Simulation/" class="md-nav__link">
+      <a href="../../Algorithms/maths-based/Monte%20Carlo%20Simulation/" class="md-nav__link">
         
   
   
@@ -1288,7 +1304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/maths-based/Newton%27s%20method/" class="md-nav__link">
+      <a href="../../Algorithms/maths-based/Newton%27s%20method/" class="md-nav__link">
         
   
   
@@ -1382,7 +1398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Advanced%20C%20Type%20Qualifiers%20%26%20Concepts%20%E7%B1%BB%E5%9E%8B%E4%BF%AE%E9%A5%B0%E7%AC%A6%E4%B8%8E%E5%85%B6%E5%AE%83%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Advanced%20C%20Type%20Qualifiers%20%26%20Concepts%20%E7%B1%BB%E5%9E%8B%E4%BF%AE%E9%A5%B0%E7%AC%A6%E4%B8%8E%E5%85%B6%E5%AE%83%E6%A6%82%E5%BF%B5/" class="md-nav__link">
         
   
   
@@ -1410,7 +1426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Arguments%20vs%20Parameters%20%E5%AE%9E%E5%8F%82%E4%B8%8E%E5%BD%A2%E5%8F%82/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Arguments%20vs%20Parameters%20%E5%AE%9E%E5%8F%82%E4%B8%8E%E5%BD%A2%E5%8F%82/" class="md-nav__link">
         
   
   
@@ -1438,7 +1454,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Character%20Encoding%20%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Bitwise%20Operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bitwise Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Basic%20knowledge/Character%20Encoding%20%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" class="md-nav__link">
         
   
   
@@ -1466,7 +1510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Data%20types%20%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Data%20types%20%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
         
   
   
@@ -1494,7 +1538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Declarations%20vs%20Definitions%20%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Declarations%20vs%20Definitions%20%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89/" class="md-nav__link">
         
   
   
@@ -1522,7 +1566,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Expressions%26Operators%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Expressions%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expressions 表达式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Basic%20knowledge/Expressions%26Operators%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
         
   
   
@@ -1550,7 +1622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/From%20Source%20Code%20to%20Program%20Execution/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/From%20Source%20Code%20to%20Program%20Execution/" class="md-nav__link">
         
   
   
@@ -1578,7 +1650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Identifiers%20%E6%A0%87%E8%AF%86%E7%AC%A6/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Identifiers%20%E6%A0%87%E8%AF%86%E7%AC%A6/" class="md-nav__link">
         
   
   
@@ -1606,7 +1678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Input%20Buffer%20%E8%BE%93%E5%85%A5%E7%BC%93%E5%86%B2%E5%8C%BA/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Input%20Buffer%20%E8%BE%93%E5%85%A5%E7%BC%93%E5%86%B2%E5%8C%BA/" class="md-nav__link">
         
   
   
@@ -1634,7 +1706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Keywords%20%E5%85%B3%E9%94%AE%E5%AD%97/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Keywords%20%E5%85%B3%E9%94%AE%E5%AD%97/" class="md-nav__link">
         
   
   
@@ -1662,7 +1734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/L-value%26R-value%20%E5%B7%A6%E5%80%BC%E4%B8%8E%E5%8F%B3%E5%80%BC/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/L-value%26R-value%20%E5%B7%A6%E5%80%BC%E4%B8%8E%E5%8F%B3%E5%80%BC/" class="md-nav__link">
         
   
   
@@ -1690,7 +1762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Literals%20%E5%AD%97%E9%9D%A2%E9%87%8F/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Literals%20%E5%AD%97%E9%9D%A2%E9%87%8F/" class="md-nav__link">
         
   
   
@@ -1718,7 +1790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Memory%20Allocation%20%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Memory%20Allocation%20%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" class="md-nav__link">
         
   
   
@@ -1746,7 +1818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Memory%20leaks%20%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Memory%20leaks%20%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
         
   
   
@@ -1774,7 +1846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Name%20space%20%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Name%20space%20%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/" class="md-nav__link">
         
   
   
@@ -1802,7 +1874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Scope%20%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Scope%20%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="md-nav__link">
         
   
   
@@ -1830,7 +1902,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Short-Circuit%20Evaluation%20%E7%9F%AD%E8%B7%AF%E8%BF%90%E7%AE%97/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Sequence%20Points%20%E5%BA%8F%E5%88%97%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequence Points 序列点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Basic%20knowledge/Short-Circuit%20Evaluation%20%E7%9F%AD%E8%B7%AF%E8%BF%90%E7%AE%97/" class="md-nav__link">
         
   
   
@@ -1858,7 +1958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Statements%20%E8%AF%AD%E5%8F%A5/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Statements%20%E8%AF%AD%E5%8F%A5/" class="md-nav__link">
         
   
   
@@ -1886,7 +1986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Type%20Conversion%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Type%20Conversion%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="md-nav__link">
         
   
   
@@ -1914,7 +2014,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/Variable%20Length%20Arrays%20%28VLA%29%20%20%E5%8F%98%E9%95%BF%E6%95%B0%E7%BB%84/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/Undefined%20Behavior%20in%20C%20%28UB%29%20%E6%9C%AA%E5%AE%9A%E4%B9%89%E8%A1%8C%E4%B8%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undefined Behavior in C (UB) 未定义行为
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Basic%20knowledge/Variable%20Length%20Arrays%20%28VLA%29%20%20%E5%8F%98%E9%95%BF%E6%95%B0%E7%BB%84/" class="md-nav__link">
         
   
   
@@ -1942,7 +2070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/base%20conversion%20and%20determination%20%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E4%B8%8E%E5%88%A4%E5%88%AB/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/base%20conversion%20and%20determination%20%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E4%B8%8E%E5%88%A4%E5%88%AB/" class="md-nav__link">
         
   
   
@@ -1970,7 +2098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/main%20function%20%E4%B8%BB%E5%87%BD%E6%95%B0/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/main%20function%20%E4%B8%BB%E5%87%BD%E6%95%B0/" class="md-nav__link">
         
   
   
@@ -1998,7 +2126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Basic%20knowledge/pseudo%20code%20%E4%BC%AA%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+      <a href="../../Basic%20knowledge/pseudo%20code%20%E4%BC%AA%E4%BB%A3%E7%A0%81/" class="md-nav__link">
         
   
   
@@ -2084,7 +2212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Commonly%20used%20header%20files/math.h/" class="md-nav__link">
+      <a href="../../Commonly%20used%20header%20files/math.h/" class="md-nav__link">
         
   
   
@@ -2112,7 +2240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Commonly%20used%20header%20files/stdio.h/" class="md-nav__link">
+      <a href="../../Commonly%20used%20header%20files/stdio.h/" class="md-nav__link">
         
   
   
@@ -2140,7 +2268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Commonly%20used%20header%20files/stdlib.h/" class="md-nav__link">
+      <a href="../../Commonly%20used%20header%20files/stdlib.h/" class="md-nav__link">
         
   
   
@@ -2168,7 +2296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Commonly%20used%20header%20files/string.h/" class="md-nav__link">
+      <a href="../../Commonly%20used%20header%20files/string.h/" class="md-nav__link">
         
   
   
@@ -2304,7 +2432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Queue%20%E9%98%9F%E5%88%97/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Queue%20%E9%98%9F%E5%88%97/" class="md-nav__link">
         
   
   
@@ -2332,7 +2460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Stack%20%E6%A0%88/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Stack%20%E6%A0%88/" class="md-nav__link">
         
   
   
@@ -2410,7 +2538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/01%20Overview/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/01%20Overview/" class="md-nav__link">
         
   
   
@@ -2438,7 +2566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/02%20Singly%20Linked%20List%20%28No%20Sentinel%29/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/02%20Singly%20Linked%20List%20%28No%20Sentinel%29/" class="md-nav__link">
         
   
   
@@ -2466,7 +2594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/03%20The%20Sentinel%20Node%20%28Dummy%20head%29/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/03%20The%20Sentinel%20Node%20%28Dummy%20head%29/" class="md-nav__link">
         
   
   
@@ -2494,7 +2622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/04%20The%20Tail%20Pointer/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/04%20The%20Tail%20Pointer/" class="md-nav__link">
         
   
   
@@ -2522,7 +2650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/05%20The%20Circular%20Linked%20List/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/05%20The%20Circular%20Linked%20List/" class="md-nav__link">
         
   
   
@@ -2550,7 +2678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/06%20The%20Doubly%20Linked%20List/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/06%20The%20Doubly%20Linked%20List/" class="md-nav__link">
         
   
   
@@ -2578,7 +2706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/07%20The%20Doubly%20Linked%20List%20with%20Double%20Sentinels/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/07%20The%20Doubly%20Linked%20List%20with%20Double%20Sentinels/" class="md-nav__link">
         
   
   
@@ -2606,7 +2734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/08%20Debugging%20%26%20Error%20Prevention/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/08%20Debugging%20%26%20Error%20Prevention/" class="md-nav__link">
         
   
   
@@ -2634,7 +2762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/09%20Common%20Linked%20List%20Algorithm%20Problems/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/09%20Common%20Linked%20List%20Algorithm%20Problems/" class="md-nav__link">
         
   
   
@@ -2662,7 +2790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/Linked%20List%20%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/Linked%20List%20%E9%93%BE%E8%A1%A8/" class="md-nav__link">
         
   
   
@@ -2690,7 +2818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/tmp/" class="md-nav__link">
+      <a href="../../Data%20structure/Linear/Linked%20list/tmp/" class="md-nav__link">
         
   
   
@@ -2792,7 +2920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20type/01%20The%20Essence%20and%20Core%20Philosophy%20of%20Data%20Types/" class="md-nav__link">
+      <a href="../../Data%20type/01%20The%20Essence%20and%20Core%20Philosophy%20of%20Data%20Types/" class="md-nav__link">
         
   
   
@@ -2820,7 +2948,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20type/02%20Integer%20Systems%20and%20Two%27s%20Complement%20Principles/" class="md-nav__link">
+      <a href="../../Data%20type/02%20Integer%20Systems%20and%20Two%27s%20Complement%20Principles/" class="md-nav__link">
         
   
   
@@ -2848,7 +2976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20type/03%20Floating%20Point%20Systems%20%28IEEE%20754%29/" class="md-nav__link">
+      <a href="../../Data%20type/03%20Floating%20Point%20Systems%20%28IEEE%20754%29/" class="md-nav__link">
         
   
   
@@ -2876,7 +3004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20type/04%20Hardware%20Architecture%20and%20Performance%20Optimization/" class="md-nav__link">
+      <a href="../../Data%20type/04%20Hardware%20Architecture%20and%20Performance%20Optimization/" class="md-nav__link">
         
   
   
@@ -2904,7 +3032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20type/05%20Type%20Conversion%20Mechanisms/" class="md-nav__link">
+      <a href="../../Data%20type/05%20Type%20Conversion%20Mechanisms/" class="md-nav__link">
         
   
   
@@ -2932,7 +3060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Data%20type/06%20Formatted%20IO%20Engineering%20Practices/" class="md-nav__link">
+      <a href="../../Data%20type/06%20Formatted%20IO%20Engineering%20Practices/" class="md-nav__link">
         
   
   
@@ -3018,7 +3146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Deep%20Dive/Main%20Function%20Return%20Values/" class="md-nav__link">
+      <a href="../../Deep%20Dive/Main%20Function%20Return%20Values/" class="md-nav__link">
         
   
   
@@ -3046,7 +3174,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Deep%20Dive/scanf%20Return%20Value/" class="md-nav__link">
+      <a href="../../Deep%20Dive/scanf%20Return%20Value/" class="md-nav__link">
         
   
   
@@ -3074,7 +3202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Deep%20Dive/static/" class="md-nav__link">
+      <a href="../../Deep%20Dive/static/" class="md-nav__link">
         
   
   
@@ -3102,7 +3230,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Deep%20Dive/typedef/" class="md-nav__link">
+      <a href="../../Deep%20Dive/typedef/" class="md-nav__link">
         
   
   
@@ -3135,6 +3263,8 @@
                 
   
   
+    
+  
   
   
     
@@ -3145,11 +3275,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_7" checked>
         
           
           <label class="md-nav__link" for="__nav_2_1_7" id="__nav_2_1_7_label" tabindex="0">
@@ -3159,7 +3289,7 @@
   <span class="md-ellipsis">
     
   
-    Further knowledge & tips
+    File Operations
   
 
     
@@ -3170,12 +3300,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1_7">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Further knowledge & tips
+    File Operations
   
 
           </label>
@@ -3188,14 +3318,302 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/32-bit%20%26%2064-bit/" class="md-nav__link">
+      <a href="../01%20Computer%20Program%20Execution%20%26%20Basic%20IO%20Principles/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    32 bit & 64 bit
+    01 Computer Program Execution & Basic IO Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Stream & Buffer Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Stream & Buffer Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-concept-of-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Concept of Streams
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Concept of Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-and-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition and Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-vs-binary-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text vs. Binary Streams
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-logic-of-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Logic of Buffering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Logic of Buffering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-speed-disparity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem: Speed Disparity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-the-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: The Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-buffering-strategies-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Buffering Strategies (Modes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Buffering Strategies (Modes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-buffering-block-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Buffering (Block Buffering)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#line-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Line Buffering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Buffering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-buffer-management-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Buffer Management &amp; Lifecycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Buffer Management &amp; Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-meaning-of-flush" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Meaning of "Flush"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controlling-the-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controlling the Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deep-dive-double-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep Dive: Double Buffering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03%20The%20Core%20of%20File%20Operations--The%20FILE%20Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 The Core of File Operations  The FILE Structure
   
 
     
@@ -3216,14 +3634,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Anatomy%20of%20a%20function%20call%20in%20memory/" class="md-nav__link">
+      <a href="../04%20Read%20%26%20Write%20Operations%20for%20Text%20Files/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Anatomy of a function call in memory
+    04 Read & Write Operations for Text Files
   
 
     
@@ -3244,14 +3662,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Command%20Line%20Arguments%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0/" class="md-nav__link">
+      <a href="../05%20Read%20%26%20Write%20Operations%20for%20Binary%20Files/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Command Line Arguments 命令行参数
+    05 Read & Write Operations for Binary Files
   
 
     
@@ -3272,14 +3690,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/GDB%20Command%20Line%20Debugging/" class="md-nav__link">
+      <a href="../06%20Random%20Access%20in%20Files/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    GDB Command Line Debugging
+    06 Random Access in Files
   
 
     
@@ -3300,210 +3718,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Hashing/" class="md-nav__link">
+      <a href="../07%20File%20Descriptors%20%26%20The%20Kernel/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Hashing
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Inline%20functions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Inline functions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Makefile%20Usage/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Makefile Usage
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Random%20Numbers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Random Numbers
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Stable%20hash%20sort/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Stable hash sort
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Test%20time/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Test time
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/The%20stack%20frame%20%E6%A0%88%E5%B8%A7/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    The stack frame 栈帧
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/X-Macros/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    X Macros
+    07 File Descriptors & The Kernel
   
 
     
@@ -3553,7 +3775,7 @@
   <span class="md-ellipsis">
     
   
-    Pointer
+    Further knowledge & tips
   
 
     
@@ -3569,7 +3791,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Pointer
+    Further knowledge & tips
   
 
           </label>
@@ -3582,14 +3804,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/0%20Address%20%28NULL%20Pointer%29/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/32-bit%20%26%2064-bit/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    0 Address (NULL Pointer)
+    32 bit & 64 bit
   
 
     
@@ -3610,14 +3832,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Array-to-pointer%20Decay/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/Anatomy%20of%20a%20function%20call%20in%20memory/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Array to pointer Decay
+    Anatomy of a function call in memory
   
 
     
@@ -3638,14 +3860,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Definition/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/Command%20Line%20Arguments%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Definition
+    Command Line Arguments 命令行参数
   
 
     
@@ -3666,14 +3888,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Function%20Pointers/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/GDB%20Command%20Line%20Debugging/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Function Pointers
+    GDB Command Line Debugging
   
 
     
@@ -3694,14 +3916,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Machanics/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/Hashing/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Machanics
+    Hashing
   
 
     
@@ -3722,14 +3944,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Pointer%20comparison/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/Inline%20functions/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Pointer comparison
+    Inline functions
   
 
     
@@ -3750,14 +3972,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Pointers%20in%20expressions/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/Makefile%20Usage/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Pointers in expressions
+    Makefile Usage
   
 
     
@@ -3778,14 +4000,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Types%20of%20pointers/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/Random%20Numbers/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Types of pointers
+    Random Numbers
   
 
     
@@ -3806,14 +4028,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Usage/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/Stable%20hash%20sort/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Usage
+    Stable hash sort
   
 
     
@@ -3834,14 +4056,70 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/sizeof%28pointer%29/" class="md-nav__link">
+      <a href="../../Further%20knowledge%20%26%20tips/Test%20time/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Sizeof(pointer)
+    Test time
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Further%20knowledge%20%26%20tips/The%20stack%20frame%20%E6%A0%88%E5%B8%A7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The stack frame 栈帧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Further%20knowledge%20%26%20tips/X-Macros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X Macros
   
 
     
@@ -3891,7 +4169,7 @@
   <span class="md-ellipsis">
     
   
-    Problems&Keys
+    Pointer
   
 
     
@@ -3907,7 +4185,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Problems&Keys
+    Pointer
   
 
           </label>
@@ -3920,14 +4198,266 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Problems%26Keys/problems%20and%20keys/" class="md-nav__link">
+      <a href="../../Pointer/0%20Address%20%28NULL%20Pointer%29/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Problems and keys
+    0 Address (NULL Pointer)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/Array-to-pointer%20Decay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Array to pointer Decay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/Definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Definition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/Function%20Pointers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Function Pointers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/Machanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/Pointer%20comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pointer comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/Pointers%20in%20expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pointers in expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/Types%20of%20pointers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types of pointers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/Usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pointer/sizeof%28pointer%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sizeof(pointer)
   
 
     
@@ -3977,7 +4507,7 @@
   <span class="md-ellipsis">
     
   
-    Program Structure
+    Problems&Keys
   
 
     
@@ -3993,7 +4523,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Program Structure
+    Problems&Keys
   
 
           </label>
@@ -4006,210 +4536,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/01%20The%20C%20Compilation%20Pipeline/" class="md-nav__link">
+      <a href="../../Problems%26Keys/problems%20and%20keys/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    01 The C Compilation Pipeline
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/02%20The%20Basic%20Unit%20of%20Compilation%20%26%20Preprocessing%20Logic/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    02 The Basic Unit of Compilation & Preprocessing Logic
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/03%20Preprocessing%20%26%20Macros/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    03 Preprocessing & Macros
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/04%20Preprocessing%20and%20header%20files/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    04 Preprocessing and header files
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/05%20The%20Foundation%20%E2%80%94%20Instruction%20Set%20Architecture%20%28ISA%29/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    05 The Foundation — Instruction Set Architecture (ISA)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/06%20Intermediate%20Product%20%E2%80%94%20Relocatable%20Object%20File%20%28.o%29/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    06 Intermediate Product — Relocatable Object File (.o)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/07%20Core%20Principles%20of%20the%20Linker%20%28Linking%29/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    07 Core Principles of the Linker (Linking)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/08%20Libraries%20and%20Engineering%20Practice/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    08 Libraries and Engineering Practice
+    Problems and keys
   
 
     
@@ -4259,7 +4593,7 @@
   <span class="md-ellipsis">
     
   
-    Quick Reference tables
+    Program Structure
   
 
     
@@ -4272,6 +4606,288 @@
         
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_1_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Program Structure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Program%20Structure/01%20The%20C%20Compilation%20Pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 The C Compilation Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Program%20Structure/02%20The%20Basic%20Unit%20of%20Compilation%20%26%20Preprocessing%20Logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 The Basic Unit of Compilation & Preprocessing Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Program%20Structure/03%20Preprocessing%20%26%20Macros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Preprocessing & Macros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Program%20Structure/04%20Preprocessing%20and%20header%20files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Preprocessing and header files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Program%20Structure/05%20The%20Foundation%20%E2%80%94%20Instruction%20Set%20Architecture%20%28ISA%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 The Foundation — Instruction Set Architecture (ISA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Program%20Structure/06%20Intermediate%20Product%20%E2%80%94%20Relocatable%20Object%20File%20%28.o%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 Intermediate Product — Relocatable Object File (.o)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Program%20Structure/07%20Core%20Principles%20of%20the%20Linker%20%28Linking%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 Core Principles of the Linker (Linking)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Program%20Structure/08%20Libraries%20and%20Engineering%20Practice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 Libraries and Engineering Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_12" id="__nav_2_1_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference tables
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_12">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4288,7 +4904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Quick%20Reference%20tables/ASCII/" class="md-nav__link">
+      <a href="../../Quick%20Reference%20tables/ASCII/" class="md-nav__link">
         
   
   
@@ -4316,7 +4932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Quick%20Reference%20tables/C%20Operator%20Precedence%20%26%20Associativity%20Table/" class="md-nav__link">
+      <a href="../../Quick%20Reference%20tables/C%20Operator%20Precedence%20%26%20Associativity%20Table/" class="md-nav__link">
         
   
   
@@ -4344,7 +4960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Quick%20Reference%20tables/Escape%20Sequences%20%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6/" class="md-nav__link">
+      <a href="../../Quick%20Reference%20tables/Escape%20Sequences%20%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6/" class="md-nav__link">
         
   
   
@@ -4372,7 +4988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Quick%20Reference%20tables/Format%20Specifiers%20%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E%E7%AC%A6/" class="md-nav__link">
+      <a href="../../Quick%20Reference%20tables/Format%20Specifiers%20%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E%E7%AC%A6/" class="md-nav__link">
         
   
   
@@ -4400,7 +5016,63 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Computer%20Science/Fundamentals%20of%20Programming%20and%20Algorithm/Quick%20Reference%20tables/Predefined%20Macros%20%E9%A2%84%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8F/" class="md-nav__link">
+      <a href="../../Quick%20Reference%20tables/Hex_Binary_Decimal%20Engineering%20Reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hex Binary Decimal Engineering Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Quick%20Reference%20tables/Keywords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keywords
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Quick%20Reference%20tables/Predefined%20Macros%20%E9%A2%84%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8F/" class="md-nav__link">
         
   
   
@@ -4448,29 +5120,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -4488,7 +5155,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4606,7 +5273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5/" class="md-nav__link">
         
   
   
@@ -4634,7 +5301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E8%A1%8C%E5%88%97%E5%BC%8F%E8%AE%A1%E7%AE%97/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E8%A1%8C%E5%88%97%E5%BC%8F%E8%AE%A1%E7%AE%97/" class="md-nav__link">
         
   
   
@@ -4720,7 +5387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/01%20%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/01%20%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/" class="md-nav__link">
         
   
   
@@ -4748,7 +5415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/02%20%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/02%20%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4%E5%9F%BA%E7%A1%80/" class="md-nav__link">
         
   
   
@@ -4776,7 +5443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/03%20%E6%9C%89%E9%99%90%E7%BB%B4%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/03%20%E6%9C%89%E9%99%90%E7%BB%B4%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/" class="md-nav__link">
         
   
   
@@ -4804,7 +5471,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/04%20%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4%E7%9A%84%E8%BF%90%E7%AE%97/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/04%20%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4%E7%9A%84%E8%BF%90%E7%AE%97/" class="md-nav__link">
         
   
   
@@ -4832,7 +5499,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/05%20%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/05%20%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84/" class="md-nav__link">
         
   
   
@@ -4860,7 +5527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/06%20%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/06%20%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97%E5%9F%BA%E7%A1%80/" class="md-nav__link">
         
   
   
@@ -4888,7 +5555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/07%20%E7%9B%B8%E6%8A%B5%E6%A0%87%E5%87%86%E5%BD%A2/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/07%20%E7%9B%B8%E6%8A%B5%E6%A0%87%E5%87%86%E5%BD%A2/" class="md-nav__link">
         
   
   
@@ -4916,7 +5583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/08%20%E8%A1%8C%E5%88%97%E5%BC%8F/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/08%20%E8%A1%8C%E5%88%97%E5%BC%8F/" class="md-nav__link">
         
   
   
@@ -4944,7 +5611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/09%20%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E4%B8%80%E8%88%AC%E7%90%86%E8%AE%BA/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/09%20%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E4%B8%80%E8%88%AC%E7%90%86%E8%AE%BA/" class="md-nav__link">
         
   
   
@@ -4972,7 +5639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/10%20%E7%9B%B8%E4%BC%BC%E6%A0%87%E5%87%86%E5%BD%A2/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/10%20%E7%9B%B8%E4%BC%BC%E6%A0%87%E5%87%86%E5%BD%A2/" class="md-nav__link">
         
   
   
@@ -5000,7 +5667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/11%20%E4%BA%8C%E6%AC%A1%E5%9E%8B/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Linear%20Algebra/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/11%20%E4%BA%8C%E6%AC%A1%E5%9E%8B/" class="md-nav__link">
         
   
   
@@ -5041,8 +5708,6 @@
                 
   
   
-    
-  
   
   
     
@@ -5053,11 +5718,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
         
           
           <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
@@ -5078,7 +5743,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5146,7 +5811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E4%B8%8D%E7%AD%89%E5%BC%8F/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E4%B8%8D%E7%AD%89%E5%BC%8F/" class="md-nav__link">
         
   
   
@@ -5174,7 +5839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E5%87%BD%E6%95%B0%E6%9E%81%E9%99%90/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E5%87%BD%E6%95%B0%E6%9E%81%E9%99%90/" class="md-nav__link">
         
   
   
@@ -5202,7 +5867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="md-nav__link">
         
   
   
@@ -5230,7 +5895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E5%B8%B8%E7%94%A8%E6%9E%81%E9%99%90/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E5%B8%B8%E7%94%A8%E6%9E%81%E9%99%90/" class="md-nav__link">
         
   
   
@@ -5258,7 +5923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E5%B8%B8%E8%A7%81%E6%94%BE%E7%BC%A9/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E5%B8%B8%E8%A7%81%E6%94%BE%E7%BC%A9/" class="md-nav__link">
         
   
   
@@ -5286,7 +5951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E6%81%92%E7%AD%89%E5%BC%8F/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E6%81%92%E7%AD%89%E5%BC%8F/" class="md-nav__link">
         
   
   
@@ -5314,7 +5979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90/" class="md-nav__link">
         
   
   
@@ -5347,8 +6012,6 @@
                 
   
   
-    
-  
   
   
     
@@ -5359,11 +6022,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" >
         
           
           <label class="md-nav__link" for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
@@ -5384,7 +6047,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_2_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5399,53 +6062,17 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    函数极限
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../%E5%AE%9E%E6%95%B0/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/01%20%E5%AE%9E%E6%95%B0/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    实数
+    01 实数
   
 
     
@@ -5466,14 +6093,238 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/02%20%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    数列极限
+    02 数列极限
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/03%20%E5%87%BD%E6%95%B0%E6%9E%81%E9%99%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 函数极限
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/04%20%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 连续函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/05%20%E5%AF%BC%E6%95%B0%E5%92%8C%E5%BE%AE%E5%88%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 导数和微分
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/07%20%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 不定积分
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/08%20%E5%AE%9A%E7%A7%AF%E5%88%86%EF%BC%88%E9%BB%8E%E6%9B%BC%E7%A7%AF%E5%88%86%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 定积分（黎曼积分）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/09%20%E5%88%A9%E7%94%A8%E5%AF%BC%E6%95%B0%E7%A0%94%E7%A9%B6%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 利用导数研究函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/10%20%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E8%BF%9B%E4%B8%80%E6%AD%A5%E8%AE%A8%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 定积分的进一步讨论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/11%20%E5%B9%BF%E4%B9%89%E7%A7%AF%E5%88%86%EF%BC%88%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11 广义积分（反常积分）
   
 
     
@@ -5552,7 +6403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98/%E6%9E%81%E9%99%90/" class="md-nav__link">
+      <a href="../../../../Maths%20%26%20Physics/Mathematical%20Analysis/%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98/%E6%9E%81%E9%99%90/" class="md-nav__link">
         
   
   
@@ -5614,6 +6465,203 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-concept-of-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Concept of Streams
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Concept of Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-and-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition and Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-vs-binary-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text vs. Binary Streams
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-logic-of-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Logic of Buffering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Logic of Buffering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-speed-disparity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem: Speed Disparity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-the-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: The Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-buffering-strategies-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Buffering Strategies (Modes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Buffering Strategies (Modes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-buffering-block-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Buffering (Block Buffering)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#line-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Line Buffering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Buffering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-buffer-management-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Buffer Management &amp; Lifecycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Buffer Management &amp; Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-meaning-of-flush" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Meaning of "Flush"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controlling-the-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controlling the Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deep-dive-double-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep Dive: Double Buffering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -5629,24 +6677,93 @@
 
 
 
-  <h1>函数极限</h1>
+  <h1>02 Stream & Buffer Mechanisms</h1>
 
+<h2 id="1-the-concept-of-streams">1. The Concept of Streams</h2>
+<p>In C programming and Unix-like systems, Input/Output operations are abstracted as <strong>Streams</strong>. This abstraction allows programmers to interact with various hardware devices (hard drives, keyboards, network sockets, printers) using a unified interface, without needing to understand the underlying physical details.</p>
+<h3 id="definition-and-characteristics">Definition and Characteristics</h3>
 <ul>
-<li>
-<p>讨论函数极限 <span class="arithmatex">\(\lim\limits_{x\to x_0}F(x)\)</span> 的时候， 我们一般只要求函数 <span class="arithmatex">\(F(x)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 点的某个去心邻域上有定义。也就是说，函数 <span class="arithmatex">\(F(x)\)</span> 在 <span class="arithmatex">\(x_0\)</span> 点处的极限与函数在 <span class="arithmatex">\(x_0\)</span> 点是否有定义/值为多少 无关.</p>
+<li><strong>Abstraction:</strong> A stream is a logical flow of data. It can be visualized as a continuous conveyor belt or a pipe transporting bytes one by one.</li>
+<li><strong>Device Independence:</strong> Whether the destination is a physical file on a magnetic disk or a text terminal, the C program sees a uniform stream of bytes.</li>
+<li><strong>Directionality:</strong> Streams are typically unidirectional (input or output), though file streams can be opened in update modes (<code>+</code>) to support both.</li>
+</ul>
+<h3 id="text-vs-binary-streams">Text vs. Binary Streams</h3>
+<ul>
+<li><strong>Text Streams:</strong> Designed for human-readable characters. The system may perform invisible translations.<ul>
+<li><em>Example:</em> On Windows, a newline character <code>\n</code> in memory is translated to <code>\r\n</code> (Carriage Return + Line Feed) when written to disk, and converted back to <code>\n</code> upon reading.</li>
+</ul>
 </li>
-<li>
-<p>函数极限有海涅(Heine)提出的序列式定义（归结原则）和柯西(Cauchy)提出的 <span class="arithmatex">\(\varepsilon-\delta\)</span> 式定义。前者可统一解决各类极限问题（连接数列和函数极限），后者给出清晰的几何解释. 两种定义是等价的.</p>
+<li><strong>Binary Streams:</strong> Designed for raw data. No translation occurs. Data is transferred exactly as it exists in memory. This is essential for non-text files like images (<code>.jpg</code>), executables (<code>.exe</code>), or audio.</li>
+</ul>
+<hr />
+<h2 id="2-the-logic-of-buffering">2. The Logic of Buffering</h2>
+<p>Buffering is a mechanism designed to bridge the significant speed gap between the CPU/Memory and I/O devices.</p>
+<h3 id="the-problem-speed-disparity">The Problem: Speed Disparity</h3>
+<ul>
+<li><strong>CPU/Memory:</strong> Operates at nanosecond speeds.</li>
+<li><strong>I/O Devices (Disk/Terminal):</strong> Operate at millisecond speeds (orders of magnitude slower).</li>
+<li><strong>System Call Overhead:</strong> Every time a program reads or writes directly to hardware, it must perform a <strong>System Call</strong> (switching from User Mode to Kernel Mode). This "Context Switch" is computationally expensive.</li>
+</ul>
+<h3 id="the-solution-the-buffer">The Solution: The Buffer</h3>
+<p>A <strong>Buffer</strong> is a temporary storage area in memory (RAM).
+*   <strong>Analogy:</strong> Instead of carrying one brick at a time to a construction site (System Call), you load a wheelbarrow (Buffer) with bricks. You only travel to the site when the wheelbarrow is full.
+*   <strong>Benefit:</strong> This drastically reduces the number of system calls, improving overall program throughput and efficiency.</p>
+<hr />
+<h2 id="3-buffering-strategies-modes">3. Buffering Strategies (Modes)</h2>
+<p>The C Standard Library (<code>stdio</code>) automatically selects a buffering strategy based on the nature of the device associated with the stream.</p>
+<h3 id="full-buffering-block-buffering">Full Buffering (Block Buffering)</h3>
+<ul>
+<li><strong>Target:</strong> Standard disk files.</li>
+<li><strong>Behavior:</strong> I/O is performed only when the buffer is completely filled.</li>
+<li><strong>Rationale:</strong> Maximizes throughput for file operations where real-time interaction is not required.</li>
+</ul>
+<h3 id="line-buffering">Line Buffering</h3>
+<ul>
+<li><strong>Target:</strong> Interactive devices, primarily <code>stdin</code> (keyboard) and <code>stdout</code> (terminal screen).</li>
+<li><strong>Behavior:</strong> The buffer is flushed (written out) when:<ol>
+<li>A newline character (<code>\n</code>) is encountered.</li>
+<li>The buffer becomes full.</li>
+<li>Input is requested from <code>stdin</code> (this often triggers a flush of <code>stdout</code> to ensure prompts are visible).</li>
+</ol>
+</li>
+<li><strong>Rationale:</strong> Ensures a natural user experience. When a user presses Enter, they expect to see the output immediately.</li>
+</ul>
+<h3 id="no-buffering">No Buffering</h3>
+<ul>
+<li><strong>Target:</strong> Standard Error (<code>stderr</code>).</li>
+<li><strong>Behavior:</strong> Characters are written to the destination immediately, one by one.</li>
+<li><strong>Rationale:</strong> Critical error messages must be visible immediately. If the program crashes, buffered errors might be lost if they are not written out instantly.</li>
+</ul>
+<hr />
+<h2 id="4-buffer-management-lifecycle">4. Buffer Management &amp; Lifecycle</h2>
+<h3 id="the-meaning-of-flush">The Meaning of "Flush"</h3>
+<p>Flushing a buffer means transferring the data currently held in the user-space memory buffer to the underlying kernel.</p>
+<h3 id="controlling-the-buffer">Controlling the Buffer</h3>
+<ul>
+<li><strong><code>fflush(FILE *stream)</code>:</strong> A function that forces the buffer to be written out immediately, regardless of whether it is full.<ul>
+<li><em>Usage:</em> Essential when outputting debugging information without newlines (<code>printf("Loading..."); fflush(stdout);</code>) or ensuring data safety before a long operation.</li>
+</ul>
+</li>
+<li><strong>Implicit Flushing:</strong> Buffers are automatically flushed when:<ul>
+<li>The buffer fills up.</li>
+<li>The <code>fclose()</code> function is called.</li>
+<li>The program terminates normally (via <code>exit()</code> or returning from <code>main</code>).</li>
+</ul>
 </li>
 </ul>
-<p><strong>定义I(Heine):</strong> </p>
-<p>对于<strong>任意</strong>满足以下三个条件的数列 <span class="arithmatex">\(\{x_n\}\)</span>：
-1.  <span class="arithmatex">\(x_n \in U^\circ(x_0)\)</span> （在定义域内）
-2.  <span class="arithmatex">\(x_n \neq x_0\)</span> （永远不等于 <span class="arithmatex">\(x_0\)</span> 自身）
-3.  <span class="arithmatex">\(\lim\limits_{n \to \infty} x_n = x_0\)</span> （数列收敛于 <span class="arithmatex">\(x_0\)</span>）</p>
-<p><strong>都有：</strong>
-对应函数值的数列 <span class="arithmatex">\(\{f(x_n)\}\)</span> 收敛于 <span class="arithmatex">\(A\)</span>，即 <span class="arithmatex">\(\lim\limits_{n \to \infty} f(x_n) = A\)</span>。
-<em>注： 其中 <span class="arithmatex">\(x_0\)</span> 和 <span class="arithmatex">\(A\)</span> 都有可能是有穷/正无穷/负无穷/无穷</em></p>
+<h3 id="deep-dive-double-buffering">Deep Dive: Double Buffering</h3>
+<p>In modern operating systems, data actually passes through two layers of buffering:</p>
+<ol>
+<li><strong>C Library Buffer (User Space):</strong> Managed by the <code>FILE</code> structure. <code>fflush</code> clears this buffer, pushing data to the OS.</li>
+<li><strong>Kernel Page Cache (Kernel Space):</strong> Managed by the OS. The OS might hold the data in RAM to optimize disk scheduling.<ul>
+<li><em>Note:</em> <code>fflush</code> ensures data leaves the application, but not necessarily that it hits the physical disk. To force a write to the physical hardware, system calls like <code>fsync</code> (Unix) are required.</li>
+</ul>
+</li>
+</ol>
+<h3 id="common-pitfalls">Common Pitfalls</h3>
+<ul>
+<li><strong>The "Missing" Log:</strong> If a program crashes (e.g., Segmentation Fault), data waiting in the buffer is lost and never appears in the log file or screen. This is why <code>stderr</code> or explicit flushing is used for debugging.</li>
+</ul>
 
 
 
