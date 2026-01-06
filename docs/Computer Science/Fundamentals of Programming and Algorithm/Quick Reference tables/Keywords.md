@@ -1,19 +1,3 @@
-Here is a comprehensive, professional engineering reference for **C Language Keywords**.
-
-This list covers keywords defined in **ISO/IEC 9899** (the C Standard), spanning from **C89/C90** (ANSI C) through **C99**, **C11**, and referencing the latest **C23** updates.
-
----
-
-### 1. Overview of Standards
-*   **C89/C90:** The original 32 keywords.
-*   **C99:** Added 5 new keywords (`inline`, `restrict`, `_Bool`, `_Complex`, `_Imaginary`).
-*   **C11:** Added 7 new keywords starting with `_` to avoid naming collisions (`_Alignas`, `_Atomic`, etc.).
-*   **C23:** Promoted many C11 keywords to "proper" keywords (e.g., `true`, `false`, `alignof` became keywords rather than macros).
-
----
-
-### 2. Complete Keyword Table (Categorized)
-
 #### A. Data Types & Type Specifiers
 These keywords define the type of data a variable holds.
 
@@ -87,33 +71,3 @@ Keywords that act like operators or compiler directives.
 | **`_Generic`** | C11 | Enables compile-time generic selection (C-style polymorphism). |
 | **`_Noreturn`** | C11 | Specifies that a function never returns to the caller (e.g., `exit()`). |
 | **`_Static_assert`**| C11| Performs a compile-time assertion check. |
-
----
-
-### 3. Critical Concepts: The "Tricky" Keywords
-
-Here are detailed notes on the keywords that often confuse engineers:
-
-#### 1. `static` (The Context Chameleon)
-*   **Inside a function:** The variable stays in memory for the life of the program. It is initialized only once.
-*   **Outside a function (Global):** The variable/function is **private** to that source file (Internal Linkage). It cannot be accessed by other files using `extern`.
-
-#### 2. `volatile` (The Hardware/OS Bridge)
-*   Tells the compiler: "Do not cache this variable in a register; always read it from RAM."
-*   **Use cases:** Memory-mapped hardware registers (embedded systems), variables modified by Interrupt Service Routines (ISRs), or signal handlers.
-
-#### 3. `restrict` (The Optimization Promise)
-*   A promise from the programmer to the compiler: "For the lifetime of this pointer, no other pointer will access this same chunk of memory."
-*   Allows the compiler to perform aggressive optimizations (like vectorization) that would otherwise be unsafe due to potential pointer aliasing.
-
----
-
-### 4. Evolution Note: C23 Standard
-The **C23** standard (the newest iteration) made significant changes to modernize keywords. It introduced standard lowercase keywords that were previously macros or underscored keywords.
-
-If you are using a C23-compliant compiler:
-1.  **`true`** and **`false`** are now actual keywords (previously macros in `stdbool.h`).
-2.  **`bool`** is a keyword (replaces `_Bool`).
-3.  **`alignas`**, **`alignof`**, **`static_assert`**, **`thread_local`** are keywords (replacing the `_Capitalized` versions).
-4.  **`typeof`** and **`typeof_unqual`** are new keywords for type inference.
-5.  **`nullptr`** is a new keyword representing a null pointer with a specific type (similar to C++).
