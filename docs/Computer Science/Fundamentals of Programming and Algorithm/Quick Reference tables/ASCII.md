@@ -1,126 +1,59 @@
-# ASCII Table (0–127)
+### 1. Control Characters (0–31 & 127)
+These characters are non-printable and used for hardware control or terminal formatting.
 
-## **Control Characters (0–31, 127)**
+| Dec | Hex | Oct | C Escape | Name | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 0 | 00 | 000 | `\0` | **NUL** | Null Character (String Terminator) |
+| 7 | 07 | 007 | `\a` | **BEL** | Audible Bell (Alert) |
+| 8 | 08 | 010 | `\b` | **BS** | Backspace |
+| 9 | 09 | 011 | `\t` | **HT** | Horizontal Tab |
+| 10 | 0A | 012 | `\n` | **LF** | Line Feed (Newline) |
+| 11 | 0B | 013 | `\v` | **VT** | Vertical Tab |
+| 12 | 0C | 014 | `\f` | **FF** | Form Feed (New Page) |
+| 13 | 0D | 015 | `\r` | **CR** | Carriage Return |
+| 27 | 1B | 033 | `\e`* | **ESC** | Escape |
+| 32 | 20 | 040 | (space) | **SPC** | Space |
+| 127 | 7F | 177 | | **DEL** | Delete |
 
-| Decimal | Hex  | Abbrev | Description            |
-| ------- | ---- | ------ | ---------------------- |
-| 0       | 0x00 | NUL    | Null character (`\0`)  |
-| 1       | 0x01 | SOH    | Start of Header        |
-| 2       | 0x02 | STX    | Start of Text          |
-| 3       | 0x03 | ETX    | End of Text            |
-| 4       | 0x04 | EOT    | End of Transmission    |
-| 5       | 0x05 | ENQ    | Enquiry                |
-| 6       | 0x06 | ACK    | Acknowledge            |
-| 7       | 0x07 | BEL    | Bell (`\a`)            |
-| 8       | 0x08 | BS     | Backspace (`\b`)       |
-| 9       | 0x09 | TAB    | Horizontal Tab (`\t`)  |
-| 10      | 0x0A | LF     | Line Feed (`\n`)       |
-| 11      | 0x0B | VT     | Vertical Tab (`\v`)    |
-| 12      | 0x0C | FF     | Form Feed (`\f`)       |
-| 13      | 0x0D | CR     | Carriage Return (`\r`) |
-| 27      | 0x1B | ESC    | Escape                 |
-| 32      | 0x20 | SP     | Space                  |
-| 127     | 0x7F | DEL    | Delete                 |
+*\*Note: `\e` is a common GCC/Clang extension but not part of the strict ANSI C standard.*
 
 ---
 
-## **Printable Characters (32–126)**
+### 2. Printable Characters (32–126)
+Commonly used characters including digits, letters, and punctuation.
 
-### **Digits (48–57)**
+#### **Digits & Special Characters**
+| Dec | Hex | Oct | Char | | Dec | Hex | Oct | Char |
+| :--- | :--- | :--- | :--- | --- | :--- | :--- | :--- | :--- |
+| 48 | 30 | 060 | **0** | | 33 | 21 | 041 | **!** |
+| 49 | 31 | 061 | **1** | | 34 | 22 | 042 | **"** |
+| 50 | 32 | 062 | **2** | | 35 | 23 | 043 | **#** |
+| 51 | 33 | 063 | **3** | | 36 | 24 | 044 | **$** |
+| 52 | 34 | 064 | **4** | | 38 | 26 | 046 | **&** |
+| 57 | 39 | 071 | **9** | | 61 | 3D | 075 | **=** |
 
-|Decimal|Hex|Char|
-|---|---|---|
-|48|0x30|0|
-|49|0x31|1|
-|50|0x32|2|
-|51|0x33|3|
-|52|0x34|4|
-|53|0x35|5|
-|54|0x36|6|
-|55|0x37|7|
-|56|0x38|8|
-|57|0x39|9|
+#### **Uppercase Letters (A-Z)**
+| Dec | Hex | Oct | Char  |     | Dec | Hex | Oct | Char  |
+| :-- | :-- | :-- | :---- | --- | :-- | :-- | :-- | :---- |
+| 65  | 41  | 101 | **A** |     | 78  | 4E  | 116 | **N** |
+| 66  | 42  | 102 | **B** |     | 79  | 4F  | 117 | **O** |
+| 67  | 43  | 103 | **C** |     | ... | ... | ... | ...   |
+| 71  | 47  | 107 | **G** |     | 90  | 5A  | 132 | **Z** |
 
----
-
-### **Uppercase Letters (65–90)**
-
-`A–Z` (0x41–0x5A)
-
----
-
-### **Lowercase Letters (97–122)**
-
-`a–z` (0x61–0x7A)
-
----
-
-### **Common Punctuation**
-
-| Decimal | Hex  | Char        | Description      |
-| ------- | ---- | ----------- | ---------------- |
-| 33      | 0x21 | !           | Exclamation mark |
-| 34      | 0x22 | "           | Double quote     |
-| 35      | 0x23 | #           | Hash             |
-| 37      | 0x25 | %           | Percent          |
-| 38      | 0x26 | &           | Ampersand        |
-| 39      | 0x27 | '           | Single quote     |
-| 42      | 0x2A | *           | Asterisk         |
-| 43      | 0x2B | +           | Plus             |
-| 44      | 0x2C | ,           | Comma            |
-| 45      | 0x2D | -           | Hyphen           |
-| 46      | 0x2E | .           | Dot              |
-| 47      | 0x2F | /           | Slash            |
-| 58      | 0x3A | :           | Colon            |
-| 59      | 0x3B | ;           | Semicolon        |
-| 60      | 0x3C | <           | Less-than        |
-| 61      | 0x3D | =           | Equal            |
-| 62      | 0x3E | >           | Greater-than     |
-| 63      | 0x3F | ?           | Question mark    |
-| 64      | 0x40 | @           | At symbol        |
-| 91      | 0x5B | [           | Left bracket     |
-| 92      | 0x5C | \|Backslash |                  |
-| 93      | 0x5D | ]           | Right bracket    |
-| 94      | 0x5E | ^           | Caret            |
-| 95      | 0x5F | _           | Underscore       |
-| 123     | 0x7B | {           | Left brace       |
-| 124     | 0x7C | \|          | Vertical bar     |
-| 125     | 0x7D | }           | Right brace      |
-| 126     | 0x7E | ~           | Tilde            |
+#### **Lowercase Letters (a-z)**
+| Dec | Hex | Oct | Char  |     | Dec | Hex | Oct | Char  |
+| :-- | :-- | :-- | :---- | --- | :-- | :-- | :-- | :---- |
+| 97  | 61  | 141 | **a** |     | 110 | 6E  | 156 | **n** |
+| 98  | 62  | 142 | **b** |     | 111 | 6F  | 157 | **o** |
+| 99  | 63  | 143 | **c** |     | ... | ... | ... | ...   |
+| 103 | 67  | 147 | **g** |     | 122 | 7A  | 172 | **z** |
 
 ---
 
-#  Common ASCII Values You Should Memorize
-
-### **1. Character Ranges (very important)**
-
-|Concept|Value|
-|---|---|
-|`'0'` starts at|**48**|
-|`'A'` starts at|**65**|
-|`'a'` starts at|**97**|
-|Difference between lowercase and uppercase|**32**|
-|Convert char digit → int|`c - '0'`|
-
----
-
-### **2. Key Escape Characters**
-
-|Escape|Decimal|Meaning|
-|---|---|---|
-|`\0`|0|String terminator in C|
-|`\n`|10|Newline|
-|`\r`|13|Carriage return|
-|`\t`|9|Tab|
-|`\'`|39|Single quote|
-|`\"`|34|Double quote|
-|`\\`|92|Backslash|
-
----
-
-### **3. Special Printable Characters**
-
-| Char        | Decimal | Notes                     |
-| ----------- | ------- | ------------------------- |
-| Space `' '` | **32**  | First printable character |
-| DEL         | **127** | Delete                    |
+### 3. Memory Aid
+*   **Uppercase vs Lowercase:** The difference between `'a'` (97) and `'A'` (65) is exactly **32** (or `0x20`). Setting/clearing the 6th bit toggles case.
+*   **Digit Conversion:** `'0'` is **48** (`0x30`). Always use `c - '0'` to convert a character digit to its integer value.
+*   **Null Pointer vs Null Char:** `NULL` (pointer) is typically `(void*)0`, whereas `'\0'` (character) is the integer `0`. They are numerically 0 but semantically different.
+*   **Hex/Octal Limits:** 
+    *   Max 1-byte Hex: `\xff` (255)
+    *   Max 1-byte Octal: `\377` (255)

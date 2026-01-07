@@ -10,5 +10,5 @@ int *p = a; // a degrades into a pointer pointing to a[0]
 #### calculation
 - a pointer `+`, `+=`, `-`, `-=` an integer are all valid.
 - `++` & `--` are also valid.
-- `p1 - p2`, where `p1` and `p2` are both pointers, is valid, and is called **Pointer subtraction**, used to calculate the offset between two pointers.
-
+- `p1 - p2`, where `p1` and `p2` are both pointers, is valid, and is called **Pointer subtraction**, used to calculate the offset between two pointers. Subtracting two pointers results in a value of type `ptrdiff_t` , which is the **signed** distance (**measured in elements**) between them.(Types of the two pointers should be the same.)
+	If the actual difference between the two addresses is needed, we can cast the pointer to `int` or `char *`.
