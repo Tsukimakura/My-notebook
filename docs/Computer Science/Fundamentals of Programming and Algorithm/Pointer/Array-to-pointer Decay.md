@@ -2,7 +2,7 @@
 
 In C, there is a fundamental rule: **"Arrays are not pointers, but they often act like them."**
 
-**Array Decay** refers to the automatic (implicit) conversion that occurs when you use an array's name in an expression. The compiler "decays" (downgrades) the array type into a pointer to its first element.
+~~**Array Decay** refers to the automatic (implicit) conversion that occurs when you use an array's name in an expression. The compiler "decays" (downgrades) the array type into a pointer to its first element.~~
 
 - **The Concept:** The array loses its "identity" as a block of memory with a specific size and becomes a simple address.
 
@@ -10,12 +10,70 @@ In C, there is a fundamental rule: **"Arrays are not pointers, but they often a
     
     `Array Name→&(Array[0])`
 
-- The array name itself become **a const pointer**, which means it is not mutable. The compiler simply treats it as an address of the first element of the array. (The array name is not an L-value.)
+~~The array name itself becomes **a const pointer**, which means it is not mutable. The compiler simply treats it as an address of the first element of the array. (The array name is not an L-value.)~~
+
+I've found some confusing and self-contradictory descriptions in the text I added delete lines to. I'll update it based on my new understanding (2026-01-08):
+
+>**ISO C11 (6.3.2.1p3)** "...an expression that has type 'array of type' is converted to an expression with type 'pointer to type' that points to the initial element of the array object and **is not an lvalue**."
+
+An array name itself (before decay) is a **non-modifiable lvalue** (Unlike a const pointer variable, which resides in memory and holds an address, an array name **is** the identity of the memory block itself.) representing the entire array. (**An lvalue is an expression that designates an object.**).  During compilation, the compiler have decided the location of the array, and there's no place in the memory to store the address `n` itself. This is not different from any other variables, since when `int x`, there's a space for the object designated by x in the memory, but no space for x itself.  (The compiler **resolves** the address of `x` — which is the address of the object designated by the identifier — via stack offsets or symbol table entries). The reason why we can modify the value of `x` , but not the value of n, is that `x` represents the contents in the four bytes (usually), while the array name represents the entire array itself. (This also explains why we can't assign value to the array by `Array_name1 = Array_name2`). The C standard defines an array name as a non-modifiable lvalue to prohibit operations like `n = ...` or `n++`, thereby preventing any attempt to rebind the base address of the array (i.e., making the array name refer to a different memory location).
+
+In brief, 
+
+To prove the things mentioned above, we can use `&Array_name` to get the address of the whole array (only lvalue an be the operand of `&` ), and test the properties (it's the address of the array, not the first element).
+
+```c
+#include <stdio.h>
+int main() {
+	int a[3];
+	printf("Size of *(&a):    %zu\n", sizeof(*(&a)));
+	printf("Size of *(&a[0]): %zu\n", sizeof(*(&a[0])));
+	// Through *(&a), we get the whole array(which is equal to the array name).
+	// Since sizeof doesn't cause decay(see in subtitle 4),we can reach the goals.
+	return 0;
+}
+```
+
+![alt an image of the terminal output](../../Attachments/array-pointer1.png)
+
+Another plan:
+
+```c
+int main() {
+	int a[3];
+	int *p = &a; // Write wrong type on purpose, and suppose the compiler to give the true types by warning.
+	return 0;
+}
+```
+
+![alt an image of the terminal output](../../Attachments/array-pointer2.png)
+
+In most expressions (except some special circumstances in subtitle 4), the array name decays into an rvalue representing the address of the first element. This decayed result is a temporary numerical value that exists only during calculation and has no persistent identity in memory.
+
+We can prove the decayed array name is a rvalue by setting the decayed array name as the operand of `&`:
+
+```c
+#include<stdio.h>
+
+int main(){
+	int a[5];
+	int b[5];
+	void *ptr = &(1 ? a : b); // a & b decay into rvalue in the expression
+	printf("%p",ptr);
+	return 0;
+}
+```
+
+![alt an image of the terminal output](../../Attachments/array-decay-rvalue.png)
+
+We can prove the property of the decayed array name by testing the stride of a pointer `int *p = Array_name` (suppose it is an int array).(Omit)
+
+
 ---
 
 ### 2. The General Rule
 
-According to the C Standard, whenever an array name appears in an **expression**([[Expressions&Operators 表达式与运算符#Expressions | Expressions]]), it is automatically converted to a pointer to the first element of that array.
+According to the C Standard, whenever an array name appears in an **expression**([[Expressions 表达式#Expressions| Expressions]]), it is automatically converted to a pointer to the first element of that array.
 
 **Example:**
 
@@ -63,7 +121,7 @@ This also explains why the first dimension of the array can be omitted when it i
 
 ### 4. The Three Exceptions (When Decay Does NOT Happen)
 
-This is the most critical part for advanced understanding. The array name does **not** decay into a pointer in these three specific scenarios:
+This is the most critical part for advanced understanding. The array name does **not** decay into a pointer in these specific scenarios: (C11)
 
 #### A. The sizeof Operator
 
@@ -105,6 +163,8 @@ char str[] = "Hello";
 
 - The code above is equal to `char str[] = {'H','e','l','l','o','\0'}`
 
+(D. As the operand of `_Alignof` ?)
+
 Q: Since A string literal decays into a pointer and passes an address, why `printf("Hello")` prints "Hello" in the terminal instead of an address?
 	A: This relates to how the function `printf` is coded. In brief, `printf` is designed to **traverse** that address and print the characters it finds there.
 	Actually `printf` is defined as: `int printf(const char *format, ...);`
@@ -122,6 +182,7 @@ Q: Since A string literal decays into a pointer and passes an address, why `prin
 	5. It finds no % signs, so it just finishes printing the literal text.
 
 	you can use printf("%p", "Hello"); to print the address of 'H' in "Hello".
+
 ---
 
 ### 5. The "Sizeof" Trap (A Common Bug)
