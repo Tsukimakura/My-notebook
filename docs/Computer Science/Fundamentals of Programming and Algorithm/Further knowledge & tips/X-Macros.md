@@ -1,3 +1,5 @@
+# X-Macros
+
 ### 1. Concept
 **X-Macros** are a design pattern used to maintain a list of data items in a single location (the "source of truth") and generate multiple code constructs (Enums, String Arrays, Switch Cases) from that list. This adheres to the **DRY (Don't Repeat Yourself)** principle.
 

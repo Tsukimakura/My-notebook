@@ -1,4 +1,6 @@
-![alt 翁恺2025程算授课PPT](../../../../Attachments/merge_sort(wk).png)
+# Merge Sort
+
+![归并排序示意图，来源：翁恺 2025 程算课程 PPT](../../../../../assets/c-programming/merge-sort-wk.png)
 - 图片来源与翁恺2025程算授课课件
 
 #### Core idea

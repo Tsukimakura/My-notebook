@@ -1,3 +1,5 @@
+# 03 Floating Point Systems (IEEE 754)
+
 ## 1. Introduction to the IEEE 754 Standard
 The IEEE 754 Standard is the universal convention used by modern computers to represent real numbers (decimals).
 *   **The Concept:** Unlike integers which use a direct counting method (linear), IEEE 754 uses **Binary Scientific Notation** ($1.xxxxx \times 2^y$).

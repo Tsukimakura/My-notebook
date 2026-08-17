@@ -16,7 +16,7 @@ Understanding base conversion is essential for programming, digital logic, and l
 
 ---
 
-# **2. Converting Between Bases**
+## **2. Converting Between Bases**
 
 ---
 
@@ -259,7 +259,7 @@ Some decimals (e.g., 0.1) cannot be represented exactly in binary.
 |4|0100|
 |8|1000|
 
-# **How C Determines the Base of Numeric Literals**
+## **How C Determines the Base of Numeric Literals**
 
 In C, the base (radix) of an integer literal is determined **solely by its textual form**. The compiler does not guess based on context or variable type.
 

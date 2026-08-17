@@ -1,3 +1,5 @@
+# Bitwise Operations
+
 ## 1. Overview
 **Bitwise operations** interact directly with the binary representations (bits) of data in memory. They are significantly faster than arithmetic operations and are essential for low-level programming, such as device drivers, protocol parsing, and embedded systems.
 

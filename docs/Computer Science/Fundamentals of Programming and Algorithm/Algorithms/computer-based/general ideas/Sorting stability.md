@@ -1,3 +1,5 @@
+# Sorting stability
+
 ## 1. Definition
 
 **Stability** refers to whether an algorithm preserves the **relative order** of elements that have **equal values**.

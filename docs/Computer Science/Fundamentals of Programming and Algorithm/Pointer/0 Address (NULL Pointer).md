@@ -1,3 +1,5 @@
+# 0 Address (NULL Pointer)
+
 ### 1. What is "Address 0"?
 
 - **Definition:** In C, address 0 is a special memory address reserved by the system.

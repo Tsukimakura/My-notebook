@@ -1,3 +1,5 @@
+# Definition
+
 Technically, a **Pointer** is a variable whose value is the **memory address** of another variable.
 
 In standard programming variables:

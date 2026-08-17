@@ -1,3 +1,5 @@
+# ASCII
+
 ### 1. Control Characters (0–31 & 127)
 These characters are non-printable and used for hardware control or terminal formatting.
 

@@ -1,3 +1,5 @@
+# Arguments vs Parameters 实参与形参
+
   
 Here is an explanation of the relationship between arguments and parameters in C, and how pointers bridge the gap between them to allow for more powerful data manipulation.
 

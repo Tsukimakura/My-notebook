@@ -1,3 +1,5 @@
+# 03 Preprocessing & Macros
+
 ## 1. Fundamentals of Macros
 Macros are handled by the **C Preprocessor** before the code is compiled. They perform **pure text substitution**.
 

@@ -1,3 +1,5 @@
+# Types of pointers
+
 ### 1. The Concept
 
 A pointer stores a memory address. However, C requires you to specify **what kind of data** is stored at that address. This is the **Pointer Type**.

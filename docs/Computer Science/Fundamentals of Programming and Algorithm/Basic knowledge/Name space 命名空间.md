@@ -1,3 +1,5 @@
+# Name space 命名空间
+
 ## 1. Core Concept
 In C, the term **"Namespace"** does not refer to a distinct keyword or feature like in C++ or C# (e.g., `namespace MyLib { ... }`).
 

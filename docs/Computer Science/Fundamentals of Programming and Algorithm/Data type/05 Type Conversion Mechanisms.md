@@ -1,3 +1,5 @@
+# 05 Type Conversion Mechanisms
+
 ## 1. The Nature of Conversion
 In C, type conversion (casting) is rarely just a logical relabeling. It almost always involves **CPU instructions** and **physical memory reorganization**. It is the process of translating data from one storage format (contract) to another.
 

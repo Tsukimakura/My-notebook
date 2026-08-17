@@ -1,3 +1,5 @@
+# Hash Sort (Counting Sort)
+
 [[Hashing| About its name]]
 ## 1. Overview
 

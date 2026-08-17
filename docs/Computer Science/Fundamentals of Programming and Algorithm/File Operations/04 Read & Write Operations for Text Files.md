@@ -1,3 +1,5 @@
+# 04 Read & Write Operations for Text Files
+
 ## 1. Characteristics of Text Files
 
 Text files are physically identical to binary files (sequences of bytes) but are logically interpreted through specific conventions. They are designed for human readability and portability.

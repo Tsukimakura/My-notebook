@@ -1,3 +1,5 @@
+# Data types 数据类型
+
 In C, data types specify the type, size, and range of data that can be stored in a variable. They are broadly categorized into four groups.
 
 ---

@@ -1,3 +1,5 @@
+# Hex_Binary_Decimal Engineering Reference
+
 ## 1. The Nibble Lookup (4-bit Base)
 *Memorize this. All larger Hex numbers are just sequences of these 16 patterns.*
 

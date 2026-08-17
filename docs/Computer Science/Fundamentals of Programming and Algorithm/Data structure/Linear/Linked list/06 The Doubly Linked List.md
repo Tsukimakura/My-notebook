@@ -1,3 +1,5 @@
+# 06 The Doubly Linked List
+
 ### **1. The Concept & Purpose**
 **What is it?**
 A list where every node has **two pointers**:

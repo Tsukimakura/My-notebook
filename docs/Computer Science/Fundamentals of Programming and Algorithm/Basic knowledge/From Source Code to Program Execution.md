@@ -1,3 +1,5 @@
+# From Source Code to Program Execution
+
 ## **1. Writing Source Code**
 
 You begin by writing human-readable source code in a high-level language such as C:
@@ -119,7 +121,7 @@ The CPU executes the machine instructions step by step.
 
 ---
 
-# *📌 Summary Diagram (Text Version)**
+## *📌 Summary Diagram (Text Version)**
 
 ```
 Source Code (.c)

@@ -1,3 +1,5 @@
+# Variable Length Arrays (VLA)  变长数组
+
 ### 1. What is a VLA?
 
 - **Definition:** An array where the size is determined at **runtime** (using a variable), not at compile-time.

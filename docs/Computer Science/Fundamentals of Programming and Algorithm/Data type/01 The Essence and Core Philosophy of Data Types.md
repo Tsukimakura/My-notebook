@@ -1,3 +1,5 @@
+# 01 The Essence and Core Philosophy of Data Types
+
 ## 1. The Nature of Memory and Data Types
 In the C language, data types function as the fundamental protocol for memory management.
 

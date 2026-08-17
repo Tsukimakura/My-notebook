@@ -1,3 +1,5 @@
+# Scope 作用域
+
 [[Declarations vs Definitions 声明和定义 | pre-knowledge -- declarations and definitions]]
 #### **1. Definition**
 

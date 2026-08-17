@@ -1,3 +1,5 @@
+# Binary Search
+
 ####  Key idea
 
 Each time, compare the target with the middle element:

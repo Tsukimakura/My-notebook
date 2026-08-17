@@ -1,3 +1,5 @@
+# Makefile Usage
+
 ### 1. Fundamental Logic: How Make Thinks
 
 To use Make effectively, you must understand that **Make assumes everything is a file**. It does not inherently distinguish between "compiling a program" and "cleaning up junk."

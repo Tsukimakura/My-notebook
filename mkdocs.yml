@@ -1,4 +1,8 @@
 site_name: Tsukimakura's notebook
+site_description: 计算机科学、信息安全与基础学科的学习笔记
+repo_url: https://github.com/Tsukimakura/My-notebook
+repo_name: Tsukimakura/My-notebook
+edit_uri: edit/main/docs/
 theme:
   name: material
 
@@ -21,11 +25,33 @@ theme:
   features:
       - navigation.top # 返回顶部按钮
       - navigation.tabs # 顶部分类标签
+      - navigation.sections
+      - navigation.indexes
+      - navigation.footer
       - search.highlight # 搜索结果高亮显示
+      - search.share
+      - content.action.edit
+      - content.action.view
+      - toc.follow
 
 markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 extra_javascript:
   - javascripts/mathjax.js

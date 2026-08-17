@@ -1,3 +1,5 @@
+# 06 Intermediate Product — Relocatable Object File (.o)
+
 ## 1. Definition and Essence
 The **Relocatable Object File** (suffix `.o` on Linux, `.obj` on Windows) is the output of the **Assembly Stage**.
 

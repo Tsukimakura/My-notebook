@@ -1,3 +1,5 @@
+# static
+
 In C, the static keyword modifies two fundamental properties of variables and functions:
 
 1. **Lifetime:** How long the variable stays in memory.

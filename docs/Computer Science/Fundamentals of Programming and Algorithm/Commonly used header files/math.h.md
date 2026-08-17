@@ -1,3 +1,5 @@
+# math.h
+
 ### 1. Basic Math Functions
 
 | Function                          | Description              | Example             |
@@ -68,7 +70,7 @@ double ip; double fp = modf(3.14, &ip); /* ip = 3, fp = 0.14 */
 |`double cosh(double x)`|Hyperbolic cosine|
 |`double tanh(double x)`|Hyperbolic tangent|
 
-# **Quick Knowledge Points**
+## **Quick Knowledge Points**
 
 - `<math.h>` functions work on `double` by default.
     

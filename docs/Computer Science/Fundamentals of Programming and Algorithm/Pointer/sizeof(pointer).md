@@ -1,3 +1,5 @@
+# sizeof(pointer)
+
 ### 1. The logic
 the primary determinant of the value of sizeof(pointer) is the **memory address width** of the **target architecture** your program is compiled for.
 

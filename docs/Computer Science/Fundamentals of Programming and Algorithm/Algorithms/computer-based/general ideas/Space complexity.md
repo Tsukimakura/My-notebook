@@ -1,3 +1,5 @@
+# Space complexity
+
 ## 1. Definition
 
 **Space Complexity** measures the total amount of **memory (RAM)** an algorithm needs to run relative to the input size ($N$).

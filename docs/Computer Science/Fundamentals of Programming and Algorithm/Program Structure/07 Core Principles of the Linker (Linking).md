@@ -1,3 +1,5 @@
+# 07 Core Principles of the Linker (Linking)
+
 ## 1. Overview
 The Linker (`ld`) is the final stage of the compilation pipeline. Its primary job can be visualized as a combination of **"Jigsaw Puzzle"** (assembling code pieces) and **"Fill-in-the-blanks"** (connecting addresses).
 *   **Input:** Multiple Relocatable Object Files (`.o`) and Static/Dynamic Libraries (`.a`, `.so`).

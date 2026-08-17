@@ -1,3 +1,5 @@
+# GDB Command Line Debugging
+
 ## 1. Core Concepts and Principles
 
 ### What is GDB?

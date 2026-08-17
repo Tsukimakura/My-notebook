@@ -1,3 +1,5 @@
+# 02 Integer Systems and Two's Complement Principles
+
 ## 1. Integer Storage Models
 
 ### A. Binary Logic vs. Binary Numbers

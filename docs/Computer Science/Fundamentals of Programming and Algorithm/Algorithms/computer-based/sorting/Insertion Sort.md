@@ -1,3 +1,5 @@
+# Insertion Sort
+
 #### Key idea
 Insertion sort works like sorting **playing cards in your hand**:
 

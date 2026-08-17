@@ -1,3 +1,5 @@
+# 03 The Sentinel Node (Dummy head)
+
 ### **1. The Concept & Purpose**
 **What is it?**
 A Sentinel Node (often called a "Dummy Head") is a node that exists at the very beginning of the linked list but **holds no meaningful data**.

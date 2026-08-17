@@ -1,3 +1,5 @@
+# Linked List 链表
+
 ## 1. Concept & Definition
 
 A **Linked List** is a linear data structure where elements are not stored at contiguous memory locations. Instead, the elements are linked using pointers.

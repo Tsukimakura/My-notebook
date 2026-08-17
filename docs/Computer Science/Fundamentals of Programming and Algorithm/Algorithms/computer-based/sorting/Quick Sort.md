@@ -1,3 +1,5 @@
+# Quick Sort
+
 Quick Sort is a classic **divide-and-conquer** sorting algorithm.
 
 #### Basic idea:

@@ -1,3 +1,5 @@
+# Prime Number Identification
+
 ### Method 1: The Square Root Optimized Trial Division
 **Best for:** Checking if a single number $n$ is prime.
 

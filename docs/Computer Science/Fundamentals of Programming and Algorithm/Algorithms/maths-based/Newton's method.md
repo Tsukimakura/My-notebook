@@ -1,3 +1,5 @@
+# Newton's method
+
 **Iteration Process:**
 1. Start with an initial guess x₀
 2. Draw the tangent line to the function at point (x₀, f(x₀))

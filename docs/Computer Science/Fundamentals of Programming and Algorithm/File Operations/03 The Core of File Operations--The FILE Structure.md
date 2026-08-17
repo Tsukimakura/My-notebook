@@ -1,3 +1,5 @@
+# 03 The Core of File Operations--The FILE Structure
+
 ## 1. The FILE Structure
 
 In C, file manipulation is high-level and abstracted through the **`FILE`** structure defined in the standard library `<stdio.h>`. It acts as a comprehensive **Control Block** that manages the state of a stream.

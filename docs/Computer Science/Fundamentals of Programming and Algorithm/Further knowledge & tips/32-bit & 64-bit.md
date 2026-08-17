@@ -1,3 +1,5 @@
+# 32-bit & 64-bit
+
 The evolution from 32-bit to 64-bit systems is one of the most significant milestones in computing history. It was driven primarily by one problem: **The 4GB Memory Wall.**
 [[sizeof(pointer)#3. More | What is the 4GB Memory Wall]]
 Here is the story of that evolution and the technical distinctions between the two architectures.

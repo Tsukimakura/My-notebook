@@ -1,3 +1,5 @@
+# Hashing
+
 ## 1. What is Hashing?
 
 **Hashing** is the process of mapping arbitrary data (Input) to a fixed-size value (Output) using an algorithm.

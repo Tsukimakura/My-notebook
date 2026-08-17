@@ -1,3 +1,5 @@
+# 06 Random Access in Files
+
 ## 1. The Concept of File Positioning
 
 By default, file I/O operations (like `fgetc`, `fscanf`) are **Sequential**. The file acts like a cassette tape: to read the 100th byte, you must first read (or skip) the preceding 99 bytes.

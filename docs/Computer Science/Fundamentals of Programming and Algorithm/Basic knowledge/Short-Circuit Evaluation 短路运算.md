@@ -1,3 +1,5 @@
+# Short-Circuit Evaluation 短路运算
+
 ### 1. Definition
 **Short-Circuit Evaluation** means that the compiler stops evaluating an expression as soon as the result is determined.
 *   If the **Left Operand** decides the result, the **Right Operand** is **completely skipped (not executed)**.

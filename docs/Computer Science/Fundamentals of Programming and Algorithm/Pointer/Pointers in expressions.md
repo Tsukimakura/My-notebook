@@ -1,3 +1,5 @@
+# Pointers in expressions
+
 #### assignment & dereference
 ```c
 int a[10];

@@ -1,3 +1,5 @@
+# Stack 栈
+
 ## 1. Concept & Definition
 
 A **Stack** is a linear data structure that follows a specific order in which operations are performed. The order is **LIFO (Last In, First Out)**.

@@ -1,3 +1,5 @@
+# Character Constants 字符常量
+
 ## 1. Definition and Syntax
 A **character constant** is a type of literal used to represent a single character. It is enclosed in **single quotation marks** (e.g., `'A'`, `'7'`, or `'$'`).
 

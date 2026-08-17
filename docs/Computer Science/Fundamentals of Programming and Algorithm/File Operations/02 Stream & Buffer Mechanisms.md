@@ -1,3 +1,5 @@
+# 02 Stream & Buffer Mechanisms
+
 ## 1. The Concept of Streams
 
 In C programming and Unix-like systems, Input/Output operations are abstracted as **Streams**. This abstraction allows programmers to interact with various hardware devices (hard drives, keyboards, network sockets, printers) using a unified interface, without needing to understand the underlying physical details.

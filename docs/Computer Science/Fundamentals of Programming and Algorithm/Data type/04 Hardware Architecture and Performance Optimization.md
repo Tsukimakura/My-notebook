@@ -1,3 +1,5 @@
+# 04 Hardware Architecture and Performance Optimization
+
 ## 1. Logic Devices vs. Sequential Devices
 Understanding data types requires understanding the physical components that process and store them.
 

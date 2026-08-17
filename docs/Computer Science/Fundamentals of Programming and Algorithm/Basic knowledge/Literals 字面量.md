@@ -1,3 +1,5 @@
+# Literals 字面量
+
 **Definition:** In the C programming language, a **literal** is a fixed, constant value written directly in the source code. Literals represent values that **do not change during program execution**, and they are used to initialize variables, pass arguments, and express constant data.
 
 C provides several types of literals, each corresponding to a specific data type.

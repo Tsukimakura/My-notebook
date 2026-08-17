@@ -1,3 +1,5 @@
+# typedef
+
 ## **1. Core Concept**
 
 - **Definition:** typedef stands for **"Type Definition"**.

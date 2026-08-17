@@ -1,3 +1,5 @@
+# Monte Carlo Simulation
+
 **Basic steps:**
 1. **Define Model** - Create mathematical representation
 2. **Generate Inputs** - Sample from probability distributions

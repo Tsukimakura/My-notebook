@@ -1,3 +1,5 @@
+# Anatomy of a function call in memory
+
 [[Stack 栈 | pre-knowledge about stack]]
 ## **1. Memory Segments: Code vs. Execution**
 

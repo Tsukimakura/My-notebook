@@ -1,3 +1,5 @@
+# L-value&R-value 左值与右值
+
 In C, every expression evaluates to either an **lvalue** or an **rvalue**. Understanding the difference is crucial for understanding memory management, pointers, and fixing compiler errors like "lvalue required as left operand of assignment."
 
 ## 1. The Simple Rule of Thumb

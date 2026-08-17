@@ -1,3 +1,5 @@
+# Qin Jiushao's Algorithm (Horner's Method)
+
 ## 1. Introduction
 **Qin Jiushao's Algorithm**, globally known as **Horner's Method** (or Horner Scheme), is an efficient algorithm for the evaluation of polynomials. While named after the British mathematician William George Horner, it was documented by the Chinese mathematician **Qin Jiushao** in his 13th-century treatise *Shushu Jiuzhang* (Mathematical Treatise in Nine Sections).
 

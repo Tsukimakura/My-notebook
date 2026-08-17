@@ -1,3 +1,5 @@
+# Function Pointers
+
 ### Definition
 A **Function Pointer** is a specific type of variable that stores the memory address of the **executable code** of a function, rather than storing data.
 

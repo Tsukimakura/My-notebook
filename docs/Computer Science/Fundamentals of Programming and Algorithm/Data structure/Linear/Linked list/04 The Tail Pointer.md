@@ -1,3 +1,5 @@
+# 04 The Tail Pointer
+
 ### **1. The Concept & Purpose**
 **What is it?**
 A `tail` pointer is a variable that **always** holds the memory address of the **last node** in the list.

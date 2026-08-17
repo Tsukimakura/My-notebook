@@ -1,3 +1,5 @@
+# 02 Singly Linked List (No Sentinel)
+
 ## **1. Core Concept & Data Structure**
 
 In a "No Sentinel" (or No Dummy Node) implementation, the `head` pointer points directly to the **first actual data node**.

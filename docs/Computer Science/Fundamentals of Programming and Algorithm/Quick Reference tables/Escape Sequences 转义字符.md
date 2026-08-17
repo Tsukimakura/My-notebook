@@ -1,3 +1,5 @@
+# Escape Sequences 转义字符
+
 | Escape       | Meaning / description                   | Value / notes                                                             | Example (char or string literal)                               |
 | ------------ | --------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `\\`         | Backslash                               | Single backslash character `\`                                            | `"C:\\folder\\file.txt"`                                       |

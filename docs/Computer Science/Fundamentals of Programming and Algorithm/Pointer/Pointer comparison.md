@@ -1,3 +1,5 @@
+# Pointer comparison
+
 #### **1. The Core Concept**
 
 Pointer comparison evaluates the **memory addresses** held by the pointers, not the values stored at those addresses.

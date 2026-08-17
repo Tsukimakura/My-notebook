@@ -1,3 +1,5 @@
+# Random Numbers
+
 - C generates pseudo-random (伪随机)numbers using `<stdlib.h>` functions: `rand()` and `srand()`
 
 - `rand()` returns a pseudo-random integer between 0 and `RAND_MAX`

@@ -1,3 +1,5 @@
+# pseudo code 伪代码
+
 ## 1. What Is Pseudocode?
 
 Pseudocode is a **high-level, language-independent description of an algorithm**.  

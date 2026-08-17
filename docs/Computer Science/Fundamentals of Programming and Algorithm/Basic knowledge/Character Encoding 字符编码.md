@@ -1,3 +1,5 @@
+# Character Encoding 字符编码
+
 **Character encoding** is the mechanism that maps characters (letters, digits, symbols) to numeric codes so they can be stored in memory or transmitted over networks.  
 Computers ultimately operate on binary data, so encoding defines how human-readable text becomes machine-readable bytes — and how those bytes are converted back into characters.
 
@@ -14,7 +16,7 @@ Without a consistent encoding, text may appear corrupted (mojibake), especially 
 
 ---
 
-# **Common Character Encodings and Their Usage**
+## **Common Character Encodings and Their Usage**
 
 ## **1. ASCII (American Standard Code for Information Interchange)**
 
@@ -192,7 +194,7 @@ Unicode itself does not specify the storage format — that’s the role of **UT
 
 ---
 
-# **Choosing an Encoding: When to Use What?**
+## **Choosing an Encoding: When to Use What?**
 
 |Encoding|Strengths|Use Case|
 |---|---|---|

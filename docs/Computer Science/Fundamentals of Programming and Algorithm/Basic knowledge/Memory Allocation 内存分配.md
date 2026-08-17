@@ -34,7 +34,7 @@ Low Addresses (0x00...)
 
 ---
 
-# **2. The Read-Only Region (OS "Text Segment")**
+## **2. The Read-Only Region (OS "Text Segment")**
 
 In the OS view, this entire region is mapped as **Read-Only + Execute (R-X)** (or sometimes just Read-Only for data). It combines two Linker Sections:
 
@@ -52,7 +52,7 @@ In the OS view, this entire region is mapped as **Read-Only + Execute (R-X)** (o
 
 ---
 
-# **3. The Read-Write Region (OS "Data Segment")**
+## **3. The Read-Write Region (OS "Data Segment")**
 
 In the OS view, these sections are merged into a single **Read-Write (RW-)** segment because they share the same permissions.
 
@@ -69,7 +69,7 @@ In the OS view, these sections are merged into a single **Read-Write (RW-)** seg
 
 ---
 
-# **4. Heap**
+## **4. Heap**
 
 *   **Content:** Dynamically allocated memory via `malloc`/`calloc`/`realloc`.
 *   **Growth:** Grows upward (low to high addresses).
@@ -77,7 +77,7 @@ In the OS view, these sections are merged into a single **Read-Write (RW-)** seg
 
 ---
 
-# **5. Memory Mapping Region (mmap)**
+## **5. Memory Mapping Region (mmap)**
 
 This is the vast space between the Heap and the Main Stack.
 
@@ -88,7 +88,7 @@ This is the vast space between the Heap and the Main Stack.
 
 ---
 
-# **6. The Stack (Main Thread)**
+## **6. The Stack (Main Thread)**
 
 *   **Content:** Stack frames, local variables, return addresses for the **Main Thread**.
 *   **Growth:** Grows downward (high to low addresses).
@@ -97,7 +97,7 @@ This is the vast space between the Heap and the Main Stack.
 
 ---
 
-# **7. Arguments and Environment**
+## **7. Arguments and Environment**
 
 Located at the very top of the user address space, just below the Kernel space.
 
@@ -107,13 +107,13 @@ Located at the very top of the user address space, just below the Kernel space.
 
 ---
 
-# **8. Kernel Space**
+## **8. Kernel Space**
 *   **Content:** The kernel code, page tables, and kernel data structures.
 *   **Protection:** Inaccessible to user programs (Ring 3). Access requires a **System Call** (switching to Ring 0).
 
 ---
 
-# **Summary: Linker View vs. OS View**
+## **Summary: Linker View vs. OS View**
 
 | Logical Content | Linker Section | OS Segment | Permissions |
 | :--- | :--- | :--- | :--- |

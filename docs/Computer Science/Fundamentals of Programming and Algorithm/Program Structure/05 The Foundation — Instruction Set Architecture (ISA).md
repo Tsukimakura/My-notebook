@@ -1,3 +1,5 @@
+# 05 The Foundation — Instruction Set Architecture (ISA)
+
 ## 1. What is ISA?
 The **Instruction Set Architecture (ISA)** serves as the fundamental "contract" or interface between the software (Compiler/Programmer) and the hardware (CPU).
 

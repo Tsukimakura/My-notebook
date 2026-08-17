@@ -1,3 +1,5 @@
+# High-Precision Arithmetic
+
 ### 1. Data Structure & Representation
 
 Since standard CPU registers cannot hold these values, high-precision numbers are stored as **arrays**.

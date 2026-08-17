@@ -1,3 +1,5 @@
+# Stable hash sort
+
 ## 1. The Three-Stage Process
 
 To achieve stability, we cannot simply overwrite the original array. We must use a **3-stage pipeline**:

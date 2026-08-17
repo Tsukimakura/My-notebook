@@ -1,3 +1,5 @@
+# 08 Debugging & Error Prevention
+
 Working with pointers can be dangerous. A single mistake can cause your program to crash (Segmentation Fault) or hang forever (Infinite Loop). Here is how to write safe code and fix bugs when they happen.
 
 ---

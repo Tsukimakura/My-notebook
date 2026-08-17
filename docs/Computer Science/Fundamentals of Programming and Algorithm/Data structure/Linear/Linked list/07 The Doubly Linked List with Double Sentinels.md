@@ -1,3 +1,5 @@
+# 07 The Doubly Linked List with Double Sentinels
+
 ### **1. The Concept & Purpose**
 **What is it?**
 A Doubly Linked List that has **two** dummy nodes:

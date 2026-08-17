@@ -1,3 +1,5 @@
+# Quick power
+
 ### 1. Mathematical Principle
 
 The algorithm leverages the **binary representation** of the exponent $n$ to compute powers in logarithmic time. Additionally, it applies **Modular Arithmetic** properties to prevent integer overflow during calculation.

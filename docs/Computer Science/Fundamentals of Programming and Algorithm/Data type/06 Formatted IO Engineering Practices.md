@@ -1,3 +1,5 @@
+# 06 Formatted IO Engineering Practices
+
 ## 1. Introduction to Formatted I/O
 The `printf` and `scanf` functions are the primary interface between a C program's internal binary memory and the external text-based world. They act as **translators** governed by a precise "protocol": the **Format Specifier String**.
 

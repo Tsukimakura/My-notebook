@@ -1,3 +1,5 @@
+# Declarations vs Definitions 声明和定义
+
 ## 1. The Core Distinction: Memory Allocation
 
 The fundamental difference between a declaration and a definition lies in whether system memory (RAM) is allocated.

@@ -1,3 +1,5 @@
+# scanf Return Value
+
 #### 1. Function Prototype
 
 The `scanf` **function** is **declared** in the **standard input/output header file**:

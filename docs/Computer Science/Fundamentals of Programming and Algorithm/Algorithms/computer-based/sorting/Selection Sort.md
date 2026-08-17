@@ -1,3 +1,5 @@
+# Selection Sort
+
 #### Key idea
 Selection sort repeatedly finds the minimum element from the unsorted portion and places it at the front. (Vice versa)
 

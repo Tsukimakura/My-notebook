@@ -1,3 +1,5 @@
+# 07 File Descriptors & The Kernel
+
 ## 1. The File Descriptor (FD)
 
 While C programmers interact with the high-level `FILE *` (stream), the Operating System Kernel manages files using a much simpler mechanism known as the **File Descriptor**.

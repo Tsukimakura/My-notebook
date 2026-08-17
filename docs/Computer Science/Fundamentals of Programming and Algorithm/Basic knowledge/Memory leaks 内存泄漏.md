@@ -1,3 +1,5 @@
+# Memory leaks 内存泄漏
+
 ## 1. Origin of the Term (Literal Meaning)
 
 The term "Leak" describes the **gradual reduction of available system resources**.  

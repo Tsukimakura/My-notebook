@@ -1,3 +1,5 @@
+# Time complexity
+
 ## 1. Definition
 
 **Time Complexity** quantifies the amount of time an algorithm takes to run as a function of the length of the input.

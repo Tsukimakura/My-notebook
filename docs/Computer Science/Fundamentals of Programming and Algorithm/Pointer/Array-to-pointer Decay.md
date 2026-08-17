@@ -1,3 +1,5 @@
+# Array-to-pointer Decay
+
 ### 1. What is "Array Decay"?
 
 In C, there is a fundamental rule: **"Arrays are not pointers, but they often act like them."**
@@ -34,7 +36,7 @@ int main() {
 }
 ```
 
-![alt an image of the terminal output](../../Attachments/array-pointer1.png)
+![终端输出：数组作为参数时发生数组到指针退化](../../../assets/c-programming/array-pointer1.png)
 
 Another plan:
 
@@ -46,7 +48,7 @@ int main() {
 }
 ```
 
-![alt an image of the terminal output](../../Attachments/array-pointer2.png)
+![终端输出：指针参数的 sizeof 结果](../../../assets/c-programming/array-pointer2.png)
 
 In most expressions (except some special circumstances in subtitle 4), the array name decays into an rvalue representing the address of the first element. This decayed result is a temporary numerical value that exists only during calculation and has no persistent identity in memory.
 
@@ -64,7 +66,7 @@ int main(){
 }
 ```
 
-![alt an image of the terminal output](../../Attachments/array-decay-rvalue.png)
+![终端输出：数组退化后不可作为可修改左值](../../../assets/c-programming/array-decay-rvalue.png)
 
 We can prove the property of the decayed array name by testing the stride of a pointer `int *p = Array_name` (suppose it is an int array).(Omit)
 

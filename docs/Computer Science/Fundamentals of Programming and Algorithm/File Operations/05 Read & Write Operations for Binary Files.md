@@ -1,3 +1,5 @@
+# 05 Read & Write Operations for Binary Files
+
 ## 1. Characteristics of Binary Files
 
 Unlike text files, which are meant for human consumption, binary files are designed for machine efficiency. They represent a direct "snapshot" of memory contents stored on disk.

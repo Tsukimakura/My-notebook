@@ -1,3 +1,5 @@
+# Sequence Points 序列点
+
 ## 1. Definition of a Sequence Point
 A **Sequence Point** is a specific point in the program's execution where:
 *   All **side effects** of previous evaluations must be complete.
