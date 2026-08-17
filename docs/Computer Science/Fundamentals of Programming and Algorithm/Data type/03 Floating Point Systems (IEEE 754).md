@@ -8,7 +8,9 @@ The IEEE 754 Standard is the universal convention used by modern computers to re
 
 ## 2. Anatomy of IEEE 754 (Storage Structure)
 Any floating-point number $V$ is encoded by breaking it down into three non-continuous components based on the formula:
-$$ V = (-1)^S \times (1.M) \times 2^{(E - Bias)} $$
+\[
+ V = (-1)^S \times (1.M) \times 2^{(E - Bias)}
+\]
 
 ### A. The Sign Bit ($S$)
 *   **Size:** 1 bit.

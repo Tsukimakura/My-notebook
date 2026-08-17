@@ -54,7 +54,11 @@ markdown_extensions:
       custom_checkbox: true
 
 extra_javascript:
-  - javascripts/mathjax.js
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - assets/vendor/katex/katex.min.js
+  - assets/vendor/katex/auto-render.min.js
+  - javascripts/katex.js
+
+extra_css:
+  - assets/vendor/katex/katex.min.css
 
 copyright: Copyright © 2025 Tsukimakura

@@ -32,7 +32,9 @@ Two's Complement was adopted to solve two critical hardware problems found in si
 ### B. The Mathematical Essence: Negative Weight
 In Two's Complement, the Most Significant Bit (MSB) acts not just as a sign flag, but as a bit with **negative weight**.
 For an $N$-bit integer $B = b_{n-1} \dots b_0$:
-$$ Value = -b_{n-1} \cdot 2^{n-1} + \sum_{i=0}^{n-2} b_i \cdot 2^i $$
+\[
+ Value = -b_{n-1} \cdot 2^{n-1} + \sum_{i=0}^{n-2} b_i \cdot 2^i
+\]
 *   **MSB = 0:** The negative weight is inactive. The number is positive.
 *   **MSB = 1:** The number starts with a massive negative value (e.g., -128 for 8-bit), which is then "filled back up" by the positive weights of the remaining bits.
 

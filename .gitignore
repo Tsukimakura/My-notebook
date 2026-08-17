@@ -1,6 +1,7 @@
 # MkDocs build output and local Python environment
 site/
 .venv/
+node_modules/
 
 # Local editor / operating-system files
 .DS_Store
