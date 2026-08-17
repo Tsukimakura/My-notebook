@@ -1,4 +1,22 @@
+# MkDocs build output and local Python environment
 site/
 .venv/
-*plan.md
-planning/
+
+# Local editor / operating-system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+__pycache__/
+*.py[cod]
+
+# Credentials and local configuration — never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.*
