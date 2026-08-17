@@ -5,10 +5,10 @@
 ## 从哪里开始
 
 - [知识地图](knowledge-map.md)：按知识领域而非课程文件夹浏览。
-- [计算机科学](Computer%20Science/index.md)：C 程序设计、算法、数据结构与程序运行机制。
-- [数学与物理](Maths%20%26%20Physics/index.md)：数学分析与线性代数。
-- [信息安全](Security/index.md)：Web 安全、CTF、密码学、逆向与二进制安全。
-- [工具与写作](Computer%20Science/Tools/index.md)：Markdown、LaTeX、Obsidian 与 MkDocs。
+- [计算机科学](计算机科学/index.md)：C 程序设计、算法、数据结构与程序运行机制。
+- [数理基础](数理基础/index.md)：数学分析、线性代数、离散数学与普通物理。
+- [信息安全](信息安全/index.md)：Web 安全、密码学、逆向与二进制安全。
+- [工具与写作](计算机科学/Tools/index.md)：Markdown、LaTeX、Obsidian 与 MkDocs。
 
 ## 阅读约定
 
