@@ -1,0 +1,2 @@
+# Install the fully pinned build environment.
+-r requirements.lock

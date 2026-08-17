@@ -1,5 +1,6 @@
 site_name: Tsukimakura's notebook
 site_description: 计算机科学、信息安全与基础学科的学习笔记
+strict: true
 repo_url: https://github.com/Tsukimakura/My-notebook
 repo_name: Tsukimakura/My-notebook
 edit_uri: edit/main/docs/
