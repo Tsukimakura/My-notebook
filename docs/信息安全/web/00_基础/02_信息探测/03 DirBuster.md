@@ -6,7 +6,7 @@
 
 - DirBuster 采用 Java 编写，需要 Java 运行环境（JRE）。
 
-![[Pasted image 20260202172845.png]]
+![图示：Pasted image 20260202172845](../../../../assets/security/web/pasted-image-20260202172845.png)
 
 - Target URL 中输入的 URL 必须加上协议名。
 

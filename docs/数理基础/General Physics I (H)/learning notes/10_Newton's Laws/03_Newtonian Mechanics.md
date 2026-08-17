@@ -272,7 +272,7 @@ This section covers the mechanics of dry friction between solid surfaces.
 
     - **Setup:** Consider an infinitesimally small segment of the rope over an angle $d\varphi$. The tension on one side is $T$, and on the other is $T+dT$. The normal force is $dN$, and the friction opposing the impending slip is $\mu_s dN$.
 
-		![[Pasted image 20260312163038.png]]
+		![图示：Pasted image 20260312163038](../../../../assets/maths-physics/general-physics/pasted-image-20260312163038.png)
 
     - **Radial Force Balance:**
 
@@ -334,7 +334,7 @@ This section calculates the final velocity of a particle traversing a semi-circu
 
 - **Setup:** A particle enters a semi-circular track of radius $r$ with initial velocity $v_0$. The coefficient of kinetic friction is $\mu$. What is the final velocity $v_f$?
 
-	![[Pasted image 20260312162847.png]]
+	![图示：Pasted image 20260312162847](../../../../assets/maths-physics/general-physics/pasted-image-20260312162847.png)
 
 - **Equations of Motion:**
 

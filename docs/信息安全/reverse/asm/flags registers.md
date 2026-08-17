@@ -100,5 +100,5 @@ GDB 会友好地给你展示成这样：
 **练习建议：**
 尝试修改你之前的 `test.asm` 代码，在 `mov` 后面加一行 `cmp eax, 0`，然后在 GDB 里单步执行，观察执行完 `cmp` 后，`eflags` 里的 `ZF` 是否出现了！
 
-![[Pasted image 20260128042431.png]]
+![图示：Pasted image 20260128042431](../../../assets/security/reverse/pasted-image-20260128042431.png)
 https://i.sstatic.net/aPbbT.png

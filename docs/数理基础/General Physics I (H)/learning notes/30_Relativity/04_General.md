@@ -12,7 +12,7 @@ Consider a spaceship (reference frame $K'$) of length $L_0$ moving at a constant
 
 We define two key events in the Minkowski diagram:
 
-![[General-physics-general1.png]]
+![图示：General physics general1](../../../../assets/maths-physics/general-physics/general-physics-general-1.png)
 
 - **Event A:** Ball starts at the left end.
 
@@ -72,7 +72,7 @@ Imagine a free-falling elevator near the Earth's surface.
 
 ### Gravitational Deflection of Starlight
 
-![[General-physics-general2.png]]
+![图示：General physics general2](../../../../assets/maths-physics/general-physics/general-physics-general-2.png)
 
 General relativity predicts that light from a distant star grazing the Sun will be deflected by an angle $\Delta\theta$:
 
@@ -88,7 +88,7 @@ This calculation yields a deflection of **1.75''** (arcseconds, where **1° = 60
 
 Consider a rotating disk with angular velocity $\omega$ to simulate a gravitational field via fictitious forces.
 
-![[General-physics-general3.png]]
+![图示：General physics general3](../../../../assets/maths-physics/general-physics/general-physics-general-3.png)
 
 - In the rotating frame, the non-inertial centrifugal force is $F_{\text{non-ine}} = m r \omega^2$.
 

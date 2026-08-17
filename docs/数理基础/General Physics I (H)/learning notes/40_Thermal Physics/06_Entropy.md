@@ -32,7 +32,7 @@
 
 ## 2. The Second Law of Thermodynamics (Entropy Statement)
 
-![[General-physics-entropy1.png]]
+![图示：General physics entropy1](../../../../assets/maths-physics/general-physics/general-physics-entropy-1.png)
 
 By analyzing a cycle consisting of an irreversible path ($A \xrightarrow{I} B$) and a reversible return path ($B \xrightarrow{II} A$), we apply the Clausius inequality:
 
@@ -110,7 +110,7 @@ Because entropy is a state function, $\Delta S$ for an irreversible process can 
 
 A Temperature-Entropy (T-S) diagram plots temperature $T$ against entropy $S$.
 
-![[General-physics-entropy2.png]]
+![图示：General physics entropy2](../../../../assets/maths-physics/general-physics/general-physics-entropy-2.png)
 
 - From $dS = \frac{\delta Q}{T}$, we get $\delta Q = T dS$.
 
@@ -122,7 +122,7 @@ A Temperature-Entropy (T-S) diagram plots temperature $T$ against entropy $S$.
 
 A Carnot cycle operates between $T_H$ and $T_L$. Because it consists of two isothermal processes (constant $T$) and two adiabatic processes ($Q=0 \implies$ constant $S$), it forms a perfect rectangle on a T-S diagram bounded by $T_H$, $T_L$, $S_1$, and $S_2$.
 
-![[General-physics-entropy3.png]]
+![图示：General physics entropy3](../../../../assets/maths-physics/general-physics/general-physics-entropy-3.png)
 
 - Total work done equals net heat absorbed (the area of the rectangle): $W = Q_{\text{net}} = \oint T dS = (T_H - T_L)(S_2 - S_1)$
 

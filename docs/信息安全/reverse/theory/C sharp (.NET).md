@@ -70,7 +70,7 @@
 
 ## `C#` 结构（dnSpy）
 
-![[Pasted image 20260209143438.png]]
+![图示：Pasted image 20260209143438](../../../assets/security/reverse/pasted-image-20260209143438.png)
 
 ### 1. 根节点：程序集 (Assembly)
 

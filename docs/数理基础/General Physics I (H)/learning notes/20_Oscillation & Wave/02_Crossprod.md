@@ -6,7 +6,7 @@
 
 **Scenario**: Two masses ($m_1$ and $m_2$, where $m_1 > m_2$) are connected by a string passing over two identical pulleys (radius $R$, moment of inertia $I$). We want to find the accelerations and the three string tensions ($T_1, T_2, T_3$).
 
-![[GP-Crossprod1.png]]
+![图示：GP Crossprod1](../../../../assets/maths-physics/general-physics/gp-crossprod-1.png)
 
 - **Assumptions**: Counter-clockwise rotation is defined as positive ($\odot\hat{\omega}$ fixed by hand; choosing the opposite direction simply introduces a "-" sign, but remains physically correct).
 
@@ -40,7 +40,7 @@ _(Note: If $m_1 = m_2 \implies \alpha = 0$, which is intuitively obvious.)_
 
 ### Example 2: Standard Atwood Machine (Energy Method)
 
-![[GP-Crossprod2.png]]
+![图示：GP Crossprod2](../../../../assets/maths-physics/general-physics/gp-crossprod-2.png)
 
 **Scenario**: A standard one-pulley Atwood machine (pulley $I, R$) is released from rest. Find the velocity $v$ after mass $m_1$ falls by a displacement $h$.
 

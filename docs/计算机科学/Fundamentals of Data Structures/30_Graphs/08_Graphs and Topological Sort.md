@@ -10,7 +10,7 @@
 
 - **Directed Graph (Digraph)**: Edges have direction. $<v_i, v_j> \neq <v_j, v_i>$. $v_i$ is the tail, and $v_j$ is the head.
 
-![[FDS-Graph1.png]]
+![图示：FDS Graph1](../../../assets/computer-science/data-structures/fds-graph-1.png)
 
 - schematic diagram from slides of 何钦铭
 
@@ -32,7 +32,7 @@
 
 - **Directed**: $v_i$ is **adjacent to** $v_j$; $v_j$ is **adjacent from** $v_i$. The edge $<v_i, v_j>$ is **incident on** $v_i$ and $v_j$.
 
-![[FDS-Graph2.png]]
+![图示：FDS Graph2](../../../assets/computer-science/data-structures/fds-graph-2.png)
 
 ### **Subgraphs, Paths, and Cycles**
 
@@ -106,7 +106,7 @@ typedef struct {
 
     - _Solution 2_: Use Adjacency Multilists.
 
-![[FDS-Graph3.png]]
+![图示：FDS Graph3](../../../assets/computer-science/data-structures/fds-graph-3.png)
 
 ```c
 // Node for the linked list representing an edge

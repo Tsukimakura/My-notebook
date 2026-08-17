@@ -32,7 +32,7 @@
 
 DES 算法整体分为三个大阶段：初始置换、16轮迭代加密、逆初始置换。加密与解密使用相同的算法框架，仅子密钥的使用顺序相反。
 
-![[crypto-des.png]]
+![图示：crypto des](../../assets/security/crypto/crypto-des.png)
 
 [图片来源](https://bbs.kanxue.com/upload/attach/200906/247553_jn7g4b8ddlhehhm.jpg) （图中缺失了“初始置换”步骤）
 
@@ -140,7 +140,7 @@ DES 的 16轮迭代采用 Feistel 结构。数据流向公式为：
 
 - **密文窃取 (Ciphertext Stealing)**：用于 ECB 或 CBC 中，处理末尾不足 8字节的数据块而无需标准填充（Padding）的技术。
 
-![[crypto-ciphertext_stealing.png]]
+![图示：crypto ciphertext stealing](../../assets/security/crypto/crypto-ciphertext-stealing.png)
 
  密文窃取模式示意图，来自 [wiki](https://en.wikipedia.org/wiki/Ciphertext_stealing)
 

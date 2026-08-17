@@ -28,7 +28,7 @@ $$
 
 If a system is in translational equilibrium ($\sum \vec{F}_i = 0$) and rotational equilibrium about an origin $O$ ($\sum \vec{\tau}_{i, O} = 0$), then the net torque about any other arbitrary point $O'$ is also zero.
 
-![[GP-Harmonic1.png]]
+![图示：GP Harmonic1](../../../../assets/maths-physics/general-physics/gp-harmonic-1.png)
 
 - schematic diagram from the hand-written notes of Mr. ztWang
 
@@ -106,7 +106,7 @@ Therefore, we can treat the entire gravitational force $M\vec{g}$ as acting at a
 
 A uniform beam of length $L$ and mass $M$ is hinged to a wall and supported by a wire at an angle $\theta$. A person of mass $m$ stands at a distance $d$ from the wall.
 
-![[GP-Harmonic2.png]]
+![图示：GP Harmonic2](../../../../assets/maths-physics/general-physics/gp-harmonic-2.png)
 
 1. **Torque Balance (around the hinge)**:
 
@@ -126,7 +126,7 @@ A uniform ladder of length $L$ and mass $M$ leans against a perfectly smooth wal
 
 - **Method 1 (Standard Torque Balance)**:
 
-	![[GP-Harmonic3.png]]
+	![图示：GP Harmonic3](../../../../assets/maths-physics/general-physics/gp-harmonic-3.png)
 
 	Take the torque around the top of the ladder (point A). The forces at the bottom are the normal force $N_1$ and static friction $\mu_s N_1$. The normal force from the wall is $N_2$.
 
@@ -150,7 +150,7 @@ A uniform ladder of length $L$ and mass $M$ leans against a perfectly smooth wal
 
 	For a body in equilibrium under three non-parallel forces (Gravity, Wall Normal Force, and the Total Floor Reaction), their lines of action must intersect at a single point $D$.
 
-	![[GP-Harmonic4.png]]
+	![图示：GP Harmonic4](../../../../assets/maths-physics/general-physics/gp-harmonic-4.png)
 
     Let $\varphi$ be the angle of the floor reaction force.
 
@@ -174,7 +174,7 @@ A uniform ladder of length $L$ and mass $M$ leans against a perfectly smooth wal
 
 A wheel of radius $R$ and mass $M$ is pulled by a horizontal force $F$ at the top to overcome a step of height $h$.
 
-![[GP-Harmonic5.png]]
+![图示：GP Harmonic5](../../../../assets/maths-physics/general-physics/gp-harmonic-5.png)
 
 - **Q1: Minimal $F$?** Take the torque around the corner of the step.
 
@@ -184,7 +184,7 @@ A wheel of radius $R$ and mass $M$ is pulled by a horizontal force $F$ at the to
 F(2R - h) = Mg \sqrt{R^2 - (R-h)^2} \implies F = Mg\frac{\sqrt{R^2 - (R-h)^2}}{2R - h}
     $$
 
-![[GP-Harmonic6.png]]
+![图示：GP Harmonic6](../../../../assets/maths-physics/general-physics/gp-harmonic-6.png)
 
 - **Q2: Direction of normal force $\vec{N}$ at the corner?**
 
@@ -292,4 +292,4 @@ $$
 
 _Note: The kinetic and potential energies oscillate with a frequency of $2\omega$ (twice the frequency of the position/velocity oscillation), transforming completely into one another twice every full period $T$._
 
-![[GP-Harmonic7.png]]
+![图示：GP Harmonic7](../../../../assets/maths-physics/general-physics/gp-harmonic-7.png)

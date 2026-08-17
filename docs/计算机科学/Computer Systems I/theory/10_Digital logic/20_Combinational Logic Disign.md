@@ -463,11 +463,11 @@ These are the most elementary combinational logic operations, often operating on
 
 4. **Enabling/Disabling:** Using a control signal ($EN$) to either pass the input or block it.
 
-![[sys1-disabled-func-outputs.png]]
+![图示：sys1 disabled func outputs](../../../../assets/computer-science/computer-systems/sys-1-disabled-func-outputs.png)
 
 #### Multiple-bit Rudimentary Functions (Buses)
 
-![[sys1-multi-bit-rudimentary-funcs.png]]
+![图示：sys1 multi bit rudimentary funcs](../../../../assets/computer-science/computer-systems/sys-1-multi-bit-rudimentary-funcs.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -485,7 +485,7 @@ A decoder converts an $n$-bit input code into an $m$-bit output code (where $m \
 
     - **2-to-4-Line Decoder:** Made up of two 1-to-2 decoders and four 2-input AND gates. Outputs map directly to minterms (e.g., $D_0 = \overline{A}_1\overline{A}_0$).
 
-![[sys1-decoders.png]]
+![图示：sys1 decoders](../../../../assets/computer-science/computer-systems/sys-1-decoders.png)
 
 - 图片来自刘海风老师的授课课件
 
@@ -503,7 +503,7 @@ Large decoders can be built hierarchically using smaller decoders.
 
 - _Example (3-to-8 Decoder):_ Uses one 1-to-2 decoder (for $A_2$) and one 2-to-4 decoder (for $A_1, A_0$). Their outputs cross-connect into eight 2-input AND gates.
 
-![[sys1-decoders2.png]]
+![图示：sys1 decoders2](../../../../assets/computer-science/computer-systems/sys-1-decoders-2.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -513,7 +513,7 @@ Large decoders can be built hierarchically using smaller decoders.
 
 - Instead of just activating a designated output line based on an address, it routes the $EN$ signal itself to that specific output line out of the $2^n$ options.
 
-![[sys1-decoders3.png]]
+![图示：sys1 decoders3](../../../../assets/computer-science/computer-systems/sys-1-decoders-3.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -539,7 +539,7 @@ The inverse of a decoder. It takes $2^n$ (or fewer) inputs and compresses them i
 
 ### Basic Encoder Issues
 
-![[sys1-encoders.png]]
+![图示：sys1 encoders](../../../../assets/computer-science/computer-systems/sys-1-encoders.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -547,7 +547,7 @@ The inverse of a decoder. It takes $2^n$ (or fewer) inputs and compresses them i
 
 Solves basic encoder issues by assigning priority to inputs.
 
-![[sys1-encoders2.png]]
+![图示：sys1 encoders2](../../../../assets/computer-science/computer-systems/sys-1-encoders-2.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -571,7 +571,7 @@ A multiplexer is a digital switch that selects information from one of many inpu
 
     - Built using a 1-to-2 decoder, two enabling AND circuits, and an OR gate.
 
-![[sys1-multiplexers.png]]
+![图示：sys1 multiplexers](../../../../assets/computer-science/computer-systems/sys-1-multiplexers.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -579,7 +579,7 @@ A multiplexer is a digital switch that selects information from one of many inpu
 
     - _Width Expansion:_ To select multi-bit vectors (buses) instead of single bits, use multiple MUXs in parallel sharing the same select lines (e.g., a Quad 4-to-1 MUX).
 
-![[sys1-multiplexers2.png]]
+![图示：sys1 multiplexers2](../../../../assets/computer-science/computer-systems/sys-1-multiplexers-2.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -589,19 +589,19 @@ Standard AND-OR logic can be gate-heavy. Alternative transistor-level designs re
 
 1. **Three-State Logic:** Replaces AND-OR gates with three-state buffers, resolving at a single output node. (Reduces gate input cost from 22 down to 18 for a 4-to-1 MUX).
 
-    ![[sys1-multiplexers3.png]]
+    ![图示：sys1 multiplexers3](../../../../assets/computer-science/computer-systems/sys-1-multiplexers-3.png)
 
     - 图片来自刘海风老师授课课件
 
 2. **Distributed Decoding:** Distributing decoding across three-state drivers further reduces cost (Cost = 14).
 
-    ![[sys1-multiplexers4.png]]
+    ![图示：sys1 multiplexers4](../../../../assets/computer-science/computer-systems/sys-1-multiplexers-4.png)
 
     - 图片来自刘海风老师授课课件
 
 3. **Transmission Gates (TG):** Uses CMOS transmission gates for extremely efficient routing (Gate input cost = 8).
 
-![[sys1-multiplexers5.png]]
+![图示：sys1 multiplexers5](../../../../assets/computer-science/computer-systems/sys-1-multiplexers-5.png)
 
 图片来自刘海风老师授课课件
 
@@ -643,7 +643,7 @@ There are two primary approaches to implementing combinational logic with MUXes,
 
         - **Carry ($Y_1$ or $C$):** $I_{0..7} = \{0, 0, 0, 1, 0, 1, 1, 1\}$
 
-![[sys1-multiplexers6.png]]
+![图示：sys1 multiplexers6](../../../../assets/computer-science/computer-systems/sys-1-multiplexers-6.png)
 
 ---
 
@@ -702,7 +702,7 @@ We use $X$ and $Y$ as select lines ($S_1=X, S_0=Y$). We evaluate the outputs $S$
 
     - _(Note: A single NOT gate is used to create the $\overline{Z}$ signal fed into the $S$ multiplexer)._
 
-![[sys1-multiplexers7.png]]
+![图示：sys1 multiplexers7](../../../../assets/computer-science/computer-systems/sys-1-multiplexers-7.png)
 
 ---
 

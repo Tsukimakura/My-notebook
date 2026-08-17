@@ -18,7 +18,7 @@ Solids are NOT perfectly rigid. They undergo deformation when subjected to exter
 
 ### **Types of Stress and Strain**
 
-![[GP-Sound-Wave1.png]]
+![图示：GP Sound Wave1](../../../../assets/maths-physics/general-physics/gp-sound-wave-1.png)
 
 - schematic diagram from the hand-written notes of Mr. ztWang
 
@@ -50,7 +50,7 @@ Solids are NOT perfectly rigid. They undergo deformation when subjected to exter
 
 The relationship between stress and strain ($\Delta L/L$) generally follows these stages:
 
-![[GP-Sound-Wave2.png]]
+![图示：GP Sound Wave2](../../../../assets/maths-physics/general-physics/gp-sound-wave-2.png)
 
 - **Linear Region:** Proportional elastic deformation.
 
@@ -68,7 +68,7 @@ The relationship between stress and strain ($\Delta L/L$) generally follows thes
 
 - They propagate via **wavefronts** expanding outward from a source along **rays**.
 
-![[GP-Sound-Wave3.png]]
+![图示：GP Sound Wave3](../../../../assets/maths-physics/general-physics/gp-sound-wave-3.png)
 
 ### **Speed of Sound**
 
@@ -260,7 +260,7 @@ When the source speed equals or exceeds the speed of sound ($v_S \ge v$):
 
 - **$v_S > v$ (Shock Waves):** The source outpaces the wavefronts. The envelope function of the wavefronts forms a **Mach Cone**.
 
-![[GP-Sound-Wave4.png]]
+![图示：GP Sound Wave4](../../../../assets/maths-physics/general-physics/gp-sound-wave-4.png)
 
 **Mach Cone Geometry:**
 

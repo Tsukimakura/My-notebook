@@ -4,7 +4,7 @@
 
 The Carnot cycle is an idealized thermodynamic cycle consisting of four reversible processes: two isothermal and two adiabatic.
 
-![[General-physics-2nd-law1.png]]
+![图示：General physics 2nd law1](../../../../assets/maths-physics/general-physics/general-physics-2-nd-law-1.png)
 
 **Deriving Carnot Efficiency ($\varepsilon_{\text{Carnot}}$):**
 
@@ -54,7 +54,7 @@ _Note: Efficiency depends **only** on the ratio of the reservoir temperatures._
 
 Operating the Carnot cycle in reverse creates an ideal refrigerator.
 
-![[General-physics-2nd-law2.png]]
+![图示：General physics 2nd law2](../../../../assets/maths-physics/general-physics/general-physics-2-nd-law-2.png)
 
 - Work ($W$) is done **TO** the system.
 

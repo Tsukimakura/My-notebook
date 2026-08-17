@@ -54,7 +54,7 @@ $$
 
 Treating the Earth as a finite-size sphere with uniform density $\rho$ and radius $R_E$:
 
-![[GP-Gravity1.png]]
+![图示：GP Gravity1](../../../../assets/maths-physics/general-physics/gp-gravity-1.png)
 
 - schematic diagram from the hand-written notes of Mr. ztWang
 
@@ -76,7 +76,7 @@ _(Where total mass $M = \rho \cdot \frac{4}{3}\pi R_E^3$)_
 
 Applying the Shell Theorem using solid angles ($d\Omega$):
 
-![[GP-Gravity2.png]]
+![图示：GP Gravity2](../../../../assets/maths-physics/general-physics/gp-gravity-2.png)
 
 - An empty spherical shell contributes **zero** net gravitational force to a point inside it. The forces from opposing sections cancel out ($F_1 = F_2 = \lambda m d\Omega$).
 

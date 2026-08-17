@@ -140,7 +140,7 @@ For $H_2$ ($N=2$), $t=3$, $r=2$, $s=3(2)-5=1 \Rightarrow f = 7$. Theoretically, 
 
 - At extremely high temperatures (~10000 K): Oscillation unlocks ($C_V = \frac{7}{2}R$).
 
-![[General-physics-gas1.png]]
+![图示：General physics gas1](../../../../assets/maths-physics/general-physics/general-physics-gas-1.png)
 
 ## 4. Statistical Mechanics & Probability Distributions
 
@@ -168,7 +168,7 @@ $$
 f(v) = 4\pi \left(\frac{m}{2\pi k_B T}\right)^{3/2} e^{-\frac{m v^2}{2k_B T}} v^2
 $$
 
-![[General-physics-gas2.png]]
+![图示：General physics gas2](../../../../assets/maths-physics/general-physics/general-physics-gas-2.png)
 
 ### Characteristic Speeds
 
@@ -192,7 +192,7 @@ By analyzing the speed distribution function $f(v)$, we can extract three specif
 v_{rms} = \sqrt{\frac{3 k_B T}{m}}
     $$
 
-![[General-physics-gas3.png]]
+![图示：General physics gas3](../../../../assets/maths-physics/general-physics/general-physics-gas-3.png)
 
 **Order of magnitudes:** $v_p < \overline{v} < v_{rms}$
 
@@ -200,7 +200,7 @@ v_{rms} = \sqrt{\frac{3 k_B T}{m}}
 
 As temperature $T$ increases ($T_1 < T_2 < T_3$), the peak of the $f(v)$ curve shifts to the right (higher speeds) and the curve flattens and widens out.
 
-![[General-physics-gas4.png]]
+![图示：General physics gas4](../../../../assets/maths-physics/general-physics/general-physics-gas-4.png)
 
 ## 5. Maxwell-Boltzmann Distribution
 
@@ -212,4 +212,4 @@ $$
 
 **Experimental Verification:** The Maxwell distribution was experimentally verified by Otto Stern in 1920 using an oven emitting particles through slits toward a rotating cylindrical target. Particles with different speeds hit different angular positions on the target, perfectly mapping the theoretical speed distribution curve.
 
-![[General-physics-gas5.png]]
+![图示：General physics gas5](../../../../assets/maths-physics/general-physics/general-physics-gas-5.png)

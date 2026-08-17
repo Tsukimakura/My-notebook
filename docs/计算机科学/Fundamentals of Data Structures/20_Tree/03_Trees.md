@@ -396,7 +396,7 @@ Furthermore, performing an iterative in-order traversal traditionally requires a
 
     - The right thread of the very last node in the in-order sequence points to the head node.
 
-![[fds-threaded-binary-trees.png]]
+![图示：fds threaded binary trees](../../../assets/computer-science/data-structures/fds-threaded-binary-trees.png)
 
 - diagram from the courseware of Mr. He qinming (何钦铭)
 

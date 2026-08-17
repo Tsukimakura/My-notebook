@@ -28,7 +28,7 @@
 
 ### **2.1 几何意义上的点加法 (Point Addition)**
 
-![[crypto-ecc1.png]]
+![图示：crypto ecc1](../../assets/security/crypto/crypto-ecc-1.png)
 
 [图片来源](https://www.splunk.com/content/dam/splunk-blogs/images/media_1504df7a61aad862e30695558f664aa63aa58a51e.avif?width=2000&format=webply&optimize=medium)
 

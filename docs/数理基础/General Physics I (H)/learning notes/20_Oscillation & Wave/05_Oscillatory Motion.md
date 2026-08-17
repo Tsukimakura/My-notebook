@@ -28,7 +28,7 @@ A point mass $m$ attached to a massless string of length $L$.
 
 An extended rigid body oscillating about a pivot point at a distance $d$ from its center of mass.
 
-![[GP-Oscillatory-Motion.png]]
+![图示：GP Oscillatory Motion](../../../../assets/maths-physics/general-physics/gp-oscillatory-motion.png)
 
 - schematic diagram from the hand-written notes of Mr. ztWang
 
@@ -42,7 +42,7 @@ An extended rigid body oscillating about a pivot point at a distance $d$ from it
 
 ### Torsion Pendulum
 
-![[GP-Oscillatory-Motion2.png]]
+![图示：GP Oscillatory Motion2](../../../../assets/maths-physics/general-physics/gp-oscillatory-motion-2.png)
 
 A disc suspended by a wire that twists.
 
@@ -88,7 +88,7 @@ Motion reduced by an external force (e.g., fluid resistance).
 F_{net} = -kx - bv = ma \Rightarrow m\frac{d^2x}{dt^2} + b\frac{dx}{dt} + kx = 0
     $$
 
-![[GP-Oscillatory-Motion3.png]]
+![图示：GP Oscillatory Motion3](../../../../assets/maths-physics/general-physics/gp-oscillatory-motion-3.png)
 
 ### Damping Regimes
 
@@ -98,7 +98,7 @@ F_{net} = -kx - bv = ma \Rightarrow m\frac{d^2x}{dt^2} + b\frac{dx}{dt} + kx = 0
 
         - Damped frequency: $\omega' \equiv \sqrt{\frac{k}{m} - \left(\frac{b}{2m}\right)^2}$
 
-    ![[GP-Oscillatory-Motion4.png]]
+    ![图示：GP Oscillatory Motion4](../../../../assets/maths-physics/general-physics/gp-oscillatory-motion-4.png)
 
 2. **Overdamped** ($\frac{b}{2m} > \sqrt{\frac{k}{m}}$):
 
@@ -198,7 +198,7 @@ k = \left.\frac{d^2U}{dx^2}\right|_{x_0} = \frac{72\epsilon}{x_0^2}
 
 Two masses $m$ connected by a central spring $k$ and bound to walls by springs $k'$.
 
-![[GP-Oscillatory-Motion5.png]]
+![图示：GP Oscillatory Motion5](../../../../assets/maths-physics/general-physics/gp-oscillatory-motion-5.png)
 
 - **Equations of motion:**
 
@@ -262,4 +262,4 @@ A molecule with $N$ atoms has a total of **$3N$ degrees of freedom (modes)**.
 
 ### Examples
 
-![[GP-Oscillatory-Motion6.png]]
+![图示：GP Oscillatory Motion6](../../../../assets/maths-physics/general-physics/gp-oscillatory-motion-6.png)

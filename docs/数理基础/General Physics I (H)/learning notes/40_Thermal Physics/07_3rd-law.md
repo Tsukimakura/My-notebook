@@ -38,11 +38,11 @@ It is impossible for any process, no matter how idealized, to reduce the entropy
 
 The Third Law and the Unattainability Principle are deeply connected. We can visualize this using a $T$-$S$ diagram detailing alternating isothermal and adiabatic steps (a "zigzag" path used to cool a system):
 
-![[General-physics-3rd-law1.png]]
+![图示：General physics 3rd law1](../../../../assets/maths-physics/general-physics/general-physics-3-rd-law-1.png)
 
 - **If the 3rd Law is Violated:** Entropy at $T=0$ is not a well-defined single constant. Different parameter paths would hit the $T=0$ axis at different entropy values. In this scenario, a system could theoretically reach $T=0$ in a finite number of cooling steps, which directly breaks the Unattainability Principle.
 
-![[General-physics-3rd-law2.png]]
+![图示：General physics 3rd law2](../../../../assets/maths-physics/general-physics/general-physics-3-rd-law-2.png)
 
 - **If the 3rd Law is Respected:** All parameter paths converge to the exact same entropy value ($S_0$) at $T=0$. Because the curves converge, the alternating cooling steps become infinitely smaller. Consequently, it requires an infinite number of steps to reach $T=0$, strictly upholding the Unattainability Principle.
 

@@ -205,7 +205,7 @@ Find the CM acceleration ($a_{cm}$) of a ball rolling down an incline of angle $
 
 A ball (mass $m_b$, initial velocity $v_{bi}$) strikes a freely pivoting stick (mass $M$) at distance $r$ from the pivot. Find final velocities $v_{bf}$ (ball), $v_s$ (stick CM), and $\omega$ (stick angular velocity).
 
-![[GP-Angular-Momentum1.png]]
+![图示：GP Angular Momentum1](../../../../assets/maths-physics/general-physics/gp-angular-momentum-1.png)
 
 - schematic diagram from the hand-written notes of Mr. ztWang
 
@@ -221,7 +221,7 @@ Set up a system of three conservation equations:
 
 A solid cylinder ($I = \frac{1}{2}MR^2$) is placed on a surface with initial forward velocity $V_0$ and initial backspin $\omega_0$. Kinetic friction $\mu Mg$ acts to normalize the motion. Find the time $t$ when slipping stops, and the final pure-rolling velocity $V_{cm}$.
 
-![[GP-Angular-Momentum.png]]
+![图示：GP Angular Momentum](../../../../assets/maths-physics/general-physics/gp-angular-momentum.png)
 
 1. Linear deceleration: $V_{cm} = V_0 - \mu gt$
 
@@ -243,7 +243,7 @@ $$
 
 A fast-spinning gyroscope tilted at angle $\theta$ experiences a gravitational torque.
 
-![[GP-Angular-Momentum2.png]]
+![图示：GP Angular Momentum2](../../../../assets/maths-physics/general-physics/gp-angular-momentum-2.png)
 
 - Angular momentum is dominated by the fast spin: $\vec{L} \approx \sum_i \vec{r}_i' \times \vec{p}_i'$ (CM orbital term $\vec{r}_{cm} \times \vec{p}_{cm} \approx 0$).
 

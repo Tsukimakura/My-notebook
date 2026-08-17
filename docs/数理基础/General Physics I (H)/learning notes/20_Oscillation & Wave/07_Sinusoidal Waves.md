@@ -58,7 +58,7 @@ $$
 
 _Note:_ While displacement $y \sim \sin(\dots)$, the kinetic energy rate $\frac{dK}{dt} \sim \cos^2(\dots)$. The kinetic energy travels along with the wave.
 
-![[GP-Sinusoidal-Waves1.png]]
+![图示：GP Sinusoidal Waves1](../../../../assets/maths-physics/general-physics/gp-sinusoidal-waves-1.png)
 
 - schematic diagram from the hand-written notes of Mr. ztWang
 
@@ -78,7 +78,7 @@ $$
 
 The string is most stretched at $y = 0$ (yielding maximum potential energy) and least stretched at the peaks $y = \pm A$ (yielding minimum potential energy).
 
-![[GP-Sinusoidal-Waves2.png]]
+![图示：GP Sinusoidal Waves2](../../../../assets/maths-physics/general-physics/gp-sinusoidal-waves-2.png)
 
 - _Key Insight:_ The energy distribution for kinetic and potential energy is exactly the SAME!
 
@@ -152,7 +152,7 @@ $$
 
 Where $\omega_{avg} = \frac{\omega_1 + \omega_2}{2}$ and $\Delta\omega = \omega_1 - \omega_2$.
 
-![[GP-Sinusoidal-Waves3.png]]
+![图示：GP Sinusoidal Waves3](../../../../assets/maths-physics/general-physics/gp-sinusoidal-waves-3.png)
 
 Assuming $\omega_{avg} \gg |\Delta\omega|$ (frequencies are close, $\omega_1 \approx \omega_2$):
 
@@ -180,7 +180,7 @@ $$
 
 Based on the $\omega$ vs. $k$ curve:
 
-![[GP-Sinusoidal-Waves4.png]]
+![图示：GP Sinusoidal Waves4](../../../../assets/maths-physics/general-physics/gp-sinusoidal-waves-4.png)
 
 - $v_g = v_p$: Non-dispersive
 
@@ -204,7 +204,7 @@ $$
 y = y_1 + y_2 = 2A \sin(kx) \cos(\omega t)
 $$
 
-![[GP-Sinusoidal-Waves5.png]]
+![图示：GP Sinusoidal Waves5](../../../../assets/maths-physics/general-physics/gp-sinusoidal-waves-5.png)
 
 **Characteristics:**
 
@@ -220,7 +220,7 @@ $$
 
 **Harmonic Series for String Fixed at Both Ends:**
 
-![[GP-Sinusoidal-Waves6.png]]
+![图示：GP Sinusoidal Waves6](../../../../assets/maths-physics/general-physics/gp-sinusoidal-waves-6.png)
 
 For a string of length $L$:
 
@@ -242,7 +242,7 @@ For a string of length $L$:
 
 Any periodic function $f(t)$ with period $T = \frac{2\pi}{\omega}$ (meaning $f(t) = f(t+T)$) can be expanded into a Fourier series. For example, a square wave of period $T$ is constructed from harmonics with periods $T, \frac{T}{3}, \frac{T}{5}, \dots$
 
-![[GP-Sinusoidal-Waves7.png]]
+![图示：GP Sinusoidal Waves7](../../../../assets/maths-physics/general-physics/gp-sinusoidal-waves-7.png)
 
 **Fourier Series Expansion:**
 

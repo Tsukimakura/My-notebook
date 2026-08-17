@@ -50,7 +50,7 @@ j_q \equiv \frac{dQ}{A dt} = -k \frac{dT}{dx}
 
     - The negative sign indicates that the direction of heat flow ($j_q$) is opposite to the temperature gradient ($\frac{dT}{dx}$).
 
-![[General-physics-heat1.png]]
+![图示：General physics heat1](../../../../assets/maths-physics/general-physics/general-physics-heat-1.png)
 
 - **Example Calculation (Two-Layer Slab):** Given two adjacent materials with thicknesses $L_1, L_2$ and conductivities $k_1, k_2$, placed between outer temperatures $T_1$ and $T_2$, the interface temperature $T_3$ and steady-state heat current are found by equating the heat flux through both layers:
 
@@ -106,7 +106,7 @@ l = \frac{k_B T}{\sqrt{2} \pi d^2 p}
 
 We can derive the macroscopic thermal conductivity ($k$) from microscopic kinetic theory by analyzing molecular exchange across an imaginary plane.
 
-![[General-physics-heat2.png]]
+![图示：General physics heat2](../../../../assets/maths-physics/general-physics/general-physics-heat-2.png)
 
 - **Temperature Gradient Setup:** Consider molecules exchanging between planes separated by a distance of $l$ (mean free path).
 

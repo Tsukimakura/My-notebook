@@ -122,4 +122,4 @@ V = L^3 = (L_0 + \Delta L)^3 \approx L_0^3 [1 + 3\alpha \Delta T] \Rightarrow \b
 
     - **$P-V$ Isotherms:** At lower temperatures, real gases exhibit non-ideal "dips" in their $P-V$ curves corresponding to phase transitions (gas to liquid), whereas at high temperatures they approach the smooth hyperbolic curves of ideal gases.
 
-![[General-physics-concepts1.png]]
+![图示：General physics concepts1](../../../../assets/maths-physics/general-physics/general-physics-concepts-1.png)

@@ -52,7 +52,7 @@ Markdown 是一种轻量级标记语言，由 John Gruber 于 2004 年创建。�
 
 ```markdown
 [链接文字](https://example.com)
-![图片描述](图片路径或URL)
+![图片描述](https://example.com/image.png)
 ```
 
 ## 代码

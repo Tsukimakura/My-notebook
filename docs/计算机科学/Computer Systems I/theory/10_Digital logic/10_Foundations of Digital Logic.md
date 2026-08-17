@@ -80,7 +80,7 @@ Gates can be scaled to accept multiple inputs while following the same underlyin
 
 - **AND4:** A 4-input AND gate. Equation: $Y = ABCD$. Output is 1 only if A, B, C, and D are all 1.
 
-![[Pasted image 20260314144802.png]]
+![图示：Pasted image 20260314144802](../../../../assets/computer-science/computer-systems/pasted-image-20260314144802.png)
 
 ---
 
@@ -178,7 +178,7 @@ NM_L = V_{IL} - V_{OL}
 
     - _Inertial Delay:_ Accounts for the fact that a circuit requires an input to be held for a minimum duration to register. It rejects very narrow voltage spikes ("pulses") shorter than a specified _rejection time_.
 
-![[courseware_delay_model.png]]
+![图示：courseware delay model](../../../../assets/computer-science/computer-systems/courseware-delay-model.png)
 
 - 图片来自刘海风老师的课件
 
@@ -370,7 +370,7 @@ Before we can optimize a circuit, we need formal metrics to measure its "cost."
 
 While Boolean algebra is useful, it is often a trial-and-error process. Karnaugh Maps provide a systematic, graphical method for optimizing logic functions (usually up to 4 or 5 variables).
 
-![[courseware_K-map.png]]
+![图示：courseware K map](../../../../assets/computer-science/computer-systems/courseware-k-map.png)
 
 - 图片来自刘海风老师的授课课件
 

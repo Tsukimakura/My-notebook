@@ -10,7 +10,7 @@
 
     - Geometrically, work is the area under the curve on a $P$-$V$ diagram.
 
-	![[General-physics-1st-law1.png]]
+	![图示：General physics 1st law1](../../../../assets/maths-physics/general-physics/general-physics-1-st-law-1.png)
 
     - **Sign Convention:**
 
@@ -20,7 +20,7 @@
 
     - **Path Dependence:** The amount of work done depends on the path taken from the initial state ($i$) to the final state ($f$). For example, expanding at a constant high pressure yields more work than dropping the pressure first and then expanding ($W^{(a)} < W^{(c)} < W^{(b)}$).
 
-	![[General-physics-1st-law2.png]]
+	![图示：General physics 1st law2](../../../../assets/maths-physics/general-physics/general-physics-1-st-law-2.png)
 
 - **The First Law of Thermodynamics:**
 
@@ -56,7 +56,7 @@
 
 - **Adiabatic:** $Q = 0$ (No heat transfer).
 
-![[General-physics-1st-law3.png]]
+![图示：General physics 1st law3](../../../../assets/maths-physics/general-physics/general-physics-1-st-law-3.png)
 
 ## 3. Work in Specific Quasi-Static Processes
 
@@ -102,7 +102,7 @@ Governing equation: **$P V^\gamma = \text{constant}$** (where $\gamma \equiv \fr
 
 - **Cyclic Process:**
 
-	![[General-physics-1st-law4.png]]
+	![图示：General physics 1st law4](../../../../assets/maths-physics/general-physics/general-physics-1-st-law-4.png)
 
 	- The net change in internal energy over one cycle is zero ($\Delta U = 0$).
 
@@ -128,7 +128,7 @@ Governing equation: **$P V^\gamma = \text{constant}$** (where $\gamma \equiv \fr
 
 Commonly used in petrol engines.
 
-![[General-physics-1st-law5.png]]
+![图示：General physics 1st law5](../../../../assets/maths-physics/general-physics/general-physics-1-st-law-5.png)
 
 - **Four Strokes:**
 
@@ -158,7 +158,7 @@ Commonly used in petrol engines.
 
 Commonly used in diesel engines.
 
-![[General-physics-1st-law6.png]]
+![图示：General physics 1st law6](../../../../assets/maths-physics/general-physics/general-physics-1-st-law-6.png)
 
 - **Key Difference:** Heat absorption ($Q_H$) occurs via an _isobaric_ process ($B \rightarrow C$), while heat rejection ($Q_L$) remains _isochoric_ ($D \rightarrow A$).
 
@@ -182,6 +182,6 @@ Commonly used in diesel engines.
 
 Commonly used in ship engines.
 
-![[General-physics-1st-law7.png]]
+![图示：General physics 1st law7](../../../../assets/maths-physics/general-physics/general-physics-1-st-law-7.png)
 
 - **Cycle structure:** Heat addition is split into two sequential steps—an _isochoric_ process followed by an _isobaric_ process—bridged by adiabatic expansion and compression, concluding with an isochoric heat rejection.

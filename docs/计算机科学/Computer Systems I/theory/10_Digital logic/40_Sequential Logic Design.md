@@ -30,7 +30,7 @@ A sequential circuit's output depends not only on the current inputs but also on
 
         - $Output = h(\text{State})$
 
-![[sys1-sequential-logic1.png]]
+![图示：sys1 sequential logic1](../../../../assets/computer-science/computer-systems/sys-1-sequential-logic-1.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -64,9 +64,9 @@ State is maintained by introducing feedback loops into combinational circuits.
 
     - **Unstable State / Oscillator:** An inverter placed in a feedback path (e.g., $Y$ connected to an inverter that feeds back into the logic generating $Y$) creates an unstable circuit that continuously toggles. This acts as a crude clock.
 
-![[sys1-gate-delay.png]]
+![图示：sys1 gate delay](../../../../assets/computer-science/computer-systems/sys-1-gate-delay.png)
 
-![[sys1-circuit-delay.png]]
+![图示：sys1 circuit delay](../../../../assets/computer-science/computer-systems/sys-1-circuit-delay.png)
 
 - **Basic $\bar{S}-\bar{R}$ Latch (NAND-based):**
 
@@ -82,7 +82,7 @@ State is maintained by introducing feedback loops into combinational circuits.
 
         - $S = 0, R = 0$: **Forbidden/Unstable**. Both $Q$ and $\bar{Q}$ go high ($1$), violating the complementary output rule.
 
-![[sys1-latches1.png]]
+![图示：sys1 latches1](../../../../assets/computer-science/computer-systems/sys-1-latches-1.png)
 
 - **Basic $S-R$ Latch (NOR-based):**
 
@@ -98,7 +98,7 @@ State is maintained by introducing feedback loops into combinational circuits.
 
         - $S = 1, R = 1$: **Forbidden/Unstable**. Both $Q$ and $\bar{Q}$ go low ($0$), violating the complementary output rule.
 
-![[sys1-latches2.png]]
+![图示：sys1 latches2](../../../../assets/computer-science/computer-systems/sys-1-latches-2.png)
 
 - **Clocked $S-R$ Latch:**
 
@@ -116,7 +116,7 @@ State is maintained by introducing feedback loops into combinational circuits.
 
         - $C = 1, S = 1, R = 1$: **Undefined**. The forbidden state issue still exists if both inputs are asserted while the clock is high.
 
-![[sys1-latches3.png]]
+![图示：sys1 latches3](../../../../assets/computer-science/computer-systems/sys-1-latches-3.png)
 
 - **D Latch (Data Latch):**
 
@@ -136,15 +136,15 @@ State is maintained by introducing feedback loops into combinational circuits.
 
 	    - **Alternative Implementation:** Can also be designed highly efficiently at the transistor level using **Transmission Gates (TG)** instead of standard logic gates.
 
-![[sys1-latches4.png]]
+![图示：sys1 latches4](../../../../assets/computer-science/computer-systems/sys-1-latches-4.png)
 
-![[sys1-latches5.png]]
+![图示：sys1 latches5](../../../../assets/computer-science/computer-systems/sys-1-latches-5.png)
 
 ## 4. Flip-Flops and Timing Problems
 
 - **The Latch Timing Problem:** In a standard latch with a feedback loop, if $C=1$ for too long, the output $Y$ can continuously change based on the loop delay. The desired behavior is for $Y$ to change _only once_ per clock pulse.
 
-![[sys1-latch-timing-problem.png]]
+![图示：sys1 latch timing problem](../../../../assets/computer-science/computer-systems/sys-1-latch-timing-problem.png)
 
 - **Solution:** Break the inner path from input to output within the storage element.
 
@@ -156,9 +156,9 @@ State is maintained by introducing feedback loops into combinational circuits.
 
 	    - **"1s Catching" Problem:** S and/or R are permitted to change while $C=1$. If the master erroneously catches a '1' pulse (e.g., a glitch on S or R), it passes this incorrect state to the slave. This forces the circuit to be slower.
 
-![[sys1-master-slave-flip-flop.png]]
+![图示：sys1 master slave flip flop](../../../../assets/computer-science/computer-systems/sys-1-master-slave-flip-flop.png)
 
-![[sys1-master-slave-flip-flop2.png]]
+![图示：sys1 master slave flip flop2](../../../../assets/computer-science/computer-systems/sys-1-master-slave-flip-flop-2.png)
 
 - Another solution is an edge-triggered flip-flop.
 
@@ -182,11 +182,11 @@ Edge-triggering solves the "1s catching" problem of the master-slave configurati
 
 **Negative-Edge Triggered Flip-Flop:**
 
-![[sys1-edge-triggered-flip-flop.png]]
+![图示：sys1 edge triggered flip flop](../../../../assets/computer-science/computer-systems/sys-1-edge-triggered-flip-flop.png)
 
 **Positive-Edge Triggered Flip-Flop:**
 
-![[sys1-edge-triggered-flip-flop2.png]]
+![图示：sys1 edge triggered flip flop2](../../../../assets/computer-science/computer-systems/sys-1-edge-triggered-flip-flop-2.png)
 
 ## 6. Other Flip-Flop Types
 
@@ -198,11 +198,11 @@ Edge-triggering solves the "1s catching" problem of the master-slave configurati
 
     - Implementation: Uses an edge-triggered D flip-flop as its core to avoid 1s catching. $D = J\bar{Q} + \bar{K}Q$.
 
-![[sys1-JK-Flip-Flop.png]]
+![图示：sys1 JK Flip Flop](../../../../assets/computer-science/computer-systems/sys-1-jk-flip-flop.png)
 
 - reference: https://media.geeksforgeeks.org/wp-content/uploads/20240912114055/JK-Flip-Flop.png
 
-![[sys1-J-K-flip-flop.png]]
+![图示：sys1 J K flip flop](../../../../assets/computer-science/computer-systems/sys-1-j-k-flip-flop.png)
 
 - **T (Toggle) Flip-Flop:**
 
@@ -216,17 +216,17 @@ Edge-triggering solves the "1s catching" problem of the master-slave configurati
 
     - Implementation: Often built using a D flip-flop and an XOR gate ($D = T \oplus Q$). Cannot be initialized to a known state using the T input alone; requires an asynchronous reset.
 
-![[sys1-T-flip-flop.png]]
+![图示：sys1 T flip flop](../../../../assets/computer-science/computer-systems/sys-1-t-flip-flop.png)
 
 ## 7. Direct Inputs and Standard Symbols
 
 - **Direct Inputs (Asynchronous Initialization):**
 
-![[sys1-direct-inputs.png]]
+![图示：sys1 direct inputs](../../../../assets/computer-science/computer-systems/sys-1-direct-inputs.png)
 
 - **Standard Symbols:**
 
-![[sys1-storage-element-symbols.png]]
+![图示：sys1 storage element symbols](../../../../assets/computer-science/computer-systems/sys-1-storage-element-symbols.png)
 
 ## 8. Synchronous Sequential Circuit Analysis
 
@@ -240,7 +240,7 @@ Sequential circuit analysis is the procedure of determining the behavior of a gi
 
     - **Output Equation:** The output at time $(t)$, formulated as a function of the present state and (sometimes) present inputs.
 
-![[sys1-sequential-circuit-general-mode.png]]
+![图示：sys1 sequential circuit general mode](../../../../assets/computer-science/computer-systems/sys-1-sequential-circuit-general-mode.png)
 
 - **Standard Analysis Procedure:**
 
@@ -256,7 +256,7 @@ Sequential circuit analysis is the procedure of determining the behavior of a gi
 
     6. Verify correctness, check for **self-recovery capability** (ensuring unused or illegal states naturally transition back into the valid operational sequence), and analyze timing parameters.
 
-![[sys1-sequential-analysis-example1.png]]
+![图示：sys1 sequential analysis example1](../../../../assets/computer-science/computer-systems/sys-1-sequential-analysis-example-1.png)
 
 - **State Table Characteristics:**
 
@@ -266,9 +266,9 @@ Sequential circuit analysis is the procedure of determining the behavior of a gi
 
     - _Alternative Format:_ Can be represented as a 2-dimensional table matching a K-map layout (Present state rows and input columns in Gray code order) for easier logic minimization.
 
-![[sys1-sequential-analysis-example2.png]]
+![图示：sys1 sequential analysis example2](../../../../assets/computer-science/computer-systems/sys-1-sequential-analysis-example-2.png)
 
-![[sys1-sequential-analysis-example3.png]]
+![图示：sys1 sequential analysis example3](../../../../assets/computer-science/computer-systems/sys-1-sequential-analysis-example-3.png)
 
 - **State Diagrams:**
 
@@ -282,7 +282,7 @@ Sequential circuit analysis is the procedure of determining the behavior of a gi
 
     - **Output Labels** are placed either inside the state circle or on the directed arc, depending on the FSM model used.
 
-![[sys1-sequential-analysis-state-diagram.png]]
+![图示：sys1 sequential analysis state diagram](../../../../assets/computer-science/computer-systems/sys-1-sequential-analysis-state-diagram.png)
 
 ## 9. Finite State Machine (FSM) Models & State Reduction
 
@@ -296,11 +296,11 @@ Sequential circuit analysis is the procedure of determining the behavior of a gi
 
 - Mealy Model has been shown above, a Moore Model is like:
 
-![[sys1-moore-model.png]]
+![图示：sys1 moore model](../../../../assets/computer-science/computer-systems/sys-1-moore-model.png)
 
 - mixed:
 
-![[sys1-mixed-FSM.png]]
+![图示：sys1 mixed FSM](../../../../assets/computer-science/computer-systems/sys-1-mixed-fsm.png)
 
 - **Equivalent States & State Reduction:**
 
@@ -312,9 +312,9 @@ Sequential circuit analysis is the procedure of determining the behavior of a gi
 
     - Equivalent states can be consolidated into a single state in the state diagram without changing the circuit's external behavior.
 
-![[sys1-equivalent-state-example1.png]]
+![图示：sys1 equivalent state example1](../../../../assets/computer-science/computer-systems/sys-1-equivalent-state-example-1.png)
 
-![[sys1-equivalent-state-example2.png]]
+![图示：sys1 equivalent state example2](../../../../assets/computer-science/computer-systems/sys-1-equivalent-state-example-2.png)
 
 ## 10. Circuit and System Level Timing
 
@@ -334,7 +334,7 @@ In synchronous systems, timing is critical. If the clock period is too short, da
 
     - $t_{px}$ or $t_{pd}$ **(Propagation Delay):** Measured from the clock edge that triggers the state change to the actual output change.
 
-![[sys1-flip-flop-timing-parameters.png]]
+![图示：sys1 flip flop timing parameters](../../../../assets/computer-science/computer-systems/sys-1-flip-flop-timing-parameters.png)
 
 - **System Level Timing Equations:**
 
@@ -356,7 +356,7 @@ t_p = t_{slack} + (t_{pd,FF} + t_{pd,COMB} + t_s)
 t_p \ge \max(t_{pd,FF} + t_{pd,COMB} + t_s)
         $$
 
-![[sys1-sequential-analysis-systemLevelTiming.png]]
+![图示：sys1 sequential analysis systemLevelTiming](../../../../assets/computer-science/computer-systems/sys-1-sequential-analysis-system-level-timing.png)
 
 - **Performance Comparison (Edge-Triggered vs. Master-Slave):**
 

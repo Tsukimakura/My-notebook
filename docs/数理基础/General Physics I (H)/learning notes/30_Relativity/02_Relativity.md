@@ -40,7 +40,7 @@ $$
 
 A Minkowski diagram provides a geometric visualization of special relativity in spacetime.
 
-![[General-physics-relativity1.png]]
+![图示：General physics relativity1](../../../../assets/maths-physics/general-physics/general-physics-relativity-1.png)
 
 - In the $K$ frame, the axes are strictly orthogonal ($ct$ and $x$).
 
@@ -48,11 +48,11 @@ A Minkowski diagram provides a geometric visualization of special relativity in 
 
 - If the train were moving in the opposite direction (speed $-v$), the $ct'$ and $x'$ axes would skew outward.
 
-![[General-physics-relativity2.png]]
+![图示：General physics relativity2](../../../../assets/maths-physics/general-physics/general-physics-relativity-2.png)
 
 **Consistency Check:** Observe the origin $O'$ of the $K'$ frame at time $t$ in the $K$ frame. Its coordinates in $K$ are $\{ct, vt\}$. Applying the Lorentz matrix:
 
-![[General-physics-relativity3.png]]
+![图示：General physics relativity3](../../../../assets/maths-physics/general-physics/general-physics-relativity-3.png)
 
 $$
 \begin{pmatrix} ct' \\ x' \end{pmatrix} = \begin{pmatrix} \gamma & -\beta\gamma \\ -\beta\gamma & \gamma \end{pmatrix} \begin{pmatrix} ct \\ vt \end{pmatrix} = \begin{pmatrix} \gamma(ct - \beta vt) \\ \gamma(- \beta ct + vt) \end{pmatrix}
@@ -198,7 +198,7 @@ An **event** in relativity is defined by a set of coordinates $\{t, x, y, z\}$. 
 
 In a Minkowski diagram, simultaneous events in frame $K$ (e.g., events $A$ and $B$) lie on a line parallel to the $x$-axis ($t_A = t_B$). However, when viewed from the $K'$ frame, these events project onto different points on the $ct'$ axis, meaning $t'_A \neq t'_B$.
 
-![[General-physics-relativity4.png]]
+![图示：General physics relativity4](../../../../assets/maths-physics/general-physics/general-physics-relativity-4.png)
 
 ### 5.1 Thought Experiment: Light Source on a Train
 
@@ -258,7 +258,7 @@ Calculating the differences in $K$:
 
 Thus, $\frac{cT}{D} = \beta = \frac{v}{c} \implies T = \frac{v}{c^2}D$.
 
-![[General-physics-relativity5.png]]
+![图示：General physics relativity5](../../../../assets/maths-physics/general-physics/general-physics-relativity-5.png)
 
 _(Note: As shown in the Minkowski diagram, the slope of the line connecting two events simultaneous in $K'$ is $\tan\theta = \frac{v}{c}$, directly yielding $\frac{cT}{D} = \frac{v}{c}$. This geometric relation holds universally, even if the objects are massive balls moving at speed $u$ instead of photons.)_
 
@@ -470,7 +470,7 @@ $$
 
 Notice that $x_A = \frac{\gamma}{2} L_0$. It is **NOT** $\frac{\gamma^{-1}}{2} L_0$. You cannot simply divide the contracted length by 2 to find the coordinate, because of the relativity of simultaneity.
 
-![[General-physics-relativity6.png]]
+![图示：General physics relativity6](../../../../assets/maths-physics/general-physics/general-physics-relativity-6.png)
 
 **Verifying Length Contraction:**
 
@@ -524,7 +524,7 @@ The interval is mathematically proven to be invariant across all inertial frames
 
 The invariant interval $s^2$ classifies the causal relationship between two events. Plotted on a Minkowski diagram, the light cones ($s^2 = 0$) define the boundaries.
 
-![[General-physics-relativity7.png]]
+![图示：General physics relativity7](../../../../assets/maths-physics/general-physics/general-physics-relativity-7.png)
 
 - **Timelike Separation ($s^2 > 0$):**
 

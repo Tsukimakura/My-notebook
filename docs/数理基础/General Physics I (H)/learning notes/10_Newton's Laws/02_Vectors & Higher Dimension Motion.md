@@ -118,7 +118,7 @@ This section defines the dot product and how it behaves in Cartesian versus non-
 
 ## 4. Alternative Coordinate Systems
 
-![[Pasted image 20260307231752.png]]
+![图示：Pasted image 20260307231752](../../../../assets/maths-physics/general-physics/pasted-image-20260307231752.png)
 
 ---
 

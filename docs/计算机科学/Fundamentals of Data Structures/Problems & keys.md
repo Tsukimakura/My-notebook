@@ -431,7 +431,7 @@ If you were to initialize `count[S] = 0`, every subsequent assignment or additio
 
 **Question:** The maximum flow in the network of the given Figure is:
 
-![[FDS-Problem-figure.png]]
+![图示：FDS Problem figure](../../assets/computer-science/data-structures/fds-problem-figure.png)
 
 - **Answer:** **A. 104**
 

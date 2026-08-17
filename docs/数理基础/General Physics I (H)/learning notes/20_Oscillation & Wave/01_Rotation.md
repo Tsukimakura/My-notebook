@@ -98,7 +98,7 @@ $$
 \tau = (F \sin\phi) r = F d
 $$
 
-![[GP-Rotation1.png]]
+![图示：GP Rotation1](../../../../assets/maths-physics/general-physics/gp-rotation-1.png)
 
 - schematic diagram from the hand-written notes of Mr. ztWang
 
@@ -210,7 +210,7 @@ $$
 
 ### Example 1: Discrete Point Masses
 
-![[GP-Rotation2.png]]
+![图示：GP Rotation2](../../../../assets/maths-physics/general-physics/gp-rotation-2.png)
 
 Four masses on a cross structure (masses $M$ at distance $a$ on x-axis; masses $m$ at distance $b$ on y-axis):
 
@@ -238,7 +238,7 @@ I = \int_{0}^{L} x^2 (\lambda dx) = \lambda \left[ \frac{1}{3}x^3 \right]_{0}^{L
 
 ### Example 3: Spherical Shell (Axis through center)
 
-![[GP-Rotation3.png]]
+![图示：GP Rotation3](../../../../assets/maths-physics/general-physics/gp-rotation-3.png)
 
 Mass $M$, Radius $R$. Area density $\sigma = \frac{M}{4\pi R^2}$.
 
@@ -304,7 +304,7 @@ $$
 
 **Scenario**: A uniform rod of mass $M$ and length $L$ is pivoted at its left end. It is released from a horizontal position.
 
-![[GP-Rotation4.png]]
+![图示：GP Rotation4](../../../../assets/maths-physics/general-physics/gp-rotation-4.png)
 
 **Questions**: What is the initial angular acceleration $\alpha$? What is the initial linear acceleration of the right end?
 

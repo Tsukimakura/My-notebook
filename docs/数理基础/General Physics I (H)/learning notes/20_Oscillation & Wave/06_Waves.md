@@ -84,13 +84,13 @@ $$
 
 - **Fixed Boundary**: When a wave pulse hits a fixed wall, it exerts a force on the wall, and the wall exerts an equal and opposite downward force on the string (Newton's Third Law). As a result, the **pulse inverts upon reflection**.
 
-![[GP-Waves1.png]]
+![图示：GP Waves1](../../../../assets/maths-physics/general-physics/gp-waves-1.png)
 
 - schematic diagram from the hand-written notes of Mr. ztWang
 
 - **Free Boundary**: When a string is attached to a ring that slides freely on a frictionless vertical rod, the vertical force is zero. The **pulse does not invert upon reflection**.
 
-![[GP-Waves2.png]]
+![图示：GP Waves2](../../../../assets/maths-physics/general-physics/gp-waves-2.png)
 
 ### Transmission Between Different Media
 
@@ -98,7 +98,7 @@ $$
 
 - **Heavy string to Light string**: Behaves similarly to a free boundary. The transmitted pulse is upright (faster/longer), and the reflected pulse is **upright**.
 
-![[GP-Waves3.png]]
+![图示：GP Waves3](../../../../assets/maths-physics/general-physics/gp-waves-3.png)
 
 ---
 

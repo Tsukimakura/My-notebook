@@ -28,7 +28,7 @@ A 2-input, 1-bit width binary adder that adds two bits to produce a two-bit sum.
 
     - Carry: $C_{out} = A \cdot B$
 
-![[sys1-half-adder.png]]
+![图示：sys1 half adder](../../../../assets/computer-science/computer-systems/sys-1-half-adder.png)
 
 ### **Full-Adder (FA)**
 
@@ -44,7 +44,7 @@ Similar to a half-adder, but includes a carry-in bit ($C_{in}$) from lower stage
 
     - Can be constructed using **two Half-Adders** and an **OR gate**.
 
-![[sys1-full-adder.png]]
+![图示：sys1 full adder](../../../../assets/computer-science/computer-systems/sys-1-full-adder.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -66,7 +66,7 @@ To add multibit numbers, 1-bit adders are combined. There is a general trade-off
 
 5. **Prefix Adder** – _Fast_
 
-![[sys1-CPA.png]]
+![图示：sys1 CPA](../../../../assets/computer-science/computer-systems/sys-1-cpa.png)
 
 ---
 
@@ -86,7 +86,7 @@ t_{ripple} = N \cdot t_{FA}
 
     _(Where $t_{FA}$ is the delay of a 1-bit full adder and $N$ is the number of bits)._
 
-![[sys1-RCA.png]]
+![图示：sys1 RCA](../../../../assets/computer-science/computer-systems/sys-1-rca.png)
 
 ---
 
@@ -104,7 +104,7 @@ t_{ripple} = N \cdot t_{FA}
 
 - **Carry:** $C_{i+1} = G_i + P_i \cdot C_i$
 
-![[sys1-CLA.png]]
+![图示：sys1 CLA](../../../../assets/computer-science/computer-systems/sys-1-cla.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -120,7 +120,7 @@ By recursively expanding the carry equation, we remove the dependency on interme
 
 - $C_4 = G_3 + P_3 \cdot G_2 + P_3 \cdot P_2 \cdot G_1 + P_3 \cdot P_2 \cdot P_1 \cdot G_0 + P_3 \cdot P_2 \cdot P_1 \cdot P_0 \cdot C_0$
 
-![[sys1-4-bit-CLA.png]]
+![图示：sys1 4 bit CLA](../../../../assets/computer-science/computer-systems/sys-1-4-bit-cla.png)
 
 - 图片来自刘海风老师授课课件
 
@@ -162,7 +162,7 @@ Assuming gate delays: `NOT = 1`, `XOR (Isolated AND) = 3`, `AND-OR = 2`.
 
 - **Optimization:** Achieves optimal speed with a non-equal distribution of block lengths.
 
-![[sys1-carry-skip-adder2.png]]
+![图示：sys1 carry skip adder2](../../../../assets/computer-science/computer-systems/sys-1-carry-skip-adder-2.png)
 
 ### **Carry Select Adder (CSA)**
 
@@ -170,7 +170,7 @@ Assuming gate delays: `NOT = 1`, `XOR (Isolated AND) = 3`, `AND-OR = 2`.
 
 - **Selection:** Once the actual carry-out from the lower bits is evaluated, a **2:1 Multiplexer (Mux)** selects the correct pre-computed sum for the upper bits.
 
-![[sys1-CSA.png]]
+![图示：sys1 CSA](../../../../assets/computer-science/computer-systems/sys-1-csa.png)
 
 ---
 
@@ -322,7 +322,7 @@ An ALU outputs various status flags (usually stored in a register) to indicate t
 
     - Valid for signed operations.
 
-![[sys1-adders-with-flags.png]]
+![图示：sys1 adders with flags](../../../../assets/computer-science/computer-systems/sys-1-adders-with-flags.png)
 
 ---
 
@@ -356,7 +356,7 @@ A basic 1-bit ALU can be designed to perform AND, OR, and ADD operations using a
 
 - **Hardware Implementation:** The inputs $A$ and $B$ are fed simultaneously into an AND gate, an OR gate, and a 1-bit Full Adder. A 4-to-1 Multiplexer uses the control signal to select which gate's output becomes the final result.
 
-![[sys1-1-bit-ALU.png]]
+![图示：sys1 1 bit ALU](../../../../assets/computer-science/computer-systems/sys-1-1-bit-alu.png)
 
 ### **N-Bit ALU (8 Operations)**
 
@@ -630,7 +630,7 @@ Hardware division mimics the standard "long division" method taught in grade sch
 
     5. Repeat for 33 iterations.
 
-![[sys1-divisor1.png]]
+![图示：sys1 divisor1](../../../../assets/computer-science/computer-systems/sys-1-divisor-1.png)
 
 ### **Implementation 2: Optimized Hardware (Similar to Multiplier)**
 
@@ -662,7 +662,7 @@ The first implementation is inefficient. It requires a 64-bit ALU, and the initi
 
     5. **Done:** Shift the left half of the Remainder right 1 bit to correct the final alignment.
 
-![[sys1-divisor2.png]]
+![图示：sys1 divisor2](../../../../assets/computer-science/computer-systems/sys-1-divisor-2.png)
 
 ---
 
@@ -694,7 +694,7 @@ R_{i+1} = 2(R_{restored}) - d = 2(R_i + d) - d = 2R_i + 2d - d = 2R_i + d
 
 - _Advantage:_ Achieves a strict throughput of 1 bit per ALU cycle.
 
-![[sys1-divisor3.png]]
+![图示：sys1 divisor3](../../../../assets/computer-science/computer-systems/sys-1-divisor-3.png)
 
 ---
 

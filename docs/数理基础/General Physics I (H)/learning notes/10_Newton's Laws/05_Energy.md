@@ -170,7 +170,7 @@ Analyzing the forces in the frame aligned with the string (y'-axis along string,
 
 Suppose the pendulum $m_A$ is attached to a pivot on a block $m_B$ resting on the ground. What is the maximal release angle $\theta$ such that $m_B$ does not lift off the ground?
 
-![[GP-Energy1.png]]
+![图示：GP Energy1](../../../../assets/maths-physics/general-physics/gp-energy-1.png)
 
 - The schematic diagram is from the hand-written notes of Mr. ztWang
 

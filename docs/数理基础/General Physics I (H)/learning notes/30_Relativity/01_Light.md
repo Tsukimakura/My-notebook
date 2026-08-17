@@ -26,7 +26,7 @@ The fundamental equation for measuring the speed of light is $c = \frac{\Delta L
 
 **Result:** By observing the seasonal changes of $\theta$ as Earth orbits the sun, the speed of light was calculated to be $c \approx 3.01 \times 10^8 \text{ m/s}$, which had only a **0.4%** error.
 
-![[General-physics-light1.png]]
+![图示：General physics light1](../../../../assets/maths-physics/general-physics/general-physics-light-1.png)
 
 - diagram from hand-written notes of Mr. Wang, also the diagrams shown below
 
@@ -34,7 +34,7 @@ The fundamental equation for measuring the speed of light is $c = \frac{\Delta L
 
 **Léon Foucault (1862):** Light was bounced off a rotating mirror to a distant fixed mirror (distance $h$) and back. By the time the light returned ($t = \frac{2h}{c}$), the mirror had rotated by an angle $\theta = \omega t$.
 
-![[General-physics-light2.png]]
+![图示：General physics light2](../../../../assets/maths-physics/general-physics/general-physics-light-2.png)
 
 **Foucault's Result:** Using the relationship $c = \frac{2\omega h}{\theta}$, he measured $c \approx 2.98 \times 10^8 \text{ m/s}$ (**0.6%** error).
 
@@ -56,7 +56,7 @@ A major historical question was whether light required a medium to propagate. Th
 
 **Goal:** To measure the speed of light in moving water and determine if the flowing water "drags" the ether.
 
-![[General-physics-light3.png]]
+![图示：General physics light3](../../../../assets/maths-physics/general-physics/general-physics-light-3.png)
 
 **Naive Expectation:** $v_+ = \frac{c}{n} + v$ and $v_- = \frac{c}{n} - v$.
 
@@ -92,7 +92,7 @@ Protons striking Beryllium created Pion particles ($\pi^0$) moving at $v \sim 0.
 
 Assume two coordinate frames: $K$ and $K'$. Frame $K'$ moves at a relative velocity $v$ along the x-axis. At $t = t' = 0$, a light source emits a pulse at the origin $O = O'$.
 
-![[General-physics-light4.png]]
+![图示：General physics light4](../../../../assets/maths-physics/general-physics/general-physics-light-4.png)
 
 ### Spherical Wavefront Invariance
 
