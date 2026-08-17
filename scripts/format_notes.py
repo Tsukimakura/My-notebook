@@ -102,6 +102,29 @@ def normalize_fences(lines: list[str]) -> list[str]:
     return result
 
 
+def unclosed_fence_line(lines: list[str]) -> int | None:
+    """Return the opening line of an unclosed fenced code block, if any.
+
+    An unclosed fence makes all subsequent Markdown—including headings—render
+    as code.  Conversely, a missing opening fence can make shell comments and
+    preprocessor directives render as headings.  Formatting cannot infer where
+    that fence belongs safely, so this is a hard validation error.
+    """
+    opener: tuple[str, int, int] | None = None
+    for line_number, line in enumerate(lines, start=1):
+        match = FENCE.match(line)
+        if not match:
+            continue
+        marker = match.group("marker")
+        if opener is None:
+            opener = (marker[0], len(marker), line_number)
+            continue
+        character, length, _ = opener
+        if marker[0] == character and len(marker) >= length:
+            opener = None
+    return opener[2] if opener else None
+
+
 def normalize_display_math(lines: list[str]) -> list[str]:
     """Use ``$`` and ``$$`` as the source-level math delimiters."""
     fence: str | None = None
@@ -313,15 +336,24 @@ def main() -> int:
     args = parser.parse_args()
 
     changed: list[Path] = []
+    malformed_fences: list[tuple[Path, int]] = []
     for path in markdown_files([Path(value) for value in args.paths]):
         original = path.read_text(encoding="utf-8")
         formatted = format_text(original, path)
+        unclosed_line = unclosed_fence_line(formatted.splitlines())
+        if unclosed_line is not None:
+            malformed_fences.append((path, unclosed_line))
         if original == formatted:
             continue
         changed.append(path)
         if not args.check:
             path.write_text(formatted, encoding="utf-8")
 
+    if malformed_fences:
+        print("Unclosed fenced code blocks:", file=sys.stderr)
+        for path, line_number in malformed_fences:
+            print(f"{path}:{line_number}", file=sys.stderr)
+        return 1
     if args.check and changed:
         print("Markdown formatting is required:", file=sys.stderr)
         print("\n".join(str(path) for path in changed), file=sys.stderr)

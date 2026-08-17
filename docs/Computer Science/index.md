@@ -8,6 +8,8 @@
 - [指针](Fundamentals%20of%20Programming%20and%20Algorithm/Pointer/Definition.md)
 - [文件与 I/O](Fundamentals%20of%20Programming%20and%20Algorithm/File%20Operations/01%20Computer%20Program%20Execution%20%26%20Basic%20IO%20Principles.md)
 - [程序构建、ISA 与链接](Fundamentals%20of%20Programming%20and%20Algorithm/Program%20Structure/01%20The%20C%20Compilation%20Pipeline.md)
+- [C 关键字标准速查](Fundamentals%20of%20Programming%20and%20Algorithm/Quick%20Reference%20tables/C%20keywords%20standard%20reference.md)
+- [stdio 参考](Fundamentals%20of%20Programming%20and%20Algorithm/Commonly%20used%20header%20files/stdio%20reference.md)
 
 ## 数据结构与算法
 
@@ -21,3 +23,11 @@
 - [关键字与预定义宏](Fundamentals%20of%20Programming%20and%20Algorithm/Quick%20Reference%20tables/Keywords.md)
 - [常用头文件](Fundamentals%20of%20Programming%20and%20Algorithm/Commonly%20used%20header%20files/stdio.h.md)
 - [延伸主题](Fundamentals%20of%20Programming%20and%20Algorithm/Further%20knowledge%20%26%20tips/Makefile%20Usage.md)
+
+## 系统、语言与开发工具
+
+- [汇编语言](Assembly/00_前置知识.md)
+- [计算机系统](Computer%20Systems%20I/theory/10_Digital%20logic/00_Information%20Representation.md)
+- [编程语言](Programming%20Languages/JavaScript/Introduction.md)
+- [Web 开发](Web%20Development/HTML/Outline.md)
+- [笔记与站点工具](Tools/index.md)

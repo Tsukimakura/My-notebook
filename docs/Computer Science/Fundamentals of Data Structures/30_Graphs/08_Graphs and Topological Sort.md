@@ -1,4 +1,4 @@
-# 08_Gragh and Topological Sort
+# Graphs and Topological Sort
 
 ## **1. Definitions**
 
