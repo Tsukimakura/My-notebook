@@ -11,6 +11,7 @@ from pathlib import Path
 FENCE = re.compile(r"^(?P<indent>\s*)(?P<marker>`{3,}|~{3,})(?P<info>.*)$")
 HEADING = re.compile(r"^(?P<marks>#{1,6})\s+(?P<title>.*?)\s*$")
 NUMBER_PREFIX = re.compile(r"^\d+\s+")
+ORDERED_ITEM = re.compile(r"^(?P<indent>\s*)(?P<number>\d+)\.\s+(?P<body>.*)$")
 
 
 def is_heading(line: str) -> re.Match[str] | None:
@@ -101,6 +102,157 @@ def normalize_fences(lines: list[str]) -> list[str]:
     return result
 
 
+def normalize_display_math(lines: list[str]) -> list[str]:
+    """Use the delimiters configured for Arithmatex/KaTeX.
+
+    ``$$`` blocks are not converted by this site's ``generic`` Arithmatex
+    configuration, leaving them as literal text in the generated HTML.
+    """
+    fence: str | None = None
+    in_display_math = False
+    result: list[str] = []
+    for line in lines:
+        match = FENCE.match(line)
+        if match:
+            marker = match.group("marker")[0]
+            fence = None if fence == marker else marker
+            result.append(line)
+            continue
+        if fence is None and line.strip() == "$$":
+            indent = line[: len(line) - len(line.lstrip())]
+            result.append(f"{indent}{r'\]' if in_display_math else r'\['}")
+            in_display_math = not in_display_math
+            continue
+        stripped = line.strip()
+        if fence is None and stripped.startswith("$$") and stripped.endswith("$$") and len(stripped) > 4:
+            indent = line[: len(line) - len(line.lstrip())]
+            result.extend([f"{indent}\\[", stripped[2:-2].strip(), f"{indent}\\]"])
+            continue
+        result.append(line)
+    return result
+
+
+def normalize_ordered_lists(lines: list[str]) -> list[str]:
+    """Write ordered-list counters explicitly, including lists split by math.
+
+    Markdown permits every item to be written as ``1.``, but a block formula
+    can close and reopen the generated ``<ol>``. Explicit counters preserve
+    the visible sequence in that valid-but-split HTML structure.
+    """
+    next_number: dict[int, int] = {}
+    fence: str | None = None
+    display_math_depth = 0
+    result: list[str] = []
+
+    for line in lines:
+        fence_match = FENCE.match(line)
+        if fence_match:
+            marker = fence_match.group("marker")[0]
+            fence = None if fence == marker else marker
+            result.append(line)
+            continue
+        if fence is not None:
+            result.append(line)
+            continue
+
+        stripped = line.strip()
+        if stripped == r"\[":
+            display_math_depth += 1
+            result.append(line)
+            continue
+        if stripped == r"\]":
+            display_math_depth = max(0, display_math_depth - 1)
+            result.append(line)
+            continue
+
+        item = ORDERED_ITEM.match(line)
+        if item:
+            indent = len(item.group("indent").expandtabs(4))
+            for level in list(next_number):
+                if level > indent:
+                    del next_number[level]
+            source_number = int(item.group("number"))
+            number = next_number.get(indent, source_number if source_number != 1 else 1)
+            next_number[indent] = number + 1
+            result.append(f"{item.group('indent')}{number}. {item.group('body')}")
+            continue
+
+        if stripped and display_math_depth == 0:
+            indentation = len(line) - len(line.lstrip())
+            if is_heading(line) or not any(indentation > level for level in next_number):
+                next_number.clear()
+        result.append(line)
+    return result
+
+
+def indent_list_continuations(lines: list[str]) -> list[str]:
+    """Keep display math and explanatory text inside their ordered-list item."""
+    result = lines[:]
+    fence: str | None = None
+    index = 0
+    while index < len(result):
+        line = result[index]
+        match = FENCE.match(line)
+        if match:
+            marker = match.group("marker")[0]
+            fence = None if fence == marker else marker
+            index += 1
+            continue
+        item = ORDERED_ITEM.match(line) if fence is None else None
+        if not item:
+            index += 1
+            continue
+
+        indent = item.group("indent")
+        number = int(item.group("number"))
+        next_index = index + 1
+        while next_index < len(result):
+            candidate = ORDERED_ITEM.match(result[next_index])
+            if candidate and candidate.group("indent") == indent:
+                break
+            if is_heading(result[next_index]):
+                break
+            next_index += 1
+        if next_index < len(result):
+            candidate = ORDERED_ITEM.match(result[next_index])
+            if candidate and int(candidate.group("number")) == number + 1:
+                continuation_indent = f"{indent}    "
+                needs_indent = any(
+                    result[continuation] and not result[continuation].startswith(continuation_indent)
+                    for continuation in range(index + 1, next_index)
+                )
+                if needs_indent:
+                    for continuation in range(index + 1, next_index):
+                        if result[continuation]:
+                            result[continuation] = f"{continuation_indent}{result[continuation]}"
+        index += 1
+    return result
+
+
+def surround_display_math(lines: list[str]) -> list[str]:
+    """Keep display-math delimiters in standalone Markdown blocks."""
+    result: list[str] = []
+    fence: str | None = None
+    for index, line in enumerate(lines):
+        match = FENCE.match(line)
+        if match:
+            marker = match.group("marker")[0]
+            fence = None if fence == marker else marker
+        opening = fence is None and line.strip() == r"\["
+        closing = fence is None and line.strip() == r"\]"
+        if not line and fence is None and result and result[-1].strip() == r"\[":
+            continue
+        if closing:
+            while result and result[-1] == "":
+                result.pop()
+        if opening and result and result[-1] != "":
+            result.append("")
+        result.append(line)
+        if closing and index + 1 < len(lines) and lines[index + 1] != "":
+            result.append("")
+    return result
+
+
 def surround_headings(lines: list[str]) -> list[str]:
     result: list[str] = []
     fence: str | None = None
@@ -124,6 +276,10 @@ def format_text(text: str, path: Path) -> str:
         lines.pop()
     lines = normalize_headings(lines, path)
     lines = normalize_fences(lines)
+    lines = normalize_display_math(lines)
+    lines = normalize_ordered_lists(lines)
+    lines = indent_list_continuations(lines)
+    lines = surround_display_math(lines)
     lines = surround_headings(lines)
     while lines and lines[-1] == "":
         lines.pop()

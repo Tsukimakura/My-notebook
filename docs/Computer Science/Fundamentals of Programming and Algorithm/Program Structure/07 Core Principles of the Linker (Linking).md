@@ -13,8 +13,8 @@ The linker performs three major operations to transform independent modules into
 ### Step 1: Section Merging
 
 Individual object files have their own fragmented sections (`.text`, `.data`). The linker aggregates them.
-1.  **Aggregation:** It takes the `.text` section from `file A.o` and the `.text` section from `file B.o` and concatenates them into a single, massive `.text` segment.
-2.  **VMA Assignment:** Once merged, the layout is finalized. The linker assigns **Virtual Memory Addresses (VMA)** to every byte.
+1. **Aggregation:** It takes the `.text` section from `file A.o` and the `.text` section from `file B.o` and concatenates them into a single, massive `.text` segment.
+2. **VMA Assignment:** Once merged, the layout is finalized. The linker assigns **Virtual Memory Addresses (VMA)** to every byte.
     *   *Significance:* Before this step, addresses were relative (starting at 0). After this step, the code has a specific destination in memory (e.g., `0x400000`).
 
 ### Step 2: Symbol Resolution
@@ -43,10 +43,10 @@ A common misconception is that C programs begin execution at `main()`.
 *   **The Reality:** The linker links a special startup file provided by the C Runtime (CRT), often named `crt0.o` or `crt1.o`.
 *   **`_start` Symbol:** This is the actual entry point defined in the CRT.
 *   **Execution Flow:**
-    1.  OS loads program and jumps to `_start`.
-    2.  `_start` initializes the stack, heap, and global variables.
-    3.  `_start` calls `main()`.
-    4.  When `main()` returns, `_start` calls `exit()` to clean up.
+    1. OS loads program and jumps to `_start`.
+    2. `_start` initializes the stack, heap, and global variables.
+    3. `_start` calls `main()`.
+    4. When `main()` returns, `_start` calls `exit()` to clean up.
 
 ## 4. How the Linker Finds Libraries
 
@@ -54,9 +54,9 @@ The linker does not have a database of where functions live. It performs a **Lin
 
 ### The Scanning Mechanism
 
-1.  **Sequential Processing:** The linker processes files (object files and libraries) from **left to right** as they appear on the command line.
-2.  **The "Unresolved List":** It keeps a running list of undefined symbols.
-3.  **Library Lookup:** When it encounters a library (e.g., `-lm`):
+1. **Sequential Processing:** The linker processes files (object files and libraries) from **left to right** as they appear on the command line.
+2. **The "Unresolved List":** It keeps a running list of undefined symbols.
+3. **Library Lookup:** When it encounters a library (e.g., `-lm`):
     *   It checks the library's **Symbol Table**.
     *   If the library defines a symbol currently in the "Unresolved List", it links that object file.
     *   If the library defines symbols that are *not* needed, it ignores them.

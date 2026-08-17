@@ -16,10 +16,10 @@ In C, "compiling" is actually a pipeline process known as **Translation**. The c
 
 ### Key Actions
 
-1.  **Macro Expansion:** Replaces all defined macros (e.g., `#define NUM 100`) with their literal values.
-2.  **Header Inclusion:** Copies the **entire content** of header files (e.g., `#include <stdio.h>`) directly into the source file. This causes the file size to expand significantly.
-3.  **Conditional Compilation:** Evaluates directives like `#ifdef`, `#if`, keeping or removing code blocks.
-4.  **Cleanup:** Strips out all comments (`//`, `/* ... */`) and adds line markers for debugging.
+1. **Macro Expansion:** Replaces all defined macros (e.g., `#define NUM 100`) with their literal values.
+2. **Header Inclusion:** Copies the **entire content** of header files (e.g., `#include <stdio.h>`) directly into the source file. This causes the file size to expand significantly.
+3. **Conditional Compilation:** Evaluates directives like `#ifdef`, `#if`, keeping or removing code blocks.
+4. **Cleanup:** Strips out all comments (`//`, `/* ... */`) and adds line markers for debugging.
 
 ### Command Line
 
@@ -38,9 +38,9 @@ gcc -E hello.c -o hello.i
 
 ### Key Actions
 
-1.  **Analysis:** Performs lexical, syntactic, and semantic analysis (checks for syntax errors and type mismatches).
-2.  **Optimization:** If flags like `-O2` are used, the compiler optimizes logic (e.g., dead code elimination, loop unrolling).
-3.  **Code Generation:** Translates the logic into the specific **Instruction Set Architecture (ISA)** of the target machine (e.g., x86_64 or ARM64).
+1. **Analysis:** Performs lexical, syntactic, and semantic analysis (checks for syntax errors and type mismatches).
+2. **Optimization:** If flags like `-O2` are used, the compiler optimizes logic (e.g., dead code elimination, loop unrolling).
+3. **Code Generation:** Translates the logic into the specific **Instruction Set Architecture (ISA)** of the target machine (e.g., x86_64 or ARM64).
 
 ### Command Line
 
@@ -64,8 +64,8 @@ gcc -S hello.i -o hello.s
 
 ### Key Actions
 
-1.  **Translation:** Converts human-readable mnemonics (e.g., `mov`, `push`) into binary opcodes defined by the ISA.
-2.  **Generation of "Relocatable Object File":**
+1. **Translation:** Converts human-readable mnemonics (e.g., `mov`, `push`) into binary opcodes defined by the ISA.
+2. **Generation of "Relocatable Object File":**
     *   **Machine Code:** The CPU can read it, but it cannot run yet.
     *   **Placeholder Addresses:** Addresses for functions/variables are set to `0x0` or relative offsets because the final memory layout is unknown.
     *   **Symbol Table:** A list of symbols defined (exported) and symbols needed (imported/undefined) by this file.
@@ -89,14 +89,14 @@ gcc -c hello.s -o hello.o
 
 ### Key Actions
 
-1.  **Section Merging:** Combines the `.text` (code) and `.data` (variables) segments from multiple `.o` files into one unified layout.
-2.  **Symbol Resolution:**
+1. **Section Merging:** Combines the `.text` (code) and `.data` (variables) segments from multiple `.o` files into one unified layout.
+2. **Symbol Resolution:**
     *   Scans the **Symbol Table** of all inputs.
     *   Matches "Undefined References" (e.g., a call to `printf` in `main.o`) with their "Definitions" (e.g., the actual code of `printf` in `libc.so` or `libc.a`).
-3.  **Relocation:**
+3. **Relocation:**
     *   Calculates the final virtual memory addresses.
     *   **Patches** the machine code: Replaces the placeholder addresses (from Stage 3) with real addresses (Absolute or PC-Relative).
-4.  **Entry Point:** Links the startup code (CRT - C Runtime, typically `_start`) which initializes the environment and calls `main`.
+4. **Entry Point:** Links the startup code (CRT - C Runtime, typically `_start`) which initializes the environment and calls `main`.
 
 ### Command Line
 
@@ -144,10 +144,10 @@ gcc --save-temps hello.c -o hello
 ### Result
 
 After running this single command, your directory will contain:
-1.  `hello.i` (Preprocessed source)
-2.  `hello.s` (Assembly code)
-3.  `hello.o` (Object code)
-4.  `hello` (Executable)
+1. `hello.i` (Preprocessed source)
+2. `hello.s` (Assembly code)
+3. `hello.o` (Object code)
+4. `hello` (Executable)
 
 **Why use it?**
 It is the most efficient way to debug the compilation process or verify what the preprocessor and compiler are actually doing to your code.

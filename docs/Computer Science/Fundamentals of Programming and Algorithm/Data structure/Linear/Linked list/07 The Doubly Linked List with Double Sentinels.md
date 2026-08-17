@@ -4,8 +4,8 @@
 
 **What is it?**
 A Doubly Linked List that has **two** dummy nodes:
-1.  **Head Sentinel:** Guards the front.
-2.  **Tail Sentinel:** Guards the back.
+1. **Head Sentinel:** Guards the front.
+2. **Tail Sentinel:** Guards the back.
 
 **Visual Model (The Sandwich):**
 > `[Head Dummy]` $\leftrightarrow$ `[Data A]` $\leftrightarrow$ `[Data B]` $\leftrightarrow$ `[Tail Dummy]`

@@ -139,7 +139,7 @@ int main() {
 
 ### Advantages
 
-1. **Linear Time:** It is much faster than Quick Sort ($O(Nlog⁡N)$) when the data range ($K$) is small compared to $N$.
+1. **Linear Time:** It is much faster than Quick Sort ($O(N \log N)$) when the data range ($K$) is small compared to $N$.
 
 2. **Simplicity:** The logic is straightforward (count, then print).
 

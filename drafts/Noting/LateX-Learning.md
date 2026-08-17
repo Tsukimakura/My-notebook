@@ -353,46 +353,46 @@ latex
 
 latex
 
-$$
+\[
 f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n
-$$
+\]
 
-$$
+\[
 \lim_{x \to 0} \frac{\sin x}{x} = 1
-$$
+\]
 
-$$
+\[
 \frac{d}{dx} \int_{a}^{x} f(t) dt = f(x)
-$$
+\]
 
-$$
+\[
 \nabla \cdot \mathbf{F} = \frac{\partial F_x}{\partial x} + \frac{\partial F_y}{\partial y} + \frac{\partial F_z}{\partial z}
-$$
+\]
 
 ### 线性代数示例
 
 latex
 
-$$
+\[
 A = \begin{pmatrix}
 a_{11} & a_{12} & \cdots & a_{1n} \\
 a_{21} & a_{22} & \cdots & a_{2n} \\
 \vdots & \vdots & \ddots & \vdots \\
 a_{m1} & a_{m2} & \cdots & a_{mn}
 \end{pmatrix}
-$$
+\]
 
-$$
+\[
 \det(A - \lambda I) = 0
-$$
+\]
 
-$$
+\[
 \mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}
-$$
+\]
 
-$$
+\[
 \| \mathbf{x} \|_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
-$$
+\]
 
 ---
 
@@ -407,7 +407,7 @@ latex
 e^{i\pi} + 1 = 0
 \end{equation}
 
-2. **多行公式对齐**：
+1. **多行公式对齐**：
 
 
 latex
@@ -417,7 +417,7 @@ f(x) &= (x+1)^2 \\
      &= x^2 + 2x + 1
 \end{align}
 
-3. **括号自适应大小**：
+1. **括号自适应大小**：
 
 
 latex
@@ -425,7 +425,7 @@ latex
 \left( \frac{1}{1 + \frac{1}{x}} \right)
 \big( \Big( \bigg( \Bigg(
 
-4. **分段函数**：
+1. **分段函数**：
 
 
 latex
@@ -435,7 +435,7 @@ x^2 & \text{if } x \geq 0 \\
 -x^2 & \text{if } x < 0
 \end{cases}
 
-5. **上下标组合**：
+1. **上下标组合**：
 
 
 latex

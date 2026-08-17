@@ -116,17 +116,17 @@ clean:
 ```
 
 **Workflow with Makefile:**
-1.  Type `make` to compile.
-2.  Type `make debug` to compile and enter GDB automatically.
+1. Type `make` to compile.
+2. Type `make debug` to compile and enter GDB automatically.
 
 ---
 
 ## 5. Minimalist Workflow Summary (Cheat Sheet)
 
-1.  **Edit**: Modify code in VS Code -> `Ctrl+S`.
-2.  **Compile**: Type `make` (or the gcc command) in the terminal.
-3.  **Debug**: Type `gdb build/main` in the terminal.
-4.  **GDB Operations**:
+1. **Edit**: Modify code in VS Code -> `Ctrl+S`.
+2. **Compile**: Type `make` (or the gcc command) in the terminal.
+3. **Debug**: Type `gdb build/main` in the terminal.
+4. **GDB Operations**:
     *   `b main` (Set breakpoint)
     *   `r` (Run)
     *   `Ctrl+X, A` (View source code)

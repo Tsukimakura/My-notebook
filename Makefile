@@ -21,6 +21,7 @@ format:
 
 lint:
 	$(PYTHON) scripts/format_notes.py --check docs drafts
+	node scripts/check_math.mjs docs drafts
 
 check: lint
 	$(MKDOCS) build --strict

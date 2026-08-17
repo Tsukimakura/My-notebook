@@ -5,10 +5,10 @@
 The **Instruction Set Architecture (ISA)** serves as the fundamental "contract" or interface between the software (Compiler/Programmer) and the hardware (CPU).
 
 *   **Key Components:**
-    1.  **Instructions:** The specific operations the CPU can perform (e.g., `ADD`, `LOAD`, `JUMP`).
-    2.  **Registers:** The internal storage units of the CPU (e.g., `rax`, `x0`).
-    3.  **Data Types:** Definitions of integers, floats, and Endianness (Byte order).
-    4.  **Addressing Modes:** How the CPU calculates memory addresses.
+    1. **Instructions:** The specific operations the CPU can perform (e.g., `ADD`, `LOAD`, `JUMP`).
+    2. **Registers:** The internal storage units of the CPU (e.g., `rax`, `x0`).
+    3. **Data Types:** Definitions of integers, floats, and Endianness (Byte order).
+    4. **Addressing Modes:** How the CPU calculates memory addresses.
 
 ## 2. Architecture vs. Micro-architecture
 
@@ -79,7 +79,7 @@ The compiler uses a formatted string called the **Target Triple** to identify th
 
 ### Backend Stages
 
-1.  **Intermediate Representation (IR):** The frontend translates C code into a generic, CPU-independent language (e.g., LLVM IR).
-2.  **Instruction Selection:** The backend maps generic IR operations to specific target ISA instructions.
-3.  **Register Allocation:** Assigns infinite virtual registers from the IR to the limited physical registers of the CPU.
-4.  **Instruction Scheduling:** Reorders instructions to optimize for the specific Micro-architecture's pipeline (e.g., hiding memory latency).
+1. **Intermediate Representation (IR):** The frontend translates C code into a generic, CPU-independent language (e.g., LLVM IR).
+2. **Instruction Selection:** The backend maps generic IR operations to specific target ISA instructions.
+3. **Register Allocation:** Assigns infinite virtual registers from the IR to the limited physical registers of the CPU.
+4. **Instruction Scheduling:** Reorders instructions to optimize for the specific Micro-architecture's pipeline (e.g., hiding memory latency).

@@ -35,16 +35,16 @@ When the preprocessor encounters `#include`, it searches for the file based on t
 
 Used for **project-specific (custom)** headers.
 **Search Order:**
-1.  **Current Directory:** The directory containing the source file issuing the `#include` directive (Highest Priority).
-2.  **`-I` Directories:** Directories specified by the compiler flag `-I`.
-3.  **System Standard Directories:** The default compiler paths.
+1. **Current Directory:** The directory containing the source file issuing the `#include` directive (Highest Priority).
+2. **`-I` Directories:** Directories specified by the compiler flag `-I`.
+3. **System Standard Directories:** The default compiler paths.
 
 ### Case B: Angle Brackets (`#include <header.h>`)
 
 Used for **System/Standard Libraries** or installed third-party libraries.
 **Search Order:**
-1.  **`-I` Directories:** Directories specified by the `-I` flag (Highest Priority).
-2.  **System Standard Directories:** (e.g., `/usr/include`, `/usr/local/include`).
+1. **`-I` Directories:** Directories specified by the `-I` flag (Highest Priority).
+2. **System Standard Directories:** (e.g., `/usr/include`, `/usr/local/include`).
 *   *Note:* It does **not** search the current source directory.
 
 ### Practical Tip

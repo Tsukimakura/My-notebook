@@ -32,13 +32,13 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
 
 ### Parameter Anatomy
 
-1.  **`ptr` (Pointer):**
+1. **`ptr` (Pointer):**
     *   For `fwrite`: The source of data (RAM).
     *   For `fread`: The destination buffer (RAM).
     *   *Note:* It is a `void *`, meaning it can handle any data type (`int`, `struct`, arrays).
-2.  **`size` (Item Size):** The size of a single element in bytes. Always use the `sizeof` operator (e.g., `sizeof(int)` or `sizeof(Student)`).
-3.  **`nmemb` (Count):** The number of elements to read or write.
-4.  **`stream` (File Pointer):** The target file. **Note:** Unlike `fprintf`, the file pointer is the **last** argument here.
+2. **`size` (Item Size):** The size of a single element in bytes. Always use the `sizeof` operator (e.g., `sizeof(int)` or `sizeof(Student)`).
+3. **`nmemb` (Count):** The number of elements to read or write.
+4. **`stream` (File Pointer):** The target file. **Note:** Unlike `fprintf`, the file pointer is the **last** argument here.
 
 ### Understanding the Return Value
 
@@ -90,9 +90,9 @@ When opening files for binary access using `fopen`, the mode string must include
 ### The Corruption Risk
 
 If you open a binary file (like a `.jpg` image) in text mode on Windows:
-1.  The byte `0x0A` (decimal 10) occurs naturally in the image data.
-2.  The system interprets this as a "Newline."
-3.  It might "correct" it to `0x0D 0x0A`, inserting an extra byte.
-4.  **Result:** The file size changes, the data offsets shift, and the image becomes corrupted.
+1. The byte `0x0A` (decimal 10) occurs naturally in the image data.
+2. The system interprets this as a "Newline."
+3. It might "correct" it to `0x0D 0x0A`, inserting an extra byte.
+4. **Result:** The file size changes, the data offsets shift, and the image becomes corrupted.
 
 **Best Practice:** Always use the `"b"` flag for any non-text file to ensure the data is read/written exactly as is (What You See Is What You Get).

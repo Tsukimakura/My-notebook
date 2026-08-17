@@ -15,13 +15,13 @@ The C Standard states:
 
 ## 3. List of Standard Sequence Points
 
-1.  **Statement termination:** The semicolon `;`.
-2.  **Logical Operators:** `&&` and `||`.
+1. **Statement termination:** The semicolon `;`.
+2. **Logical Operators:** `&&` and `||`.
     *   *Note:* These enforce **Short-Circuit Evaluation**. The left side is fully evaluated (including side effects) before the right side is touched.
-3.  **Comma Operator:** `,` (e.g., `func(), do_something()`).
+3. **Comma Operator:** `,` (e.g., `func(), do_something()`).
     *   *Trap:* The comma used to separate function arguments (`func(a, b)`) is a **separator**, NOT a sequence point.
-4.  **Ternary Operator:** `? :` (The condition is fully evaluated before the branch，which means the `?` is a sequence point).
-5.  **Function Call:** Before the execution of the function body begins (after all arguments are evaluated).
+4. **Ternary Operator:** `? :` (The condition is fully evaluated before the branch，which means the `?` is a sequence point).
+5. **Function Call:** Before the execution of the function body begins (after all arguments are evaluated).
 
 ## 4. The "Unsequenced" Hazards
 

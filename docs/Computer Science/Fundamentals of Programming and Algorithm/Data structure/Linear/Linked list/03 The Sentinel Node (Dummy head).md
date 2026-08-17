@@ -9,8 +9,8 @@ A Sentinel Node (often called a "Dummy Head") is a node that exists at the very 
 
 **Why introduce it? (The Logic)**
 In the "No Sentinel" version, the first node is "special."
-1.  **Insertion:** Inserting at index 0 changes the `head` pointer. Inserting at index 1 changes a `next` pointer.
-2.  **Deletion:** Deleting the first node requires changing `head`. Deleting other nodes requires changing `prev->next`.
+1. **Insertion:** Inserting at index 0 changes the `head` pointer. Inserting at index 1 changes a `next` pointer.
+2. **Deletion:** Deleting the first node requires changing `head`. Deleting other nodes requires changing `prev->next`.
 
 By adding a Sentinel, **the first actual data node now has a predecessor (the Sentinel).**
 *   **Result:** Index 0 is no longer special. Every single data operation becomes "Operation **after** a node." We eliminate all `if (head == NULL)` or `if (index == 0)` edge cases for modification.

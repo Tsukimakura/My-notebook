@@ -59,9 +59,9 @@ To solve this, we use **Double Pointers**:
 ### **A. Insertion at Front (Push)**
 
 *Logic:* The new node becomes the new head.
-1.  Allocate memory for `newNode`.
-2.  Point `newNode->next` to the *current* head (`*headRef`).
-3.  Update the actual head (`*headRef`) to point to `newNode`.
+1. Allocate memory for `newNode`.
+2. Point `newNode->next` to the *current* head (`*headRef`).
+3. Update the actual head (`*headRef`) to point to `newNode`.
 
 ```c
 void pushFront(Node** headRef, int data) {
@@ -75,9 +75,9 @@ void pushFront(Node** headRef, int data) {
 ### **B. Insertion at Tail (Append)**
 
 *Logic:* If empty, make it the head. If not, find the last node.
-1.  **Corner Case:** If `*headRef` is `NULL`, set `*headRef = newNode`.
-2.  **General Case:** Loop with `current` until `current->next == NULL`.
-3.  Link `current->next = newNode`.
+1. **Corner Case:** If `*headRef` is `NULL`, set `*headRef = newNode`.
+2. **General Case:** Loop with `current` until `current->next == NULL`.
+3. Link `current->next = newNode`.
 
 ```c
 void pushBack(Node** headRef, int data) {
@@ -109,12 +109,12 @@ The value to delete might be at the very start, potentially multiple times (e.g.
 **Part 2: Handle the Body**
 Now `head` is safe (either NULL or not the key). We use `prev` and `curr`.
 *   **If `curr` matches key:**
-    1.  Link `prev->next` to `curr->next` (bypass `curr`).
-    2.  Free `curr`.
-    3.  **Crucial:** Do **not** move `prev` forward. Only update `curr` to `prev->next`. (The new neighbor might *also* need to be deleted).
+    1. Link `prev->next` to `curr->next` (bypass `curr`).
+    2. Free `curr`.
+    3. **Crucial:** Do **not** move `prev` forward. Only update `curr` to `prev->next`. (The new neighbor might *also* need to be deleted).
 *   **If `curr` does NOT match:**
-    1.  Move `prev` to `curr`.
-    2.  Move `curr` to `curr->next`.
+    1. Move `prev` to `curr`.
+    2. Move `curr` to `curr->next`.
 
 
 	```c
@@ -213,7 +213,7 @@ Now, when we pass `LinkedList* list` to a function, we are passing a pointer to 
 
 ## **6. Summary Checklist**
 
-1.  **Empty Check:** Always check `if (head == NULL)` first.
-2.  **Head Change:** If your operation might affect the first node (insert front, delete front, delete from single-node list), you **must** update the head pointer variable.
-3.  **Memory:** Every `malloc` requires a corresponding `free`. When deleting a node, re-link the pointers *before* freeing the memory.
-4.  **Traversal:** Do not use `head` to traverse (e.g., `head = head->next` inside a loop) or you will lose the start of your list. Always use a temporary pointer `current`.
+1. **Empty Check:** Always check `if (head == NULL)` first.
+2. **Head Change:** If your operation might affect the first node (insert front, delete front, delete from single-node list), you **must** update the head pointer variable.
+3. **Memory:** Every `malloc` requires a corresponding `free`. When deleting a node, re-link the pointers *before* freeing the memory.
+4. **Traversal:** Do not use `head` to traverse (e.g., `head = head->next` inside a loop) or you will lose the start of your list. Always use a temporary pointer `current`.

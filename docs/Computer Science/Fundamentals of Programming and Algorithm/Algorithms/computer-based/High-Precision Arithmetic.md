@@ -19,22 +19,25 @@ Arithmetic operations (addition, multiplication) propagate carries from lower to
 
 **Principle:** Simulation of columnar addition (vertical addition).
 Given two large integers $A$ and $B$:
+
 \[
 C_i = A_i + B_i + \text{carry}
 \]
+
 \[
 Result_i = C_i \pmod{10}
 \]
+
 \[
 \text{New Carry} = \lfloor C_i / 10 \rfloor
 \]
 
 **Implementation Logic:**
-1.  Iterate from $i = 0$ to $\max(len_A, len_B)$.
-2.  Sum the current digits and the carry from the previous position.
-3.  Store the unit digit of the sum.
-4.  Update the carry.
-5.  If a carry remains after the loop, append it to the end.
+1. Iterate from $i = 0$ to $\max(len_A, len_B)$.
+2. Sum the current digits and the carry from the previous position.
+3. Store the unit digit of the sum.
+4. Update the carry.
+5. If a carry remains after the loop, append it to the end.
 
 ## 3. High-Precision Multiplication
 
@@ -42,16 +45,17 @@ Result_i = C_i \pmod{10}
 The product of digit $A[i]$ and $B[j]$ contributes to the position $C[i+j]$.
 
 **Mathematical relation:**
+
 \[
 C_{i+j} = C_{i+j} + (A_i \times B_j)
 \]
 
 **Implementation Logic:**
-1.  Initialize result array $C$ to 0.
-2.  Use nested loops: iterate $i$ through $A$ and $j$ through $B$.
-3.  Accumulate $A[i] \times B[j]$ into $C[i+j]$.
-4.  **Carry Pass:** Iterate through array $C$ once to handle carries (perform modulo 10 and division by 10) for every position.
-5.  **Trim:** Remove any leading zeros from the high-order end of the result.
+1. Initialize result array $C$ to 0.
+2. Use nested loops: iterate $i$ through $A$ and $j$ through $B$.
+3. Accumulate $A[i] \times B[j]$ into $C[i+j]$.
+4. **Carry Pass:** Iterate through array $C$ once to handle carries (perform modulo 10 and division by 10) for every position.
+5. **Trim:** Remove any leading zeros from the high-order end of the result.
 
 ## 4. Implementation (C Language)
 

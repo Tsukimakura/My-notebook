@@ -30,16 +30,18 @@ To understand integers, one must distinguish between the physical state and the 
 ### A. The Design Philosophy
 
 Two's Complement was adopted to solve two critical hardware problems found in simpler systems (like Sign-Magnitude):
-1.  **Unified Circuitry:** It allows the CPU to use the **same Adder circuit** for both addition and subtraction. Subtraction is simply adding a negative number.
-2.  **Unique Zero:** It eliminates the redundancy of `+0` and `-0`, ensuring a single representation for zero (`00...00`).
+1. **Unified Circuitry:** It allows the CPU to use the **same Adder circuit** for both addition and subtraction. Subtraction is simply adding a negative number.
+2. **Unique Zero:** It eliminates the redundancy of `+0` and `-0`, ensuring a single representation for zero (`00...00`).
 
 ### B. The Mathematical Essence: Negative Weight
 
 In Two's Complement, the Most Significant Bit (MSB) acts not just as a sign flag, but as a bit with **negative weight**.
 For an $N$-bit integer $B = b_{n-1} \dots b_0$:
+
 \[
  Value = -b_{n-1} \cdot 2^{n-1} + \sum_{i=0}^{n-2} b_i \cdot 2^i
 \]
+
 *   **MSB = 0:** The negative weight is inactive. The number is positive.
 *   **MSB = 1:** The number starts with a massive negative value (e.g., -128 for 8-bit), which is then "filled back up" by the positive weights of the remaining bits.
 
@@ -48,7 +50,11 @@ For an $N$-bit integer $B = b_{n-1} \dots b_0$:
 *   **Concept:** Computer integers operate in a finite ring defined by the **Modulus** $M = 2^N$ (where $N$ is the bit width).
 *   **Overflow:** Any calculation exceeding $M$ results in the higher bits being physically discarded (hardware truncation).
 *   **Negative Definition:** A negative number $-x$ is mathematically defined as the complement required to complete the cycle:
-    $$ -x \equiv (M - x) \pmod M $$
+
+    \[
+-x \equiv (M - x) \pmod M
+    \]
+
     *   *Example (8-bit):* $-1$ is represented as $256 - 1 = 255$ (`1111 1111`).
 *   **Calculation Rule:** To find the negative representation: **Invert all bits and add 1**.
 
@@ -100,9 +106,9 @@ Used when precise memory layout is required (protocols, hardware registers).
 ### A. Why Unsigned Exists
 
 It is not merely for doubling the positive range.
-1.  **Bitwise Container:** When treating data as a collection of flags or bits, signed types are dangerous (e.g., right-shifting a negative number triggers Sign Extension). Unsigned provides a "clean" binary environment.
-2.  **Logical Correctness:** Represents quantities that physically cannot be negative (e.g., memory addresses, file sizes).
-3.  **Defined Overflow:**
+1. **Bitwise Container:** When treating data as a collection of flags or bits, signed types are dangerous (e.g., right-shifting a negative number triggers Sign Extension). Unsigned provides a "clean" binary environment.
+2. **Logical Correctness:** Represents quantities that physically cannot be negative (e.g., memory addresses, file sizes).
+3. **Defined Overflow:**
     *   **Signed Overflow:** **Undefined Behavior (UB)** in C. Compilers may optimize assuming it never happens.
     *   **Unsigned Overflow:** **Defined Behavior**. Guaranteed to wrap around modulo $2^N$. Essential for algorithms relying on wrapping (hashing, cryptography).
 

@@ -29,11 +29,11 @@
 *   **Key Property**: `x & 0 = 0` (Clearing), `x & 1 = x` (Preserving).
 
 **Common Applications**:
-1.  **Masking (Clearing Bits)**: Forcing specific bits to 0.
+1. **Masking (Clearing Bits)**: Forcing specific bits to 0.
     *   `x & 0xFE` $\rightarrow$ Clears the LSB (Least Significant Bit), keeps others unchanged.
-2.  **Extracting Data**: Getting a specific byte or segment.
+2. **Extracting Data**: Getting a specific byte or segment.
     *   `x & 0xFF` $\rightarrow$ Extracts the lowest byte (8 bits).
-3.  **Modulo Operation (Power of 2)**:
+3. **Modulo Operation (Power of 2)**:
     *   `x % 16` is equivalent to `x & 0x0F` (where $16 = 2^4$).
     *   General rule: `x % (2^n)` $\Leftrightarrow$ `x & (2^n - 1)`.
 
@@ -43,9 +43,9 @@
 *   **Key Property**: `x | 1 = 1` (Setting), `x | 0 = x` (Preserving).
 
 **Common Applications**:
-1.  **Setting Bits**: Forcing specific bits to 1.
+1. **Setting Bits**: Forcing specific bits to 1.
     *   `x | 0x01` $\rightarrow$ Sets the LSB to 1.
-2.  **Splicing Data**: Combining smaller data chunks into a larger one.
+2. **Splicing Data**: Combining smaller data chunks into a larger one.
     *   `(high_byte << 8) | low_byte` $\rightarrow$ Combines two 8-bit values into a 16-bit value.
 
 ### 3.3 Bitwise NOT (`~`)
@@ -54,8 +54,8 @@
 *   **Note**: This is a **unary** operator (takes only one operand).
 
 **Common Applications**:
-1.  **Portable "All Ones" Mask**: `~0` always represents a number with all bits set to 1, regardless of the machine's word size (32-bit or 64-bit).
-2.  **Creating Clearing Masks**: Used with AND.
+1. **Portable "All Ones" Mask**: `~0` always represents a number with all bits set to 1, regardless of the machine's word size (32-bit or 64-bit).
+2. **Creating Clearing Masks**: Used with AND.
     *   To clear the lower 3 bits: `x & ~7` (Since 7 is `...00111`, `~7` is `...11000`).
 
 ### 3.4 Bitwise XOR (`^`)
@@ -67,9 +67,9 @@
     *   `a ^ b ^ b = a` (Reversibility)
 
 **Common Applications**:
-1.  **Equality Check**: If `(a ^ b) == 0`, then `a == b`.
-2.  **Toggling Bits**: Inverting specific bits without touching others.
-3.  **Variable Swap**: Swapping values without a temporary variable (classic interview trick).
+1. **Equality Check**: If `(a ^ b) == 0`, then `a == b`.
+2. **Toggling Bits**: Inverting specific bits without touching others.
+3. **Variable Swap**: Swapping values without a temporary variable (classic interview trick).
 
 ---
 
@@ -79,23 +79,23 @@ This is the standard pattern for manipulating hardware registers or configuratio
 
 **Scenario**: You want to modify the 3rd and 4th bits of a variable `reg` (0-indexed).
 
-1.  **Prepare the Mask**:
+1. **Prepare the Mask**:
     ```c
     // Create a mask where only bits 3 and 4 are 1.
     unsigned long mask = (1ul << 3) | (1ul << 4);
     ```
 
-2.  **Set Bits (Turn ON)**: Use `OR`
+2. **Set Bits (Turn ON)**: Use `OR`
     ```c
     reg |= mask; // Bits 3 and 4 become 1; others unchanged.
     ```
 
-3.  **Reset Bits (Turn OFF)**: Use `AND` + `NOT`
+3. **Reset Bits (Turn OFF)**: Use `AND` + `NOT`
     ```c
     reg &= ~mask; // Bits 3 and 4 become 0; others unchanged.
     ```
 
-4.  **Toggle Bits (Flip)**: Use `XOR`
+4. **Toggle Bits (Flip)**: Use `XOR`
     ```c
     reg ^= mask; // Bits 3 and 4 flip states; others unchanged.
     ```
@@ -137,8 +137,8 @@ This is the standard pattern for manipulating hardware registers or configuratio
 *   **Action**: Moves bits to the right.
 *   **Math**: Equivalent to dividing by $2^n$ (integer division).
 *   **Padding Rule (Crucial)**:
-    1.  **Logical Shift (Unsigned types)**: Fills the left (MSB) with **0**.
-    2.  **Arithmetic Shift (Signed types)**: Fills the left (MSB) with the **Sign Bit**.
+    1. **Logical Shift (Unsigned types)**: Fills the left (MSB) with **0**.
+    2. **Arithmetic Shift (Signed types)**: Fills the left (MSB) with the **Sign Bit**.
         *   If positive (MSB=0), fills with 0.
         *   If negative (MSB=1), fills with 1 to maintain the negative value.
 
@@ -148,12 +148,12 @@ This is the standard pattern for manipulating hardware registers or configuratio
 
 Strictly avoid **Undefined Behaviors (UB)** regarding shift operations:
 
-1.  **Negative Shift Count**:
+1. **Negative Shift Count**:
     *   `x << -2` is **undefined**. Never use negative numbers for the number of positions to shift.
-2.  **Oversize Shift**:
+2. **Oversize Shift**:
     *   Shifting by a number greater than or equal to the width of the type.
     *   Example: `x << 32` (where `x` is a 32-bit `int`) is **undefined**.
-3.  **Signed Integer Overflow**:
+3. **Signed Integer Overflow**:
     *   `1 << 31` on a 32-bit signed int touches the sign bit. This can cause issues.
     *   **Fix**: Use unsigned literals: `1u << 31` or `1ul << 31`.
 
@@ -191,7 +191,7 @@ int main() {
 
 ### Explanation of the loop:
 
-1.  **Init**: `mask` is `1000...0000`.
-2.  **Check**: `number & mask` isolates the current bit.
-3.  **Update**: `mask >>= 1` shifts the `1` to the right (`0100...`, then `0010...`).
-4.  **End**: When `mask` becomes `0`, all bits have been checked.
+1. **Init**: `mask` is `1000...0000`.
+2. **Check**: `number & mask` isolates the current bit.
+3. **Update**: `mask >>= 1` shifts the `1` to the right (`0100...`, then `0010...`).
+4. **End**: When `mask` becomes `0`, all bits have been checked.

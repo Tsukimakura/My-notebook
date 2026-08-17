@@ -108,11 +108,11 @@ Used to handle data types of specific sizes (`short`, `long`, `size_t`, etc.).
 
 ## 6. Important Notes
 
-1.  **Double Precision:**
+1. **Double Precision:**
     *   `printf`: `%f` works for both `float` and `double` (float is promoted to double).
     *   `scanf`: You **must** distinguish: `%f` for `float`, `%lf` for `double`.
-2.  **Safety:** Never use `%s` in `scanf` without a width limit (e.g., `%100s`). Unbounded `%s` is a major security vulnerability (buffer overflow).
-3.  **Return Values:**
+2. **Safety:** Never use `%s` in `scanf` without a width limit (e.g., `%100s`). Unbounded `%s` is a major security vulnerability (buffer overflow).
+3. **Return Values:**
     *   `printf`: Returns the number of characters printed.
     *   `scanf`: Returns the number of items successfully read and assigned. Use this to check for EOF or bad input.
-4.  **Buffer Clearing:** `scanf("%c", &ch)` reads the newline character left over from a previous `scanf`. Use `scanf(" %c", &ch)` (note the space) to skip it.
+4. **Buffer Clearing:** `scanf("%c", &ch)` reads the newline character left over from a previous `scanf`. Use `scanf(" %c", &ch)` (note the space) to skip it.

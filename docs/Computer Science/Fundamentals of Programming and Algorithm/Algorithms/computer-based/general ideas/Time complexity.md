@@ -18,9 +18,9 @@ We uses **Big O Notation** to describe the **Worst-Case Scenario** (the uppe
 | Notation                          | Name         | Description                                               | Example                                     |
 | --------------------------------- | ------------ | --------------------------------------------------------- | ------------------------------------------- |
 | **<br><br>$O(1)$<br><br>**        | Constant     | Instant. No matter how much data, time is the same.       | Accessing arr[5]; Hash Map lookup.          |
-| **<br><br>$O(\log ⁡N)$<br><br>**  | Logarithmic  | Cuts the problem in half repeatedly. Very fast.           | Binary Search.                              |
+| **<br><br>$O(\log N)$<br><br>**  | Logarithmic  | Cuts the problem in half repeatedly. Very fast.           | Binary Search.                              |
 | **<br><br>$O(N)$<br><br>**        | Linear       | Loops through the data once.                              | Finding a max value; Hash Sort.             |
-| **<br><br>$O(N\log ⁡N)$<br><br>** | Linearithmic | The standard for efficient sorting.                       | Merge Sort; Quick Sort; Heap Sort.          |
+| **<br><br>$O(N\log N)$<br><br>** | Linearithmic | The standard for efficient sorting.                       | Merge Sort; Quick Sort; Heap Sort.          |
 | **<br><br>$O(N^2)$<br><br>**      | Quadratic    | Nested loops (Loop inside a loop). Slow for big data.     | Bubble Sort; Insertion Sort.                |
 | **<br><br>$O(2^N)$<br><br>**      | Exponential  | Doubling work with every element. Unusable for large $N$. | Recursive Fibonacci; Brute-force passwords. |
 

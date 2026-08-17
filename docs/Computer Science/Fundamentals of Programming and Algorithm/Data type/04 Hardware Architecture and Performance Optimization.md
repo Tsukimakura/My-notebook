@@ -25,9 +25,9 @@ Understanding data types requires understanding the physical components that pro
 ### C. The Interaction (The CPU Cycle)
 
 A single line of C code (e.g., `a = a + 1`) orchestrates a dance between these two:
-1.  **Fetch:** Sequential logic (Register) provides the current value of `a`.
-2.  **Compute:** Combinational logic (ALU) calculates `value + 1`.
-3.  **Store:** On the next clock tick, Sequential logic captures the new result.
+1. **Fetch:** Sequential logic (Register) provides the current value of `a`.
+2. **Compute:** Combinational logic (ALU) calculates `value + 1`.
+3. **Store:** On the next clock tick, Sequential logic captures the new result.
 
 ---
 
@@ -44,20 +44,20 @@ Despite modern CPUs being 64-bit, `int` (usually 32-bit) remains the default and
 
 One might assume 64-bit integers (`long long`) would be faster on 64-bit CPUs. However, 32-bit `int` is often superior due to "Transportation Costs":
 
-1.  **Cache Pressure (The Bottleneck):**
+1. **Cache Pressure (The Bottleneck):**
     *   CPU Cache (L1/L2) is extremely limited and fast.
     *   Using 32-bit `int` instead of 64-bit `long long` doubles the number of elements that fit into the cache.
     *   **Result:** Higher Cache Hit Rate, which is the primary factor in modern performance.
 
-2.  **Memory Bandwidth:**
+2. **Memory Bandwidth:**
     *   Memory buses have a fixed width.
     *   Transferring 32-bit data consumes half the bandwidth of 64-bit data, effectively doubling the data throughput for array processing.
 
-3.  **Instruction Encoding (Code Size):**
+3. **Instruction Encoding (Code Size):**
     *   On x86-64 architectures, instructions operating on 64-bit registers often require an extra prefix byte (REX prefix).
     *   Instructions for 32-bit `int` are shorter, resulting in smaller binary size and better utilization of the CPU's Instruction Cache.
 
-4.  **Hardware Zero-Extension (No Penalty):**
+4. **Hardware Zero-Extension (No Penalty):**
     *   On x86-64, writing to the lower 32 bits of a 64-bit register automatically clears the upper 32 bits to zero.
     *   **Result:** There is no CPU cycle penalty for using 32-bit math on a 64-bit register.
 
@@ -80,8 +80,8 @@ Unlike integers, where smaller is often better, `double` (64-bit) is usually pre
 ### C. The Implicit Cost of `float`
 
 If you use `float` in a `double`-centric environment without care:
-1.  **Conversion:** The CPU must convert `float` to `double` (promotion) to perform the math, then convert back to `float` (truncation) to store it.
-2.  **Risk:** This adds unnecessary CPU instructions and introduces potential truncation errors.
+1. **Conversion:** The CPU must convert `float` to `double` (promotion) to perform the math, then convert back to `float` (truncation) to store it.
+2. **Risk:** This adds unnecessary CPU instructions and introduces potential truncation errors.
 
 ### D. Exceptions: When to use `float`
 

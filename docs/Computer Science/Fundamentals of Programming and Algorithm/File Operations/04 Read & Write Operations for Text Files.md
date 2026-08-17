@@ -47,9 +47,9 @@ These functions are designed specifically to handle the newline-delimited struct
 
 *   **Prototype:** `char *fgets(char *str, int n, FILE *stream);`
 *   **Behavior:** Reads until one of the following occurs:
-    1.  A newline (`\n`) is encountered (The newline is **included** in the buffer).
-    2.  `n-1` characters are read (preventing buffer overflow).
-    3.  EOF is reached.
+    1. A newline (`\n`) is encountered (The newline is **included** in the buffer).
+    2. `n-1` characters are read (preventing buffer overflow).
+    3. EOF is reached.
 *   **Safety:** Unlike the deprecated `gets()` function, `fgets` forces the programmer to specify the buffer size, preventing memory corruption vulnerabilities.
 
 ### Output: `fputs`
@@ -90,8 +90,8 @@ The logic follows a simple formula: **Standard Function + Stream Pointer**.
 When mixing `scanf`/`fscanf` with character/line input, buffering issues often arise.
 
 **Scenario:**
-1.  `scanf("%d", &num);` reads an integer (e.g., "100") but stops at the newline, **leaving the `\n` in the input buffer**.
-2.  A subsequent call to `getchar()` or `fgets()` immediately sees the leftover `\n` and consumes it, appearing to "skip" user input.
+1. `scanf("%d", &num);` reads an integer (e.g., "100") but stops at the newline, **leaving the `\n` in the input buffer**.
+2. A subsequent call to `getchar()` or `fgets()` immediately sees the leftover `\n` and consumes it, appearing to "skip" user input.
 
 **Solution:** Explicitly consume the buffer after `scanf`.
 ```c

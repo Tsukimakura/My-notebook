@@ -7,13 +7,13 @@ To use Make effectively, you must understand that **Make assumes everything is a
 **The Decision Flow:**
 When you run `make target_name`, Make follows this strict logic:
 
-1.  **Is it a .PHONY target?**
+1. **Is it a .PHONY target?**
     *   **Yes:** Ignore the disk. Execute the command immediately. (This is for **Actions**).
     *   **No:** Proceed to step 2.
-2.  **Does a file named `target_name` exist on the disk?**
+2. **Does a file named `target_name` exist on the disk?**
     *   **No:** The target is missing. Execute the command to create it. (This is for **Creation**).
     *   **Yes:** Proceed to step 3.
-3.  **Are the dependencies newer than the target?**
+3. **Are the dependencies newer than the target?**
     *   **Yes:** The target is "stale." Execute the command to update it.
     *   **No:** The target is "up to date." Do nothing.
 
@@ -40,8 +40,8 @@ target: prerequisites
 This is the mechanism used to define **Actions**. Since Make looks for files by default, we use `.PHONY` to explicitly tell Make: *"Do not look for a file with this name; just run the command."*
 
 **Why use it?**
-1.  **Avoid Naming Conflicts:** If you have a rule named `clean`, and you accidentally create a file named `clean` in your directory, `make clean` will say "clean is up to date" and do nothing. `.PHONY` fixes this.
-2.  **Performance:** It skips the filesystem timestamp check.
+1. **Avoid Naming Conflicts:** If you have a rule named `clean`, and you accidentally create a file named `clean` in your directory, `make clean` will say "clean is up to date" and do nothing. `.PHONY` fixes this.
+2. **Performance:** It skips the filesystem timestamp check.
 
 **Standard Phony Targets:**
 *   `all`: Compiles the entire project (default).
@@ -189,8 +189,8 @@ help:
 
 ## 9. Summary of Best Practices
 
-1.  **Always** use `.PHONY` for non-file targets (`clean`, `test`).
-2.  **Always** use variables for compilers and flags (`CC`, `CFLAGS`) to allow easy changes later.
-3.  **Always** check that your indentation is a **TAB**, not spaces.
-4.  Use **Automatic Variables** (`$@`, `$<`) to reduce code duplication.
-5.  Order your Makefile logically: Configuration -> Files -> Phony -> Rules.
+1. **Always** use `.PHONY` for non-file targets (`clean`, `test`).
+2. **Always** use variables for compilers and flags (`CC`, `CFLAGS`) to allow easy changes later.
+3. **Always** check that your indentation is a **TAB**, not spaces.
+4. Use **Automatic Variables** (`$@`, `$<`) to reduce code duplication.
+5. Order your Makefile logically: Configuration -> Files -> Phony -> Rules.

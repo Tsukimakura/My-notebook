@@ -3,9 +3,9 @@
 ## 1. Definition and Fundamental Nature
 
 In the ISO C Standard, an **Expression** is defined as a sequence of operators and operands that performs one or more of the following operations:
-1.  Computes a **value**.
-2.  Designates an **object** or a **function**.
-3.  Generates a **side effect**.
+1. Computes a **value**.
+2. Designates an **object** or a **function**.
+3. Generates a **side effect**.
 
 ### The Recursive Definition
 
@@ -38,12 +38,12 @@ Unless the type is `void` (e.g., a call to a void function), every expression ev
 
 This is the most critical structural distinction in C expressions.
 
-1.  **Lvalue (Locator Value):**
+1. **Lvalue (Locator Value):**
     *   **Definition:** An expression that designates a specific object in memory (it has an address).
     *   **Capability:** You can take its address using the `&` operator.
     *   **Context:** historically appeared on the **L**eft side of an assignment.
     *   *Examples:* `var`, `*ptr`, `arr[index]`, `struct.member`.
-2.  **Rvalue (Value of an Expression):**
+2. **Rvalue (Value of an Expression):**
     *   **Definition:** The computed value of an expression. It does not necessarily occupy a persistent memory location.
     *   **Capability:** You **cannot** take its address.
     *   **Context:** historically appeared on the **R**ight side of an assignment.

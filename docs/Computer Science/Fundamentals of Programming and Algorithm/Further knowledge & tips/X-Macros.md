@@ -6,17 +6,17 @@
 
 ## 2. Mechanism
 
-1.  **Define the Data:** Create a macro (or a separate file) that lists items by calling a placeholder macro (usually named `X`).
-2.  **Define X:** Locally define what `X` should expand to (e.g., an Enum value).
-3.  **Expand:** Run the list.
-4.  **Redefine X:** Undefine `X`, define it differently (e.g., as a String), and run the list again.
+1. **Define the Data:** Create a macro (or a separate file) that lists items by calling a placeholder macro (usually named `X`).
+2. **Define X:** Locally define what `X` should expand to (e.g., an Enum value).
+3. **Expand:** Run the list.
+4. **Redefine X:** Undefine `X`, define it differently (e.g., as a String), and run the list again.
 
 ## 3. Comprehensive Example: State Machine Management
 
 Imagine we need to manage a system's state. We need:
-1.  An `enum` for the states.
-2.  An array of strings to print the state names for debugging.
-3.  A switch statement to handle logic.
+1. An `enum` for the states.
+2. An array of strings to print the state names for debugging.
+3. A switch statement to handle logic.
 
 Instead of writing this in three places (which causes bugs if you forget to update one), we use X-Macros.
 

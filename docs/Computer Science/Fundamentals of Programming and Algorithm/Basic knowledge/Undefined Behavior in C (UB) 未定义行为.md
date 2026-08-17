@@ -14,8 +14,8 @@ The ISO C Standard categorizes program behavior into three distinct classes. Und
 ## 2. The Philosophy: Why UB Exists
 
 UB is not a design flaw; it is a deliberate choice to prioritize **performance** and **optimization potential**.
-1.  **Performance:** C assumes the programmer knows what they are doing. Forcing the compiler to insert runtime checks (e.g., array bounds checking) for every operation would severely degrade performance.
-2.  **Optimization (The "As-If" Rule):** Compilers optimize code based on the assumption that **UB never happens**. If a code path implies UB, the compiler assumes that path is unreachable and may remove it (Dead Code Elimination) or reorder instructions around it.
+1. **Performance:** C assumes the programmer knows what they are doing. Forcing the compiler to insert runtime checks (e.g., array bounds checking) for every operation would severely degrade performance.
+2. **Optimization (The "As-If" Rule):** Compilers optimize code based on the assumption that **UB never happens**. If a code path implies UB, the compiler assumes that path is unreachable and may remove it (Dead Code Elimination) or reorder instructions around it.
 
 ## 3. Common Sources of UB
 

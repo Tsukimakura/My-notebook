@@ -24,7 +24,7 @@ The algorithm uses a fixed amount of extra memory, regardless of input size.
 - Why: They only need a single temporary variable (temp) to swap numbers.
 
 
-### B. $O(log⁡N)$
+### B. $O(\log N)$
 
  - Logarithmic Space
 

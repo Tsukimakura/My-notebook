@@ -28,11 +28,11 @@ Conversion triggers one of four distinct physical actions in the CPU.
 ### A. Upgrading: Extension (Small $\to$ Big)
 
 When moving a smaller integer to a larger container, the new high-order bits must be filled.
-1.  **Zero Extension (for Unsigned Types):**
+1. **Zero Extension (for Unsigned Types):**
     *   **Action:** Fills all new high bits with **0**.
     *   **Result:** The numerical value remains identical.
     *   *Example:* `unsigned char` (0xFF) $\to$ `int` (0x000000FF).
-2.  **Sign Extension (for Signed Types):**
+2. **Sign Extension (for Signed Types):**
     *   **Action:** Fills all new high bits with a copy of the **Sign Bit (MSB)**.
     *   **Result:** Preserves the Two's Complement value (negative remains negative).
     *   *Example:* `signed char` (-5, 0xFB) $\to$ `int` (-5, 0xFFFFFFFB).

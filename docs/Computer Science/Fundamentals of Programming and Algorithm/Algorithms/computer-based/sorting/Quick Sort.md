@@ -173,17 +173,17 @@ void quicksort_hoare(int arr[], int l, int r) {
 1. **The difference of return value and recursive sorting ranges:** Different partitioning scheme should return different variables(i or j). We return i in Lomuto scheme, which is the index of the pivot after swapping. In Hoare scheme, after the whole loop, j is the maximal index of the left range( <= pivot), while i is the minimal index of the right range( >= pivot). So we usually return j and recursively sort (l, p) & (p+1, r), which is respectively the left range and the right range.What's more, since we don't really know where is the pivot in Hoare partition, we can't just recursively sort (l, p-1) & (p+1, r)， where p is the pivot's index, like what Lomuto does.
 
 2. **In Hoare scheme, why do-while, not while: to avoid infinite loop.**
-	if arr = {2, 2}:
-	```c
-	while (arr[i] < pivot) i++;
-	while (arr[j] > pivot) j--;
-	if (i <= j) {
-		swap(arr[i], arr[j]);
-	}
-	```
-	i never moves, so does j. They just keep swapping all the time, forming an infinite loop.
-	do-while just avoid this case by manipulating i and j first.
-	we can also use while and add `i++` and `j--` in `if(i <= j){...}` , but this is apparently not so simple and beautiful as the standard version.
+    	if arr = {2, 2}:
+    	```c
+    	while (arr[i] < pivot) i++;
+    	while (arr[j] > pivot) j--;
+    	if (i <= j) {
+    		swap(arr[i], arr[j]);
+    	}
+    	```
+    	i never moves, so does j. They just keep swapping all the time, forming an infinite loop.
+    	do-while just avoid this case by manipulating i and j first.
+    	we can also use while and add `i++` and `j--` in `if(i <= j){...}` , but this is apparently not so simple and beautiful as the standard version.
 
 3. **Pros and cons of the two schemes**
 	 1. Lomuto Partition Scheme
@@ -200,7 +200,7 @@ void quicksort_hoare(int arr[], int l, int r) {
 
 		    - **Worst Case:** Degrades to $O(N^2)$ when the array contains **all duplicate elements**.
 
-	2. Hoare Partition Scheme
+	1. Hoare Partition Scheme
 
 		- **Mechanism:** **Bi-directional**. Two pointers start at ends and move inward.
 
@@ -208,7 +208,7 @@ void quicksort_hoare(int arr[], int l, int r) {
 
 		    - **Efficiency:** Performs **3x fewer swaps** on average compared to Lomuto.
 
-		    - **Robustness:** Handles **duplicate elements** perfectly (keeps $O(Nlog⁡N)$ by splitting the array in half).
+		    - **Robustness:** Handles **duplicate elements** perfectly (keeps $O(N \log N)$ by splitting the array in half).
 			    - actually if we always choose the first element as pivot, the time complexity also degrade to $O(N^2)$ ,we can choose the pivot from the middle to avoid this case.
 
 		- **Cons:**

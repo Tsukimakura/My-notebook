@@ -12,8 +12,8 @@ In the C language, data types function as the fundamental protocol for memory ma
 ### B. The Functions of a Data Type
 
 Instead of metaphors, data types perform two technical functions:
-1.  **Size Determination:** Defines the exact amount of physical memory (bytes) to allocate.
-2.  **Bit Interpretation:** Defines the specific **encoding scheme** used to translate binary patterns into meaningful values (semantics).
+1. **Size Determination:** Defines the exact amount of physical memory (bytes) to allocate.
+2. **Bit Interpretation:** Defines the specific **encoding scheme** used to translate binary patterns into meaningful values (semantics).
 
 ---
 

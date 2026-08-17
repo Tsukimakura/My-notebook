@@ -8,10 +8,10 @@ In C, file manipulation is high-level and abstracted through the **`FILE`** stru
 
 Programmers do not typically interact with the members of the `FILE` struct directly. Instead, they operate on a pointer (`FILE *`) which serves as a handle. Internally, this structure maintains four critical pieces of information:
 
-1.  **File Descriptor (FD):** An integer used to communicate with the operating system kernel (The "key" to the underlying file).
-2.  **Buffer:** A pointer to the memory area used for buffering I/O (The "wheelbarrow" discussed in Part 2).
-3.  **File Position Indicator:** Tracks the current byte location for reading or writing (The "bookmark").
-4.  **State Flags:** Indicates the file mode (read/write), End-of-File (EOF) status, and error indicators.
+1. **File Descriptor (FD):** An integer used to communicate with the operating system kernel (The "key" to the underlying file).
+2. **Buffer:** A pointer to the memory area used for buffering I/O (The "wheelbarrow" discussed in Part 2).
+3. **File Position Indicator:** Tracks the current byte location for reading or writing (The "bookmark").
+4. **State Flags:** Indicates the file mode (read/write), End-of-File (EOF) status, and error indicators.
 
 ### Memory Allocation
 
@@ -59,9 +59,9 @@ if (fp == NULL) {
 ### Step 3: Closing the File (`fclose`)
 
 The `fclose(fp)` function is mandatory for three reasons:
-1.  **Flush Buffers:** Forces any data remaining in the user-space buffer to be written to the kernel/disk.
-2.  **Release Heap Memory:** Frees the `FILE` structure allocated by `fopen`.
-3.  **Close File Descriptor:** Releases the underlying OS resource. System limits on open files (e.g., 1024) can be exhausted if FDs are not recycled.
+1. **Flush Buffers:** Forces any data remaining in the user-space buffer to be written to the kernel/disk.
+2. **Release Heap Memory:** Frees the `FILE` structure allocated by `fopen`.
+3. **Close File Descriptor:** Releases the underlying OS resource. System limits on open files (e.g., 1024) can be exhausted if FDs are not recycled.
 
 ---
 

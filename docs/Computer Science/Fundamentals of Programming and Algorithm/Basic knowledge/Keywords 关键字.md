@@ -124,8 +124,8 @@ Here are detailed notes on the keywords that often confuse engineers:
 The **C23** standard (the newest iteration) made significant changes to modernize keywords. It introduced standard lowercase keywords that were previously macros or underscored keywords.
 
 If you are using a C23-compliant compiler:
-1.  **`true`** and **`false`** are now actual keywords (previously macros in `stdbool.h`).
-2.  **`bool`** is a keyword (replaces `_Bool`).
-3.  **`alignas`**, **`alignof`**, **`static_assert`**, **`thread_local`** are keywords (replacing the `_Capitalized` versions).
-4.  **`typeof`** and **`typeof_unqual`** are new keywords for type inference.
-5.  **`nullptr`** is a new keyword representing a null pointer with a specific type (similar to C++).
+1. **`true`** and **`false`** are now actual keywords (previously macros in `stdbool.h`).
+2. **`bool`** is a keyword (replaces `_Bool`).
+3. **`alignas`**, **`alignof`**, **`static_assert`**, **`thread_local`** are keywords (replacing the `_Capitalized` versions).
+4. **`typeof`** and **`typeof_unqual`** are new keywords for type inference.
+5. **`nullptr`** is a new keyword representing a null pointer with a specific type (similar to C++).

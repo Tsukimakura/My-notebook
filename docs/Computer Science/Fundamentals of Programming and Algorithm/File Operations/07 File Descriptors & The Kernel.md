@@ -12,9 +12,9 @@ A File Descriptor is a non-negative integer **(0, 1, 2, ...)** that acts as a ha
 
 The kernel maintains a table for every running process (inside the Process Control Block - PCB). The FD is simply the **array index** into this table.
 
-1.  **Process Level:** The FD Table maps the integer ID (e.g., `3`) to a pointer.
-2.  **System Level:** This pointer directs to a system-wide "Open File Table," which tracks the file offset, access mode, and reference count.
-3.  **Inode Level:** Finally, this points to the actual data on the physical disk (Inode/Vnode).
+1. **Process Level:** The FD Table maps the integer ID (e.g., `3`) to a pointer.
+2. **System Level:** This pointer directs to a system-wide "Open File Table," which tracks the file offset, access mode, and reference count.
+3. **Inode Level:** Finally, this points to the actual data on the physical disk (Inode/Vnode).
 
 ### Standard Descriptors
 
@@ -76,18 +76,18 @@ The function `fclose(fp)` performs a complex cleanup sequence that bridges the g
 
 ### The Cleanup Sequence
 
-1.  **Flush User Buffer:** Any data sitting in the `FILE` structure's buffer is pushed to the kernel via the `write()` system call.
-2.  **Close File Descriptor:** The library calls `close(fd)`. This tells the kernel to remove the entry from the process's FD table.
-3.  **Free Memory:** The `FILE` structure itself (allocated on the heap) is freed.
+1. **Flush User Buffer:** Any data sitting in the `FILE` structure's buffer is pushed to the kernel via the `write()` system call.
+2. **Close File Descriptor:** The library calls `close(fd)`. This tells the kernel to remove the entry from the process's FD table.
+3. **Free Memory:** The `FILE` structure itself (allocated on the heap) is freed.
 
 ### Consequences of Leaking FDs
 
 If a programmer forgets to call `fclose` (or `close`), simply freeing the `FILE` pointer is insufficient. The underlying FD remains "Open" in the kernel.
 
-1.  **FD Exhaustion (Resource Leak):**
+1. **FD Exhaustion (Resource Leak):**
     *   Operating systems enforce a limit on open files per process (e.g., `ulimit -n` often defaults to 1024).
     *   If a server leaks FDs, it will eventually crash with a "Too many open files" error, refusing new connections or files.
-2.  **File Locking:**
+2. **File Locking:**
     *   File locks (`flock`) are typically associated with the file description. Failing to close the FD may leave a file locked, preventing other processes from accessing it.
-3.  **Disk Space Reclamation (Unix/Linux):**
+3. **Disk Space Reclamation (Unix/Linux):**
     *   In Linux, if a file is deleted (unlinked) but an open FD still references it, the disk space is **not freed**. The file becomes "invisible" but still consumes storage until the process terminates or closes the FD.

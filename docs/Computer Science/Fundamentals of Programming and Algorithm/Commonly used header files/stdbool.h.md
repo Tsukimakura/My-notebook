@@ -71,8 +71,8 @@ int main(void) {
 
 ## 6. Best Practices
 
-1.  **Use for Readability**: Using `bool` makes function signatures self-documenting (e.g., `bool is_valid()` is clearer than `int is_valid()`).
-2.  **Avoid Explicit Comparison**:
+1. **Use for Readability**: Using `bool` makes function signatures self-documenting (e.g., `bool is_valid()` is clearer than `int is_valid()`).
+2. **Avoid Explicit Comparison**:
     *   **Bad**: `if (my_bool == true)`
     *   **Good**: `if (my_bool)`
-3.  **Standard Compliance**: Always include this header if you use `bool` in C. Do not rely on compiler extensions that might support it without the include.
+3. **Standard Compliance**: Always include this header if you use `bool` in C. Do not rely on compiler extensions that might support it without the include.

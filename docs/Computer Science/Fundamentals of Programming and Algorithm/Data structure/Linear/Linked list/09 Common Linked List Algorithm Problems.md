@@ -12,16 +12,16 @@ Here are the four classic patterns you must master.
 
 **The Algorithm: "Three-Pointer Sliding"**
 You cannot reverse a link without losing the rest of the list, so you need three pointers:
-1.  **`curr`**: The node you are currently flipping.
-2.  **`prev`**: The node before `curr` (where `curr->next` should point to).
-3.  **`next`**: The node after `curr` (saved so we don't lose the rest of the list).
+1. **`curr`**: The node you are currently flipping.
+2. **`prev`**: The node before `curr` (where `curr->next` should point to).
+3. **`next`**: The node after `curr` (saved so we don't lose the rest of the list).
 
 **Logic Steps:**
-1.  Save `next = curr->next`.
-2.  Reverse the arrow: `curr->next = prev`.
-3.  Shift `prev` to `curr`.
-4.  Shift `curr` to `next`.
-5.  Repeat until `curr` is NULL. Return `prev` (the new head).
+1. Save `next = curr->next`.
+2. Reverse the arrow: `curr->next = prev`.
+3. Shift `prev` to `curr`.
+4. Shift `curr` to `next`.
+5. Repeat until `curr` is NULL. Return `prev` (the new head).
 
 ---
 
@@ -50,10 +50,10 @@ We iterate through both lists simultaneously and pick the smaller node to add to
 
 **Crucial Trick: The Dummy Head**
 Since we don't know which list has the starting node (1 or 2?), we create a local `Dummy` node on the stack. We build the result list after `Dummy`.
-1.  Compare `L1->val` and `L2->val`.
-2.  Attach the smaller one to `tail->next`.
-3.  Move the pointer of the chosen list forward.
-4.  **End:** If one list runs out, attach the *entire* remainder of the other list to the end (no need to iterate further).
+1. Compare `L1->val` and `L2->val`.
+2. Attach the smaller one to `tail->next`.
+3. Move the pointer of the chosen list forward.
+4. **End:** If one list runs out, attach the *entire* remainder of the other list to the end (no need to iterate further).
 
 ---
 
@@ -67,19 +67,19 @@ Since we don't know which list has the starting node (1 or 2?), we create a loca
 This problem combines traversal and reversal. We usually use a **Dummy Head** to handle the first group uniformly.
 
 **Step-by-Step Logic:**
-1.  **Check:** Starting from a pointer `groupPrev`, move forward $k$ steps to see if there are enough nodes.
+1. **Check:** Starting from a pointer `groupPrev`, move forward $k$ steps to see if there are enough nodes.
     *   If you hit `NULL` before $k$ steps, stop (leave the rest as is).
-2.  **Identify Boundaries:**
+2. **Identify Boundaries:**
     *   `groupStart`: The first node of the group (will become the tail after reversal).
     *   `groupEnd`: The $k$-th node (will become the head after reversal).
     *   `nextGroup`: The node after `groupEnd`.
-3.  **Cut & Reverse:**
+3. **Cut & Reverse:**
     *   Temporarily break the link to `nextGroup` (optional, but helps visualization).
     *   Run the **Standard Reverse Algorithm** (from Problem 1) on the segment from `groupStart` to `groupEnd`.
-4.  **Connect:**
+4. **Connect:**
     *   Link `groupPrev->next` to the new head (`groupEnd`).
     *   Link `groupStart->next` to `nextGroup`.
-5.  **Advance:**
+5. **Advance:**
     *   `groupPrev` moves to `groupStart` (which is now at the end of the reversed segment).
     *   Repeat.
 
@@ -92,9 +92,9 @@ This problem combines traversal and reversal. We usually use a **Dummy Head** to
 **The Algorithm: Fast & Slow Pointers (Again)**
 *   **Middle:** `Fast` moves 2 steps, `Slow` moves 1 step. When `Fast` hits the end, `Slow` is exactly in the middle.
 *   **N-th from End:**
-    1.  Move `Fast` forward by $N$ steps first.
-    2.  Then move both `Fast` and `Slow` at speed 1.
-    3.  When `Fast` hits the end, `Slow` is at the N-th node from the end.
+    1. Move `Fast` forward by $N$ steps first.
+    2. Then move both `Fast` and `Slow` at speed 1.
+    3. When `Fast` hits the end, `Slow` is at the N-th node from the end.
 
 ---
 

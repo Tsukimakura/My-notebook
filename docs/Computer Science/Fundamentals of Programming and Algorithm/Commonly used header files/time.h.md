@@ -5,8 +5,8 @@
 The `<time.h>` header provides standard facilities for time manipulation, including retrieving the system time, converting between different time formats (e.g., timestamps vs. calendar dates), and formatting date strings.
 
 It revolves around two main concepts:
-1.  **Calendar Time**: The "absolute" time (usually seconds since the Epoch).
-2.  **Processor Time**: The CPU time consumed by the program.
+1. **Calendar Time**: The "absolute" time (usually seconds since the Epoch).
+2. **Processor Time**: The CPU time consumed by the program.
 
 ## 2. Key Data Types
 
@@ -143,6 +143,6 @@ int main() {
 
 ## 5. Common Pitfalls
 
-1.  **`tm_mon` Offset**: The month field in `struct tm` ranges from **0 to 11** (0 is January, 11 is December). Do not expect 1-12.
-2.  **`tm_year` Offset**: The year field is **years since 1900**. To get the current year (e.g., 2025), you must calculate `info->tm_year + 1900`.
-3.  **Thread Safety**: Functions like `localtime`, `gmtime`, and `ctime` return pointers to static internal buffers. They are **not thread-safe**. In multi-threaded applications, use the reentrant versions (`localtime_r`, `gmtime_r`) provided by POSIX or C11.
+1. **`tm_mon` Offset**: The month field in `struct tm` ranges from **0 to 11** (0 is January, 11 is December). Do not expect 1-12.
+2. **`tm_year` Offset**: The year field is **years since 1900**. To get the current year (e.g., 2025), you must calculate `info->tm_year + 1900`.
+3. **Thread Safety**: Functions like `localtime`, `gmtime`, and `ctime` return pointers to static internal buffers. They are **not thread-safe**. In multi-threaded applications, use the reentrant versions (`localtime_r`, `gmtime_r`) provided by POSIX or C11.

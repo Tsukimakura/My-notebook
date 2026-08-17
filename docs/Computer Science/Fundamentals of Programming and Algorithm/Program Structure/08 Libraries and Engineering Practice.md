@@ -24,9 +24,9 @@ ar rcs libmymath.a add.o sub.o
 ### Linker's Usage: "Extract-on-Demand"
 
 When linking with a static library, the linker does **not** copy the entire library into your executable.
-1.  The linker consults the library's **symbol index**.
-2.  It identifies only the `.o` files within the `.a` archive that define the currently **undefined symbols** needed by your program.
-3.  Only those specific `.o` files are extracted and copied into your final executable. Unused `.o` files within the library are ignored.
+1. The linker consults the library's **symbol index**.
+2. It identifies only the `.o` files within the `.a` archive that define the currently **undefined symbols** needed by your program.
+3. Only those specific `.o` files are extracted and copied into your final executable. Unused `.o` files within the library are ignored.
 
 ### Advantages
 
@@ -43,9 +43,9 @@ A dynamic library (typically `.so` on Linux, `.dll` on Windows) is a file contai
 ### Linker's Usage: "Deferred Resolution"
 
 When linking with a dynamic library, the linker **does not** copy the code.
-1.  It resolves symbols by noting that they are defined in a specific dynamic library.
-2.  The executable records which dynamic libraries it needs.
-3.  At runtime, the operating system's **dynamic loader** (e.g., `ld-linux.so`) loads the actual library code into memory and patches the program's addresses.
+1. It resolves symbols by noting that they are defined in a specific dynamic library.
+2. The executable records which dynamic libraries it needs.
+3. At runtime, the operating system's **dynamic loader** (e.g., `ld-linux.so`) loads the actual library code into memory and patches the program's addresses.
 
 ### Advantages
 
@@ -58,19 +58,19 @@ When linking with a dynamic library, the linker **does not** copy the code.
 ### Compile-Time (Linker) Search
 
 When running `gcc` to create the executable.
-1.  **`-l<name>` (Lowercase L):** Specifies the library by name (e.g., `-lm` for `libm.so` or `libm.a`).
+1. **`-l<name>` (Lowercase L):** Specifies the library by name (e.g., `-lm` for `libm.so` or `libm.a`).
     *   The linker automatically prepends `lib` and appends `.a` or `.so`.
-2.  **`-L<path>` (Uppercase L):** Specifies additional directories where the linker should search for libraries (e.g., `-L/home/user/my_libs`).
-3.  **`LIBRARY_PATH` Environment Variable:** A colon-separated list of directories for the linker to search (used by `ld`).
-4.  **System Default Paths:** Hardcoded paths like `/lib`, `/usr/lib`, `/usr/local/lib`.
+2. **`-L<path>` (Uppercase L):** Specifies additional directories where the linker should search for libraries (e.g., `-L/home/user/my_libs`).
+3. **`LIBRARY_PATH` Environment Variable:** A colon-separated list of directories for the linker to search (used by `ld`).
+4. **System Default Paths:** Hardcoded paths like `/lib`, `/usr/lib`, `/usr/local/lib`.
 
 ### Runtime (Dynamic Loader) Search
 
 When running the compiled executable.
-1.  **RPATH / RUNPATH:** Paths **hardcoded into the executable** during compilation using flags like `-Wl,-rpath=/my/app/lib`. (Highest priority).
-2.  **`LD_LIBRARY_PATH` Environment Variable:** A colon-separated list of directories for the dynamic loader to search. (Useful for testing, but can cause system instability if set globally).
-3.  **`/etc/ld.so.cache`:** A cache of library locations built from `/etc/ld.so.conf` (and `/etc/ld.so.conf.d/`). Updated by `sudo ldconfig`.
-4.  **System Default Paths:** `/lib`, `/usr/lib`.
+1. **RPATH / RUNPATH:** Paths **hardcoded into the executable** during compilation using flags like `-Wl,-rpath=/my/app/lib`. (Highest priority).
+2. **`LD_LIBRARY_PATH` Environment Variable:** A colon-separated list of directories for the dynamic loader to search. (Useful for testing, but can cause system instability if set globally).
+3. **`/etc/ld.so.cache`:** A cache of library locations built from `/etc/ld.so.conf` (and `/etc/ld.so.conf.d/`). Updated by `sudo ldconfig`.
+4. **System Default Paths:** `/lib`, `/usr/lib`.
 
 ### Critical Rule: Link Order Matters!
 

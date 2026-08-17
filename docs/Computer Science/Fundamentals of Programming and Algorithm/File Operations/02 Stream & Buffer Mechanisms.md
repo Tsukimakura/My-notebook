@@ -50,9 +50,9 @@ The C Standard Library (`stdio`) automatically selects a buffering strategy base
 
 *   **Target:** Interactive devices, primarily `stdin` (keyboard) and `stdout` (terminal screen).
 *   **Behavior:** The buffer is flushed (written out) when:
-    1.  A newline character (`\n`) is encountered.
-    2.  The buffer becomes full.
-    3.  Input is requested from `stdin` (this often triggers a flush of `stdout` to ensure prompts are visible).
+    1. A newline character (`\n`) is encountered.
+    2. The buffer becomes full.
+    3. Input is requested from `stdin` (this often triggers a flush of `stdout` to ensure prompts are visible).
 *   **Rationale:** Ensures a natural user experience. When a user presses Enter, they expect to see the output immediately.
 
 ### No Buffering
@@ -82,8 +82,8 @@ Flushing a buffer means transferring the data currently held in the user-space m
 
 In modern operating systems, data actually passes through two layers of buffering:
 
-1.  **C Library Buffer (User Space):** Managed by the `FILE` structure. `fflush` clears this buffer, pushing data to the OS.
-2.  **Kernel Page Cache (Kernel Space):** Managed by the OS. The OS might hold the data in RAM to optimize disk scheduling.
+1. **C Library Buffer (User Space):** Managed by the `FILE` structure. `fflush` clears this buffer, pushing data to the OS.
+2. **Kernel Page Cache (Kernel Space):** Managed by the OS. The OS might hold the data in RAM to optimize disk scheduling.
     *   *Note:* `fflush` ensures data leaves the application, but not necessarily that it hits the physical disk. To force a write to the physical hardware, system calls like `fsync` (Unix) are required.
 
 ### Common Pitfalls

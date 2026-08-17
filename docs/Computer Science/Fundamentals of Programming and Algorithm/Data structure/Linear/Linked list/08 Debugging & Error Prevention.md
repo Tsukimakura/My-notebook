@@ -24,8 +24,8 @@ Working with pointers can be dangerous. A single mistake can cause your program 
 
 *   **Symptom:** The program freezes and doesn't print output, or prints the same numbers forever.
 *   **Cause:**
-    1.  The loop condition is wrong (e.g., `while(p)` in a circular list).
-    2.  You forgot to advance the pointer (`p = p->next`) inside the loop.
+    1. The loop condition is wrong (e.g., `while(p)` in a circular list).
+    2. You forgot to advance the pointer (`p = p->next`) inside the loop.
 
 ---
 
@@ -47,9 +47,9 @@ Before accessing `p->next` or `p->data`, always ask: **"Is p NULL?"**
 ### **Tip 3: Handle Edge Cases Explicitly**
 
 Test your logic mentally against these three scenarios:
-1.  **Empty List:** Does your function crash if `head == NULL`?
-2.  **Single Node:** Does it work if the list has only 1 item?
-3.  **Tail Operation:** Does it work if you are deleting/inserting the very last node?
+1. **Empty List:** Does your function crash if `head == NULL`?
+2. **Single Node:** Does it work if the list has only 1 item?
+3. **Tail Operation:** Does it work if you are deleting/inserting the very last node?
 
 ---
 
@@ -80,7 +80,7 @@ If your program runs but behaves strangely (or you lose points for Memory Leaks)
 
 Before you run your code, check these 4 items:
 
-1.  [ ] **Order:** Did I link the new node (`newNode->next = ...`) *before* breaking the existing link?
-2.  [ ] **NULL Check:** Did I check if `head` or `current` is `NULL` before using `->`?
-3.  [ ] **Advance:** Did I write `p = p->next` inside my `while` loop?
-4.  [ ] **Free:** Did I `free()` the memory for every node I removed?
+1. [ ] **Order:** Did I link the new node (`newNode->next = ...`) *before* breaking the existing link?
+2. [ ] **NULL Check:** Did I check if `head` or `current` is `NULL` before using `->`?
+3. [ ] **Advance:** Did I write `p = p->next` inside my `while` loop?
+4. [ ] **Free:** Did I `free()` the memory for every node I removed?

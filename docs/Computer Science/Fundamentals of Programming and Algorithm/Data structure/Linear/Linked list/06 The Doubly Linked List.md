@@ -4,12 +4,12 @@
 
 **What is it?**
 A list where every node has **two pointers**:
-1.  `next`: Points forward.
-2.  `prev`: Points backward.
+1. `next`: Points forward.
+2. `prev`: Points backward.
 
 **Why introduce it? (The Logic)**
-1.  **Bidirectional Traversal:** You can iterate from Head to Tail OR Tail to Head.
-2.  **The "Self-Deletion" Power:** This is the massive advantage. In a Singly list, to delete node `X`, you need a pointer to the node *before* `X`. In a Doubly list, if you hold `X`, you can delete it immediately because `X` knows who is before it (`X->prev`).
+1. **Bidirectional Traversal:** You can iterate from Head to Tail OR Tail to Head.
+2. **The "Self-Deletion" Power:** This is the massive advantage. In a Singly list, to delete node `X`, you need a pointer to the node *before* `X`. In a Doubly list, if you hold `X`, you can delete it immediately because `X` knows who is before it (`X->prev`).
     *   **Complexity:** Deletion becomes **$O(1)$** (assuming you already have the pointer to the target).
 
 ## **2. Modifications Required**
@@ -63,9 +63,9 @@ void deleteNode(DNode* p) {
 
 ## **3. Unique Precautions (Gotchas)**
 
-1.  **Memory Overhead:** Each node requires extra memory (4 or 8 bytes) for the `prev` pointer. On embedded systems, this adds up.
-2.  **Maintenance Complexity:**
+1. **Memory Overhead:** Each node requires extra memory (4 or 8 bytes) for the `prev` pointer. On embedded systems, this adds up.
+2. **Maintenance Complexity:**
     *   In a Singly list, forgetting to update a pointer might break the list.
     *   In a Doubly list, forgetting to update a `prev` pointer might create a **subtle bug** where traversing forward works fine, but traversing backward crashes or goes to the wrong place.
-3.  **The "Double Sentinel" Recommendation:**
+3. **The "Double Sentinel" Recommendation:**
     *   To avoid checking `if (B != NULL)` or `if (before != NULL)` constantly, Doubly Linked Lists are best implemented with **Two Sentinels**: a `HeadDummy` and a `TailDummy`. This ensures every data node always has a valid `prev` and `next`.

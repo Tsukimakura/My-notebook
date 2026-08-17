@@ -109,7 +109,7 @@ actions[userChoice]();
 
 ## Summary of Rules
 
-1.  **Parentheses:** Always use `(*name)` in the declaration.
-2.  **Assignment:** `ptr = func` and `ptr = &func` are equivalent.
-3.  **Arithmetic:** Math on function pointers is **illegal** (No stride).
-4.  **Dereference:** `fp()` and `(*fp)()` are functionally identical.
+1. **Parentheses:** Always use `(*name)` in the declaration.
+2. **Assignment:** `ptr = func` and `ptr = &func` are equivalent.
+3. **Arithmetic:** Math on function pointers is **illegal** (No stride).
+4. **Dereference:** `fp()` and `(*fp)()` are functionally identical.

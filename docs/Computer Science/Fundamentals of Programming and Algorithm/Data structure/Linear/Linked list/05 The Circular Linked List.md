@@ -7,8 +7,8 @@ A list where the last node does **not** point to `NULL`. Instead, it points back
 *   **Visual:** `[Sentinel] -> [A] -> [B] -> [C] --(points back)--> [Sentinel]`
 
 **Why introduce it? (The Logic)**
-1.  **Continuous Looping:** Useful for applications that need to cycle through data repeatedly without resetting (e.g., Round-Robin process scheduling in Operating Systems, media players on "Repeat" mode).
-2.  **Accessibility:** From *any* node in the list, you can reach *any other* node just by keeping moving forward. You never hit a dead end (`NULL`).
+1. **Continuous Looping:** Useful for applications that need to cycle through data repeatedly without resetting (e.g., Round-Robin process scheduling in Operating Systems, media players on "Repeat" mode).
+2. **Accessibility:** From *any* node in the list, you can reach *any other* node just by keeping moving forward. You never hit a dead end (`NULL`).
 
 ---
 
@@ -68,5 +68,5 @@ void printList(LinkedList* list) {
 
 ## **3. Unique Precautions (Gotchas)**
 
-1.  **The Infinite Loop Trap:** This is the #1 bug. If you write `while(p)` or `while(p->next)`, your program will freeze. Always check `if (p == head)`.
-2.  **Josephus Problem:** When deleting nodes in a circle, be very careful not to delete the Sentinel if your logic assumes data nodes only.
+1. **The Infinite Loop Trap:** This is the #1 bug. If you write `while(p)` or `while(p->next)`, your program will freeze. Always check `if (p == head)`.
+2. **Josephus Problem:** When deleting nodes in a circle, be very careful not to delete the Sentinel if your logic assumes data nodes only.

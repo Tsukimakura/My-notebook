@@ -190,7 +190,7 @@ Example: Convert 57₈ → Hex
 
 → 101111₂
 
-2. Group into 4 bits: 0010 1111
+1. Group into 4 bits: 0010 1111
 
 
 → 2F₁₆

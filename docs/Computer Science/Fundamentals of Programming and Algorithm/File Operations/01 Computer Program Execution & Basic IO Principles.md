@@ -6,9 +6,9 @@
 
 A compiled C program (e.g., `app.exe` or `a.out`) stored on the hard drive is merely a static sequence of binary instructions and data. It is considered "dead" until executed. The transition from a static file to a running entity involves the following steps:
 
-1.  **Loading (Load to RAM):**
+1. **Loading (Load to RAM):**
     The Operating System (OS) copies the program's code and data from the slow storage device (Hard Disk/SSD) into the high-speed Random Access Memory (RAM).
-2.  **Resource Allocation:**
+2. **Resource Allocation:**
     The OS creates a **Process** structure to manage the program. Key resources assigned include:
     *   **PID (Process ID):** A unique numerical identifier.
     *   **Memory Segments:**
@@ -17,7 +17,7 @@ A compiled C program (e.g., `app.exe` or `a.out`) stored on the hard drive is me
         *   **Stack:** Stores local variables and function call frames.
         *   **Heap:** Stores dynamically allocated memory (via `malloc`).
     *   **File Descriptors:** The OS automatically opens standard streams (stdin, stdout, stderr).
-3.  **CPU Execution:**
+3. **CPU Execution:**
     The OS sets the CPU's Instruction Pointer to the entry point of the program (usually `main`). The CPU begins the **Fetch-Decode-Execute** cycle.
 
 ### The Shell

@@ -246,20 +246,20 @@ proxychains4 -f proxy.conf curl -v http://example.com
     echo "[ProxyList]" > proxy.conf
     echo "socks5 127.0.0.1 10899" >> proxy.conf
     ```
-1. **连接超时**
+2. **连接超时**
 
     ```bash
     # 在配置文件中增加超时时间
     echo "tcp_connect_time_out 15000" >> proxy.conf
     echo "tcp_read_time_out 15000" >> proxy.conf
     ```
-1. **DNS 解析问题**
+3. **DNS 解析问题**
 
     ```bash
     # 启用代理 DNS
     echo "proxy_dns" >> proxy.conf
     ```
-1. **权限问题**
+4. **权限问题**
 
     ```bash
     # 如果遇到权限错误，检查文件权限
@@ -332,12 +332,12 @@ main "$@"
     tcp_connect_time_out 8000
     tcp_read_time_out 15000
     ```
-1. **禁用 DNS 代理**（如果不需要）：
+2. **禁用 DNS 代理**（如果不需要）：
 
     ```bash
     # proxy_dns
     ```
-1. **使用更快的代理链模式**：
+3. **使用更快的代理链模式**：
 
     ```bash
     dynamic_chain

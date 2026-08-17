@@ -48,8 +48,8 @@ It strictly contains **Executable Instructions** (Functions).
 ### Symbol Table
 
 This is the "inventory list" of the object file. It categorizes symbols into two types:
-1.  **Exported (Defined) Symbols:** Functions or variables defined in this file (e.g., `main`, `my_func`) that are available for other modules to use.
-2.  **Imported (Undefined) Symbols:** Functions or variables used in this file but defined elsewhere (e.g., `printf`, `sin`). The file is asking the linker: "Where are these?"
+1. **Exported (Defined) Symbols:** Functions or variables defined in this file (e.g., `main`, `my_func`) that are available for other modules to use.
+2. **Imported (Undefined) Symbols:** Functions or variables used in this file but defined elsewhere (e.g., `printf`, `sin`). The file is asking the linker: "Where are these?"
 
 ### Relocation Table
 

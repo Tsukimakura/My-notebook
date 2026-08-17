@@ -39,12 +39,12 @@ This is the primary function for moving the cursor.
 
 ### Parameters
 
-1.  **`stream`:** The file pointer.
-2.  **`offset`:** A `long` integer specifying how many bytes to move.
+1. **`stream`:** The file pointer.
+2. **`offset`:** A `long` integer specifying how many bytes to move.
     *   **Positive:** Move forward (towards the end of the file).
     *   **Negative:** Move backward (towards the beginning).
     *   **Zero:** Stay at the reference point.
-3.  **`whence` (The Origin):** Defines the reference point for the offset. The C standard defines three constants:
+3. **`whence` (The Origin):** Defines the reference point for the offset. The C standard defines three constants:
 
 | Constant | Reference Point | Common Usage | Example |
 | :--- | :--- | :--- | :--- |
@@ -65,10 +65,10 @@ This is the primary function for moving the cursor.
 Since standard C does not provide a direct `get_file_size()` function, `fseek` and `ftell` are commonly combined to calculate it.
 
 **The Algorithm:**
-1.  Save the current position (optional, but good practice).
-2.  Jump to the end of the file (`SEEK_END`).
-3.  Query the position (`ftell`) to get the total byte count.
-4.  Jump back to the original position.
+1. Save the current position (optional, but good practice).
+2. Jump to the end of the file (`SEEK_END`).
+3. Query the position (`ftell`) to get the total byte count.
+4. Jump back to the original position.
 
 ```c
 long get_file_size(FILE *fp) {

@@ -39,7 +39,7 @@ e.g. A function to calculate division of two integers.
 
 All function arguments are passed by value, meaning the argument is **copied** when the function is called.
 
-2. Large objects cause expensive copying
+1. Large objects cause expensive copying
 
 Passing a large struct or array **by value** means:
 
@@ -52,7 +52,7 @@ Example:
 A struct with a 4 MB array would copy all 4 MB when passed by value.
 
 
-3. Pointers avoid copying
+1. Pointers avoid copying
 
 Passing a pointer only copies an **8-byte address**, regardless of how large the original object is.
 
@@ -63,7 +63,7 @@ Benefits:
 - **No unnecessary data copying**
 - **Allows function to modify the original object**
 
-4. Use const pointers when no modification is needed
+1. Use const pointers when no modification is needed
 
 Example:
 

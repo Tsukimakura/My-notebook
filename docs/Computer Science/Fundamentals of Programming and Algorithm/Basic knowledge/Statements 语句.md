@@ -11,24 +11,24 @@ In C, a **statement** is the smallest standalone element of an imperative progra
 
 Standard C classifies statements into five main types:
 
-1.  **Expression Statements**
+1. **Expression Statements**
     An expression followed by a semicolon. It is typically executed for its **side effects** (modifying the state).
     *   `a = 10;` (Assignment)
     *   `func();` (Function call)
     *   `;` (Null statement)
 
-2.  **Compound Statements (Blocks)**
+2. **Compound Statements (Blocks)**
     A group of statements enclosed in braces `{ }`. Syntactically, the entire block is treated as a **single statement**.
 
-3.  **Selection Statements**
+3. **Selection Statements**
     Used to select a path of execution.
     *   Keywords: `if`, `switch`.
 
-4.  **Iteration Statements (Loops)**
+4. **Iteration Statements (Loops)**
     Used to execute code repeatedly.
     *   Keywords: `while`, `do...while`, `for`.
 
-5.  **Jump Statements**
+5. **Jump Statements**
     Used to unconditionally transfer control.
     *   Keywords: `break`, `continue`, `return`, `goto`.
 

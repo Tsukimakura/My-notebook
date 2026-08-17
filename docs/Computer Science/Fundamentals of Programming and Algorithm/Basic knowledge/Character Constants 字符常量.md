@@ -94,9 +94,9 @@ Because characters are integers, they support mathematical operations:
 
 ## 7. Common Pitfalls and Best Practices
 
-1.  **Multiple Characters:** `'abc'` is a "multi-character constant." Its value is **implementation-defined** and generally avoided as it leads to non-portable code.
-2.  **Numeric Confusion:** Do not confuse the character `'0'` (ASCII 48) with the null terminator `'\0'` (ASCII 0) or the integer `0`.
-3.  **Overflow:** Assigning a hex value like `'\xff'` to a signed `char` may result in a value of `-1` due to sign extension, which can cause logic errors in comparisons (e.g., `if (c == 0xff)` might fail).
+1. **Multiple Characters:** `'abc'` is a "multi-character constant." Its value is **implementation-defined** and generally avoided as it leads to non-portable code.
+2. **Numeric Confusion:** Do not confuse the character `'0'` (ASCII 48) with the null terminator `'\0'` (ASCII 0) or the integer `0`.
+3. **Overflow:** Assigning a hex value like `'\xff'` to a signed `char` may result in a value of `-1` due to sign extension, which can cause logic errors in comparisons (e.g., `if (c == 0xff)` might fail).
 
 ---
 *Note: This guide follows the C11/C17 standards. Behavioral differences may exist in C++.*

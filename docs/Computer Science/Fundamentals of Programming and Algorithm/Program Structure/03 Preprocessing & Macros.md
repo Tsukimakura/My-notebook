@@ -207,11 +207,11 @@ This directive forces the compiler to **abort compilation immediately** and prin
 [[X-Macros | More about X-Macros]]
 A technique to maintain lists of data in one place and generate different code (enums, string arrays) automatically.
 
-1.  **Define List:** Create a file (or macro) with data items wrapped in `X(...)`.
-2.  **Define X:** Define what `X` does (e.g., generate an enum case).
-3.  **Include List:** Run the list.
-4.  **Undefine X:** Clean up.
-5.  **Redefine X:** Define `X` differently (e.g., generate a string) and include the list again.
+1. **Define List:** Create a file (or macro) with data items wrapped in `X(...)`.
+2. **Define X:** Define what `X` does (e.g., generate an enum case).
+3. **Include List:** Run the list.
+4. **Undefine X:** Clean up.
+5. **Redefine X:** Define `X` differently (e.g., generate a string) and include the list again.
 
 ---
 
