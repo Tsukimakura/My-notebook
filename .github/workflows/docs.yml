@@ -8,7 +8,10 @@ on:
       - "requirements.txt"
       - "requirements.lock"
       - "scripts/format_notes.py"
+      - "scripts/check_math.mjs"
       - "Makefile"
+      - "package.json"
+      - "package-lock.json"
       - ".github/workflows/docs.yml"
   push:
     branches: [main]
@@ -18,7 +21,10 @@ on:
       - "requirements.txt"
       - "requirements.lock"
       - "scripts/format_notes.py"
+      - "scripts/check_math.mjs"
       - "Makefile"
+      - "package.json"
+      - "package-lock.json"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
 

@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 /** Validate every display formula with the KaTeX version shipped by the site. */
 
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import katex from "katex";
 
 function markdownFiles(paths) {
   const files = [];
   for (const path of paths) {
+    // `drafts/` is intentionally optional: Git does not retain empty
+    // directories, so a clean published repository may not contain it.
+    if (!existsSync(path)) continue;
     const stat = statSync(path);
     if (stat.isFile()) {
       if (path.endsWith(".md")) files.push(path);
