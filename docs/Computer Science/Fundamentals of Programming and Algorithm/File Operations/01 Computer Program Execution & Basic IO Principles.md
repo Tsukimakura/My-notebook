@@ -3,6 +3,7 @@
 ## 1. Principles of Program Execution
 
 ### From Code to Process
+
 A compiled C program (e.g., `app.exe` or `a.out`) stored on the hard drive is merely a static sequence of binary instructions and data. It is considered "dead" until executed. The transition from a static file to a running entity involves the following steps:
 
 1.  **Loading (Load to RAM):**
@@ -20,11 +21,13 @@ A compiled C program (e.g., `app.exe` or `a.out`) stored on the hard drive is me
     The OS sets the CPU's Instruction Pointer to the entry point of the program (usually `main`). The CPU begins the **Fetch-Decode-Execute** cycle.
 
 ### The Shell
+
 The Shell acts as the interface between the user and the Operating System Kernel.
 *   **Kernel:** The core of the OS, managing hardware resources (CPU, Memory, I/O). Direct access is restricted for safety.
 *   **Shell:** A command-line interpreter (e.g., Bash, Zsh, PowerShell). It parses user commands and invokes **System Calls** (like `fork` and `exec`) to launch programs.
 
 ### Types of Applications
+
 *   **Console Applications (CLI):** Text-based interface, sequential execution, relies heavily on Standard I/O. (The focus of C file operations).
 *   **GUI Applications:** Event-driven, uses message loops to respond to user interactions (mouse/keyboard events).
 *   **Daemons/Services:** Background processes with no user interface, usually detached from standard input/output.
@@ -52,6 +55,7 @@ When a program starts, the OS automatically opens three distinct streams. These 
 Redirection is a mechanism provided by the Shell to change the source or destination of the standard streams *before* the program executes. The C program is unaware of this change; it continues to read from `stdin` or write to `stdout` transparently.
 
 ### Output Redirection
+
 Redirects data meant for the screen to a file.
 *   **Overwrite Mode (`>`):**
     *   Syntax: `./app > output.txt`
@@ -61,17 +65,20 @@ Redirects data meant for the screen to a file.
     *   Behavior: New data is added to the end of the existing file without erasing old content.
 
 ### Input Redirection
+
 Feeds data from a file into the program instead of the keyboard.
 *   **Syntax:** `./app < input.txt`
 *   **Behavior:** The program's `scanf` or `getchar` functions read data from the file until End-Of-File (EOF) is reached.
 
 ### Error Redirection
+
 Separates error messages from normal output.
 *   **Syntax:** `./app 2> error.log`
 *   **Mechanism:** Redirects File Descriptor 2 (stderr) specifically. This allows clean output in the terminal while preserving logs in a file.
 *   **Combined:** `./app > result.txt 2> error.log` (Splits output and errors into different files).
 
 ### Underlying Mechanism (Dup2)
+
 The operating system implements redirection using the `dup2` system call. For example, output redirection involves closing FD 1 (stdout) and replacing it with the FD of the opened target file.
 
 ---
@@ -81,6 +88,7 @@ The operating system implements redirection using the `dup2` system call. For ex
 A Pipe connects the output of one process directly to the input of another process. It is a fundamental concept in Inter-Process Communication (IPC) and the Unix philosophy ("Chain small tools to do complex tasks").
 
 ### The Pipe Operator (`|`)
+
 *   **Syntax:** `command_A | command_B`
 *   **Flow:** `stdout` of `command_A` $\rightarrow$ **Pipe Buffer** $\rightarrow$ `stdin` of `command_B`.
 *   **Example:** `ls | grep ".c"`
@@ -89,6 +97,7 @@ A Pipe connects the output of one process directly to the input of another proce
     *   `grep` reads the file list from its stdin and filters for lines containing ".c".
 
 ### Technical Characteristics
+
 *   **In-Memory:** Pipes use a kernel memory buffer, not disk files, making data transfer very fast.
 *   **Unidirectional:** Data flows one way (from left to right in the shell).
 *   **Synchronization:** If the writer (Command A) is faster than the reader (Command B), the kernel blocks A until B catches up, and vice versa.

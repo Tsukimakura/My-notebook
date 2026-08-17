@@ -2,7 +2,7 @@
 
 **The Setup:**
 
-```
+```text
 int num = 42;
 int *p = &num;
 ```

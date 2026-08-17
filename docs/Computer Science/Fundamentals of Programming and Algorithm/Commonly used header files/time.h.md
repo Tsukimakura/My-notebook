@@ -1,13 +1,15 @@
 # time.h
 
-### 1. Overview
+## 1. Overview
+
 The `<time.h>` header provides standard facilities for time manipulation, including retrieving the system time, converting between different time formats (e.g., timestamps vs. calendar dates), and formatting date strings.
 
 It revolves around two main concepts:
 1.  **Calendar Time**: The "absolute" time (usually seconds since the Epoch).
 2.  **Processor Time**: The CPU time consumed by the program.
 
-### 2. Key Data Types
+## 2. Key Data Types
+
 Understanding these types is crucial, as functions in this library often convert data from one type to another.
 
 | Type | Description |
@@ -16,7 +18,8 @@ Understanding these types is crucial, as functions in this library often convert
 | **`struct tm`** | Represents **Broken-down Time**. A structure containing separate fields for year, month, day, hour, etc. (See detail below). |
 | **`clock_t`** | Represents **Processor Time**. Used for measuring execution duration (CPU ticks). |
 
-#### The `struct tm` Structure
+### The `struct tm` Structure
+
 This is the most common structure used for human-readable dates.
 ```c
 struct tm {
@@ -32,9 +35,10 @@ struct tm {
 };
 ```
 
-### 3. Essential Functions
+## 3. Essential Functions
 
-#### A. Time Acquisition
+### A. Time Acquisition
+
 *   **`time_t time(time_t *timer)`**
     Returns the current calendar time as a `time_t` value.
     *   *Usage:* `time_t now = time(NULL);`
@@ -42,7 +46,8 @@ struct tm {
 *   **`clock_t clock(void)`**
     Returns the processor time used by the program since it started. Used for benchmarking.
 
-#### B. Time Conversion
+### B. Time Conversion
+
 *   **`struct tm *localtime(const time_t *timer)`**
     Converts a `time_t` timestamp into a `struct tm` expressed in the **local time zone**.
 
@@ -52,7 +57,8 @@ struct tm {
 *   **`time_t mktime(struct tm *timeptr)`**
     The inverse of `localtime`. Converts a `struct tm` back into a `time_t` timestamp.
 
-#### C. Formatting (String Output)
+### C. Formatting (String Output)
+
 *   **`size_t strftime(char *s, size_t max, const char *format, const struct tm *tm)`**
     The most flexible function. Formats a `struct tm` into a string based on a custom format specifier (similar to `printf`).
     *   `%Y`: Year (2024), `%m`: Month (01-12), `%d`: Day (01-31), `%H`: Hour (00-23), `%M`: Minute.
@@ -60,9 +66,10 @@ struct tm {
 *   **`char *ctime(const time_t *timer)`**
     Quickly converts a timestamp to a fixed-format string (e.g., "Wed Jun 30 21:49:08 1993\n").
 
-### 4. Code Examples
+## 4. Code Examples
 
-#### Example 1: Getting and Formatting Current Date
+### Example 1: Getting and Formatting Current Date
+
 This is the standard workflow: `time()` $\to$ `localtime()` $\to$ `strftime()`.
 
 ```c
@@ -89,7 +96,8 @@ int main() {
 }
 ```
 
-#### Example 2: Measuring Execution Time
+### Example 2: Measuring Execution Time
+
 Using `clock()` to calculate how long a function takes to run.
 
 ```c
@@ -103,7 +111,7 @@ int main() {
     start = clock(); // Record start tick
 
     // --- Heavy task to measure ---
-    for(int i = 0; i < 100000000; i++); 
+    for(int i = 0; i < 100000000; i++);
     // -----------------------------
 
     end = clock(); // Record end tick
@@ -116,7 +124,8 @@ int main() {
 }
 ```
 
-#### Example 3: Seeding the Random Number Generator
+### Example 3: Seeding the Random Number Generator
+
 Commonly used with `<stdlib.h>`.
 
 ```c
@@ -125,14 +134,14 @@ Commonly used with `<stdlib.h>`.
 
 int main() {
     // Use current time as seed so numbers differ each run
-    srand(time(NULL)); 
-    
+    srand(time(NULL));
+
     int random_num = rand();
     return 0;
 }
 ```
 
-### 5. Common Pitfalls
+## 5. Common Pitfalls
 
 1.  **`tm_mon` Offset**: The month field in `struct tm` ranges from **0 to 11** (0 is January, 11 is December). Do not expect 1-12.
 2.  **`tm_year` Offset**: The year field is **years since 1900**. To get the current year (e.g., 2025), you must calculate `info->tm_year + 1900`.

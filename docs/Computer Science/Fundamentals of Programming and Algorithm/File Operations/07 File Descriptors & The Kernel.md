@@ -5,9 +5,11 @@
 While C programmers interact with the high-level `FILE *` (stream), the Operating System Kernel manages files using a much simpler mechanism known as the **File Descriptor**.
 
 ### Definition
+
 A File Descriptor is a non-negative integer **(0, 1, 2, ...)** that acts as a handle for an input/output resource (files, sockets, pipes).
 
 ### The File Descriptor Table
+
 The kernel maintains a table for every running process (inside the Process Control Block - PCB). The FD is simply the **array index** into this table.
 
 1.  **Process Level:** The FD Table maps the integer ID (e.g., `3`) to a pointer.
@@ -15,6 +17,7 @@ The kernel maintains a table for every running process (inside the Process Contr
 3.  **Inode Level:** Finally, this points to the actual data on the physical disk (Inode/Vnode).
 
 ### Standard Descriptors
+
 When a new process is created (forked), the kernel automatically populates the first three slots of the FD table:
 *   **0:** Standard Input (stdin)
 *   **1:** Standard Output (stdout)
@@ -28,6 +31,7 @@ When a new process is created (forked), the kernel automatically populates the f
 It is crucial to understand the hierarchy between the C Standard Library and the OS Kernel.
 
 ### The Hierarchy
+
 *   **User Space (High Level):** The **`FILE` structure**.
     *   It is a wrapper object.
     *   It contains the buffering mechanism.
@@ -37,6 +41,7 @@ It is crucial to understand the hierarchy between the C Standard Library and the
     *   It is unbuffered (raw).
 
 ### The Bridge: `fileno()`
+
 The C library provides a function to extract the underlying FD from a stream pointer. This is often used when mixing standard C functions with POSIX system calls (like file locking or network operations).
 
 ```c
@@ -70,11 +75,13 @@ File operations exist at two distinct layers. Understanding the difference is ke
 The function `fclose(fp)` performs a complex cleanup sequence that bridges the gap between the two layers. It does much more than just freeing memory.
 
 ### The Cleanup Sequence
+
 1.  **Flush User Buffer:** Any data sitting in the `FILE` structure's buffer is pushed to the kernel via the `write()` system call.
 2.  **Close File Descriptor:** The library calls `close(fd)`. This tells the kernel to remove the entry from the process's FD table.
 3.  **Free Memory:** The `FILE` structure itself (allocated on the heap) is freed.
 
 ### Consequences of Leaking FDs
+
 If a programmer forgets to call `fclose` (or `close`), simply freeing the `FILE` pointer is insufficient. The underlying FD remains "Open" in the kernel.
 
 1.  **FD Exhaustion (Resource Leak):**

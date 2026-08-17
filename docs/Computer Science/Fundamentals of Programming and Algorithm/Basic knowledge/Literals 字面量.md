@@ -51,7 +51,7 @@ Examples:
 
 ## **4. String Literals**
 
-String literals represent sequences of characters enclosed in double quotes.  
+String literals represent sequences of characters enclosed in double quotes.
 They are stored as arrays of `char` terminated by a null character `\0`.
 
 Examples:
@@ -77,13 +77,13 @@ enum Color { RED = 1, GREEN = 2, BLUE = 3 };
 ## **Key Properties of Literals**
 
 - Their values are **known at compile time**.
-    
+
 - They have specific **types** (e.g., `int`, `double`, `char`).
-    
+
 - They **cannot be modified** during runtime.
-    
+
 - String literals have **static storage duration** and should not be changed.
-    
+
 
 Example:
 

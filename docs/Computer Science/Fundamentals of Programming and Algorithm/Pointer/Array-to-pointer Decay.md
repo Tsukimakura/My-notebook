@@ -1,6 +1,6 @@
 # Array-to-pointer Decay
 
-### 1. What is "Array Decay"?
+## 1. What is "Array Decay"?
 
 In C, there is a fundamental rule: **"Arrays are not pointers, but they often act like them."**
 
@@ -8,8 +8,8 @@ In C, there is a fundamental rule: **"Arrays are not pointers, but they often a
 
 - **The Concept:** The array loses its "identity" as a block of memory with a specific size and becomes a simple address.
 
-- **The Formula:**  
-    
+- **The Formula:**
+
     `Array Name→&(Array[0])`
 
 ~~The array name itself becomes **a const pointer**, which means it is not mutable. The compiler simply treats it as an address of the first element of the array. (The array name is not an L-value.)~~
@@ -20,7 +20,7 @@ I've found some confusing and self-contradictory descriptions in the text I adde
 
 An array name itself (before decay) is a **non-modifiable lvalue** (Unlike a const pointer variable, which resides in memory and holds an address, an array name **is** the identity of the memory block itself.) representing the entire array. (**An lvalue is an expression that designates an object.**).  During compilation, the compiler have decided the location of the array, and there's no place in the memory to store the address `n` itself. This is not different from any other variables, since when `int x`, there's a space for the object designated by x in the memory, but no space for x itself.  (The compiler **resolves** the address of `x` — which is the address of the object designated by the identifier — via stack offsets or symbol table entries). The reason why we can modify the value of `x` , but not the value of n, is that `x` represents the contents in the four bytes (usually), while the array name represents the entire array itself. (This also explains why we can't assign value to the array by `Array_name1 = Array_name2`). The C standard defines an array name as a non-modifiable lvalue to prohibit operations like `n = ...` or `n++`, thereby preventing any attempt to rebind the base address of the array (i.e., making the array name refer to a different memory location).
 
-In brief, 
+In brief,
 
 To prove the things mentioned above, we can use `&Array_name` to get the address of the whole array (only lvalue an be the operand of `&` ), and test the properties (it's the address of the array, not the first element).
 
@@ -73,7 +73,7 @@ We can prove the property of the decayed array name by testing the stride of a p
 
 ---
 
-### 2. The General Rule
+## 2. The General Rule
 
 According to the C Standard, whenever an array name appears in an **expression**([[Expressions 表达式#Expressions| Expressions]]), it is automatically converted to a pointer to the first element of that array.
 
@@ -87,7 +87,7 @@ int *ptr = nums;
 Here, `nums` is an array of 5 integers. However, when we assign it to `ptr`, `nums` **decays** into `&nums[0]`.
 
 - The type changes from `int[5]` to `int *`.
-    
+
 
 This allows us to do pointer arithmetic easily:
 
@@ -97,7 +97,7 @@ int x = *(nums + 1); // Exact same as nums[1], which is 20
 
 ---
 
-### 3. The Major Use Case: Function Arguments
+## 3. The Major Use Case: Function Arguments
 
 The most common place you see decay is when passing arrays to functions. **In C, you can never pass an entire array by value.** You are always passing a pointer.
 
@@ -121,11 +121,11 @@ This also explains why the first dimension of the array can be omitted when it i
 
 ---
 
-### 4. The Three Exceptions (When Decay Does NOT Happen)
+## 4. The Three Exceptions (When Decay Does NOT Happen)
 
 This is the most critical part for advanced understanding. The array name does **not** decay into a pointer in these specific scenarios: (C11)
 
-#### A. The sizeof Operator
+### A. The sizeof Operator
 
 If arrays always decayed, sizeof would be useless.
 
@@ -136,23 +136,23 @@ int arr[10];
 size_t size = sizeof(arr);
 ```
 
-#### B. The Address-of Operator (&)
+### B. The Address-of Operator (&)
 
 Using & on an array name returns a **pointer to the whole array**, not a pointer to the first element.
 
 - arr (decayed)  --> Type: `int *` (Pointer to an Integer)
-    
+
 - &arr (no decay) --> Type: `int (*)[10]` (Pointer to an Array of 10 Integers)
-    
+
 
 While the numerical value of the address is the same, the **type** and **stride** are different.
 
 - arr + 1 jumps **4 bytes** (next integer).
-    
-- &arr + 1 jumps **40 bytes** (skips the whole array).
-    
 
-#### C. String Literal Initialization
+- &arr + 1 jumps **40 bytes** (skips the whole array).
+
+
+### C. String Literal Initialization
 
 When initializing a character array:
 
@@ -170,24 +170,24 @@ char str[] = "Hello";
 Q: Since A string literal decays into a pointer and passes an address, why `printf("Hello")` prints "Hello" in the terminal instead of an address?
 	A: This relates to how the function `printf` is coded. In brief, `printf` is designed to **traverse** that address and print the characters it finds there.
 	Actually `printf` is defined as: `int printf(const char *format, ...);`
-	
+
 	The first argument is always treated as a text string to be read.
-	
+
 	1. "Hello" passes the address of 'H'.
-	    
+
 	2. printf receives that address as the variable format.
-	    
+
 	3. printf begins reading the characters at that address to see if there are any % signs.
-	    
+
 	4. It finds 'H', prints it. Finds 'e', prints it...
-	    
+
 	5. It finds no % signs, so it just finishes printing the literal text.
 
 	you can use printf("%p", "Hello"); to print the address of 'H' in "Hello".
 
 ---
 
-### 5. The "Sizeof" Trap (A Common Bug)
+## 5. The "Sizeof" Trap (A Common Bug)
 
 Because of decay, sizeof behaves differently inside a function compared to outside.
 
@@ -202,20 +202,21 @@ void calculateSize(int arr[]) {
 
 int main() {
     int myNums[100];
-    
-    // Here, 'myNums' is still an array. 
+
+    // Here, 'myNums' is still an array.
     // Prints 400 (100 * 4 bytes).
     printf("Size in main: %zu\n", sizeof(myNums));
-    
+
     calculateSize(myNums);
     return 0;
 }
 ```
 
-**Why?**  
+**Why?**
 When you passed myNums to the function, it **decayed**. The function calculateSize received a simple pointer. It has lost the information that the array originally had 100 elements.
 
-### 6. Decay of multi-dimensional arrays
+## 6. Decay of multi-dimensional arrays
+
 We can just start from a 2D array.
 ```c
 int a[10][10];

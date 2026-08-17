@@ -1,6 +1,7 @@
 # Qin Jiushao's Algorithm (Horner's Method)
 
 ## 1. Introduction
+
 **Qin Jiushao's Algorithm**, globally known as **Horner's Method** (or Horner Scheme), is an efficient algorithm for the evaluation of polynomials. While named after the British mathematician William George Horner, it was documented by the Chinese mathematician **Qin Jiushao** in his 13th-century treatise *Shushu Jiuzhang* (Mathematical Treatise in Nine Sections).
 
 The algorithm transforms a standard polynomial into a **nested multiplication** format, significantly reducing the number of arithmetic operations required.
@@ -8,6 +9,7 @@ The algorithm transforms a standard polynomial into a **nested multiplication** 
 ---
 
 ## 2. Mathematical Principle
+
 A polynomial of degree $n$ is typically expressed as:
 
 \[
@@ -21,6 +23,7 @@ P(x) = ((\dots((a_n x + a_{n-1})x + a_{n-2})x + \dots + a_1)x + a_0)
 \]
 
 ### Iterative Process:
+
 1. Let $v_n = a_n$
 2. For $i = n-1$ down to $0$:
    \(v_i = v_{i+1} \cdot x + a_i\)
@@ -29,6 +32,7 @@ P(x) = ((\dots((a_n x + a_{n-1})x + a_{n-2})x + \dots + a_1)x + a_0)
 ---
 
 ## 3. Complexity Analysis
+
 The algorithm is mathematically optimal for polynomial evaluation, minimizing the total number of operations.
 
 | Method | Multiplications | Additions | Time Complexity |
@@ -47,7 +51,7 @@ The following implementation assumes the coefficients are stored in an array in 
 
 /**
  * Evaluates a polynomial using Qin Jiushao's Algorithm.
- * 
+ *
  * @param coeff[] Array of coefficients starting from the highest degree (a_n to a_0).
  * @param n       The degree of the polynomial.
  * @param x       The value at which to evaluate the polynomial.

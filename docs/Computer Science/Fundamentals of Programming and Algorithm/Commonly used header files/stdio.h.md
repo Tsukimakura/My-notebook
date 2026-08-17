@@ -1,6 +1,6 @@
 # stdio.h
 
-#### 1. Standard Input/Output
+## 1. Standard Input/Output
 
 Functions for console input and output operations.
 
@@ -13,7 +13,7 @@ Functions for console input and output operations.
 
 <br>
 
-#### 2. File Operations
+## 2. File Operations
 
 Functions to open, close, and manipulate files.
 
@@ -26,7 +26,7 @@ Functions to open, close, and manipulate files.
 
 <br>
 
-#### 3. String Formatting
+## 3. String Formatting
 
 Functions for formatting data into strings or parsing data from strings.
 

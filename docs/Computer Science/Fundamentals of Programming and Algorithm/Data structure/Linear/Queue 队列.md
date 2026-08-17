@@ -5,37 +5,37 @@
 A **Queue** is a linear data structure that works on the **FIFO (First In, First Out)** principle.
 
 - **FIFO Principle:** The first element added to the queue will be the first one to be removed.
-    
+
 
 ### Key Terminology
 
 - **Front:** The index of the element to be removed next.
-    
+
 - **Rear:** The index where the next element will be inserted.
-    
+
 - **Enqueue:** Adding an element to the rear.
-    
+
 - **Dequeue:** Removing an element from the front.
-    
+
 - **Overflow:** Trying to enqueue into a full queue.
-    
+
 - **Underflow:** Trying to dequeue from an empty queue.
-    
+
 
 ---
 
 ## 2. Core Operations
 
 1. **enqueue(x)**: Add element x at the rear index, then update rear.
-    
+
 2. **dequeue()**: Return element at front index, then update front.
-    
+
 3. **peek()**: Return the element at front without updating pointers.
-    
+
 4. **isEmpty()**: Check if front equals rear.
-    
+
 5. **isFull()**: Check if the queue has no space left (logic differs by implementation).
-    
+
 
 ---
 
@@ -46,11 +46,11 @@ The standard implementation is usually a **linear queue**, but because every tim
 We define a structure that can be used for both implementations.
 
 - **front**: Points to the first valid element.
-    
+
 - **rear**: Points to the **next available** empty slot.
-    
+
 - **No count variable**: State is determined solely by pointer comparison.
-    
+
 
 ```c
 #include <stdio.h>
@@ -83,7 +83,7 @@ bool isEmpty(Queue *q) {
 In a standard array-based queue, we simply increment indices.
 
 - **Problem:** Does not reuse freed space at the beginning ("False Overflow").
-    
+
 
 ```c
 // --- Standard Linear Queue Logic ---
@@ -119,9 +119,9 @@ int dequeue_Linear(Queue *q) {
 To solve the space waste of Linear Queues, we wrap the indices. To distinguish "Full" from "Empty" without a counter, we **sacrifice one storage slot**.
 
 - **Empty:** front == rear
-    
+
 - **Full:** (rear + 1) % MAX == front (The next position after rear is front).
-    
+
 
 ```c
 // --- Circular Queue Logic (Key Differences) ---
@@ -175,10 +175,10 @@ int main() {
     }
 
     printf("Dequeued: %d\n", dequeue_Circular(&q)); // Removes 10, front moves
-    
+
     // Now we can add again because front moved
-    enqueue_Circular(&q, 50); 
-    
+    enqueue_Circular(&q, 50);
+
     return 0;
 }
 ```
@@ -188,13 +188,13 @@ int main() {
 ## 4. Common Use Cases
 
 1. **CPU Scheduling:** Processes waiting for execution.
-    
+
 2. **Breadth-First Search (BFS):** Graph traversal algorithms.
-    
+
 3. **Data Buffers:** Managing asynchronous data flow (e.g., IO buffers, keyboard inputs).
-    
+
 4. **Printer Spooling:** Managing print jobs in order.
-    
+
 
 ---
 
@@ -203,23 +203,23 @@ int main() {
 ### Time Complexity
 
 - **Enqueue/Dequeue/Peek:** $O(1)$ constant time.
-    
+
 
 ### Space Complexity
 
 - $O(N)$: Linear space.
-    
+
 
 ### The "Sacrifice One Slot" Method
 
 In a Circular Queue without a count variable:
 
 - **Ambiguity:** If front == rear, it usually means the queue is **Empty**. However, if we fill the array completely, rear would wrap around and equal front again.
-    
+
 - **Solution:** We decide that the queue is "Full" when rear is one step behind front.
-    
+
 - **Trade-off:** We lose capacity for 1 element (Usable size = MAX - 1), but we save the memory and maintenance of a separate count variable.
-    
+
 
 | State     | Condition                 |
 | --------- | ------------------------- |

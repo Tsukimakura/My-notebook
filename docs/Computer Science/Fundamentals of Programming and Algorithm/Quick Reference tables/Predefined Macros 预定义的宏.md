@@ -4,7 +4,8 @@ Here is a **Quick Reference Table (Cheat Sheet)** for Predefined Macros in C. Th
 
 ---
 
-### 1. Standard ISO C Macros
+## 1. Standard ISO C Macros
+
 These macros are supported by almost all compliant C compilers (ANSI C / C99 / C11).
 
 | Macro             | Type     | Description                                            | Example Output  |
@@ -19,7 +20,8 @@ These macros are supported by almost all compliant C compilers (ANSI C / C99 / C
 
 ---
 
-### 2. C Standard Version Detection (`__STDC_VERSION__`)
+## 2. C Standard Version Detection (`__STDC_VERSION__`)
+
 Used to check which C standard the compiler is using.
 
 | Value (`long`) | C Standard |
@@ -40,7 +42,8 @@ Used to check which C standard the compiler is using.
 
 ---
 
-### 3. Operating System (OS) Detection
+## 3. Operating System (OS) Detection
+
 Used for cross-platform conditional compilation.
 
 | Macro | Target OS | Notes |
@@ -63,7 +66,8 @@ Used for cross-platform conditional compilation.
 
 ---
 
-### 4. Compiler Detection
+## 4. Compiler Detection
+
 Used to handle compiler-specific keywords or optimizations.
 
 | Macro | Compiler | Format / Note |
@@ -75,7 +79,8 @@ Used to handle compiler-specific keywords or optimizations.
 
 ---
 
-### 5. Architecture Detection
+## 5. Architecture Detection
+
 Used to optimize for specific hardware (CPU).
 
 | Macro | Architecture |
@@ -87,7 +92,8 @@ Used to optimize for specific hardware (CPU).
 
 ---
 
-### 6. Useful Non-Standard Extensions
+## 6. Useful Non-Standard Extensions
+
 Supported by most major compilers (GCC, Clang, MSVC) but technically not ISO C.
 
 | Macro | Description |
@@ -98,7 +104,8 @@ Supported by most major compilers (GCC, Clang, MSVC) but technically not ISO C.
 
 ---
 
-### Quick Example: "Universal" Header
+## Quick Example: "Universal" Header
+
 A common pattern combining these macros to set up a project environment.
 
 ```c

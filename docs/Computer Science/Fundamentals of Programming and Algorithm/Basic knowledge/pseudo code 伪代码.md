@@ -2,8 +2,8 @@
 
 ## 1. What Is Pseudocode?
 
-Pseudocode is a **high-level, language-independent description of an algorithm**.  
-It looks like code, but it is **not tied to any programming language**.  
+Pseudocode is a **high-level, language-independent description of an algorithm**.
+It looks like code, but it is **not tied to any programming language**.
 Its purpose is to help you **think and design** before writing real code.
 
 ---
@@ -11,15 +11,15 @@ Its purpose is to help you **think and design** before writing real code.
 ## 2. Basic Principles of Pseudocode
 
 - Use **plain English** to describe logic.
-    
+
 - Focus on **steps**, not syntax.
-    
+
 - Be **clear**, **structured**, and **consistent**.
-    
+
 - Indentation represents **blocks** (like loops or conditionals).
-    
+
 - No need to worry about real coding rules (types, semicolons, etc.).
-    
+
 
 ---
 
@@ -79,11 +79,11 @@ Calling a function:
 ## 7. Tips for Writing Good Pseudocode
 
 - Use **meaningful names** (e.g., `total`, `count`, `isFound`).
-    
+
 - Keep it **language-neutral** (not C, not Python, just logic).
-    
+
 - Make sure each step is **unambiguous**.
-    
+
 - Add comments if needed.
-    
+
 - Aim for **readability over accuracy**.

@@ -1,4 +1,7 @@
-#### 1. ZJU School-Bus
+# writeups
+
+## 1. ZJU School-Bus
+
 welcome -- SQL-injection(web)
 使用sqlmap获取数据库信息：
 1. 获取当前数据库名称:
@@ -10,7 +13,8 @@ welcome -- SQL-injection(web)
 4. 导出列数据:
 	python sqlmap.py -u "http://...?id=1" -D your_database_name -T your_table_name -C your_column_name --dump
 
-#### 2. ZJU School-Bus
+## 2. ZJU School-Bus
+
 welcome -- EasyWeb(web)
 - F12打开开发工具查看源码（Elements）（Ctrl + U查看HTML源代码）
 - 检查网页备份文件 -- 直接访问尝试：在已知文件（如`index.php`）后添加`.bak`等后缀尝试访问下载
@@ -18,7 +22,7 @@ welcome -- EasyWeb(web)
 - 检测XSS注入点：`<script>alert("CTF")</script>`插入JS检查是否弹出警告框
 	通过推断使用XSS跳转网页（曾以the2nd.php作为第二关，尝试
 	`<script>window.location = "3rd.php"</script>`等）
-- 看请求返回的header: 
+- 看请求返回的header:
 	1. F12→Network
 	2. F5刷新
 	3. 选择Name中第一个.php文件
@@ -27,32 +31,34 @@ welcome -- EasyWeb(web)
 - 已知flag位置，但鼠标悬停时消失→判断为JS设置
 	F1：Ctrl + Shift + P打开命令面板禁用JS(Disable JavaScript)
 
-#### 3. ZJU School-Bus
+## 3. ZJU School-Bus
+
 welcome -- QR Code(misc)
 - 二维码三个回字形缺失，使用图片编辑补全后扫码获得flag
 二维码最常见、最简单的修改：
 1. **定位图案**：
     - **问题**：三个角落的“回”字形定位图案是否被破坏、遮挡或修改？
     - **解决**：用画图工具（如Photoshop, GIMP）将其修复成标准样式。这是二维码扫描器能够定位图像的关键。
-        
+
 2. **安静区**：
     - **问题**：二维码四周的空白区域（安静区）是否足够？是否被添加了边框、文字或图案？
     - **解决**：确保四周有至少4个模块宽度的空白区域。清除任何干扰项。
-        
+
 3. **颜色反转**：
     - **问题**：是否是反色的二维码（浅底深码）？
     - **解决**：用图片编辑工具进行颜色反转，或者直接用扫描APP的反色功能尝试。
-        
+
 4. **格式信息**：
     - **问题**：围绕定位图案的格式信息区域可能被破坏，导致扫描器无法识别纠错等级和掩码模式。
     - **解决**：使用专门的QR分析工具（如 [QRazyBox](https://merri.cx/qrazybox/)）来手动修复格式信息。你可以尝试所有可能的组合（8种掩码模式 x 4个纠错等级），直到能正确解码
 
-#### 4. ZJU School-Bus
+## 4. ZJU School-Bus
+
 welcome -- git leak(web)
 1. 确认是否存在git leak：
 	访问 `http://target.com/.git/`，如果服务器返回403（Forbidden）而不是404（Not Found），则很有可能存在。返回403说明这个目录是存在的，只是目录列表被禁止了。如果返回404，则可能不存在。
 
-	更可靠的方法是使用工具扫描，或者尝试下载一个Git核心文件来确认：  
+	更可靠的方法是使用工具扫描，或者尝试下载一个Git核心文件来确认：
 	`http://target.com/.git/HEAD`。这个文件通常存在且内容为 `ref: refs/heads/master`。如果能成功下载，则100%确认存在Git泄露。
 
 2. 下载整个.git文件夹
@@ -73,19 +79,20 @@ welcome -- git leak(web)
  4. 根据文件找到flag，题中为一串MD5加密([[MD5 | 参见MD5笔记]])的内容，通过cmd5.com在线解密
  5. **继续学习**：运维的基本素养--怎么配置Apache或者Nginx防止出现git leak
 
-#### 5. ZJU School-Bus
+## 5. ZJU School-Bus
+
 welcome -- Scan(web)
 1. 根据提示通过本地运行`ssh user@10.214.160.13 -p 10802 -D 10899 -N`，并输入密码来开启在本机 10899 端口的 SOCKS5 代理服务([[ssh| 什么是SSH]])([[SOCKS5 | 什么是SOCKS5]])（[[ssh | ssh命令基础用法]]）
 （[[端口（Port）| 什么是端口]])
 2. 题目提示： 以下所有域名均应在 SOCSK5 代理后才可访问(可以使用 proxychains4 等工具)
 	注：由于ssh命令中 -N 只建立隧道，而不执行远程命令，接下来的命令需要再打开一个终端执行。
-	
+
 	配置proxychains4 （使后续nmap、curl等可通过代理工作）：[[SOCKS5#Proxychains 配置 | 关于proxychains配置]]
-	
+
 ```bash
 	# 创建并编辑配置文件
 	nano proxy.conf #或使用echo "" > proxy.conf等等效命令
-	
+
 	# 配置文件内容
 	[ProxyList]
 	socks5 127.0.0.1 10899
@@ -139,7 +146,8 @@ proxychains4 -f proxy.conf curl http://192.168.192.8:10822/
 		⑤start!(耐心等待~)
 6. 对爆破出的隐藏文件逐一尝试找到flag并提交
 
-#### 6. ZJU School-Bus
+## 6. ZJU School-Bus
+
 welcome -- apk01baby(reverse)
 1. `file apk01_LeadroyaL.apk`确认文件类型
 2. `apktool d your_app.apk -o output_dir`反编译资源文件和`classes.dex`

@@ -9,45 +9,45 @@ A **Stack** is a linear data structure that follows a specific order in which 
 ### Key Terminology
 
 - **Top:** In this implementation, the index representing the **next available slot** for insertion.
-    
+
 - **Push:** Adding an element to the stack.
-    
+
 - **Pop:** Removing the most recently added element.
-    
+
 - **Peek:** Viewing the most recently added element without removing it.
-    
+
 - **Overflow:** Trying to push when top has reached the maximum capacity.
-    
+
 - **Underflow:** Trying to pop when top is at index 0.
-    
+
 
 ---
 
 ## 2. Core Operations
 
 1. **push(x)**: Insert element x at the top index, then increment top.
-    
+
 2. **pop()**: Decrement top, then return the element at that position.
-    
+
 3. **peek()**: Return the element located at top - 1.
-    
+
 4. **isEmpty()**: Returns true if top is 0.
-    
+
 5. **isFull()**: Returns true if top equals the maximum size definition.
-    
+
 
 ---
 
 ## 3. Implementation in C Language (Modified top Logic)
 
 - **Push:** `stack[top++]`
-    
+
 - **Pop:** `stack[--top]`
-    
+
 - **Full Condition:** `top == MAX`
-    
+
 - **Empty Condition:** `top == 0`
-    
+
 
 ```c
 #include <stdio.h>
@@ -69,13 +69,13 @@ void initStack(Stack *s) {
 // Check if the stack is full
 bool isFull(Stack *s) {
     // If top reaches MAX, valid indices (0 to MAX-1) are filled
-    return s->top == MAX; 
+    return s->top == MAX;
 }
 
 // Check if the stack is empty
 bool isEmpty(Stack *s) {
     // If top is 0, no elements have been pushed
-    return s->top == 0; 
+    return s->top == 0;
 }
 
 // Push operation
@@ -143,25 +143,25 @@ Stacks are ubiquitous in computing due to their LIFO nature.
 
 1. **Function Call Stack:**
 	[[Anatomy of a function call in memory]]
-    
+
     - Stores active subroutines. The most recently called function must finish before the previous one resumes.
-        
+
 2. **Expression Parsing:**
-    
+
     - Evaluating mathematical expressions (Infix to Postfix conversion).
-        
+
 3. **Backtracking Algorithms:**
-    
+
     - Used in maze solving or puzzles (like Sudoku) to remember the previous state.
-        
+
 4. **Browser History:**
-    
+
     - The "Back" button functionality relies on a stack.
-        
+
 5. **Undo/Redo Operations:**
-    
+
     - Text editors store modification history in a stack.
-        
+
 
 ---
 
@@ -171,15 +171,14 @@ Stacks are ubiquitous in computing due to their LIFO nature.
 
 - **Push:** $O(1)$
      - Constant time insertion.
-    
+
 - **Pop:** $O(1)$
      - Constant time removal.
-    
+
 - **Peek:** $O(1)$
      - Constant time access.
-    
+
 
 ### Space Complexity
 
 - $O(N)$: Linear space required relative to the number of elements.
-    

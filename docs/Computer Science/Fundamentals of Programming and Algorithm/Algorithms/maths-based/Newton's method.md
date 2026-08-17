@@ -6,7 +6,7 @@
 3. Find where this tangent crosses the x-axis → new approximation x₁
 4. Repeat until desired accuracy is achieved
 
-**Mathematical Formula:**  
+**Mathematical Formula:**
 `xₙ₊₁ = xₙ - f(xₙ)/f'(xₙ)`
 
 Where:

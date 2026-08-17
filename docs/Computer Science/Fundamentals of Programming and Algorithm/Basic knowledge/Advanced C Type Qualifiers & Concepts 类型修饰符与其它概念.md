@@ -7,13 +7,13 @@ Qualifiers add special properties to variables. We previously discussed const 
 ### **A. restrict (Introduced in C99)**
 
 - **Definition:** A keyword used **only with pointers**.
-    
+
 - **The Promise:** It tells the compiler that for the lifetime of the pointer, **only this specific pointer** (or values directly derived from it) will be used to access the object it points to.
-    
+
 - **Meaning:** "I promise this memory block does not overlap with any other pointer in this scope."
-    
+
 - **Purpose:** **Optimization**. It allows the compiler to cache values in registers aggressively because it knows the value won't be changed "behind its back" by another pointer (a concept called pointer aliasing).
-    
+
 - **Example:**
 
     ```c
@@ -21,23 +21,23 @@ Qualifiers add special properties to variables. We previously discussed const 
     // With 'restrict', the compiler can optimize the copy loop.
     void update_values(int *restrict ptrA, int *restrict ptrB, int *n) {
         *ptrA += *n;
-        *ptrB += *n; 
+        *ptrB += *n;
     }
     ```
-    
+
 
 ### **B. _Atomic (Introduced in C11)**
 
 - **Definition:** Specifies that access to a variable is atomic (indivisible).
-    
+
 - **Use:** Crucial for **multi-threaded programming**. It ensures that reading or writing to the variable cannot be interrupted by another thread, preventing data races without needing explicit locks (mutexes).
-    
+
 - **Example:**
-    
+
     ```c
     _Atomic int counter = 0; // Thread-safe integer
     ```
-    
+
 
 ---
 
@@ -62,7 +62,7 @@ While not "data types" themselves, these keywords determine the **lifetime**, 
     }
     // Calling counter() 3 times prints: 1 2 3 (not 1 1 1)
     ```
-    
+
 
 ---
 
@@ -75,12 +75,12 @@ typedef does not create a new type; it creates a new **name** (alias) for an 
     ```c
     // Without typedef
     unsigned long long int population;
-    
+
     // With typedef
     typedef unsigned long long int uint64;
     uint64 population;
     ```
-    
+
 - **With Structs:**
 
     ```c
@@ -88,10 +88,10 @@ typedef does not create a new type; it creates a new **name** (alias) for an 
         int x;
         int y;
     } Point;
-    
+
     Point p1; // No need to write 'struct Point p1'
     ```
-    
+
 
 ---
 
@@ -100,19 +100,19 @@ typedef does not create a new type; it creates a new **name** (alias) for an 
 In C, functions have memory addresses, just like variables. You can store a function's address in a pointer variable. This allows you to pass functions as arguments (callbacks).
 
 - **Syntax:** ReturnType (*PointerName)(ParameterTypes);
-    
+
 - **Example:**
 
     ```c
     int add(int a, int b) { return a + b; }
-    
+
     int main() {
         // Declare a function pointer named 'op'
-        int (*op)(int, int); 
-        
+        int (*op)(int, int);
+
         // Point it to the 'add' function
-        op = add; 
-        
+        op = add;
+
         // Use it
         int result = op(5, 3); // result is 8
     }

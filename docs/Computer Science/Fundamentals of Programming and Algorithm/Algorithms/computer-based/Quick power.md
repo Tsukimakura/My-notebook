@@ -1,6 +1,6 @@
 # Quick power
 
-### 1. Mathematical Principle
+## 1. Mathematical Principle
 
 The algorithm leverages the **binary representation** of the exponent $n$ to compute powers in logarithmic time. Additionally, it applies **Modular Arithmetic** properties to prevent integer overflow during calculation.
 
@@ -17,7 +17,7 @@ To compute large numbers without overflow, the modulo operator is applied at eac
 \]
 This ensures intermediate results never exceed $m^2$, fitting within standard integer types (e.g., `long long`) provided $m < 2^{31}$.
 
-### 2. Algorithm Logic
+## 2. Algorithm Logic
 
 1.  **Initialize:** Set `result = 1`. Pre-reduce `base` ($base \leftarrow base \pmod m$).
 2.  **Loop:** While exponent `n > 0`:
@@ -28,14 +28,14 @@ This ensures intermediate results never exceed $m^2$, fitting within standard in
     *   **Shift:** Right shift `n` by 1.
 3.  **Return:** The final `result`.
 
-### 3. Implementation (C Language)
+## 3. Implementation (C Language)
 
 ```c
 #include <stdio.h>
 
 /**
  * Computes (base^exp) % mod using Modular Exponentiation.
- * 
+ *
  * @param base The base number.
  * @param exp  The exponent (non-negative).
  * @param mod  The modulus (dividing factor).
@@ -43,7 +43,7 @@ This ensures intermediate results never exceed $m^2$, fitting within standard in
  */
 long long modPow(long long base, long long exp, long long mod) {
     long long res = 1;
-    
+
     // Handle cases where base >= mod initially
     base %= mod;
 
@@ -64,14 +64,14 @@ long long modPow(long long base, long long exp, long long mod) {
 }
 ```
 
-### 4. Complexity Analysis
+## 4. Complexity Analysis
 
 *   **Time Complexity: $O(\log n)$**
     The loop runs once for every bit in the exponent $n$. Even for $n = 10^{18}$ (approx. 60 bits), the loop executes only ~60 times.
 *   **Space Complexity: $O(1)$**
     Uses constant extra memory variables (`res`, `base`, `exp`, `mod`).
 
-### 5. Common Applications
+## 5. Common Applications
 
 1.  **Cryptography:** Essential for RSA encryption and Diffie-Hellman Key Exchange (dealing with huge primes).
 2.  **Competitive Programming:** Solving combinatorics problems where answers are required modulo $10^9 + 7$ (e.g., calculating combinations $_nC_k$).

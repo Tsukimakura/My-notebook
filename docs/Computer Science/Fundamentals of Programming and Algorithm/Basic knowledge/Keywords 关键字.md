@@ -6,7 +6,8 @@ This list covers keywords defined in **ISO/IEC 9899** (the C Standard), spanning
 
 ---
 
-### 1. Overview of Standards
+## 1. Overview of Standards
+
 *   **C89/C90:** The original 32 keywords.
 *   **C99:** Added 5 new keywords (`inline`, `restrict`, `_Bool`, `_Complex`, `_Imaginary`).
 *   **C11:** Added 7 new keywords starting with `_` to avoid naming collisions (`_Alignas`, `_Atomic`, etc.).
@@ -14,9 +15,10 @@ This list covers keywords defined in **ISO/IEC 9899** (the C Standard), spanning
 
 ---
 
-### 2. Complete Keyword Table (Categorized)
+## 2. Complete Keyword Table (Categorized)
 
-#### A. Data Types & Type Specifiers
+### A. Data Types & Type Specifiers
+
 These keywords define the type of data a variable holds.
 
 | Keyword | Std | Description |
@@ -37,7 +39,8 @@ These keywords define the type of data a variable holds.
 | **`union`** | C89 | Defines a data structure where all members share the same memory location. |
 | **`enum`** | C89 | Defines a set of named integer constants. |
 
-#### B. Storage Class Specifiers
+### B. Storage Class Specifiers
+
 These keywords determine the lifetime, visibility (scope), and linkage of variables.
 
 | Keyword | Std | Description |
@@ -49,7 +52,8 @@ These keywords determine the lifetime, visibility (scope), and linkage of variab
 | **`typedef`** | C89 | Creates an alias name for an existing type. |
 | **`_Thread_local`**| C11 | Specifies a variable has thread storage duration (unique per thread). |
 
-#### C. Type Qualifiers
+### C. Type Qualifiers
+
 These keywords modify *how* the memory associated with a type is accessed.
 
 | Keyword | Std | Description |
@@ -59,7 +63,8 @@ These keywords modify *how* the memory associated with a type is accessed.
 | **`restrict`** | C99 | Optimization hint. Assumes this pointer is the *only* way to access the underlying memory in that scope. |
 | **`_Atomic`** | C11 | Specifies that access to the variable is atomic (thread-safe without locks). |
 
-#### D. Control Flow
+### D. Control Flow
+
 Keywords that control the execution path of the program.
 
 | Keyword | Std | Description |
@@ -77,7 +82,8 @@ Keywords that control the execution path of the program.
 | **`break`** | C89 | Exits the current loop or `switch` statement immediately. |
 | **`return`** | C89 | Terminates a function and optionally returns a value. |
 
-#### E. Operators & Language Intrinsics
+### E. Operators & Language Intrinsics
+
 Keywords that act like operators or compiler directives.
 
 | Keyword | Std | Description |
@@ -92,25 +98,29 @@ Keywords that act like operators or compiler directives.
 
 ---
 
-### 3. Critical Concepts: The "Tricky" Keywords
+## 3. Critical Concepts: The "Tricky" Keywords
 
 Here are detailed notes on the keywords that often confuse engineers:
 
-#### 1. `static` (The Context Chameleon)
+### 1. `static` (The Context Chameleon)
+
 *   **Inside a function:** The variable stays in memory for the life of the program. It is initialized only once.
 *   **Outside a function (Global):** The variable/function is **private** to that source file (Internal Linkage). It cannot be accessed by other files using `extern`.
 
-#### 2. `volatile` (The Hardware/OS Bridge)
+### 2. `volatile` (The Hardware/OS Bridge)
+
 *   Tells the compiler: "Do not cache this variable in a register; always read it from RAM."
 *   **Use cases:** Memory-mapped hardware registers (embedded systems), variables modified by Interrupt Service Routines (ISRs), or signal handlers.
 
-#### 3. `restrict` (The Optimization Promise)
+### 3. `restrict` (The Optimization Promise)
+
 *   A promise from the programmer to the compiler: "For the lifetime of this pointer, no other pointer will access this same chunk of memory."
 *   Allows the compiler to perform aggressive optimizations (like vectorization) that would otherwise be unsafe due to potential pointer aliasing.
 
 ---
 
-### 4. Evolution Note: C23 Standard
+## 4. Evolution Note: C23 Standard
+
 The **C23** standard (the newest iteration) made significant changes to modernize keywords. It introduced standard lowercase keywords that were previously macros or underscored keywords.
 
 If you are using a C23-compliant compiler:

@@ -1,6 +1,6 @@
 # SQLMap 工作原理&输出内容详解
 
-##  SQLMap 工作原理
+## SQLMap 工作原理
 
 ### 核心工作流程
 
@@ -13,6 +13,7 @@
 3. 技术选择 → 根据响应选择最佳注入技术
 4. 指纹识别 → 确定数据库类型和版本
 ```
+
 ### 2. **注入技术分类**
 
 |技术类型|原理|适用场景|
@@ -26,15 +27,15 @@
 ### 3. **自动化绕过机制**
 
 - **编码绕过**：URL编码、Base64、Hex编码
-    
+
 - **注释技巧**：`/**/`、`--`、`#`
-    
+
 - **字符串拼接**：`CONCAT()`、`||`、`+`
-    
+
 - **大小写变形**：`SeLeCt`、`sEleCT`
-    
+
 - **等价函数替换**：不同数据库的相似函数
-    
+
 
 ---
 
@@ -45,13 +46,14 @@
 ```bash
 sqlmap -u "http://example.com/page.php?id=1" --batch
 ```
+
 ### 1. **启动信息段**
 
 ```text
 [INFO] starting @ 14:30:25 /2024-01-15/
 ```
 - **含义**：工具启动时间和版本信息
-    
+
 - **重要性**：⭐☆☆☆☆
 
 ### 2. **目标检测段**
@@ -62,11 +64,11 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 [WAF] identified WAF/IPS: 'CloudFlare'
 ```
 - **含义**：连接测试和WAF识别
-    
+
 - **重要性**：⭐⭐⭐☆☆
-    
+
 - **注意**：识别WAF有助于调整攻击策略
-    
+
 
 ### 3. **注入测试段**
 
@@ -76,11 +78,11 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 [INFO] testing 'MySQL >= 5.0 boolean-based blind - ORDER BY, GROUP BY clause'
 ```
 - **含义**：正在测试的注入技术类型
-    
+
 - **重要性**：⭐⭐☆☆☆
-    
+
 - **进度指示**：显示当前测试阶段
-    
+
 
 ### 4. **漏洞发现段**
 
@@ -88,11 +90,11 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 [INFO] GET parameter 'id' is 'MySQL >= 5.0 boolean-based blind' injectable
 ```
 - **含义**：发现可注入的参数和漏洞类型
-    
+
 - **重要性**：⭐⭐⭐⭐⭐
-    
+
 - **关键信息**：参数名、数据库类型、注入技术
-    
+
 
 ### 5. **数据库指纹段**
 
@@ -103,11 +105,11 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 [INFO] retrieved: '5.7.35'
 ```
 - **含义**：数据库类型和版本信息
-    
+
 - **重要性**：⭐⭐⭐⭐☆
-    
+
 - **用途**：确定后续利用的payload
-    
+
 
 ### 6. **数据提取段**
 
@@ -120,11 +122,11 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 [INFO] retrieved: 'products'
 ```
 - **含义**：成功提取的数据库信息
-    
+
 - **重要性**：⭐⭐⭐⭐⭐
-    
+
 - **关键数据**：数据库名、表名、列名、数据记录
-    
+
 
 ### 7. **文件操作段**
 
@@ -133,11 +135,11 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 [INFO] retrieved: 'root:x:0:0:root:/root:/bin/bash\n...'
 ```
 - **含义**：文件系统访问结果
-    
+
 - **重要性**：⭐⭐⭐⭐⭐
-    
+
 - **风险等级**：高危操作
-    
+
 
 ---
 
@@ -146,21 +148,21 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 ### 颜色编码：
 
 - **🟢 绿色/INFO**：正常信息、成功操作
-    
+
 - **🟡 黄色/WARNING**：警告信息、需要注意
-    
+
 - **🔴 红色/ERROR**：错误信息、操作失败
-    
+
 - **🟣 紫色/CRITICAL**：关键信息、重要发现
-    
+
 - **🔵 蓝色/PAYLOAD**：发送的payload详情
-    
+
 
 ### 常见状态符号：
 
 ```text
 [INFO]     - 一般信息
-[WARNING]  - 警告信息  
+[WARNING]  - 警告信息
 [ERROR]    - 错误信息
 [CRITICAL] - 关键错误
 [PAYLOAD]  - 发送的测试payload
@@ -173,7 +175,7 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 ### 完整过程示例：
 
 ```bash
-[14:30:25] [INFO] starting sqlmap 1.6.5 
+[14:30:25] [INFO] starting sqlmap 1.6.5
 # 工具启动，版本信息
 
 [14:30:26] [INFO] testing connection to the target URL
@@ -196,7 +198,7 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 [14:30:35] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
 # 开始具体注入技术测试
 
-[14:30:40] [INFO] GET parameter 'id' is 'MySQL >= 5.0 boolean-based blind' injectable 
+[14:30:40] [INFO] GET parameter 'id' is 'MySQL >= 5.0 boolean-based blind' injectable
 # 发现漏洞！参数id存在MySQL布尔盲注
 
 [14:30:41] [INFO] checking if the injection point on GET parameter 'id' is a false positive
@@ -242,9 +244,9 @@ os-shell> whoami
 www-data
 ```
 - **含义**：成功获取操作系统shell
-    
+
 - **风险等级**：极高
-    
+
 
 ### 2. **WAF 绕过**
 
@@ -254,9 +256,9 @@ www-data
 [INFO] adjusting time delay to 2 seconds due to good response times
 ```
 - **含义**：识别WAF并使用篡改脚本绕过
-    
+
 - **技术要点**：自动调整策略应对防护
-    
+
 
 ### 3. **性能优化信息**
 
@@ -266,5 +268,5 @@ www-data
 [INFO] adjusting time delay to 1 second(s) due to good response times
 ```
 - **含义**：自动优化线程数和延迟设置
-    
+
 - **目的**：提高检测效率同时避免触发防护

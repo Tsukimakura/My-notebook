@@ -2,28 +2,28 @@
 
 Bubble sort repeatedly scans the array, comparing each pair of adjacent elements and swapping them if they are in the wrong order.
 
-#### Process
+## Process
 
 - Compare `arr[0]` and `arr[1]`, swap if needed
-    
+
 - Compare `arr[1]` and `arr[2]`, swap if needed
-    
+
 - …
-    
+
 - After one full pass, the **largest element moves to the end** (like a bubble rising)
-    
+
 
 Repeat this process `n-1` times.
 
-#### Time complexity
+## Time complexity
 
 - Worst / average: **O(n²)**
 
-#### Space complexity
+## Space complexity
 
 - **O(1)**
 
-#### Implementation
+## Implementation
 
 - recursion
 

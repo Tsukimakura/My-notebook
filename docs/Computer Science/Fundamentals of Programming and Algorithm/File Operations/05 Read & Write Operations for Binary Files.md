@@ -5,10 +5,12 @@
 Unlike text files, which are meant for human consumption, binary files are designed for machine efficiency. They represent a direct "snapshot" of memory contents stored on disk.
 
 ### Raw Data Storage
+
 *   **Byte Range:** Binary files utilize the full range of a byte (**0–255**). There are no "forbidden" or special control characters. A null byte (`0x00`) or a newline (`0x0A`) is treated simply as data (e.g., part of an integer or a color value).
 *   **No Conversion:** Data is written exactly as it is represented in RAM. An integer `123456` is stored as a 4-byte sequence (e.g., `40 E2 01 00`), whereas a text file would convert it to the string "123456" (6 bytes).
 
 ### Advantages & Disadvantages
+
 *   **Speed:** Extremely fast. The CPU does not need to perform expensive formatting (like `printf` does) or parsing (like `scanf` does). It is essentially a memory copy operation.
 *   **Storage Efficiency:** Typically more compact for numeric data.
 *   **Portability Issues (The Major Drawback):** Binary files are hardware-dependent.
@@ -22,12 +24,14 @@ Unlike text files, which are meant for human consumption, binary files are desig
 The C Standard Library provides two block-based functions for binary operations: `fread` and `fwrite`. They act as "bulk movers" of data.
 
 ### Function Prototypes
+
 ```c
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
 size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
 ```
 
 ### Parameter Anatomy
+
 1.  **`ptr` (Pointer):**
     *   For `fwrite`: The source of data (RAM).
     *   For `fread`: The destination buffer (RAM).
@@ -37,6 +41,7 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
 4.  **`stream` (File Pointer):** The target file. **Note:** Unlike `fprintf`, the file pointer is the **last** argument here.
 
 ### Understanding the Return Value
+
 Both functions return the **number of items** successfully read or written, not the number of bytes.
 
 *   **Logic:** If you request to write 10 integers (`nmemb = 10`), and the function returns `10`, the operation was fully successful.
@@ -76,12 +81,14 @@ fread(&p1, sizeof(struct Player), 1, fp);
 When opening files for binary access using `fopen`, the mode string must include the character `'b'` (e.g., `"rb"`, `"wb"`, `"ab"`).
 
 ### Windows vs. Linux/Unix
+
 *   **Linux/Unix:** The kernel treats text and binary files identically. The `'b'` flag is ignored but allowed for compatibility.
 *   **Windows:** The file system distinguishes between the two.
     *   **Text Mode (Default):** Implicitly translates `\n` (LF) in memory to `\r\n` (CRLF) on disk (and vice versa).
     *   **Binary Mode (`"b"`):** Disables this translation.
 
 ### The Corruption Risk
+
 If you open a binary file (like a `.jpg` image) in text mode on Windows:
 1.  The byte `0x0A` (decimal 10) occurs naturally in the image data.
 2.  The system interprets this as a "Newline."

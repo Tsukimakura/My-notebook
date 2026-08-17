@@ -4,7 +4,8 @@ Here is a comprehensive reference guide for C language `printf` and `scanf` form
 
 ---
 
-### 1. Basic Conversion Specifiers
+## 1. Basic Conversion Specifiers
+
 These are the core symbols used by both functions to define the data type.
 
 | Specifier | Data Type | `printf` (Output) Meaning | `scanf` (Input) Meaning |
@@ -24,10 +25,12 @@ These are the core symbols used by both functions to define the data type.
 
 ---
 
-### 2. printf Formatting Details
+## 2. printf Formatting Details
+
 **Prototype:** `%[flags][width][.precision][length]specifier`
 
-#### A. Flags (Control alignment, sign, padding)
+### A. Flags (Control alignment, sign, padding)
+
 | Flag | Description | Example | Result (Value: 5) |
 | :--- | :--- | :--- | :--- |
 | **-** | **Left Justify** (Default is right) | `%-5d` | `"5    "` |
@@ -36,7 +39,8 @@ These are the core symbols used by both functions to define the data type.
 | **0** | **Zero Pad** (Pad with 0 instead of spaces) | `%05d` | `"00005"` |
 | **#** | **Alternate Form** (0 for octal, 0x for hex) | `%#x` | `"0x5"` |
 
-#### B. Width & Precision
+### B. Width & Precision
+
 | Format | Description | Example | Result |
 | :--- | :--- | :--- | :--- |
 | **%N** | **Min Width** N (pads with spaces) | `%5d` (val 10) | `"   10"` |
@@ -48,10 +52,12 @@ These are the core symbols used by both functions to define the data type.
 
 ---
 
-### 3. scanf Input Control Details
+## 3. scanf Input Control Details
+
 **Prototype:** `%[*][width][length]specifier`
 
-#### A. Input Modifiers
+### A. Input Modifiers
+
 | Feature | Format | Description | Example |
 | :--- | :--- | :--- | :--- |
 | **Width Limit** | `%Ns` | Reads max N characters. **Crucial for safety.** | `scanf("%9s", buf)` (Leaves room for `\0`) |
@@ -62,7 +68,8 @@ These are the core symbols used by both functions to define the data type.
 
 ---
 
-### 4. Length Modifiers
+## 4. Length Modifiers
+
 Used to handle data types of specific sizes (`short`, `long`, `size_t`, etc.).
 
 | Modifier | Integer (d, i, u, o, x) | Float (f, e, g) | C Type Mapping |
@@ -76,9 +83,10 @@ Used to handle data types of specific sizes (`short`, `long`, `size_t`, etc.).
 
 ---
 
-### 5. Cheat Sheet & Examples
+## 5. Cheat Sheet & Examples
 
-#### Common `printf` Scenarios
+### Common `printf` Scenarios
+
 | Goal | Format String | Value | Output |
 | :--- | :--- | :--- | :--- |
 | Currency (2 decimals) | `"$%.2f"` | `12.5` | `"$12.50"` |
@@ -88,7 +96,8 @@ Used to handle data types of specific sizes (`short`, `long`, `size_t`, etc.).
 | Print `size_t` | `"%zu"` | `sizeof(int)` | `4` |
 | Print `long long` | `"%lld"` | `9223372036854775807`| `9223372036854775807` |
 
-#### Common `scanf` Scenarios
+### Common `scanf` Scenarios
+
 | Goal | Format String | Notes |
 | :--- | :--- | :--- |
 | Read `double` | `"%lf"` | **Must** use `l` modifier. `%f` is only for `float`. |
@@ -97,7 +106,8 @@ Used to handle data types of specific sizes (`short`, `long`, `size_t`, etc.).
 | Skip specific prefix | `"ID:%d"` | If input is `ID:500`, it stores `500`. |
 | Safe String Read | `"%19s"` | If buffer is `char buf[20]`. Prevents overflow. |
 
-### 6. Important Notes
+## 6. Important Notes
+
 1.  **Double Precision:**
     *   `printf`: `%f` works for both `float` and `double` (float is promoted to double).
     *   `scanf`: You **must** distinguish: `%f` for `float`, `%lf` for `double`.

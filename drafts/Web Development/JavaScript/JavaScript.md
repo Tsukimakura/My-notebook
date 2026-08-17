@@ -1,26 +1,28 @@
+# JavaScript
+
 ## 1. JavaScript 基本介绍
 
 ### 什么是 JavaScript？
 
 - **解释型脚本语言**：无需编译，由浏览器直接解释执行
-    
+
 - **动态类型语言**：变量类型在运行时确定
-    
+
 - **基于原型的面向对象**：与 C++/Java 的类继承不同
-    
+
 - **单线程但非阻塞**：通过事件循环处理异步操作
-    
+
 
 ### JavaScript 的主要特点
 
 - **客户端执行**：在用户浏览器中运行
-    
+
 - **事件驱动**：响应用户交互
-    
+
 - **跨平台**：所有现代浏览器都支持
-    
+
 - **与 DOM 交互**：可以动态修改网页内容
-    
+
 
 ## 2. 基础语法（与 C 语言对比）
 
@@ -36,6 +38,7 @@ let x = 10;              // 可变变量
 const name = "John";     // 常量
 var oldWay = "deprecated"; // 旧方式，不推荐
 ```
+
 ### 数据类型
 
 ```javascript
@@ -53,6 +56,7 @@ let object = {           // 对象
     age: 30
 };
 ```
+
 ### 控制结构（与 C 类似）
 
 ```javascript
@@ -74,6 +78,7 @@ while (condition) {
     // 代码
 }
 ```
+
 ### 函数
 
 ```javascript
@@ -90,6 +95,7 @@ const multiply = function(a, b) {
 // 箭头函数 (ES6+)
 const divide = (a, b) => a / b;
 ```
+
 ## 3. JavaScript 特有概念
 
 ### DOM 操作
@@ -112,6 +118,7 @@ element.addEventListener("click", function() {
     alert("元素被点击了！");
 });
 ```
+
 ### 异步编程
 
 ```javascript
@@ -137,6 +144,7 @@ async function getData() {
     }
 }
 ```
+
 ## 4. 重要注意事项
 
 ### 变量作用域
@@ -154,6 +162,7 @@ if (true) {
 }
 console.log(y);     // 20
 ```
+
 ### 相等比较
 
 ```javascript
@@ -165,6 +174,7 @@ console.log(y);     // 20
 "5" == 5;    // true (类型转换)
 "5" != 5;    // false
 ```
+
 ### 模板字符串
 
 ```javascript

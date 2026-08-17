@@ -7,11 +7,11 @@ In C, every expression evaluates to either an **lvalue** or an **rvalue**. Un
 Historically, the names come from the assignment operator (=):
 
 - **L-value:** An expression that can appear on the **L**eft side of an assignment.
-    
-- **R-value:** An expression that can only appear on the **R**ight side of an assignment.
-    
 
-```
+- **R-value:** An expression that can only appear on the **R**ight side of an assignment.
+
+
+```text
 L-value=R-value;L-value=R-value;
 ```
 
@@ -22,22 +22,22 @@ L-value=R-value;L-value=R-value;
 An **lvalue** refers to an object that persists in memory and occupies an identifiable location (an address).
 
 - **Think:** "L" stands for **Location**.
-    
+
 - **Key Characteristic:** You can take its address using the & operator.
-    
+
 - **Usage:** It designates a storage region so the program can save data there.
-    
+
 
 ### Examples of L-values:
 
 - **Variables:** int x; (x is an lvalue).
-    
-- **Array elements:** arr[0] is an lvalue.
-    
-- **Dereferenced pointers:** *ptr is an lvalue (it points to a location).
-    
 
-> **Note on Modifiability:**  
+- **Array elements:** arr[0] is an lvalue.
+
+- **Dereferenced pointers:** *ptr is an lvalue (it points to a location).
+
+
+> **Note on Modifiability:**
 > Not all lvalues can be modified. A const variable is an lvalue (it has a memory address), but it is a **non-modifiable lvalue**. You cannot assign a new value to it, but you can still take its address.
 
 ---
@@ -47,20 +47,20 @@ An **lvalue** refers to an object that persists in memory and occupies an iden
 An **rvalue** is a temporary value that does not persist in memory beyond the expression that uses it.
 
 - **Think:** "R" stands for **Read-only** value or the actual data.
-    
+
 - **Key Characteristic:** You **cannot** take its address using &.
-    
+
 - **Usage:** It provides the data to be stored in an lvalue.
-    
+
 
 ### Examples of R-values:
 
 - **Literals:** 5, 'a', "hello" (string literals are a special exception, but treat numbers as rvalues).
-    
+
 - **Math results:** x + 5 (the result is temporary).
-    
+
 - **Function returns:** sqrt(4.0) returns a value, not a memory location.
-    
+
 
 ---
 
@@ -72,7 +72,7 @@ An lvalue can be used as an rvalue. This happens when the compiler reads the dat
 
 codeC
 
-```
+```text
 int x = 10; // 'x' is an lvalue.
 int y = x;  // Here, 'x' is used as an rvalue (we read its contents).
 ```
@@ -83,7 +83,7 @@ An rvalue can **never** be used as an lvalue. You cannot assign data to someth
 
 codeC
 
-```
+```text
 10 = x;       // ERROR: 10 is an rvalue. You can't assign TO a number.
 (x + y) = 20; // ERROR: (x+y) is a temporary result. It has no permanent address.
 ```
@@ -96,7 +96,7 @@ codeC
 
 codeC
 
-```
+```text
 int a = 10;        // 'a' is lvalue, '10' is rvalue.
 int *p = &a;       // '&a' requires 'a' to be an lvalue.
 *p = 20;           // '*p' is an lvalue (location pointed to by p).
@@ -105,14 +105,14 @@ int b = a + 5;     // 'a' acts as rvalue here. 'a + 5' is an rvalue.
 
 ### ❌ Invalid Code (Common Errors)
 
-```
+```text
 int a = 10;
 
 // Error: lvalue required as left operand of assignment
-5 = a;             
+5 = a;
 
 // Error: lvalue required as left operand of assignment
-(a + 1) = 20;      
+(a + 1) = 20;
 
 // Error: lvalue required as unary '&' operand
 int *p = &(a + 1); // You cannot take the address of a temporary calculation.

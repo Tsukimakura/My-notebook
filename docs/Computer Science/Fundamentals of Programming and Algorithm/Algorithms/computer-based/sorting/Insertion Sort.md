@@ -1,33 +1,34 @@
 # Insertion Sort
 
-#### Key idea
+## Key idea
+
 Insertion sort works like sorting **playing cards in your hand**:
 
 1. You take one card at a time.
-    
-2. Insert it into the correct position among already sorted cards.
-    
 
-#### Process for an array:
+2. Insert it into the correct position among already sorted cards.
+
+
+## Process for an array:
 
 - Treat `arr[0]` as sorted.
-    
-- Take `arr[1]`, insert it into the sorted part.
-    
-- Take `arr[2]`, insert it into the sorted part.
-    
-- …
-    
-- After `n-1` insertions, the entire array is sorted.
-    
 
-#### Complexity
+- Take `arr[1]`, insert it into the sorted part.
+
+- Take `arr[2]`, insert it into the sorted part.
+
+- …
+
+- After `n-1` insertions, the entire array is sorted.
+
+
+## Complexity
 
 - **Worst/Average:** O(n²)
-   
+
 - **Space:** O(1)
 
-#### Implementation
+## Implementation
 
 - recursion
 

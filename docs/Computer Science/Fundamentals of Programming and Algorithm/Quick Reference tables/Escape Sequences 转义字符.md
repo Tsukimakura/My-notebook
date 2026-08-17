@@ -22,9 +22,9 @@
 **Notes**
 
 - In `\x` escapes, any following hex digit becomes part of the escape — separate it if needed (e.g. `"\x3A" "text"` or `"\x3A"text` with concatenation).
-    
+
 - Use octal/hex carefully for portability and readability.
-    
+
 - `\0` is the canonical string terminator; embedding nulls inside a string literal is allowed but standard library string functions will stop at the first `\0`.
-    
+
 - Universal character names are processed by the compiler; actual encoding in the executable depends on implementation and locale.

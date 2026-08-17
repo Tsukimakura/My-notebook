@@ -1,6 +1,7 @@
 # Bitwise Operations
 
 ## 1. Overview
+
 **Bitwise operations** interact directly with the binary representations (bits) of data in memory. They are significantly faster than arithmetic operations and are essential for low-level programming, such as device drivers, protocol parsing, and embedded systems.
 
 *   **Constraint**: Bitwise operators only work on **integer types** (`char`, `short`, `int`, `long`, `unsigned`, etc.). They cannot be used on floating-point numbers (`float`, `double`).
@@ -23,6 +24,7 @@
 ## 3. Detailed Breakdown & Use Cases
 
 ### 3.1 Bitwise AND (`&`)
+
 **Rule**: Results in `1` only if **both** corresponding bits are `1`. Otherwise `0`.
 *   **Key Property**: `x & 0 = 0` (Clearing), `x & 1 = x` (Preserving).
 
@@ -36,6 +38,7 @@
     *   General rule: `x % (2^n)` $\Leftrightarrow$ `x & (2^n - 1)`.
 
 ### 3.2 Bitwise OR (`|`)
+
 **Rule**: Results in `1` if **at least one** of the corresponding bits is `1`.
 *   **Key Property**: `x | 1 = 1` (Setting), `x | 0 = x` (Preserving).
 
@@ -46,6 +49,7 @@
     *   `(high_byte << 8) | low_byte` $\rightarrow$ Combines two 8-bit values into a 16-bit value.
 
 ### 3.3 Bitwise NOT (`~`)
+
 **Rule**: Inverts every bit. `0` becomes `1`, `1` becomes `0`.
 *   **Note**: This is a **unary** operator (takes only one operand).
 
@@ -55,6 +59,7 @@
     *   To clear the lower 3 bits: `x & ~7` (Since 7 is `...00111`, `~7` is `...11000`).
 
 ### 3.4 Bitwise XOR (`^`)
+
 **Rule**: Results in `1` if the bits are **different**. Results in `0` if they are the **same**.
 *   **Key Properties**:
     *   `x ^ x = 0` (Self-cancellation)
@@ -77,7 +82,7 @@ This is the standard pattern for manipulating hardware registers or configuratio
 1.  **Prepare the Mask**:
     ```c
     // Create a mask where only bits 3 and 4 are 1.
-    unsigned long mask = (1ul << 3) | (1ul << 4); 
+    unsigned long mask = (1ul << 3) | (1ul << 4);
     ```
 
 2.  **Set Bits (Turn ON)**: Use `OR`
@@ -121,12 +126,14 @@ This is the standard pattern for manipulating hardware registers or configuratio
 ## 6. Shift Operations
 
 ### 6.1 Left Shift (`<<`)
+
 *   **Action**: Moves bits to the left.
 *   **Padding**: Always fills the right (LSB) with **0**.
 *   **Math**: Equivalent to multiplying by $2^n$ (if no overflow occurs).
     *   `x << 1` $\approx$ `x * 2`
 
 ### 6.2 Right Shift (`>>`)
+
 *   **Action**: Moves bits to the right.
 *   **Math**: Equivalent to dividing by $2^n$ (integer division).
 *   **Padding Rule (Crucial)**:
@@ -153,6 +160,7 @@ Strictly avoid **Undefined Behaviors (UB)** regarding shift operations:
 ---
 
 ## 8. Code Example: Printing Binary
+
 A standard algorithm to visualize the binary representation of a number (from the slides).
 
 ```c
@@ -165,7 +173,7 @@ int main() {
 
     // Start with a mask where only the Highest Bit (MSB) is 1.
     // 'u' ensures it is treated as unsigned to avoid arithmetic shift issues.
-    unsigned int mask = 1u << 31; 
+    unsigned int mask = 1u << 31;
 
     printf("Binary: ");
     for (; mask > 0; mask >>= 1) {
@@ -182,6 +190,7 @@ int main() {
 ```
 
 ### Explanation of the loop:
+
 1.  **Init**: `mask` is `1000...0000`.
 2.  **Check**: `number & mask` isolates the current bit.
 3.  **Update**: `mask >>= 1` shifts the `1` to the right (`0100...`, then `0010...`).

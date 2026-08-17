@@ -1,23 +1,23 @@
 # Binary Search
 
-####  Key idea
+## Key idea
 
 Each time, compare the target with the middle element:
 
 1. If the middle element **equals** the target → found.
-    
+
 2. If the target is **smaller** → search the **left half**.
-    
+
 3. If the target is **larger** → search the **right half**.
-    
+
 
 This halves the search range every step → **O(log n)** time complexity.
 
-####  Important condition
+## Important condition
 
 The array **must be sorted** (ascending or descending).
 
-#### Implementation in C
+## Implementation in C
 
 ```c
 int binary_search(int arr[], int n, int target) {

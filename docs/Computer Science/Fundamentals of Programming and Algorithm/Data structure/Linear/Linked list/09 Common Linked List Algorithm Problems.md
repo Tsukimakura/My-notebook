@@ -6,7 +6,8 @@ Here are the four classic patterns you must master.
 
 ---
 
-### **1. Reverse a Linked List (The Foundation)**
+## **1. Reverse a Linked List (The Foundation)**
+
 **Goal:** Turn `1 -> 2 -> 3 -> NULL` into `3 -> 2 -> 1 -> NULL`.
 
 **The Algorithm: "Three-Pointer Sliding"**
@@ -24,7 +25,8 @@ You cannot reverse a link without losing the rest of the list, so you need three
 
 ---
 
-### **2. Detect a Cycle (Floyd’s "Tortoise and Hare")**
+## **2. Detect a Cycle (Floyd’s "Tortoise and Hare")**
+
 **Goal:** Determine if a linked list has a loop (i.e., the last node points back to a previous node instead of `NULL`).
 
 **The Algorithm: Fast & Slow Pointers**
@@ -39,7 +41,8 @@ Imagine two runners on a track.
 
 ---
 
-### **3. Merge Two Sorted Lists**
+## **3. Merge Two Sorted Lists**
+
 **Goal:** Combine `1 -> 3 -> 5` and `2 -> 4 -> 6` into `1 -> 2 -> 3 -> 4 -> 5 -> 6`.
 
 **The Algorithm: The "Zipper" Method**
@@ -54,7 +57,8 @@ Since we don't know which list has the starting node (1 or 2?), we create a loca
 
 ---
 
-### **4. Reverse Nodes in k-Group (Advanced)**
+## **4. Reverse Nodes in k-Group (Advanced)**
+
 **Goal:** Reverse the list in groups of size $k$.
 *   Input: `1->2->3->4->5`, $k=2$
 *   Output: `2->1->4->3->5` (Note: 5 is left alone because there are fewer than $k$ nodes left).
@@ -81,7 +85,8 @@ This problem combines traversal and reversal. We usually use a **Dummy Head** to
 
 ---
 
-### **5. Find Middle Node (or N-th from End)**
+## **5. Find Middle Node (or N-th from End)**
+
 **Goal:** Find the center of the list in one pass.
 
 **The Algorithm: Fast & Slow Pointers (Again)**
@@ -93,7 +98,7 @@ This problem combines traversal and reversal. We usually use a **Dummy Head** to
 
 ---
 
-### **Summary of "Pro" Techniques**
+## **Summary of "Pro" Techniques**
 
 | Technique | Used For... |
 | :--- | :--- |

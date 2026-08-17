@@ -2,7 +2,7 @@ PYTHON ?= python3
 VENV ?= .venv
 MKDOCS := $(VENV)/bin/mkdocs
 
-.PHONY: bootstrap serve build check clean
+.PHONY: bootstrap serve build format lint check clean
 
 bootstrap:
 	$(PYTHON) -m venv $(VENV)
@@ -16,7 +16,13 @@ serve:
 build:
 	$(MKDOCS) build
 
-check:
+format:
+	$(PYTHON) scripts/format_notes.py docs drafts
+
+lint:
+	$(PYTHON) scripts/format_notes.py --check docs drafts
+
+check: lint
 	$(MKDOCS) build --strict
 
 clean:

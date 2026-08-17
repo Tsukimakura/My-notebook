@@ -1,6 +1,7 @@
 # Usage
 
-### 1. To indirectly manipulate the arguments
+## 1. To indirectly manipulate the arguments
+
 [[Arguments vs Parameters 实参与形参]]
 ```c
 void swap(int *a, int *b){
@@ -10,7 +11,8 @@ void swap(int *a, int *b){
 }
 ```
 
-### 2. To return more than one value by a function
+## 2. To return more than one value by a function
+
 ```c
 void findmaxmin(int[] a, int len, int *pmax, int *pmin);
 ```
@@ -31,7 +33,8 @@ But when all values are possible result, the value and the status have to be ret
 e.g. A function to calculate division of two integers.
 ```
 
-### 3. To pass large parameters
+## 3. To pass large parameters
+
 1. C uses pass-by-value
 
 All function arguments are passed by value, meaning the argument is **copied** when the function is called.
@@ -45,7 +48,7 @@ Passing a large struct or array **by value** means:
 - Large stack memory is consumed
 - Risk of stack overflow
 
-Example:  
+Example:
 A struct with a 4 MB array would copy all 4 MB when passed by value.
 
 
@@ -68,9 +71,10 @@ Example:
 
 This prevents copying while ensuring the function cannot change the data.
 
-### 4.manipulate array elements as parameters in functions
+## 4.manipulate array elements as parameters in functions
 
-### 5. Allocate memories dynamically
+## 5. Allocate memories dynamically
+
 **1. `malloc` — Allocate Memory**
 
 **Purpose:** Allocate a block of memory with a given size.
@@ -80,11 +84,11 @@ This prevents copying while ensuring the function cannot change the data.
 Features:
 
 - Does **not** initialize memory (content is garbage)
-    
+
 - Returns a **pointer** to the allocated block
-    
+
 - Returns `NULL` if allocation fails
-    
+
 
 Example:
 
@@ -99,11 +103,11 @@ Example:
 Features:
 
 - Allocates `num * size` bytes
-    
+
 - Memory is automatically **zero-initialized**
-    
+
 - Useful for arrays
-    
+
 
 Example:
 
@@ -118,13 +122,13 @@ Example:
 Features:
 
 - Attempts to resize the existing memory block
-    
+
 - May move the block to a new location
-    
+
 - **Returns a new pointer** (old pointer becomes invalid)
-    
+
 - Can be used to grow or shrink arrays
-    
+
 
 Example:
 

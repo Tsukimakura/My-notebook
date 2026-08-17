@@ -1,3 +1,5 @@
+# 代理（Proxy）
+
 ## 1. 代理基础概念
 
 ### 1.1 什么是代理？
@@ -9,21 +11,22 @@
 ```text
 客户端 → 代理服务器 → 目标服务器
     请求转发         请求处理
-客户端 ← 代理服务器 ← 目标服务器  
+客户端 ← 代理服务器 ← 目标服务器
     响应返回         响应返回
 ```
+
 ### 1.3 代理的核心功能
 
 - 🔒 **匿名性**：隐藏客户端真实IP地址
-    
+
 - 🛡️ **安全性**：过滤恶意内容，提供加密
-    
+
 - 🌐 **访问控制**：绕过地理限制和网络封锁
-    
+
 - 💨 **缓存加速**：缓存常用资源，提高访问速度
-    
+
 - 📊 **内容过滤**：屏蔽不当内容，监控网络使用
-    
+
 
 ---
 
@@ -46,6 +49,7 @@
 ✅ 提供精细控制
 ❌ 性能开销较大
 ```
+
 ### 传输层代理
 
 ```bash
@@ -58,6 +62,7 @@
 ✅ 性能较好
 ❌ 不能解析应用数据
 ```
+
 ## 2.2 按匿名程度分类
 
 ### 透明代理
@@ -68,6 +73,7 @@
 - 能看见客户端的真实IP
 - 常用于内容过滤和缓存
 ```
+
 ### 匿名代理
 
 ```bash
@@ -76,6 +82,7 @@
 - 但不知道客户端的真实IP
 - 最常用的代理类型
 ```
+
 ### 高匿代理
 
 ```bash
@@ -84,6 +91,7 @@
 - 无法检测到代理的使用
 - 提供最高级别的匿名性
 ```
+
 ## 2.3 按部署位置分类
 
 ### 正向代理
@@ -95,6 +103,7 @@
 - 用于访问外部资源
 - 典型应用：企业上网代理、翻墙代理
 ```
+
 ### 反向代理
 
 ```bash
@@ -104,6 +113,7 @@
 - 用于负载均衡、安全防护
 - 典型应用：CDN、Web服务器前端
 ```
+
 ### 对比表格
 
 | 特性        | 正向代理    | 反向代理       |
@@ -135,6 +145,7 @@ Host: example.com
 User-Agent: Mozilla/5.0
 Connection: Keep-Alive
 ```
+
 ### HTTPS 代理（CONNECT 方法）
 
 ```http
@@ -147,6 +158,7 @@ HTTP/1.1 200 Connection Established
 
 # 之后建立加密的 TLS 隧道
 ```
+
 ### 配置示例
 
 ```bash
@@ -159,6 +171,7 @@ export no_proxy=localhost,127.0.0.1,*.company.com
 curl -x http://proxy:8080 http://example.com
 wget -e use_proxy=yes -e http_proxy=proxy:8080 http://example.com
 ```
+
 ## 3.2 SOCKS 代理
 
 ### SOCKS5 协议优势
@@ -170,6 +183,7 @@ wget -e use_proxy=yes -e http_proxy=proxy:8080 http://example.com
 ✅ IPv4 和 IPv6
 ✅ 域名解析（防止DNS泄漏）
 ```
+
 ### 工作流程
 
 ```text
@@ -178,6 +192,7 @@ wget -e use_proxy=yes -e http_proxy=proxy:8080 http://example.com
 3. 建立连接
 4. 数据传输
 ```
+
 ### 配置方法
 
 ```bash
@@ -188,6 +203,7 @@ ssh -D 1080 user@remote-server
 export ALL_PROXY=socks5://127.0.0.1:1080
 curl --socks5 127.0.0.1:1080 http://example.com
 ```
+
 ## 3.3 透明代理
 
 ### 工作原理
@@ -198,14 +214,15 @@ iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3128
 
 # 客户端无感知，流量被自动重定向
 ```
+
 ### 典型应用
 
 - 企业内容过滤
-    
+
 - 学校网络管理
-    
+
 - 公共WiFi认证
-    
+
 
 ---
 
@@ -229,6 +246,7 @@ http_access deny all
 # 启动
 sudo systemctl start squid
 ```
+
 ### Nginx (反向代理)
 
 ```nginx
@@ -236,7 +254,7 @@ sudo systemctl start squid
 server {
     listen 80;
     server_name example.com;
-    
+
     location / {
         proxy_pass http://backend-server:8080;
         proxy_set_header Host $host;
@@ -245,6 +263,7 @@ server {
     }
 }
 ```
+
 ### HAProxy (负载均衡代理)
 
 ```bash
@@ -260,6 +279,7 @@ backend web_servers
     server web1 192.168.1.10:80 check
     server web2 192.168.1.11:80 check
 ```
+
 ## 4.2 客户端代理配置
 
 ### 操作系统级别配置
@@ -273,6 +293,7 @@ backend web_servers
 # 或使用netsh
 netsh winhttp set proxy proxy-server="http://proxy:8080" bypass-list="localhost;127.0.0.1"
 ```
+
 #### macOS
 
 ```bash
@@ -285,6 +306,7 @@ networksetup -setproxybypassdomains "Wi-Fi" "*.local" "169.254/16"
 export http_proxy=http://proxy:8080
 export https_proxy=http://proxy:8080
 ```
+
 #### Linux
 
 ```bash
@@ -296,6 +318,7 @@ export no_proxy=localhost,127.0.0.1,::1
 
 # 永久配置，添加到 ~/.bashrc 或 /etc/environment
 ```
+
 ### 浏览器配置
 
 #### 手动配置
@@ -306,27 +329,29 @@ HTTPS代理: proxy.example.com:8080
 SOCKS代理: 127.0.0.1:1080
 例外列表: localhost, 127.0.0.1, *.company.com
 ```
+
 #### 自动配置 (PAC文件)
 
 ```javascript
 // proxy.pac
 function FindProxyForURL(url, host) {
     // 直连本地地址
-    if (isPlainHostName(host) || 
-        shExpMatch(host, "*.local") || 
+    if (isPlainHostName(host) ||
+        shExpMatch(host, "*.local") ||
         isInNet(host, "127.0.0.1", "255.255.255.0")) {
         return "DIRECT";
     }
-    
+
     // 公司内网直连
     if (isInNet(host, "192.168.0.0", "255.255.0.0")) {
         return "DIRECT";
     }
-    
+
     // 其他流量走代理
     return "PROXY proxy.example.com:8080; SOCKS5 127.0.0.1:1080; DIRECT";
 }
 ```
+
 ## 4.3 移动设备代理配置
 
 ### Android
@@ -335,6 +360,7 @@ function FindProxyForURL(url, host) {
 # 设置 → 网络和互联网 → 高级 → 代理
 # 或使用代理应用 like ProxyDroid
 ```
+
 ### iOS
 
 ```bash
@@ -361,6 +387,7 @@ socks4 10.0.0.1 1080
 proxychains4 curl https://example.com
 proxychains4 firefox
 ```
+
 ### Tor 网络
 
 ```bash
@@ -368,6 +395,7 @@ proxychains4 firefox
 客户端 → 入口节点 → 中间节点 → 出口节点 → 目标网站
     (匿名通信网络)
 ```
+
 ## 5.2 负载均衡代理
 
 ### Nginx 负载均衡
@@ -386,6 +414,7 @@ server {
     }
 }
 ```
+
 ### 健康检查配置
 
 ```bash
@@ -395,6 +424,7 @@ backend web_servers
     http-check expect status 200
     server web1 192.168.1.10:80 check inter 10s fall 3 rise 2
 ```
+
 ## 5.3 缓存代理
 
 ### Squid 缓存配置
@@ -423,6 +453,7 @@ refresh_pattern .           0       20%     4320
 - 数据泄漏：HTTP代理可能泄漏敏感信息
 - DNS污染：配置不当导致DNS泄漏
 ```
+
 ### 防护措施
 
 ```bash
@@ -433,6 +464,7 @@ refresh_pattern .           0       20%     4320
 ✅ 定期检查代理配置
 ✅ 使用VPN作为替代方案
 ```
+
 ## 6.2 认证和授权
 
 ### 代理认证配置
@@ -444,6 +476,7 @@ auth_param basic realm proxy
 acl authenticated proxy_auth REQUIRED
 http_access allow authenticated
 ```
+
 ### 客户端认证
 
 ```bash
@@ -453,6 +486,7 @@ curl -U username:password -x http://proxy:8080 http://example.com
 # 环境变量方式
 export http_proxy=http://username:password@proxy:8080
 ```
+
 ## 6.3 防止DNS泄漏
 
 ### DNS泄漏问题
@@ -463,6 +497,7 @@ export http_proxy=http://username:password@proxy:8080
 - 应用程序直接进行DNS查询
 - 代理配置不当
 ```
+
 ### 解决方案
 
 ```bash
@@ -494,6 +529,7 @@ server {
     }
 }
 ```
+
 ## 7.2 缓存优化
 
 ```bash
@@ -502,6 +538,7 @@ cache_mem 256 MB
 maximum_object_size_in_memory 512 KB
 cache_replacement_policy heap LFUDA
 ```
+
 ## 7.3 压缩和缓冲
 
 ```nginx
@@ -528,6 +565,7 @@ ss -tlnp | grep :3128
 # 实时监控
 tail -f /var/log/squid/access.log
 ```
+
 ## 8.2 性能监控
 
 ```bash
@@ -539,6 +577,7 @@ squidclient -p 3128 mgr:5min
 nginx -t  # 配置测试
 nginx -s reload  # 重载配置
 ```
+
 ## 8.3 调试工具
 
 ```bash
@@ -564,6 +603,7 @@ curl --socks5-hostname 127.0.0.1:1080 https://ifconfig.co/country
 流量监控
 安全审计
 ```
+
 ## 9.2 开发测试
 
 ```bash
@@ -573,6 +613,7 @@ curl --socks5-hostname 127.0.0.1:1080 https://ifconfig.co/country
 - API调试和测试
 - 爬虫开发
 ```
+
 ## 9.3 网络安全
 
 ```bash
@@ -582,6 +623,7 @@ curl --socks5-hostname 127.0.0.1:1080 https://ifconfig.co/country
 - 入侵检测系统(IDS)
 - 恶意软件过滤
 ```
+
 ## 9.4 内容分发
 
 ```bash
@@ -612,6 +654,7 @@ spec:
     name: https
     protocol: HTTPS
 ```
+
 ## 10.2 零信任架构
 
 ```bash
@@ -622,6 +665,7 @@ spec:
 最小权限访问
 微隔离
 ```
+
 ## 10.3 AI驱动的代理
 
 ```bash
@@ -638,13 +682,13 @@ spec:
 ### 代理的核心价值
 
 - 🛡️ **安全增强**：保护客户端身份，过滤威胁
-    
+
 - 🌐 **访问扩展**：突破网络限制，访问全球资源
-    
+
 - ⚡ **性能优化**：缓存加速，负载均衡
-    
+
 - 📊 **管理控制**：流量监控，访问策略
-    
+
 
 ### 选择代理的考虑因素
 

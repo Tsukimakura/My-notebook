@@ -1,6 +1,7 @@
 # Hex_Binary_Decimal Engineering Reference
 
 ## 1. The Nibble Lookup (4-bit Base)
+
 *Memorize this. All larger Hex numbers are just sequences of these 16 patterns.*
 
 |   Hex   | Binary | Decimal |   Hex   | Binary | Decimal |
@@ -17,9 +18,11 @@
 ---
 
 ## 2. Powers of Two (Bit Flags & Shifts)
+
 *Used for setting bits `(1 << n)`, memory addressing, and flag definitions.*
 
 ### A. Low Byte (Bits 0-7)
+
 | Bit ($n$) | Logic `(1 << n)` | Hex Value | Decimal | Note |
 | :---: | :--- | :---: | :---: | :--- |
 | **0** | `1 << 0` | **0x01** | 1 | |
@@ -32,6 +35,7 @@
 | **7** | `1 << 7` | **0x80** | 128 | MSB of a **Byte** (`int8`) |
 
 ### B. High Byte / Word (Bits 8-15)
+
 | Bit ($n$) | Logic `(1 << n)` | Hex Value | Decimal | Note |
 | :---: | :--- | :---: | :---: | :--- |
 | **8** | `1 << 8` | **0x100** | 256 | Start of high byte |
@@ -44,6 +48,7 @@
 | **15** | `1 << 15` | **0x8000** | 32,768 | MSB of a **Short** (`int16`) |
 
 ### C. Large Boundaries (Bits 16 & 31)
+
 | Bit ($n$) | Logic `(1 << n)` | Hex Value | Decimal | Note |
 | :---: | :--- | :---: | :---: | :--- |
 | **16** | `1 << 16` | **0x0001 0000** | 65,536 | **64 KB** |
@@ -56,6 +61,7 @@
 ---
 
 ## 3. Standard Type Maximums (Masks)
+
 *Commonly used for masking operations (`val & 0xFF`) or checking overflow.*
 
 | Type | Hex Mask | Binary Visual | Decimal (Unsigned) |

@@ -1,6 +1,7 @@
 # Character Constants 字符常量
 
 ## 1. Definition and Syntax
+
 A **character constant** is a type of literal used to represent a single character. It is enclosed in **single quotation marks** (e.g., `'A'`, `'7'`, or `'$'`).
 
 In C, the value of a character constant is the numerical value of the character in the machine’s character set (typically **ASCII**).
@@ -8,9 +9,10 @@ In C, the value of a character constant is the numerical value of the character 
 ---
 
 ## 2. Internal Representation and Data Type
+
 One of the most distinctive features of C is how it treats characters:
 *   **Integer Nature:** Characters are stored as integers (ASCII codes). For example, the constant `'A'` is stored as the integer `65`.
-*   **The `int` Paradox:** In C, the type of a character constant (like `'a'`) is actually **`int`**, not `char`. 
+*   **The `int` Paradox:** In C, the type of a character constant (like `'a'`) is actually **`int`**, not `char`.
     *   `sizeof('a')` is equivalent to `sizeof(int)`, which is typically **4 bytes** on modern systems.
     *   However, when assigned to a `char` variable, it is truncated to **1 byte**.
 
@@ -19,9 +21,11 @@ One of the most distinctive features of C is how it treats characters:
 ## 3. Classification of Character Constants
 
 ### A. Simple Character Constants
+
 Represented by a single graphic character: `'a'`, `'B'`, `'9'`, etc.
 
 ### B. Escape Sequences
+
 Used to represent non-printable or special characters.
 
 | Sequence | Description | ASCII (Dec) |
@@ -34,6 +38,7 @@ Used to represent non-printable or special characters.
 | `\0` | Null Character | 0 |
 
 ### C. Numeric Escape Sequences
+
 You can represent any character by its numeric code:
 *   **Octal:** `'\ddd'` (e.g., `'\101'` is `'A'`). **Max 3 digits.**
 *   **Hexadecimal:** `'\xhh'` (e.g., `'\x41'` is `'A'`). NO Max digits (still can't overflow).
@@ -49,9 +54,11 @@ While C allows numeric escapes, their values must typically fit within **8 bits*
 ---
 
 ## 4. Range and Storage
+
 The value range of a character is determined by its storage size (1 byte / 8 bits) and the execution environment.
 
 ### Range Specifications:
+
 *   **Standard ASCII:** 0 to 127 (7 bits used).
 *   **Extended ASCII:** 0 to 255 (8 bits used).
 *   **Signed vs. Unsigned `char`:**
@@ -62,6 +69,7 @@ The value range of a character is determined by its storage size (1 byte / 8 bit
 ---
 
 ## 5. Character Constants vs. String Literals
+
 Distinguishing between `'A'` and `"A"` is critical for memory management and pointer logic.
 
 | Feature | Character Constant (`'A'`) | String Literal (`"A"`) |
@@ -74,6 +82,7 @@ Distinguishing between `'A'` and `"A"` is critical for memory management and poi
 ---
 
 ## 6. Character Arithmetic
+
 Because characters are integers, they support mathematical operations:
 *   **Case Conversion:** `'a' - 32` results in `'A'`.
 *   **Digit Conversion:** To convert the character `'5'` to the integer `5`, subtract the character `'0'`:
@@ -84,6 +93,7 @@ Because characters are integers, they support mathematical operations:
 ---
 
 ## 7. Common Pitfalls and Best Practices
+
 1.  **Multiple Characters:** `'abc'` is a "multi-character constant." Its value is **implementation-defined** and generally avoided as it leads to non-portable code.
 2.  **Numeric Confusion:** Do not confuse the character `'0'` (ASCII 48) with the null terminator `'\0'` (ASCII 0) or the integer `0`.
 3.  **Overflow:** Assigning a hex value like `'\xff'` to a signed `char` may result in a value of `-1` due to sign extension, which can cause logic errors in comparisons (e.g., `if (c == 0xff)` might fail).

@@ -24,11 +24,11 @@ Used to store whole numbers (no decimals). The size depends on the compiler and 
 Used to store a single character. Internally, C stores characters as **integers** (ASCII values).
 
 - **Size:** Always **1 byte**.
-    
+
 - **Format Specifier:** %c.
-    
+
 - **Note:** char can also be used as a tiny integer (-128 to 127).
-    
+
 
 ### **C. Floating-Point Types**
 
@@ -45,11 +45,11 @@ Used to store numbers with fractional parts (decimals).
 Represents the **absence of type**. It is used in three scenarios:
 
 1. **Function Return:** void func() (Function returns nothing).
-    
+
 2. **Function Arguments:** void func(void) (Function takes no parameters).
-    
+
 3. **Generic Pointers:** void *ptr (A pointer that can point to any data type).
-    
+
 
 ---
 
@@ -60,27 +60,27 @@ Keywords that alter the meaning of base data types to fit specific needs.
 ### **A. Signed vs. Unsigned**
 
 - **signed**: (Default) Can hold positive and negative numbers.
-    
+
 - **unsigned**: Can **only** hold positive numbers (and zero). This effectively doubles the positive range.
-    
+
     - Example: unsigned int ranges from 0 to 4,294,967,295 (on 32-bit).
-        
+
     - Format Specifier: %u.
-        
+
 
 ### **B. Size Qualifiers**
 
 - short: Reduces storage size.
-    
+
 - long: Increases storage size.
-    
+
 
 ### **C. const and volatile**
 
 - **const**: The variable becomes read-only after initialization.
-    
+
 - **volatile**: Tells the compiler not to optimize the variable because its value may change unexpectedly (e.g., by hardware or an interrupt).
-    
+
 
 ---
 
@@ -144,7 +144,7 @@ union Data {
 A user-defined type consisting of a set of named integer constants.
 
 ```c
-enum Color { RED, GREEN, BLUE }; 
+enum Color { RED, GREEN, BLUE };
 // Internally: RED=0, GREEN=1, BLUE=2
 ```
 
@@ -157,31 +157,31 @@ Important for portable and robust code (C99 standard and later).
 ### **A. size_t**
 
 - **Definition:** Unsigned integer type.
-    
+
 - **Use:** Represents the size of objects (result of sizeof) and array indices. It guarantees to be big enough to hold the size of the largest possible object in memory.
-    
+
 
 ### **B. Fixed-Width Integers (<stdint.h>)**
 
 Used when you need exact sizes regardless of the machine.
 
 - int8_t, uint8_t: Exactly 1 byte.
-    
+
 - int16_t, uint16_t: Exactly 2 bytes.
-    
+
 - int32_t, uint32_t: Exactly 4 bytes.
-    
+
 - int64_t, uint64_t: Exactly 8 bytes.
-    
+
 
 ### **C. Boolean (<stdbool.h>)**
 
 - **Type:** bool
-    
+
 - **Values:** true (1), false (0).
-    
+
 - (Before C99, programmers used int 0 and 1 for logic).
-    
+
 
 ---
 

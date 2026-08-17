@@ -1,11 +1,13 @@
 # Function Pointers
 
-### Definition
+## Definition
+
 A **Function Pointer** is a specific type of variable that stores the memory address of the **executable code** of a function, rather than storing data.
 
 It allows programs to store functions in variables, pass them as arguments to other functions, and select which function to execute at runtime (Polymorphism).
 
-### Syntax and Anatomy
+## Syntax and Anatomy
+
 The declaration syntax is strict. The parentheses around the pointer name are mandatory.
 
 **Formula:**
@@ -16,7 +18,8 @@ The declaration syntax is strict. The parentheses around the pointer name are ma
 *   **Incorrect:** `int *ptr(int, int);`
     *   `ptr` is a function returning an `int` pointer (Pointer Function).
 
-### Memory Mechanics: Name vs. Address
+## Memory Mechanics: Name vs. Address
+
 In C, the relationship between a function's name and its address is unique compared to standard variables.
 
 **1. Equivalence of `f` and `&f`**
@@ -39,13 +42,14 @@ fp();           // Implicit dereference (Standard usage)
 (******fp)();   // Multiple dereferences (Valid due to repeated decay)
 ```
 
-### Pointer Arithmetic (Stride)
+## Pointer Arithmetic (Stride)
+
 Unlike data pointers (e.g., `int *`, `char *`), **function pointers have no stride.**
 
 *   **Rule:** You cannot perform arithmetic (`fp++`, `fp + 1`, `fp - fp2`) on function pointers.
 *   **Reason:** The size of a function (`sizeof(function)`) is **undefined** in the C Standard. The compiler does not know how many bytes of machine code a function occupies, so it cannot calculate where the "next" function begins.
 
-### Usage Workflow
+## Usage Workflow
 
 **1. Declaration & Assignment**
 ```c
@@ -54,10 +58,10 @@ int add(int a, int b) { return a + b; }
 int main() {
     // Declare
     int (*op)(int, int);
-    
+
     // Assign (Both valid)
-    op = add;   
-    op = &add;  
+    op = add;
+    op = &add;
 
     return 0;
 }
@@ -66,11 +70,12 @@ int main() {
 **2. Invocation**
 ```c
     // Call (Both valid)
-    int result = op(10, 20);      
-    int result2 = (*op)(10, 20); 
+    int result = op(10, 20);
+    int result2 = (*op)(10, 20);
 ```
 
-### Simplification with typedef
+## Simplification with typedef
+
 Function pointer syntax can become messy. It is best practice to use `typedef` to create a clear alias.
 
 ```c
@@ -81,7 +86,7 @@ typedef int (*MathFunc)(int, int);
 MathFunc myPointer = add;
 ```
 
-### Key Use Cases
+## Key Use Cases
 
 **1. Callback Functions**
 Passing a function pointer as an argument to another function. This is essential for writing generic code (e.g., `qsort` in the standard library).
@@ -99,10 +104,11 @@ Using an array of function pointers to replace massive `switch-case` statements.
 void (*actions[3])() = { openFile, saveFile, closeFile };
 
 // Call based on index
-actions[userChoice](); 
+actions[userChoice]();
 ```
 
-### Summary of Rules
+## Summary of Rules
+
 1.  **Parentheses:** Always use `(*name)` in the declaration.
 2.  **Assignment:** `ptr = func` and `ptr = &func` are equivalent.
 3.  **Arithmetic:** Math on function pointers is **illegal** (No stride).

@@ -1,6 +1,7 @@
 # ASCII
 
-### 1. Control Characters (0–31 & 127)
+## 1. Control Characters (0–31 & 127)
+
 These characters are non-printable and used for hardware control or terminal formatting.
 
 | Dec | Hex | Oct | C Escape | Name | Description |
@@ -21,10 +22,12 @@ These characters are non-printable and used for hardware control or terminal for
 
 ---
 
-### 2. Printable Characters (32–126)
+## 2. Printable Characters (32–126)
+
 Commonly used characters including digits, letters, and punctuation.
 
-#### **Digits & Special Characters**
+### **Digits & Special Characters**
+
 | Dec | Hex | Oct | Char | | Dec | Hex | Oct | Char |
 | :--- | :--- | :--- | :--- | --- | :--- | :--- | :--- | :--- |
 | 48 | 30 | 060 | **0** | | 33 | 21 | 041 | **!** |
@@ -34,7 +37,8 @@ Commonly used characters including digits, letters, and punctuation.
 | 52 | 34 | 064 | **4** | | 38 | 26 | 046 | **&** |
 | 57 | 39 | 071 | **9** | | 61 | 3D | 075 | **=** |
 
-#### **Uppercase Letters (A-Z)**
+### **Uppercase Letters (A-Z)**
+
 | Dec | Hex | Oct | Char  |     | Dec | Hex | Oct | Char  |
 | :-- | :-- | :-- | :---- | --- | :-- | :-- | :-- | :---- |
 | 65  | 41  | 101 | **A** |     | 78  | 4E  | 116 | **N** |
@@ -42,7 +46,8 @@ Commonly used characters including digits, letters, and punctuation.
 | 67  | 43  | 103 | **C** |     | ... | ... | ... | ...   |
 | 71  | 47  | 107 | **G** |     | 90  | 5A  | 132 | **Z** |
 
-#### **Lowercase Letters (a-z)**
+### **Lowercase Letters (a-z)**
+
 | Dec | Hex | Oct | Char  |     | Dec | Hex | Oct | Char  |
 | :-- | :-- | :-- | :---- | --- | :-- | :-- | :-- | :---- |
 | 97  | 61  | 141 | **a** |     | 110 | 6E  | 156 | **n** |
@@ -52,10 +57,11 @@ Commonly used characters including digits, letters, and punctuation.
 
 ---
 
-### 3. Memory Aid
+## 3. Memory Aid
+
 *   **Uppercase vs Lowercase:** The difference between `'a'` (97) and `'A'` (65) is exactly **32** (or `0x20`). Setting/clearing the 6th bit toggles case.
 *   **Digit Conversion:** `'0'` is **48** (`0x30`). Always use `c - '0'` to convert a character digit to its integer value.
 *   **Null Pointer vs Null Char:** `NULL` (pointer) is typically `(void*)0`, whereas `'\0'` (character) is the integer `0`. They are numerically 0 but semantically different.
-*   **Hex/Octal Limits:** 
+*   **Hex/Octal Limits:**
     *   Max 1-byte Hex: `\xff` (255)
     *   Max 1-byte Octal: `\377` (255)

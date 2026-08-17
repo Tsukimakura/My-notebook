@@ -5,41 +5,41 @@
 A **Linked List** is a linear data structure where elements are not stored at contiguous memory locations. Instead, the elements are linked using pointers.
 
 - **Node:** The fundamental building block. Each node contains:
-    
+
     1. **Data:** The value stored.
-        
+
     2. **Pointer (Next):** The address of the next node in the sequence.
-        
+
 - **Head:** A pointer to the first node in the list.
-    
+
 - **Terminator:** The last node’s pointer is set to NULL to indicate the end of the list.
-    
+
 - **Memory:** Unlike arrays, linked lists can grow and shrink dynamically at runtime, utilizing memory wherever it is available (Heap memory).
-    
+
 
 ### Key Terminology
 
 - **Singly Linked List:** Nodes allow traversal in one direction (forward).
-    
+
 - **Doubly Linked List:** Nodes contain two pointers (prev and next), allowing traversal in both directions.
-    
+
 - **Circular Linked List:** The last node points back to the head instead of NULL.
-    
+
 
 ---
 
 ## 2. Core Operations
 
 1. **insertAtHead(x)**: Add an element to the beginning (fastest operation).
-    
+
 2. **insertAtTail(x)**: Add an element to the end (requires traversal unless a tail pointer is maintained).
-    
+
 3. **delete(value)**: Find a node containing value and remove it by updating pointers.
-    
+
 4. **search(x)**: Iterate through the list to find if x exists.
-    
+
 5. **traverse()**: Visit every node to print or process data.
-    
+
 
 ---
 
@@ -48,9 +48,9 @@ A **Linked List** is a linear data structure where elements are not stored at 
 Below is an implementation of a **Singly Linked List**.
 
 - **Logic:** We use a struct Node.
-    
+
 - **Pointers:** Functions receive Node** head_ref (pointer to the head pointer) so they can modify the actual head of the list in the main function.
-    
+
 
 ```c
 #include <stdio.h>
@@ -85,7 +85,7 @@ void insertAtHead(Node** head_ref, int value) {
 // 2. Insert at the end (Tail) - O(n)
 void insertAtTail(Node** head_ref, int value) {
     Node* newNode = createNode(value);
-    
+
     // If list is empty, new node becomes head
     if (*head_ref == NULL) {
         *head_ref = newNode;
@@ -150,7 +150,7 @@ int main() {
     insertAtTail(&head, 10);
     insertAtTail(&head, 20);
     insertAtHead(&head, 5);  // List: 5 -> 10 -> 20
-    
+
     printList(head);
 
     deleteNode(&head, 10);   // List: 5 -> 20
@@ -170,21 +170,21 @@ int main() {
 Linked Lists are preferred when the number of elements is not known in advance or varies drastically.
 
 1. **Dynamic Memory Allocation:** Used by operating systems to track free memory blocks.
-    
+
 2. **Implementation of Other Data Structures:**
-    
+
     - **Stacks:** push is insertAtHead, pop is deleteFromHead.
-        
+
     - **Queues:** enqueue is insertAtTail, dequeue is deleteFromHead.
-        
+
     - **Graphs:** Adjacency Lists (array of linked lists) to represent graph connections.
-        
+
     - **Hash Tables:** Handling collisions using chaining (array of linked lists).
-        
+
 3. **Undo Functionality:** In applications like Photoshop (usually doubly linked lists).
-    
+
 4. **Music Playlist:** Playing the next or previous song.
-    
+
 
 ---
 
@@ -204,33 +204,33 @@ Linked Lists are preferred when the number of elements is not known in advance o
 ### Space Complexity
 
 - **`O(n)O(n)`**
-    
+
     : However, Linked Lists use **more memory per element** than arrays because they must store the data plus the pointer (extra 4 or 8 bytes per node).
-    
+
 
 ### Array vs. Linked List
 
 - **Arrays:** Best for "Read-Heavy" workloads where random access (index-based) is frequent. Fixed size (static) or expensive resizing (dynamic).
-    
+
 - **Linked Lists:** Best for "Write-Heavy" workloads where insertions/deletions at the beginning or middle are frequent. Dynamic size.
-    
+
 
 ---
 
 ## 6. Summary
 
 - **Linked Lists** utilize non-contiguous memory, connected via pointers.
-    
+
 - They solve the fixed-size limitation of arrays.
-    
+
 - **Pros:** Dynamic size, efficient insertion/deletion (
-    
-    ```
+
+    ```text
     O(1)O(1)
     ```
-    
+
     ) if the position is known (e.g., at Head).
-    
+
 - **Cons:** No random access (cannot do list[5]), extra memory overhead for pointers, cache unfriendliness (due to scattered memory).
-    
+
 - The **Head Pointer** is crucial; if you lose it, you lose the entire list (Memory Leak).

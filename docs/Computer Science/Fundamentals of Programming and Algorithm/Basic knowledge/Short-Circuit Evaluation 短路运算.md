@@ -1,12 +1,14 @@
 # Short-Circuit Evaluation 短路运算
 
-### 1. Definition
+## 1. Definition
+
 **Short-Circuit Evaluation** means that the compiler stops evaluating an expression as soon as the result is determined.
 *   If the **Left Operand** decides the result, the **Right Operand** is **completely skipped (not executed)**.
 
 ---
 
-### 2. The `&&` (AND) Rule
+## 2. The `&&` (AND) Rule
+
 **Rule:** Stop if **False**.
 For the expression `A && B`:
 *   If **A is False (0)**: The entire result is definitely False.
@@ -25,7 +27,8 @@ if (a && 5 > 2) {
 
 ---
 
-### 3. The `||` (OR) Rule
+## 3. The `||` (OR) Rule
+
 **Rule:** Stop if **True**.
 For the expression `A || B`:
 *   If **A is True**: The entire result is definitely True.
@@ -35,7 +38,8 @@ For the expression `A || B`:
 
 ---
 
-### 4.  Important Warning: Side Effects
+## 4.  Important Warning: Side Effects
+
 This is the most common bug caused by short-circuiting. If the right side contains **increment (`++`)**, **decrement (`--`)**, or **function calls**, they might not happen.
 
 **Code Example:**
@@ -54,10 +58,12 @@ printf("%d", b); // Output is still 10, NOT 11.
 
 ---
 
-### 5. Practical Use Cases (Why is it useful?)
+## 5. Practical Use Cases (Why is it useful?)
+
 Programmers use short-circuiting to write **safe code** and prevent crashes.
 
-#### A. Protecting Pointers (Most Common)
+### A. Protecting Pointers (Most Common)
+
 Check if a pointer is valid before using it.
 ```c
 // If ptr is NULL (False), 'ptr->value' is skipped.
@@ -67,7 +73,8 @@ if (ptr != NULL && ptr->value == 10) {
 }
 ```
 
-#### B. Preventing Division by Zero
+### B. Preventing Division by Zero
+
 ```c
 // If x is 0, the division 'y / x' is skipped.
 if (x != 0 && y / x > 1) {
@@ -77,7 +84,7 @@ if (x != 0 && y / x > 1) {
 
 ---
 
-### Summary Table
+## Summary Table
 
 | Operator | Left Operand  | Right Operand? | Result           |
 | :------- | :------------ | :------------- | :--------------- |

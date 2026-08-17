@@ -1,12 +1,14 @@
-### 什么是 HTML
+# Outline
+
+## 什么是 HTML
 
 HTML（HyperText Markup Language，超文本标记语言）是用来创建网页的标准标记语言。
 
 ---
 
-### HTML 文档结构
+## HTML 文档结构
 
-#### 基本文档模板
+### 基本文档模板
 
 ```html
 <!DOCTYPE html>
@@ -21,17 +23,20 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
 </body>
 </html>
 ```
-#### 文档类型声明
+
+### 文档类型声明
 
 ```html
 <!DOCTYPE html>  <!-- 声明为 HTML5 文档 -->
 ```
-#### 根元素
+
+### 根元素
 
 ```html
 <html lang="zh-CN">  <!-- lang 属性定义页面主要语言 -->
 ```
-#### 头部区域 (head)
+
+### 头部区域 (head)
 
 ```html
 <head>
@@ -42,7 +47,8 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
     <link rel="stylesheet" href="styles.css">
 </head>
 ```
-#### 主体区域 (body)
+
+### 主体区域 (body)
 
 ```html
 <body>
@@ -51,11 +57,11 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
 ```
 ---
 
-### 常用标签及用法
+## 常用标签及用法
 
-#### 文本标签
+### 文本标签
 
-##### 标题标签
+#### 标题标签
 
 ```html
 <h1>一级标题</h1>
@@ -65,7 +71,8 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
 <h5>五级标题</h5>
 <h6>六级标题</h6>
 ```
-##### 段落和文本格式
+
+#### 段落和文本格式
 
 ```html
 <p>这是一个段落。</p>
@@ -86,9 +93,10 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
 
 <code>代码片段</code>
 ```
-#### 链接和图片
 
-##### 超链接
+### 链接和图片
+
+#### 超链接
 
 ```html
 <!-- 外部链接 -->
@@ -100,14 +108,16 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
 <!-- 锚点链接 -->
 <a href="#section1">跳转到第一节</a>
 ```
-##### 图片
+
+#### 图片
 
 ```html
 <img src="image.jpg" alt="图片描述" width="300" height="200">
 ```
-#### 列表
 
-##### 无序列表
+### 列表
+
+#### 无序列表
 
 ```html
 <ul>
@@ -116,7 +126,8 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
     <li>列表项3</li>
 </ul>
 ```
-##### 有序列表
+
+#### 有序列表
 
 ```html
 <ol>
@@ -125,9 +136,10 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
     <li>第三步</li>
 </ol>
 ```
-#### 表格
 
-##### 基础表格
+### 表格
+
+#### 基础表格
 
 ```html
 
@@ -152,9 +164,9 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
 
 ---
 
-### 表单与输入
+## 表单与输入
 
-#### 基础表单结构
+### 基础表单结构
 
 ```html
 <form action="/submit" method="POST">
@@ -163,7 +175,8 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
     <button type="submit">提交</button>
 </form>
 ```
-#### 输入类型
+
+### 输入类型
 
 ```html
 <!-- 文本输入 -->
@@ -192,7 +205,8 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
 <input type="checkbox" name="hobby" value="reading" id="reading">
 <label for="reading">阅读</label>
 ```
-#### 其他表单元素
+
+### 其他表单元素
 
 ```html
 <!-- 文本区域 -->
@@ -207,7 +221,7 @@ HTML（HyperText Markup Language，超文本标记语言）是用来创建网页
 ```
 ---
 
-### 基础页面结构标签
+## 基础页面结构标签
 
 ```html
 <header>

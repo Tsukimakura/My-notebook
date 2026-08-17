@@ -1,26 +1,29 @@
+# SOCKS5
+
 ## 1. SOCKS5 协议基础
 
 ### 1.1 什么是 SOCKS5？
 
-**SOCKS** = Socket Secure  
+**SOCKS** = Socket Secure
 **SOCKS5** 是 SOCKS 协议的第五个版本，是一种**网络传输协议**。
 
 ### 1.2 协议特性
 
 -  **工作在会话层**（OSI 第5层）
-    
+
 -  **支持 TCP 和 UDP 协议**
-    
+
 -  **支持多种认证方式**
-    
+
 -  **支持 IPv4 和 IPv6**
-    
+
 -  **不解析应用数据**，只是转发
-    
+
 -  **协议无关**，可代理任何网络应用
-    
+
 
 ### 1.3 与其他代理的对比
+
 [[代理（Proxy）| 什么是代理？]]
 
 |代理类型|工作层级|支持协议|性能|适用场景|
@@ -38,10 +41,11 @@
 ```text
 客户端 ↔ SOCKS5 服务器 ↔ 目标服务器
     1. 认证协商
-    2. 连接请求  
+    2. 连接请求
     3. 建立连接
     4. 数据传输
 ```
+
 ### 2.2 详细握手过程
 
 #### 阶段1：认证协商
@@ -61,6 +65,7 @@
     | 5  |  0x00  |  # 选择无认证
     +----+--------+
 ```
+
 #### 阶段2：连接请求
 
 ```text
@@ -78,27 +83,28 @@
     | 5  | 0x00|   0   | 0x01 |  IPv4    |   端口    |
     +----+-----+-------+------+----------+----------+
 ```
+
 ### 2.3 支持的认证方法
 
 - `0x00`：无认证
-    
+
 - `0x01`：GSSAPI
-    
+
 - `0x02`：用户名/密码认证
-    
+
 - `0x03` - `0x7F`：IANA 分配
-    
+
 - `0x80` - `0xFE`：私有方法保留
-    
+
 
 ### 2.4 地址类型 (ATYP)
 
 - `0x01`：IPv4 地址
-    
+
 - `0x03`：域名（第一个字节是域名长度）
-    
+
 - `0x04`：IPv6 地址
-    
+
 
 ---
 
@@ -121,14 +127,15 @@ ssh -D 0.0.0.0:1080 -N user@remote-server.com
 ### 参数说明
 
 - `-D 1080`：在本地 1080 端口启动 SOCKS5 代理
-    
+
 - `-p 2222`：SSH 服务器端口
-    
+
 - `-N`：不执行远程命令
-    
+
 - `-f`：后台运行
-    
+
 ```
+
 ## 3.2 专用 SOCKS5 代理软件
 
 ### Shadowsocks 配置
@@ -145,6 +152,7 @@ ssh -D 0.0.0.0:1080 -N user@remote-server.com
     "fast_open": true
 }
 ```
+
 ### 启动命令
 
 ```bash
@@ -154,6 +162,7 @@ sslocal -c config.json
 # 服务端
 ssserver -c config.json
 ```
+
 ### V2Ray 配置
 
 ```json
@@ -188,21 +197,21 @@ ssserver -c config.json
 ### Firefox 配置
 
 1. **打开设置**：菜单 → 设置
-    
+
 2. **网络设置**：向下滚动 → 网络设置 → 设置
-    
+
 3. **手动代理配置**：
-    
+
     - **SOCKS 主机**：`127.0.0.1`
-        
+
     - **端口**：`1080`
-        
+
     - **SOCKS v5**：选择
-        
+
     - **远程 DNS**：勾选（重要！防止 DNS 泄漏）
-        
+
 4. **确定保存**
-    
+
 
 ### Chrome 配置
 
@@ -218,20 +227,21 @@ open -a "Google Chrome" --args --proxy-server="socks5://127.0.0.1:1080"
 # Linux
 google-chrome --proxy-server="socks5://127.0.0.1:1080"
 ```
+
 #### 使用 SwitchyOmega 扩展
 
 1. 安装 SwitchyOmega 扩展
-    
+
 2. 新建情景模式 → SOCKS5
-    
+
 3. 配置：
-    
+
     - 服务器：`127.0.0.1`
-        
+
     - 端口：`1080`
-        
+
 4. 设置自动切换规则
-    
+
 
 ## 4.2 系统级配置
 
@@ -248,6 +258,7 @@ netsh winhttp reset proxy
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name ProxyEnable -Value 1
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name ProxyServer -Value "socks=127.0.0.1:1080"
 ```
+
 ### macOS 系统代理
 
 ```bash
@@ -261,6 +272,7 @@ networksetup -getsocksfirewallproxy "Wi-Fi"
 # 关闭代理
 networksetup -setsocksfirewallproxystate "Wi-Fi" off
 ```
+
 ### Linux 系统代理
 
 ```bash
@@ -273,6 +285,7 @@ export SOCKS_PROXY=socks5://127.0.0.1:1080
 # 永久生效，添加到 ~/.bashrc 或 ~/.profile
 echo 'export ALL_PROXY=socks5://127.0.0.1:1080' >> ~/.bashrc
 ```
+
 ## 4.3 应用程序配置
 
 ### 命令行工具配置
@@ -292,7 +305,9 @@ git config --global https.proxy socks5://127.0.0.1:1080
 # ssh (通过代理连接)
 ssh -o ProxyCommand="nc -x 127.0.0.1:1080 %h %p" user@remote-host
 ```
+
 ### Proxychains 配置
+
 [[proxychains4 | 关于proxychains4]]
 
 ```bash
@@ -309,6 +324,7 @@ proxychains4 curl https://example.com
 proxychains4 wget https://example.com
 proxychains4 npm install
 ```
+
 ### 编程语言配置
 
 #### Python
@@ -338,6 +354,7 @@ proxy_handler = urllib.request.ProxyHandler({
 opener = urllib.request.build_opener(proxy_handler)
 urllib.request.install_opener(opener)
 ```
+
 #### Node.js
 
 ```javascript
@@ -360,6 +377,7 @@ fetch('https://example.com', {
     agent: proxyAgent
 });
 ```
+
 #### Java
 
 ```java
@@ -392,6 +410,7 @@ backend socks5-servers
     server server2 192.168.1.101:1080 check
     server server3 192.168.1.102:1080 check
 ```
+
 ## 5.2 访问控制
 
 ### 使用 iptables 限制访问
@@ -405,6 +424,7 @@ iptables -A INPUT -p tcp --dport 1080 -j DROP
 iptables -A INPUT -p tcp --dport 1080 -s 192.168.1.0/24 -j ACCEPT
 iptables -A INPUT -p tcp --dport 1080 -j DROP
 ```
+
 ## 5.3 性能优化
 
 ### SSH SOCKS5 优化
@@ -429,6 +449,7 @@ ssh -D 1080 -c aes128-ctr -N user@server
 # 在服务器端配置要求用户名密码
 ssh -D 1080 -o PreferredAuthentications=password user@server
 ```
+
 ### 防火墙规则
 
 ```bash
@@ -436,6 +457,7 @@ ssh -D 1080 -o PreferredAuthentications=password user@server
 iptables -A INPUT -p tcp --dport 1080 -s 192.168.1.100 -j ACCEPT
 iptables -A INPUT -p tcp --dport 1080 -j DROP
 ```
+
 ## 6.2 防止 DNS 泄漏
 
 ### 确保远程 DNS 解析
@@ -450,6 +472,7 @@ curl --socks5-hostname 127.0.0.1:1080 https://example.com
 # 系统级DNS配置
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 ```
+
 ### DNS 泄漏检测
 
 ```bash
@@ -472,6 +495,7 @@ lsof -i :1080
 # 测试代理连通性
 curl --socks5 127.0.0.1:1080 -v https://httpbin.org/ip
 ```
+
 ## 7.2 流量监控
 
 ```bash
@@ -481,6 +505,7 @@ tcpdump -i any -n port 1080
 sudo apt install nethogs
 nethogs
 ```
+
 ## 7.3 日志调试
 
 ### SSH SOCKS5 调试
@@ -509,6 +534,7 @@ netstat -tlnp | grep 1080
 sudo ufw status  # Ubuntu
 sudo firewall-cmd --list-all  # CentOS
 ```
+
 ### 认证失败
 
 ```bash
@@ -517,6 +543,7 @@ ssh-add -l
 # 重新添加密钥
 ssh-add ~/.ssh/id_rsa
 ```
+
 ### DNS 解析问题
 
 ```bash
@@ -540,6 +567,7 @@ proxychains4 python test_geoip.py
 # 模拟不同地区访问
 curl --socks5 127.0.0.1:1080 https://ifconfig.co/country
 ```
+
 ## 9.2 网络爬虫
 
 ```python
@@ -557,7 +585,7 @@ proxy_pool = cycle(proxies_list)
 for i in range(10):
     proxy = next(proxy_pool)
     try:
-        response = requests.get('https://httpbin.org/ip', 
+        response = requests.get('https://httpbin.org/ip',
                               proxies={'http': proxy, 'https': proxy})
         print(f"成功使用代理: {proxy}")
     except:

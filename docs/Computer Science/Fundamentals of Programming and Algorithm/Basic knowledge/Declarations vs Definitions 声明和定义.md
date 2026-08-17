@@ -5,16 +5,16 @@
 The fundamental difference between a declaration and a definition lies in whether system memory (RAM) is allocated.
 
 - **Declaration:** Tells the compiler the **name** and **type** of an identifier. It introduces the identifier but **does not allocate memory**.
-    
+
 - **Definition:** Tells the compiler to **create** the entity. It **allocates memory** (storage) for variables or generates machine code for functions.
-    
+
 
 > **The Golden Rule:**
-> 
+>
 > - No Memory Reserved = **Declaration**
->     
+>
 > - Memory Reserved = **Definition**
->     
+>
 
 ---
 
@@ -32,9 +32,9 @@ struct Student {
 ```
 
 - **Classification:** **Declaration**.
-    
+
 - **Explanation:** This code describes the **layout** and **size** of the data type. It informs the compiler what a Student looks like. However, **no memory is reserved** on the stack or heap because no actual student object exists yet.
-    
+
 
 ### B. Structure Variable Definition (The Object)
 
@@ -43,9 +43,9 @@ struct Student student1;
 ```
 
 - **Classification:** **Definition**.
-    
+
 - **Explanation:** This code instructs the system to allocate actual bytes of memory (e.g., 54 bytes) to store the variable student1.
-    
+
 
 ---
 
@@ -77,14 +77,14 @@ struct Student student1;
 ## 4. The One Definition Rule (ODR)
 
 - **Declarations:** Can appear multiple times in a program (e.g., in multiple .c files via headers) as long as they are consistent.
-    
+
 - **Definitions:** Must appear **exactly once** in the entire program scope.
-    
+
     - Linker Error: If you define int count; in a header file and include it in two source files, the linker will fail (multiple definition of 'count') because it tries to allocate memory at the same address twice.
-        
+
 
 ## 5. Summary Analogy
 
 - **Declaration (e.g., struct type):** An **Architect's Blueprint**. It shows the design of a house, but you cannot live in a piece of paper.
-    
+
 - **Definition (e.g., struct variable):** The **Physical House**. Construction materials (memory) are used to build it.

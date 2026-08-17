@@ -1,3 +1,5 @@
+# CSS
+
 ## What CSS
 
 CSS（层叠样式表）是用来**控制网页外观和布局**的语言。它决定 HTML 元素在页面上的显示方式 - 包括颜色、大小、位置等。
@@ -5,13 +7,13 @@ CSS（层叠样式表）是用来**控制网页外观和布局**的语言。它�
 ## Why CSS
 
 - 让网页变得美观
-    
+
 - 实现响应式设计（适配不同设备）
-    
+
 - 提高用户体验
-    
+
 - 内容与样式分离，便于维护
-    
+
 
 ## 基础语法
 
@@ -23,6 +25,7 @@ CSS（层叠样式表）是用来**控制网页外观和布局**的语言。它�
     属性: 值;
 }
 ```
+
 ### 示例
 
 ```css
@@ -32,6 +35,7 @@ h1 {
     text-align: center;
 }
 ```
+
 ## 引入 CSS 的三种方式
 
 ### 1. 内联样式（不推荐）
@@ -54,6 +58,7 @@ h1 {
     </style>
 </head>
 ```
+
 ### 3. 外部样式表（推荐）
 
 ```html
@@ -61,6 +66,7 @@ h1 {
     <link rel="stylesheet" href="styles.css">
 </head>
 ```
+
 ## 常用选择器
 
 ### 基本选择器
@@ -75,6 +81,7 @@ p { color: black; }
 /* ID选择器 */
 #element-id { background: white; }
 ```
+
 ### 组合选择器
 
 ```css
@@ -87,6 +94,7 @@ div p { margin: 10px; }
 /* 直接子元素 */
 div > p { color: red; }
 ```
+
 ## 核心概念
 
 ### 盒模型
@@ -94,13 +102,13 @@ div > p { color: red; }
 每个 HTML 元素都是一个盒子，包含：
 
 - **内容** (content)
-    
+
 - **内边距** (padding)
-    
+
 - **边框** (border)
-    
+
 - **外边距** (margin)
-    
+
 
 ```css
 .box {
@@ -110,6 +118,7 @@ div > p { color: red; }
     margin: 10px;
 }
 ```
+
 ### 常用属性
 
 #### 文本样式
@@ -123,6 +132,7 @@ p {
     line-height: 1.5;
 }
 ```
+
 #### 背景和边框
 
 ```css
@@ -132,6 +142,7 @@ p {
     border-radius: 5px;
 }
 ```
+
 #### 尺寸和间距
 
 ```css
@@ -142,6 +153,7 @@ p {
     padding: 20px;
 }
 ```
+
 ## 布局基础
 
 ### Flexbox（弹性盒子）
@@ -167,6 +179,7 @@ p {
     position: fixed;    /* 固定定位 */
 }
 ```
+
 ## 添加交互性
 
 ### 伪类
@@ -183,6 +196,7 @@ a:link { color: blue; }     /* 未访问 */
 a:visited { color: purple; } /* 已访问 */
 a:active { color: red; }    /* 点击时 */
 ```
+
 ### 过渡效果
 
 ```css
@@ -194,6 +208,7 @@ a:active { color: red; }    /* 点击时 */
     transform: scale(1.05);
 }
 ```
+
 ## 响应式设计
 
 ### 媒体查询
@@ -220,6 +235,7 @@ a:active { color: red; }    /* 点击时 */
     }
 }
 ```
+
 ## 实用技巧
 
 ### 重置默认样式
@@ -231,6 +247,7 @@ a:active { color: red; }    /* 点击时 */
     box-sizing: border-box;
 }
 ```
+
 ### 响应式图片
 
 ```css
@@ -239,6 +256,7 @@ img {
     height: auto;
 }
 ```
+
 ### 居中元素
 
 ```css

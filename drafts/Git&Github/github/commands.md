@@ -1,4 +1,7 @@
-### git clone
+# commands
+
+## git clone
+
 `git clone` 用于将远程仓库完整复制到本地，创建包含完整历史记录的可工作副本。
 **基本语法**：`git clone <仓库URL> [本地目录名]`
 执行时的过程：

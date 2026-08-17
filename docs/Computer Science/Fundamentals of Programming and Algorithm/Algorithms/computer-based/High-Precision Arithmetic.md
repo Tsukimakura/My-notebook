@@ -1,6 +1,6 @@
 # High-Precision Arithmetic
 
-### 1. Data Structure & Representation
+## 1. Data Structure & Representation
 
 Since standard CPU registers cannot hold these values, high-precision numbers are stored as **arrays**.
 
@@ -15,7 +15,7 @@ Crucially, numbers are stored in **reverse order**. The least significant digit 
 **Why Reverse?**
 Arithmetic operations (addition, multiplication) propagate carries from lower to higher digits. Storing the unit place at index 0 allows the array to expand naturally towards higher indices without shifting elements.
 
-### 2. High-Precision Addition
+## 2. High-Precision Addition
 
 **Principle:** Simulation of columnar addition (vertical addition).
 Given two large integers $A$ and $B$:
@@ -36,7 +36,7 @@ Result_i = C_i \pmod{10}
 4.  Update the carry.
 5.  If a carry remains after the loop, append it to the end.
 
-### 3. High-Precision Multiplication
+## 3. High-Precision Multiplication
 
 **Principle:** Convolutional simulation.
 The product of digit $A[i]$ and $B[j]$ contributes to the position $C[i+j]$.
@@ -53,7 +53,7 @@ C_{i+j} = C_{i+j} + (A_i \times B_j)
 4.  **Carry Pass:** Iterate through array $C$ once to handle carries (perform modulo 10 and division by 10) for every position.
 5.  **Trim:** Remove any leading zeros from the high-order end of the result.
 
-### 4. Implementation (C Language)
+## 4. Implementation (C Language)
 
 ```c
 #include <stdio.h>
@@ -112,7 +112,7 @@ int main() {
 }
 ```
 
-### 5. Complexity Analysis
+## 5. Complexity Analysis
 
 | Operation | Algorithm | Time Complexity | Space Complexity |
 | :--- | :--- | :--- | :--- |
@@ -123,7 +123,7 @@ int main() {
 
 *$N$ and $M$ denote the number of digits.*
 
-### 6. Professional Optimization: Base Compression
+## 6. Professional Optimization: Base Compression
 
 In standard implementation, each array element stores 1 digit (Base 10).
 To improve performance and memory usage, **Base Compression** (or "Packing") is often used.

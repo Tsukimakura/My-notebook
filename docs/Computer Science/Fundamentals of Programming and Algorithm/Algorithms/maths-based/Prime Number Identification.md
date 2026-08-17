@@ -1,15 +1,17 @@
 # Prime Number Identification
 
-### Method 1: The Square Root Optimized Trial Division
+## Method 1: The Square Root Optimized Trial Division
+
 **Best for:** Checking if a single number $n$ is prime.
 
-**Logic:** 
+**Logic:**
 If $n$ is composite, it must have a factor less than or equal to $\sqrt{n}$. By checking only up to $\sqrt{n}$ and skipping even numbers, we significantly reduce the number of iterations.
 
 *   **Time Complexity:** $O(\sqrt{n})$
 *   **Key Optimization:** Use `i * i <= n` to avoid the overhead of the `sqrt()` function.
 
-#### Implementation:
+### Implementation:
+
 ```c
 #include <stdbool.h>
 
@@ -28,16 +30,18 @@ bool is_prime(int n) {
 
 ---
 
-### Method 2: Sieve of Eratosthenes
+## Method 2: Sieve of Eratosthenes
+
 **Best for:** Finding all prime numbers in a large range (e.g., 1 to $N$).
 
-**Logic:** 
+**Logic:**
 Iteratively mark the multiples of each prime number starting from 2. The numbers remaining unmarked are primes. This avoids the cost of division operations entirely.
 
 *   **Time Complexity:** $O(n \log \log n)$
 *   **Space Complexity:** $O(n)$ (requires an array to store prime status)
 
-#### Implementation:
+### Implementation:
+
 ```c
 #include <stdio.h>
 #include <stdbool.h>

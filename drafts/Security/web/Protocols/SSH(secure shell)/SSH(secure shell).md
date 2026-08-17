@@ -1,35 +1,37 @@
+# SSH(secure shell)
+
 ## 1. SSH 基础概念
 
 ### 1.1 什么是 SSH？
 
 - **SSH** = Secure Shell（安全外壳协议）
-    
+
 - 一种**网络协议**，用于通过不安全网络安全地访问远程计算机
-    
+
 - 提供**加密的通信会话**，替代不安全的 Telnet、rlogin、rsh 等协议
-    
+
 - 最初由 Tatu Ylönen 于 1995 年开发
-    
+
 
 ### 1.2 为什么需要 SSH？
 
 -  **安全性**：所有传输数据都经过加密
-    
+
 -  **完整性**：防止数据在传输过程中被篡改
-    
+
 -  **身份验证**：确保连接对方的真实身份
-    
+
 -  **灵活性**：支持多种应用场景
-    
+
 
 ### 1.3 SSH 协议版本
 
 - **SSH-1**：原始版本，存在安全漏洞，已废弃
-    
+
 - **SSH-2**：当前标准版本，完全重写，更安全
-    
+
 - **注意**：SSH-2 与 SSH-1 不兼容
-    
+
 
 ---
 
@@ -49,6 +51,7 @@
 │               TCP/IP 网络层               │
 └─────────────────────────────────────────┘
 ```
+
 ### 2.2 连接建立过程
 
 #### 步骤 1：TCP 连接
@@ -57,6 +60,7 @@
 
 客户端 → TCP 三次握手 → 服务器端口 22
 ```
+
 #### 步骤 2：协议版本协商
 
 ```bash
@@ -65,6 +69,7 @@
 服务器: "SSH-2.0-OpenSSH_8.2"
 # 双方协商使用 SSH-2 协议
 ```
+
 #### 步骤 3：密钥交换（Diffie-Hellman）
 
 ```bash
@@ -74,6 +79,7 @@
 2. 各自计算得到相同的共享密钥
 3. 后续通信使用对称加密
 ```
+
 #### 步骤 4：服务器认证
 
 ```bash
@@ -82,6 +88,7 @@
 2. 客户端检查 ~/.ssh/known_hosts
 3. 首次连接会显示指纹，用户确认
 ```
+
 #### 步骤 5：用户认证
 
 ```bash
@@ -92,6 +99,7 @@
 - 键盘交互认证
 - 基于主机的认证
 ```
+
 #### 步骤 6：会话通道建立
 
 ```bash
@@ -101,8 +109,11 @@
 
 ---
 ```
+
 ## 3. SSH 加密技术详解
+
 [[对称加密与非对称加密 | 参考笔记]]
+
 ### 3.1 非对称加密（密钥交换）
 
 ```bash
@@ -111,6 +122,7 @@
 - ECDSA（椭圆曲线，更安全高效）
 - Ed25519（最新，性能最好）
 ```
+
 ### 3.2 对称加密（数据传输）
 
 ```bash
@@ -119,6 +131,7 @@
 - ChaCha20（移动设备性能好）
 - 3DES（传统，逐渐淘汰）
 ```
+
 ### 3.3 哈希算法（完整性验证）
 
 ```bash
@@ -137,9 +150,10 @@
 ssh username@hostname
 # 然后输入密码
 
-**优点**：简单易用  
+**优点**：简单易用
 **缺点**：易受暴力破解，需要强密码
 ```
+
 ### 4.2 基于公钥认证（推荐）
 
 #### 生成密钥对
@@ -151,6 +165,7 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 # 或者 RSA 4096位
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
+
 #### 密钥文件说明
 
 ```bash
@@ -160,6 +175,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ├── id_ed25519.pub  # 公钥 (可以自由分发)
 └── known_hosts     # 已知主机列表
 ```
+
 #### 上传公钥到服务器
 
 ```bash
@@ -169,6 +185,7 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub username@hostname
 # 手动上传
 cat ~/.ssh/id_ed25519.pub | ssh username@hostname "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 ```
+
 #### 服务器端授权文件
 
 ```bash
@@ -176,14 +193,15 @@ cat ~/.ssh/id_ed25519.pub | ssh username@hostname "mkdir -p ~/.ssh && cat >> ~/.
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
 ```
+
 ### 4.3 其他认证方式
 
 - **证书认证**：大规模环境使用
-    
+
 - **双因素认证**：密码 + 动态令牌
-    
+
 - **Kerberos**：企业环境集成
-    
+
 
 ---
 
@@ -194,6 +212,7 @@ chmod 600 ~/.ssh/authorized_keys
 ```bash
 ssh [选项] [用户@]主机名 [命令]
 ```
+
 ### 5.2 常用选项详解
 
 #### 连接选项
@@ -203,6 +222,7 @@ ssh [选项] [用户@]主机名 [命令]
 -l username      # 指定登录用户名
 -i identity_file # 指定私钥文件
 ```
+
 #### 功能选项
 
 ```bash
@@ -214,6 +234,7 @@ ssh [选项] [用户@]主机名 [命令]
 -f               # 后台运行
 -v[vv]           # 详细输出（调试）
 ```
+
 #### 会话控制选项
 
 ```bash
@@ -221,6 +242,7 @@ ssh [选项] [用户@]主机名 [命令]
 -T               # 禁用伪终端分配
 -t               # 强制伪终端分配
 ```
+
 ### 5.3 高级用法示例
 
 #### X11 转发（图形界面）
@@ -229,6 +251,7 @@ ssh [选项] [用户@]主机名 [命令]
 ssh -X username@hostname
 # 然后在远程执行：firefox  # 会在本地显示Firefox窗口
 ```
+
 #### 本地端口转发
 
 ```bash
@@ -236,6 +259,7 @@ ssh -X username@hostname
 ssh -L 8080:localhost:80 username@webserver
 # 访问本地 http://localhost:8080 = 访问远程的 80 端口
 ```
+
 #### 远程端口转发
 
 ```bash
@@ -243,7 +267,9 @@ ssh -L 8080:localhost:80 username@webserver
 ssh -R 9090:localhost:3000 username@remoteserver
 # 在远程访问 localhost:9090 = 访问本地的 3000 端口
 ```
+
 #### SOCKS 代理
+
 [[SOCKS5 | 参考笔记]]
 
 ```bash
@@ -251,6 +277,7 @@ ssh -R 9090:localhost:3000 username@remoteserver
 ssh -D 1080 -N username@remoteserver
 # 配置浏览器使用 SOCKS5 127.0.0.1:1080
 ```
+
 #### 执行复杂远程命令
 
 ```bash
@@ -302,6 +329,7 @@ Host *.internal.company.com
     ProxyJump jumpserver.company.com
     IdentityFile ~/.ssh/id_rsa_company
 ```
+
 ### 6.3 常用配置选项
 
 ```bash
@@ -353,6 +381,7 @@ ClientAliveInterval 300          # 客户端保活间隔
 ClientAliveCountMax 2            # 保活无响应次数
 LoginGraceTime 2m                # 登录宽限时间
 ```
+
 ### 7.3 重启 SSH 服务
 
 ```bash
@@ -385,6 +414,7 @@ ssh-keygen -lf ~/.ssh/id_ed25519.pub
 # 从 known_hosts 中删除旧密钥
 ssh-keygen -R hostname
 ```
+
 ### 8.2 SSH 代理
 
 ```bash
@@ -403,6 +433,7 @@ ssh-add -d ~/.ssh/id_rsa
 # 清空所有密钥
 ssh-add -D
 ```
+
 ### 8.3 安全最佳实践
 
 ```bash
@@ -440,6 +471,7 @@ ssh username@hostname
 # 后续连接复用现有连接，速度更快
 ssh username@hostname
 ```
+
 ### 9.2 跳板机配置
 
 ```bash
@@ -456,6 +488,7 @@ Host internal-server
     User internal-user
     ProxyCommand ssh -W %h:%p jumpserver-user@jumpserver.com
 ```
+
 ### 9.3 远程文件传输
 
 #### SCP (Secure Copy)
@@ -473,6 +506,7 @@ scp -r directory/ username@hostname:/path/
 # 保留文件属性
 scp -p file.txt username@hostname:/path/
 ```
+
 #### SFTP (SSH File Transfer Protocol)
 
 ```bash
@@ -487,6 +521,7 @@ sftp> put localfile        # 上传文件
 sftp> get remotefile       # 下载文件
 sftp> mkdir newdir         # 创建目录
 ```
+
 #### Rsync over SSH
 
 ```bash
@@ -501,6 +536,7 @@ rsync -avz -e ssh --delete /local/ username@hostname:/remote/
 
 ---
 ```
+
 ## 10. 故障排除和调试
 
 ### 10.1 连接问题诊断
@@ -517,6 +553,7 @@ nc -v hostname 22
 nslookup hostname
 dig hostname
 ```
+
 ### 10.2 常见错误和解决方案
 
 #### 权限错误
@@ -530,6 +567,7 @@ chmod 644 ~/.ssh/*.pub
 chmod 644 ~/.ssh/known_hosts
 chmod 644 ~/.ssh/config
 ```
+
 #### 主机密钥变更
 
 ```bash
@@ -539,6 +577,7 @@ ssh-keygen -R hostname
 # 或者手动编辑 known_hosts
 vim ~/.ssh/known_hosts
 ```
+
 #### 认证失败
 
 ```bash
@@ -548,6 +587,7 @@ ssh -o PreferredAuthentications=publickey username@hostname
 # 强制使用密码认证
 ssh -o PreferredAuthentications=password username@hostname
 ```
+
 ### 10.3 服务器端日志检查
 
 ```bash
@@ -583,6 +623,7 @@ else
     echo "文件不存在"
 fi
 ```
+
 ### 11.2 自动化部署示例
 
 ```bash
@@ -604,19 +645,19 @@ echo "部署完成"
 ### 12.1 安全加固措施
 
 1. **禁用 root 登录**
-    
+
 2. **使用非标准端口**
-    
+
 3. **禁用密码认证**
-    
+
 4. **使用防火墙限制源 IP**
-    
+
 5. **定期更新 SSH 软件**
-    
+
 6. **监控登录尝试**
-    
+
 7. **使用 Fail2Ban 防护**
-    
+
 
 ### 12.2 Fail2Ban 配置示例
 

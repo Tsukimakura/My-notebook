@@ -1,6 +1,6 @@
 # math.h
 
-### 1. Basic Math Functions
+## 1. Basic Math Functions
 
 | Function                          | Description              | Example             |
 | --------------------------------- | ------------------------ | ------------------- |
@@ -9,7 +9,7 @@
 | `double cbrt(double x)`           | Cube root                | `cbrt(8) → 2`       |
 | `double pow(double x, double y)`  | x raised to power y      | `pow(2,3) → 8`      |
 | `double fmod(double x, double y)` | Floating-point remainder | `fmod(5.3,2) → 1.3` |
- 
+
 ### 2. Rounding and Integer Conversions
 
 | Function                 | Description                       | Example            |
@@ -22,9 +22,9 @@
 **Key differences:**
 
 - `floor(2.9)` → `2`
-    
+
 - `ceil(2.1)` → `3`
-    
+
 - `trunc(2.9)` → `2`, `trunc(-2.9)` → `-2` (toward zero)
 
 ### 3. Splitting Floating-Point Numbers
@@ -73,10 +73,10 @@ double ip; double fp = modf(3.14, &ip); /* ip = 3, fp = 0.14 */
 ## **Quick Knowledge Points**
 
 - `<math.h>` functions work on `double` by default.
-    
+
 - For `float`, use versions like `sinf`, `cosf`, `fabsf`, etc.
-    
-- On Linux/Mac, you must link the math library:  
+
+- On Linux/Mac, you must link the math library:
     `gcc file.c -lm`
-    
+
 - To split a number into integer & fractional parts, prefer `modf()` instead of writing your own function.

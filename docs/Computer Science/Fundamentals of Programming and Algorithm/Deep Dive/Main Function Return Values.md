@@ -1,10 +1,13 @@
 # Main Function Return Values
 
 [[main function | Before learning this part]]
+
 ## 1. Definition
+
 In C, the integer returned by the `main` function is known as the **Exit Status** or **Exit Code**. It is the final message a program sends to the operating system or the parent process (Shell) upon termination.
 
 ## 2. How to Retrieve the Return Value
+
 The method to view this value depends on your operating system and shell.
 
 **Example Code:**
@@ -15,6 +18,7 @@ int main() {
 ```
 
 ### Linux / macOS / Unix (Bash, Zsh)
+
 Use the special variable **`$?`**. It holds the exit status of the **most recently executed** command.
 ```bash
 $ ./app
@@ -24,6 +28,7 @@ $ echo $?
 *Note: You must check `$?` immediately after the program runs. If you run another command (like `ls`), `$?` will update to the exit code of `ls`.*
 
 ### Windows (CMD)
+
 Use the environment variable **`%ERRORLEVEL%`**.
 ```cmd
 > app.exe
@@ -32,6 +37,7 @@ Use the environment variable **`%ERRORLEVEL%`**.
 ```
 
 ### Windows (PowerShell)
+
 Use the variable **`$LastExitCode`**.
 ```powershell
 > ./app.exe
@@ -40,6 +46,7 @@ Use the variable **`$LastExitCode`**.
 ```
 
 ## 3. Standard Conventions
+
 While you can return any integer, there is a strict convention followed by the entire programming ecosystem (OS, Shells, Build Tools):
 
 *   **`0` (Zero)**: Represents **Success**. The program finished without errors.
@@ -63,9 +70,11 @@ int main() {
 ```
 
 ## 4. Practical Usage: Automation & Logic
+
 The real power of exit codes lies in automation. Shells use them to decide control flow.
 
 ### A. Logical Operators
+
 [[Short-Circuit Evaluation 短路运算]]
 *   **`&&` (AND Operator)**
     *   **Logic:** Run the next command **only if** the previous one succeeded (returned 0).
@@ -78,6 +87,7 @@ The real power of exit codes lies in automation. Shells use them to decide contr
     *   *Effect:* Prints an error message only if the program fails.
 
 ### B. Shell Scripting
+
 You can write scripts to handle errors gracefully based on return values.
 ```bash
 #!/bin/bash
@@ -92,9 +102,11 @@ fi
 ```
 
 ### C. CI/CD Pipelines
+
 Build systems (Jenkins, GitHub Actions, GitLab CI) rely entirely on exit codes. If your test suite returns a non-zero value, the build pipeline is marked as **Failed**.
 
 ## 5. Important Limitation: The 8-bit Range
+
 On Unix/Linux systems, the parent process only retrieves the **lower 8 bits** of the return value.
 
 *   **Range:** 0 to 255.

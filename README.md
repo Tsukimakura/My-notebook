@@ -11,6 +11,7 @@
 ```bash
 make bootstrap  # 首次安装 Python 与 Node 依赖
 make serve      # 启动 http://127.0.0.1:8000/
+make format     # 自动统一 Markdown 格式
 make check      # 严格构建与链接检查
 ```
 

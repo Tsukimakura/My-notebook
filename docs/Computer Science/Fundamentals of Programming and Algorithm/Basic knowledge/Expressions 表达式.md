@@ -8,6 +8,7 @@ In the ISO C Standard, an **Expression** is defined as a sequence of operators a
 3.  Generates a **side effect**.
 
 ### The Recursive Definition
+
 Expressions are defined recursively. The concept relies on the distinction between atomic units and composite structures:
 
 *   **Primary Expressions (Atoms):** These are the simplest forms of expressions. They do not contain operators (except for parentheses).
@@ -23,15 +24,18 @@ Expressions are defined recursively. The concept relies on the distinction betwe
 Every expression possesses two static (compile-time) attributes and one dynamic (runtime) attribute:
 
 ### A. Type
+
 C is a statically typed language. Every expression has a type determined at compile time.
 *   **Implicit Conversion:** Operands may undergo *Integer Promotion* or *Arithmetic Conversion* within an expression.
     *   *Example:* In `3 + 2.5`, the integer `3` is promoted to `double`, and the resulting expression has the type `double`.
 
 ### B. Value
+
 Unless the type is `void` (e.g., a call to a void function), every expression evaluates to a mathematical or logical result.
 *   *Note:* Even assignment expressions have a value. The expression `x = 5` evaluates to `5`.
 
 ### C. Value Category (Lvalue vs. Rvalue)
+
 This is the most critical structural distinction in C expressions.
 
 1.  **Lvalue (Locator Value):**
@@ -50,16 +54,19 @@ This is the most critical structural distinction in C expressions.
 How the compiler interprets an expression depends on three rules. It is vital to distinguish between them.
 
 ### A. Precedence
+
 **Definition:** Determines how operators are grouped when there are no parentheses.
 *   *Rule:* Operators with higher precedence bind tighter to their arguments.
 *   *Example:* In `a + b * c`, multiplication (`*`) has higher precedence than addition (`+`). The expression is parsed as `a + (b * c)`.
 
 ### B. Associativity
+
 **Definition:** Determines the grouping direction when operators of the **same** precedence appear consecutively.
 *   **Left-to-Right:** Common for arithmetic. `a - b - c` $\rightarrow$ `(a - b) - c`.
 *   **Right-to-Left:** Used for assignment and unary operators. `a = b = c` $\rightarrow$ `a = (b = c)`.
 
 ### C. Order of Evaluation
+
 **Definition:** The order in which the CPU computes the distinct operands within an expression.
 *   *Rule:* Generally **unspecified** by the standard.
 *   *Example:* In `f1() + f2()`, the precedence rules dictates that the *results* of the functions are added. However, the standard does **not** specify whether `f1` runs before `f2` or vice versa.
@@ -69,6 +76,7 @@ How the compiler interprets an expression depends on three rules. It is vital to
 Expressions are often categorized by the arity (number of operands) of the top-level operator.
 
 ### A. Unary Expressions
+
 Operate on a single operand.
 *   `!a` (Logical NOT)
 *   `-a` (Negation)
@@ -77,6 +85,7 @@ Operate on a single operand.
 *   `sizeof(type)`
 
 ### B. Binary Expressions
+
 Operate on two operands.
 *   **Arithmetic:** `+`, `-`, `*`, `/`, `%`
 *   **Relational:** `<`, `>`, `<=`, `>=`
@@ -86,10 +95,12 @@ Operate on two operands.
 *   **Assignment:** `=`, `+=`, `-=`, etc.
 
 ### C. Ternary Expressions (Conditional)
+
 The only operator taking three operands: `condition ? expr_true : expr_false`.
 *   Only one of the result expressions (`expr_true` or `expr_false`) is evaluated.
 
 ### D. Comma Expressions
+
 Format: `expr1, expr2`
 *   Evaluates `expr1`, discards its result, then evaluates `expr2`.
 *   The value and type of the entire expression are those of `expr2`.
@@ -113,16 +124,17 @@ i++;        // Post-increment expression used as a statement.
 
 
 ## 6. Operators
+
 Operators are special symbols that perform operations on operands(操作数) (variables, constants).
 
 ### Basic Operator Types
 
-##### 1. Arithmetic Operators 算术运算符
+#### 1. Arithmetic Operators 算术运算符
 
 ```c
 int a = 10, b = 3;
 a + b   // 13  (Addition)
-a - b   // 7   (Subtraction)  
+a - b   // 7   (Subtraction)
 a * b   // 30  (Multiplication)
 a / b   // 3   (Division - integer)
 a % b   // 1   (Modulo - remainder)
@@ -147,6 +159,7 @@ int x = 5, y = 10;
 (x > 10) || (y == 10) // 1 (OR - at least one true)
 !(x == 5)             // 0 (NOT - reverses truth)
 ```
+
 ##### 4. Assignment Operators 赋值运算符
 
 ```c
@@ -181,5 +194,3 @@ char* status = (age >= 18) ? "Adult" : "Minor";
 int a, b, c;
 a = (b = 5, c = 10, b + c);  // a = 15, b = 5, c = 10
 ```
-
-

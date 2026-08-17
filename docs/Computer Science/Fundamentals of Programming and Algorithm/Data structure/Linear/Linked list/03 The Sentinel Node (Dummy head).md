@@ -1,6 +1,7 @@
 # 03 The Sentinel Node (Dummy head)
 
-### **1. The Concept & Purpose**
+## **1. The Concept & Purpose**
+
 **What is it?**
 A Sentinel Node (often called a "Dummy Head") is a node that exists at the very beginning of the linked list but **holds no meaningful data**.
 *   **Before (No Sentinel):** `head` $\to$ `[Data 1]` $\to$ `[Data 2]` ...
@@ -16,11 +17,12 @@ By adding a Sentinel, **the first actual data node now has a predecessor (the Se
 
 ---
 
-### **2. Modifications Required**
+## **2. Modifications Required**
 
 Here is how your functions change compared to the "No Sentinel" version.
 
-#### **A. Initialization (`createList`)**
+### **A. Initialization (`createList`)**
+
 *   **Before:** We simply set `head = NULL`.
 *   **After:** We must `malloc` the Sentinel node immediately.
 ```c
@@ -35,21 +37,23 @@ LinkedList* createList() {
 }
 ```
 
-#### **B. Insertion (`pushFront`)**
+### **B. Insertion (`pushFront`)**
+
 *   **Logic Change:** We no longer replace `head`. We simply insert **after** the sentinel.
 *   **Impact:** No need for double pointers (`Node**`) or returning new heads.
 ```c
 void pushFront(LinkedList* list, int val) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = val;
-    
+
     // Standard "Insert After" logic
     newNode->next = list->head->next; // Point new node to current first data
     list->head->next = newNode;       // Point dummy to new node
 }
 ```
 
-#### **C. Deletion (`deleteAll`) - The Biggest Improvement**
+### **C. Deletion (`deleteAll`) - The Biggest Improvement**
+
 *   **Logic Change:** Remember the "Phase 1: Handle Head" loop from the previous note? **It is completely removed.**
 *   **Why:** Even if the first data node (`dummy->next`) needs to be deleted, it is treated exactly like a middle node because we have the pointer *before* it (`dummy`).
 *   **Code:** We only need the "Look-Ahead" loop.
@@ -73,5 +77,6 @@ void deleteAll(LinkedList* list, int key) {
 }
 ```
 
-#### **D. Traversal / Printing**
+### **D. Traversal / Printing**
+
 *   **Logic Change:** We cannot start printing at `list->head` (because it's garbage data). We must start at `list->head->next`.

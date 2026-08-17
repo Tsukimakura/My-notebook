@@ -5,6 +5,7 @@
 In C, file manipulation is high-level and abstracted through the **`FILE`** structure defined in the standard library `<stdio.h>`. It acts as a comprehensive **Control Block** that manages the state of a stream.
 
 ### The "Black Box" Concept
+
 Programmers do not typically interact with the members of the `FILE` struct directly. Instead, they operate on a pointer (`FILE *`) which serves as a handle. Internally, this structure maintains four critical pieces of information:
 
 1.  **File Descriptor (FD):** An integer used to communicate with the operating system kernel (The "key" to the underlying file).
@@ -13,6 +14,7 @@ Programmers do not typically interact with the members of the `FILE` struct dire
 4.  **State Flags:** Indicates the file mode (read/write), End-of-File (EOF) status, and error indicators.
 
 ### Memory Allocation
+
 When `fopen()` is called, the system allocates memory for the `FILE` structure on the **Heap**.
 *   **Implication:** Because the memory is dynamically allocated, it persists until explicitly released. Failure to close a file results in a memory leak, similar to failing to `free` memory allocated by `malloc`.
 
@@ -23,10 +25,12 @@ When `fopen()` is called, the system allocates memory for the `FILE` structure o
 Working with files in C follows a strict four-step procedure: **Open $\rightarrow$ Check $\rightarrow$ Operate $\rightarrow$ Close**.
 
 ### Step 1: Opening the File (`fopen`)
+
 The `fopen` function initializes the stream.
 *   **Prototype:** `FILE *fopen(const char *filename, const char *mode);`
 
 #### The Mode Strings
+
 Choosing the correct mode is critical to data safety.
 
 | Mode | Meaning | File Exists? | File Doesn't Exist? | Position |
@@ -42,6 +46,7 @@ Choosing the correct mode is critical to data safety.
 *   **The Exclusive Flag (`x`):** Introduced in C11 (e.g., `"wx"`). Forces `fopen` to fail if the file already exists, preventing accidental overwrites.
 
 ### Step 2: Validation (Defensive Programming)
+
 Since `fopen` can fail (due to permissions, missing files, or disk limits), the return value must always be checked.
 ```c
 FILE *fp = fopen("data.txt", "r");
@@ -52,6 +57,7 @@ if (fp == NULL) {
 ```
 
 ### Step 3: Closing the File (`fclose`)
+
 The `fclose(fp)` function is mandatory for three reasons:
 1.  **Flush Buffers:** Forces any data remaining in the user-space buffer to be written to the kernel/disk.
 2.  **Release Heap Memory:** Frees the `FILE` structure allocated by `fopen`.

@@ -1,17 +1,17 @@
 # Variable Length Arrays (VLA)  变长数组
 
-### 1. What is a VLA?
+## 1. What is a VLA?
 
 - **Definition:** An array where the size is determined at **runtime** (using a variable), not at compile-time.
-    
+
 - **Standard:** Introduced in **C99**.
-    
+
 - **Clarification:** "Variable Length" means the size is set when the array is created. Once created, the size **cannot change** (unlike std::vector in C++).
-    
 
-### 2. Syntax Comparison
 
-**Traditional Array (C89):**  
+## 2. Syntax Comparison
+
+**Traditional Array (C89):**
 Size must be a constant (literal or #define).
 
 ```c
@@ -20,7 +20,7 @@ int arr[SIZE];   // OK
 int arr2[10];    // OK
 ```
 
-**Variable Length Array (C99+):**  
+**Variable Length Array (C99+):**
 Size can be a variable or an expression.
 
 ```c
@@ -29,20 +29,20 @@ scanf("%d", &n); // User inputs size
 int arr[n];      // OK: Size determined here
 ```
 
-### 3. Key Characteristics
+## 3. Key Characteristics
 
 - **Storage Location:** Allocated on the **Stack**.
-    
-- **Lifetime:** Automatic. Created when execution enters the block, destroyed when it leaves.
-    
-- **Initialization:** **Cannot** be initialized in the declaration.
-    
-    -  int arr[n] = {0}; (Error)
-        
-    -  You must use a loop or memset to set values.
-        
 
-### 4. VLA as Function Arguments
+- **Lifetime:** Automatic. Created when execution enters the block, destroyed when it leaves.
+
+- **Initialization:** **Cannot** be initialized in the declaration.
+
+    -  int arr[n] = {0}; (Error)
+
+    -  You must use a loop or memset to set values.
+
+
+## 4. VLA as Function Arguments
 
 VLAs are very useful for passing multidimensional arrays to functions without hardcoding dimensions.
 
@@ -57,7 +57,7 @@ void printMatrix(int rows, int cols, int matrix[rows][cols]) {
 }
 ```
 
-### 5. Pros & Cons
+## 5. Pros & Cons
 
 | Pros (Advantages)                               | Cons (Disadvantages)                                                                    |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------- |
@@ -65,7 +65,7 @@ void printMatrix(int rows, int cols, int matrix[rows][cols]) {
 | **Automatic Memory:** No need to call free().   | **No Initialization:** Cannot use {1, 2, 3} syntax.                                     |
 | **Fast:** Stack allocation is faster than Heap. | **Portability:** Not supported in C++ or older C compilers (C89). C11 made it optional. |
 
-### 6. Comparison: VLA vs. malloc
+## 6. Comparison: VLA vs. malloc
 
 | Feature      | VLA                          | malloc (Dynamic Memory)     |
 | ------------ | ---------------------------- | --------------------------- |
@@ -74,18 +74,18 @@ void printMatrix(int rows, int cols, int matrix[rows][cols]) {
 | **Cleanup**  | Automatic                    | Manual (Must use free)      |
 | **Resizing** | Impossible                   | Possible (using realloc)    |
 
-### 7. Best Practices / Summary
+## 7. Best Practices / Summary
 
 - **Use VLA when:**
-    
+
     - The array size is small.
-        
+
     - You need a temporary buffer for a short calculation.
-        
+
     - You are doing matrix math in a function.
-        
+
 - **Avoid VLA when:**
-    
+
     - The array size might be very large (use malloc instead).
-        
+
     - You are writing code that needs to be compatible with C++ or Visual Studio (MSVC).

@@ -1,27 +1,29 @@
 # Selection Sort
 
-#### Key idea
+## Key idea
+
 Selection sort repeatedly finds the minimum element from the unsorted portion and places it at the front. (Vice versa)
 
 For an array of size `n`:
 
 1. Find the **smallest** element in the entire array → put it in position 0
-    
-2. Find the **second smallest** element → put it in position 1
-    
-3. ...
-    
-4. Repeat until the array is sorted
-    
 
-#### Time complexity
+2. Find the **second smallest** element → put it in position 1
+
+3. ...
+
+4. Repeat until the array is sorted
+
+
+## Time complexity
 
 - **O(n²)** comparisons
 
-#### Space Complexity
+## Space Complexity
+
 - **O(1)** extra space
 
-#### Implementation
+## Implementation
 
 - recursion
 

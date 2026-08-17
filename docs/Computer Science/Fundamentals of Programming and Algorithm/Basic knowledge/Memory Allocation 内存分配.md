@@ -39,10 +39,12 @@ Low Addresses (0x00...)
 In the OS view, this entire region is mapped as **Read-Only + Execute (R-X)** (or sometimes just Read-Only for data). It combines two Linker Sections:
 
 ### **A. .text Section (Code)**
+
 *   **Content:** The executable machine instructions.
 *   **Note:** Contains immediate values (integer literals like `100`) embedded directly in the instructions.
 
 ### **B. .rodata Section (Read-Only Data)**
+
 *   **Content:**
     *   **String Literals** (e.g., `"Hello World"`).
     *   Global `const` variables.
@@ -57,10 +59,12 @@ In the OS view, this entire region is mapped as **Read-Only + Execute (R-X)** (o
 In the OS view, these sections are merged into a single **Read-Write (RW-)** segment because they share the same permissions.
 
 ### **A. .data Section**
+
 *   **Content:** Global/Static variables initialized to **non-zero** values.
 *   **Storage:** Occupies actual space in the binary file on disk.
 
 ### **B. .bss Section**
+
 *   **Content:** Global/Static variables that are uninitialized or initialized to zero.
 *   **The "Zero-Fill" Trick:**
     *   It takes up **zero space** on the disk (Linker view).
@@ -108,6 +112,7 @@ Located at the very top of the user address space, just below the Kernel space.
 ---
 
 ## **8. Kernel Space**
+
 *   **Content:** The kernel code, page tables, and kernel data structures.
 *   **Protection:** Inaccessible to user programs (Ring 3). Access requires a **System Call** (switching to Ring 0).
 

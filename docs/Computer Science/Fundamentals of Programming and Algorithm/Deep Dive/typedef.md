@@ -3,11 +3,11 @@
 ## **1. Core Concept**
 
 - **Definition:** typedef stands for **"Type Definition"**.
-    
+
 - **Function:** It does **not** create a new data type. Instead, it creates a new **alias (name)** for an existing data type.
-    
+
 - **Purpose:** To improve code readability, simplify complex declarations, and enhance portability.
-    
+
 
 ---
 
@@ -51,7 +51,7 @@ Defining a specific array type (often overlooked).
 
 ```c
 // 'Arr5' is an alias for "an array of 5 integers"
-typedef int Arr5[5]; 
+typedef int Arr5[5];
 
 Arr5 list;        // Equivalent to: int list[5];
 Arr5 matrix[10];  // Equivalent to: int matrix[10][5];
@@ -71,21 +71,21 @@ IntPtr ptr = &x;
 Simplifies the syntax for function pointers significantly.
 
 - **Without typedef (Hard to read):**
-    
+
     ```c
     void (*signal(int, void (*)(int)))(int);
     ```
-    
+
 - **With typedef (Clean):**
 
     ```c
     // Define a function pointer type named 'Handler'
     typedef void (*Handler)(int);
-    
+
     // Usage
     Handler signal(int, Handler);
     ```
-    
+
 
 ---
 
@@ -96,22 +96,22 @@ Simplifies the syntax for function pointers significantly.
 Unlike #define (which is handled by the **Preprocessor** via text replacement), typedef is handled by the **Compiler** during the semantic analysis phase.
 
 - **Symbol Table:** The compiler adds the alias to its internal symbol table and understands the types compatibility.
-    
+
 - **Scope:** It obeys C scoping rules (block scope vs. file scope).
-    
+
 
 ### **B. Storage Class Specifier**
 
 Grammatically, C classifies typedef as a **Storage Class Specifier**, grouping it with extern, static, auto, and register.
 
 - **Rule:** A declaration can have only **one** storage class specifier.
-    
+
 - **Implication:** You cannot combine typedef with static.
 
     ```c
     typedef static int MyInt; // ERROR: Multiple storage classes
     ```
-    
+
 
 ### **C. The const Trap (Critical)**
 
@@ -125,11 +125,11 @@ const PCHAR p;
 ```
 
 - **Intuition (Wrong):** You might think this expands to const char* p (Pointer to a constant character).
-    
-- **Reality (Right):** It is treated as char* const p (Constant pointer to a mutable character).
-    
 
-**Explanation:**  
+- **Reality (Right):** It is treated as char* const p (Constant pointer to a mutable character).
+
+
+**Explanation:**
 The compiler treats PCHAR as a single atomic unit (a pointer type). When you apply const, it makes that **unit** constant.
 
 - const (char*) : The pointer itself is constant.

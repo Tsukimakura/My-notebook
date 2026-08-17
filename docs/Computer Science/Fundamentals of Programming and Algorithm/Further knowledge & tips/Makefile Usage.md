@@ -1,6 +1,6 @@
 # Makefile Usage
 
-### 1. Fundamental Logic: How Make Thinks
+## 1. Fundamental Logic: How Make Thinks
 
 To use Make effectively, you must understand that **Make assumes everything is a file**. It does not inherently distinguish between "compiling a program" and "cleaning up junk."
 
@@ -19,7 +19,7 @@ When you run `make target_name`, Make follows this strict logic:
 
 ---
 
-### 2. Basic Syntax and Rules
+## 2. Basic Syntax and Rules
 
 A Makefile is built from **rules**. A rule defines a target, what it needs, and how to build it.
 
@@ -35,7 +35,7 @@ target: prerequisites
 
 ---
 
-### 3. Phony Targets (.PHONY)
+## 3. Phony Targets (.PHONY)
 
 This is the mechanism used to define **Actions**. Since Make looks for files by default, we use `.PHONY` to explicitly tell Make: *"Do not look for a file with this name; just run the command."*
 
@@ -60,7 +60,7 @@ clean:
 
 ---
 
-### 4. Variables (Macros)
+## 4. Variables (Macros)
 
 Variables make the script maintainable. Use `$(VAR_NAME)` to access them.
 
@@ -81,7 +81,7 @@ main.o: main.c
 
 ---
 
-### 5. Automatic Variables
+## 5. Automatic Variables
 
 These are placeholders that change based on the specific rule being processed. They are essential for writing generic rules.
 
@@ -98,7 +98,7 @@ main.o: main.c
 
 ---
 
-### 6. Pattern Rules and Functions
+## 6. Pattern Rules and Functions
 
 To avoid writing a rule for every single C file, use Pattern Rules (`%`) and file manipulation functions.
 
@@ -121,7 +121,7 @@ OBJS = $(patsubst %.c, %.o, $(SRCS))
 
 ---
 
-### 7. The Universal C Makefile Template
+## 7. The Universal C Makefile Template
 
 This template combines all the concepts above. It automatically finds C files, compiles them, handles cleaning, and uses Phony targets correctly.
 
@@ -133,7 +133,7 @@ This template combines all the concepts above. It automatically finds C files, c
 # 1. Compiler Settings
 CC = gcc
 # -Wall: All warnings, -g: Debug info
-CFLAGS = -Wall -g 
+CFLAGS = -Wall -g
 
 # 2. Output Target Name
 TARGET = my_program
@@ -179,7 +179,7 @@ help:
 
 ---
 
-### 8. Execution Commands
+## 8. Execution Commands
 
 *   `make`: Builds the first target found (usually `all`).
 *   `make clean`: Executes the clean rule.
@@ -187,7 +187,7 @@ help:
 *   `make -j<n>`: Parallel compilation using `n` cores (e.g., `make -j4` speeds up large builds).
 *   `make -B`: Force recompilation of everything (ignores timestamps).
 
-### 9. Summary of Best Practices
+## 9. Summary of Best Practices
 
 1.  **Always** use `.PHONY` for non-file targets (`clean`, `test`).
 2.  **Always** use variables for compilers and flags (`CC`, `CFLAGS`) to allow easy changes later.

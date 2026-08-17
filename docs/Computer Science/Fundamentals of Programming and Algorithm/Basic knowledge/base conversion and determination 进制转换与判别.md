@@ -2,7 +2,7 @@
 
 ## **1. Introduction**
 
-In computer science, numbers are often represented in different bases.  
+In computer science, numbers are often represented in different bases.
 The most common ones are:
 
 |Base|Name|Digits|Typical Use|
@@ -25,19 +25,19 @@ Understanding base conversion is essential for programming, digital logic, and l
 ### **Method A: Repeated Division (for integer part)**
 
 1. Divide the number by the target base.
-    
+
 2. Record the remainder.
-    
+
 3. Use the quotient for the next division.
-    
+
 4. Stop when the quotient is 0.
-    
+
 5. The result is the remainders **read in reverse order**.
-    
+
 
 ### **Example: Convert 45₁₀ → Binary**
 
-`45 ÷ 2 = 22 R 1   22 ÷ 2 = 11 R 0   11 ÷ 2 = 5  R 1   5  ÷ 2 = 2  R 1   2  ÷ 2 = 1  R 0   1  ÷ 2 = 0  R 1`  
+`45 ÷ 2 = 22 R 1   22 ÷ 2 = 11 R 0   11 ÷ 2 = 5  R 1   5  ÷ 2 = 2  R 1   2  ÷ 2 = 1  R 0   1  ÷ 2 = 0  R 1`
 
 Binary = **101101₂**
 
@@ -46,17 +46,17 @@ Binary = **101101₂**
 ### **Method B: Multiply-by-base (for fractional part)**
 
 1. Multiply fraction by the target base.
-    
+
 2. The integer part becomes the next digit.
-    
+
 3. Use the fractional part as next input.
-    
+
 4. Continue until fraction becomes 0 (or precision limit reached).
-    
+
 
 ### **Example: Convert 0.625₁₀ → Binary**
 
-`0.625 × 2 = 1.25   → 1   0.25  × 2 = 0.5    → 0   0.5   × 2 = 1.0    → 1`  
+`0.625 × 2 = 1.25   → 1   0.25  × 2 = 0.5    → 0   0.5   × 2 = 1.0    → 1`
 
 Binary fraction = **0.101₂**
 
@@ -67,9 +67,9 @@ Binary fraction = **0.101₂**
 ### **Grouping rules**
 
 - **Binary → Octal**: group **3 bits** from right to left.
-    
+
 - **Binary → Hexadecimal**: group **4 bits**.
-    
+
 
 Add leading zeros if necessary.
 
@@ -184,14 +184,14 @@ Decimal value =
 
 Example: Convert 57₈ → Hex
 
-1. 5 → 101  
+1. 5 → 101
     7 → 111
-    
+
 
 → 101111₂
 
 2. Group into 4 bits: 0010 1111
-    
+
 
 → 2F₁₆
 
@@ -202,20 +202,20 @@ Example: Convert 57₈ → Hex
 ### **Steps to get two’s complement**
 
 1. Write the positive number in binary.
-    
+
 2. Invert all bits (0 ↔ 1).
-    
+
 3. Add 1.
-    
+
 
 ### **Example: Represent −5 in 8-bit two’s complement**
 
 1. +5 = 0000 0101
-    
+
 2. Invert → 1111 1010
-    
+
 3. Add 1 → **1111 1011₂**
-    
+
 
 - by this way a signed integer can be calculated by the same way as unsigned integers.
 
@@ -225,7 +225,7 @@ Example: Convert 57₈ → Hex
 
 ### **1. Forgetting to pad zeros**
 
-Binary → hex requires 4-bit groups.  
+Binary → hex requires 4-bit groups.
 Binary → oct requires 3-bit groups.
 
 ### **2. Mixing up fractional conversion**
@@ -270,9 +270,9 @@ In C, the base (radix) of an integer literal is determined **solely by its textu
 **Rule:**
 
 - Must **not** start with `0`.
-    
+
 - Digits: `0–9`.
-    
+
 
 **Examples:**
 
@@ -285,9 +285,9 @@ In C, the base (radix) of an integer literal is determined **solely by its textu
 **Rule:**
 
 - Start with a leading `0`.
-    
+
 - Digits must be `0–7`.
-    
+
 
 **Examples:**
 
@@ -304,9 +304,9 @@ In C, the base (radix) of an integer literal is determined **solely by its textu
 **Rule:**
 
 - Start with `0x` or `0X`.
-    
+
 - Digits: `0–9`, `a–f`, `A–F`.
-    
+
 
 **Examples:**
 
@@ -316,15 +316,15 @@ In C, the base (radix) of an integer literal is determined **solely by its textu
 
 ## **4. Binary literals (base-2)**
 
-Binary literals are **not supported in older C standards** (C89/C99/C11).  
+Binary literals are **not supported in older C standards** (C89/C99/C11).
 They are supported starting from **C23**, and also by many compilers as extensions (e.g., GCC).
 
 **Rule (C23 or compiler extension):**
 
 - Start with `0b` or `0B`.
-    
+
 - Digits: `0` or `1`.
-    
+
 
 **Examples:**
 

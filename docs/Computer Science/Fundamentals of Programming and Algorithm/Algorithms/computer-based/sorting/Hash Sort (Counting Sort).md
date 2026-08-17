@@ -1,47 +1,48 @@
 # Hash Sort (Counting Sort)
 
 [[Hashing| About its name]]
+
 ## 1. Overview
 
 - **Definition:** An algorithm that sorts elements by using their values as **indices** (keys) in an auxiliary array (Hash Table).
-    
+
 - **Type:** Non-comparative sorting algorithm.
-    
+
 - **Core Principle:** **Hashing / Direct Addressing**. It maps the value of an element to a specific position in a "frequency array" to count its occurrence.
-    
+
 
 ## 2. Key Statistics
 
 - **Time Complexity:** $O(N+K)$
-	
+
         $N$: Number of elements to sort.
-        
+
 		$K$: Range of the data (Max−Min).
-        
+
 - **Space Complexity:** $O(K)$
 
     - Requires an auxiliary array of size $K$.
 
 - **Stability:** Stable (if implemented carefully), but the basic version is often unstable.
-    
+
 
 ---
 
 ## 3. How It Works (Step-by-Step)
 
 1. **Find Boundaries:** Determine the **Maximum** and **Minimum** values in the input array.
-    
+
 2. **Calculate Range:** Determine the size of the hash table: `Range = Max - Min + 1`.
-    
+
 3. **Allocate Memory:** Create a `HashTable` (or Count Array) of size `Range` and initialize all values to **0**.
-    
+
 4. **Hash Mapping (Counting):** Traverse the input array. For every element `val`, increment the count at index `val - Min`.
     - `HashTable[val - Min]++`
-    
+
 5. **Reconstruction:** Traverse the `HashTable`. If an index has a non-zero count, write the corresponding value (`Index + Min`) back into the original array.
-    
+
 6. **Cleanup:** Free the allocated memory.
-    
+
 
 ---
 
@@ -103,7 +104,7 @@ int main() {
     for (int i = 0; i < n; i++) {
         printf("%d ", data[i]);
     }
-    // Output: -5 -5 0 1 2 2 8 9 
+    // Output: -5 -5 0 1 2 2 8 9
     return 0;
 }
 ```
@@ -117,20 +118,20 @@ int main() {
 ### The "Offset" Strategy (Value - Min)
 
 - **Why?** Array indices in C must be non-negative integers starting from 0.
-    
+
 - **Problem:** If the data contains negative numbers (e.g., -5) or starts at a high number (e.g., 1000), we cannot use the value directly as an index.
-    
+
 - **Solution:** map the minimum value to index 0.
-    
+
     - Real Value: -5 -> Index: -5 - (-5) = 0
-        
+
     - Real Value: 100 -> Index: 100 - (-5) = 105
-        
+
 
 ### Space-Time Tradeoff
 
 - Hash sort sacrifices **Memory (Space)** to gain **Speed (Time)**.
-    
+
 
 ---
 
@@ -139,22 +140,22 @@ int main() {
 ### Advantages
 
 1. **Linear Time:** It is much faster than Quick Sort ($O(Nlog⁡N)$) when the data range ($K$) is small compared to $N$.
-    
+
 2. **Simplicity:** The logic is straightforward (count, then print).
-    
+
 
 ### Disadvantages
 
 1. **Range Limitation:** If the range is huge (e.g., sorting {1, 100000000}), it wastes massive amounts of memory.
-    
+
 2. **Data Type Restriction:** Mainly works for **Integers**.
-    
+
     - Floating-point numbers (decimals) are difficult to map to indices.
-        
+
     - Strings require complex hashing (Radix Sort).
-        
+
 3. **Not In-Place:** Requires extra memory allocation.
-    
+
 
 ---
 

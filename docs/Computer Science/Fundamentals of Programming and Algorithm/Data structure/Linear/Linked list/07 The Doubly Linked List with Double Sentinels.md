@@ -1,6 +1,7 @@
 # 07 The Doubly Linked List with Double Sentinels
 
-### **1. The Concept & Purpose**
+## **1. The Concept & Purpose**
+
 **What is it?**
 A Doubly Linked List that has **two** dummy nodes:
 1.  **Head Sentinel:** Guards the front.
@@ -19,9 +20,10 @@ In a standard Doubly Linked List, you still have to check for `NULL` at the boun
 
 ---
 
-### **2. Modifications Required**
+## **2. Modifications Required**
 
-#### **A. Initialization (`createList`)**
+### **A. Initialization (`createList`)**
+
 We must allocate **two** nodes immediately and link them together.
 
 ```c
@@ -32,24 +34,25 @@ typedef struct DList {
 
 DList* createList() {
     DList* list = (DList*)malloc(sizeof(DList));
-    
+
     // 1. Create the two sentinels
     list->head = (DNode*)malloc(sizeof(DNode));
     list->tail = (DNode*)malloc(sizeof(DNode));
-    
+
     // 2. Link them to each other (The Empty State)
     list->head->next = list->tail; // Head points to Tail
     list->tail->prev = list->head; // Tail points to Head
-    
+
     // 3. Seal the outer boundaries
     list->head->prev = NULL;
     list->tail->next = NULL;
-    
+
     return list;
 }
 ```
 
-#### **B. The "Universal" Insertion (`insertBetween`)**
+### **B. The "Universal" Insertion (`insertBetween`)**
+
 Instead of writing separate logic for `pushFront` and `pushBack`, we write **one** private helper function.
 *   **Logic:** Insert a node between *any* two existing nodes `A` and `B`.
 
@@ -58,7 +61,7 @@ Instead of writing separate logic for `pushFront` and `pushBack`, we write **one
 void _insertBetween(DNode* before, DNode* after, int val) {
     DNode* newNode = (DNode*)malloc(sizeof(DNode));
     newNode->data = val;
-    
+
     // The 4-Pointer Update (Standard Double Link Logic)
     newNode->prev = before;
     newNode->next = after;
@@ -78,30 +81,32 @@ void pushBack(DList* list, int val) {
 }
 ```
 
-#### **C. The "Universal" Deletion (`removeNode`)**
+### **C. The "Universal" Deletion (`removeNode`)**
+
 Similarly, deleting a node never requires checking if it is the first or last node.
 
 ```c
 void removeNode(DNode* target) {
-    // We don't need to check if target->prev is NULL, 
+    // We don't need to check if target->prev is NULL,
     // because Sentinels guarantee neighbors exist.
     DNode* before = target->prev;
     DNode* after = target->next;
-    
+
     before->next = after;
     after->prev = before;
-    
+
     free(target);
 }
 ```
 
-#### **D. Traversal (The Loop Condition)**
+### **D. Traversal (The Loop Condition)**
+
 *   **Change:** We start after the Head Sentinel and stop **before** the Tail Sentinel.
 ```c
 void printList(DList* list) {
     // Start at the first real data node
     DNode* curr = list->head->next;
-    
+
     // Stop when we hit the Tail Sentinel (NOT NULL)
     while (curr != list->tail) {
         printf("%d <-> ", curr->data);
@@ -113,7 +118,7 @@ void printList(DList* list) {
 
 ---
 
-### **3. Summary of the Evolution**
+## **3. Summary of the Evolution**
 
 | Version | Main Pain Point | Solution |
 | :--- | :--- | :--- |

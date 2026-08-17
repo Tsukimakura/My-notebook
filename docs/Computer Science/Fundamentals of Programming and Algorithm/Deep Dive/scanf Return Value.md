@@ -1,6 +1,6 @@
 # scanf Return Value
 
-#### 1. Function Prototype
+## 1. Function Prototype
 
 The `scanf` **function** is **declared** in the **standard input/output header file**:
 
@@ -13,7 +13,7 @@ The `scanf` **function** is **declared** in the **standard input/output hea
 int scanf(const char *format, ...);
 ```
 
-#### 2. Return Value of the function scanf
+## 2. Return Value of the function scanf
 
 | Return Value                    | Meaning                    | Typical Scenario                           |
 | ------------------------------- | -------------------------- | ------------------------------------------ |

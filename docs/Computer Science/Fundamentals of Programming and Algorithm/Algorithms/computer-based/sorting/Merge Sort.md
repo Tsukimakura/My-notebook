@@ -3,18 +3,18 @@
 ![归并排序示意图，来源：翁恺 2025 程算课程 PPT](../../../../../assets/c-programming/merge-sort-wk.png)
 - 图片来源与翁恺2025程算授课课件
 
-#### Core idea
+## Core idea
 
-1. **Divide**  
+1. **Divide**
     Split the array into two halves.
 
-2. **Conquer**  
+2. **Conquer**
     Recursively sort the left half and the right half.
 
-3. **Combine**  
+3. **Combine**
     Merge the two sorted halves into one sorted array.
 
-#### Implementation
+## Implementation
 
 - **recursion (Top-Down)**
 
@@ -46,7 +46,7 @@ void merge_sort(int arr[], int low, int high) {
 }
 ```
 
-#### Complexity Analysis
+## Complexity Analysis
 
 - the length of the array each time we process:
 ```text

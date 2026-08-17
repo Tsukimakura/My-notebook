@@ -1,6 +1,7 @@
 # Keywords
 
-#### A. Data Types & Type Specifiers
+## A. Data Types & Type Specifiers
+
 These keywords define the type of data a variable holds.
 
 | Keyword | Std | Description |
@@ -21,7 +22,8 @@ These keywords define the type of data a variable holds.
 | **`union`** | C89 | Defines a data structure where all members share the same memory location. |
 | **`enum`** | C89 | Defines a set of named integer constants. |
 
-#### B. Storage Class Specifiers
+## B. Storage Class Specifiers
+
 These keywords determine the lifetime, visibility (scope), and linkage of variables.
 
 | Keyword | Std | Description |
@@ -33,7 +35,8 @@ These keywords determine the lifetime, visibility (scope), and linkage of variab
 | **`typedef`** | C89 | Creates an alias name for an existing type. |
 | **`_Thread_local`**| C11 | Specifies a variable has thread storage duration (unique per thread). |
 
-#### C. Type Qualifiers
+## C. Type Qualifiers
+
 These keywords modify *how* the memory associated with a type is accessed.
 
 | Keyword | Std | Description |
@@ -43,7 +46,8 @@ These keywords modify *how* the memory associated with a type is accessed.
 | **`restrict`** | C99 | Optimization hint. Assumes this pointer is the *only* way to access the underlying memory in that scope. |
 | **`_Atomic`** | C11 | Specifies that access to the variable is atomic (thread-safe without locks). |
 
-#### D. Control Flow
+## D. Control Flow
+
 Keywords that control the execution path of the program.
 
 | Keyword | Std | Description |
@@ -61,7 +65,8 @@ Keywords that control the execution path of the program.
 | **`break`** | C89 | Exits the current loop or `switch` statement immediately. |
 | **`return`** | C89 | Terminates a function and optionally returns a value. |
 
-#### E. Operators & Language Intrinsics
+## E. Operators & Language Intrinsics
+
 Keywords that act like operators or compiler directives.
 
 | Keyword | Std | Description |

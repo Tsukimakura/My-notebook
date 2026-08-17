@@ -7,6 +7,7 @@ In a "No Sentinel" (or No Dummy Node) implementation, the `head` pointer points 
 *   **Non-Empty List:** `head` holds the address of the first node.
 
 ### **Struct Definition**
+
 ```c
 typedef struct Node {
     int data;               // The payload
@@ -21,19 +22,23 @@ typedef struct Node {
 When writing linked list functions, understanding these variable roles is crucial.
 
 ### **A. `head` (The Anchor)**
+
 *   **Role:** Represents the entry point of the list.
 *   **Critical Detail:** Since there is no dummy node, if the list is empty, `head` is `NULL`. If we insert or delete at the very beginning, **the value of the `head` variable itself must change**.
 
 ### **B. `current` (or `p`, `curr`)**
+
 *   **Role:** The "Explorer." Used to traverse (iterate) through the list.
 *   **Movement:** `current = current->next;`
 *   **Stop Condition:** Usually `current == NULL` (end of list).
 
 ### **C. `prev` (The Shadow)**
+
 *   **Role:** The "Follower." Used primarily in **deletion**.
 *   **Why we need it:** In a singly linked list, you cannot look back. If `current` is at the node you want to delete, you need `prev` to connect the previous node to `current->next`.
 
 ### **D. `newNode`**
+
 *   **Role:** A pointer to a newly allocated memory block (`malloc`) waiting to be linked into the chain.
 
 ---
@@ -52,6 +57,7 @@ To solve this, we use **Double Pointers**:
 ## **4. Operation Logic & Implementation Principles**
 
 ### **A. Insertion at Front (Push)**
+
 *Logic:* The new node becomes the new head.
 1.  Allocate memory for `newNode`.
 2.  Point `newNode->next` to the *current* head (`*headRef`).
@@ -61,12 +67,13 @@ To solve this, we use **Double Pointers**:
 void pushFront(Node** headRef, int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = data;
-    newNode->next = *headRef; 
-    *headRef = newNode;       
+    newNode->next = *headRef;
+    *headRef = newNode;
 }
 ```
 
 ### **B. Insertion at Tail (Append)**
+
 *Logic:* If empty, make it the head. If not, find the last node.
 1.  **Corner Case:** If `*headRef` is `NULL`, set `*headRef = newNode`.
 2.  **General Case:** Loop with `current` until `current->next == NULL`.
@@ -91,7 +98,7 @@ void pushBack(Node** headRef, int data) {
 }
 ```
 
-### **C. Deletion (Delete ALL Occurrences)** 
+### **C. Deletion (Delete ALL Occurrences)**
 
 *Logic:* We must scan the entire list. Since the target value might appear multiple times (even consecutively), the logic is split into two parts: handling the head, and handling the rest.
 
@@ -108,7 +115,7 @@ Now `head` is safe (either NULL or not the key). We use `prev` and `curr`.
 *   **If `curr` does NOT match:**
     1.  Move `prev` to `curr`.
     2.  Move `curr` to `curr->next`.
-	
+
 
 	```c
 	void deleteAll(Node** headRef, int key) {
@@ -152,11 +159,13 @@ Now `head` is safe (either NULL or not the key). We use `prev` and `curr`.
 Handling `Node**` (pointer to a pointer) can be confusing and syntactically ugly (`(*head)->next`). We can optimize readability by defining a List type.
 
 ### **Phase 1: The Raw Method (Double Pointers)**
+
 *   **Signature:** `void insert(Node** head, int val);`
 *   **Pros:** Efficient, standard C.
 *   **Cons:** Hard to read. easy to forget `*` when dereferencing.
 
 ### **Phase 2: The Wrapper Struct (Abstract Data Type)**
+
 We create a struct that *contains* the head pointer.
 
 ```c
@@ -175,6 +184,7 @@ LinkedList* createList() {
 ```
 
 ### **Why is this better?**
+
 Now, when we pass `LinkedList* list` to a function, we are passing a pointer to the *container*. The `list->head` inside it can be modified easily without double indirection syntax.
 
 **Comparison of Insertion:**
@@ -183,7 +193,7 @@ Now, when we pass `LinkedList* list` to a function, we are passing a pointer to 
     ```c
     void insert(Node** headRef, int val) {
         // ...
-        if (*headRef == NULL) *headRef = newNode; 
+        if (*headRef == NULL) *headRef = newNode;
     }
     // Call: insert(&head, 5);
     ```

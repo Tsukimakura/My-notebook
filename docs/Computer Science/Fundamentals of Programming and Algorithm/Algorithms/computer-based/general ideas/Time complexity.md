@@ -5,9 +5,9 @@
 **Time Complexity** quantifies the amount of time an algorithm takes to run as a function of the length of the input.
 
 - It does **not** measure actual seconds (which depend on hardware).
-    
+
 - It measures the **number of operations** (growth rate) relative to the input size ($N$).
-    
+
 
 ## 2. The Notation: Big O ($O$)
 
@@ -29,5 +29,5 @@ We uses **Big O Notation** to describe the **Worst-Case Scenario** (the uppe
 In computer science, we often trade one resource for another.
 
 - **Hash Sort:** Uses massive space ($O(N)$) or $O(K)$) to achieve blazing fast time ($O(N)$).
-    
+
 - **Bubble Sort:** Uses minimal space ($O(1)$) but takes a long time ($O(N^2)$).

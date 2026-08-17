@@ -10,6 +10,7 @@ By default, file I/O operations (like `fgetc`, `fscanf`) are **Sequential**. The
 *   Indexing large binary datasets.
 
 ### The File Position Indicator
+
 Inside the `FILE` structure, the system maintains a **File Position Indicator** (often called the "file cursor" or "pointer").
 *   **Initial State:** Points to byte 0 (beginning) when opened (unless in Append mode).
 *   **Automatic Advance:** Reading/Writing $N$ bytes automatically moves the indicator forward by $N$ positions.
@@ -37,6 +38,7 @@ This is the primary function for moving the cursor.
 *   **Return Value:** Returns `0` on success, and a non-zero value on error.
 
 ### Parameters
+
 1.  **`stream`:** The file pointer.
 2.  **`offset`:** A `long` integer specifying how many bytes to move.
     *   **Positive:** Move forward (towards the end of the file).
@@ -51,6 +53,7 @@ This is the primary function for moving the cursor.
 | **`SEEK_END`** | **End of File** | Reverse positioning | `fseek(fp, 0, SEEK_END)`<br>Jump to the very end.<br>`fseek(fp, -10, SEEK_END)`<br>Jump to the 10th byte from the end. |
 
 ### The `rewind` Function
+
 *   **Prototype:** `void rewind(FILE *stream);`
 *   **Function:** Sets the file position indicator to the beginning of the file.
 *   **Equivalence:** It is roughly equivalent to `fseek(stream, 0L, SEEK_SET)`, but it also clears the error indicator for the stream.
@@ -73,9 +76,9 @@ long get_file_size(FILE *fp) {
     if (fseek(fp, 0, SEEK_END) != 0) {
         return -1; // Error handling
     }
-    
+
     long size = ftell(fp);          // 2. Measure
-    
+
     fseek(fp, current_pos, SEEK_SET); // 3. Restore state
     return size;
 }
@@ -86,11 +89,13 @@ long get_file_size(FILE *fp) {
 ## 5. Important Considerations & Limitations
 
 ### Binary vs. Text Mode
+
 *   **Recommendation:** Random access should primarily be used with **Binary Files** (`"rb"`, `"wb"`).
 *   **Text Mode Risk:** On Windows, the translation between `\n` (memory) and `\r\n` (disk) breaks the mapping between logical bytes and physical bytes.
     *   *Result:* `fseek` might land in the middle of a CR/LF pair, or `ftell` might report a value that doesn't correspond to the physical file size.
 
 ### The 2GB Limit
+
 *   **Data Type:** `fseek` and `ftell` use `long` for offsets. On many 32-bit systems (and Windows), `long` is a 32-bit signed integer.
 *   **Limit:** This limits addressable file sizes to $2^{31}-1$ bytes (approx. **2 Gigabytes**).
 *   **Solution:** For large files (Large File Support - LFS), use system-specific 64-bit alternatives (e.g., `_fseeki64` on Windows or `fseeko` on Linux with correct compilation flags).
