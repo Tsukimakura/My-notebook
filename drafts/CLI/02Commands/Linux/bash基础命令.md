@@ -156,7 +156,6 @@ for file in *.txt; do mv "$file" "backup_$file"; done
 curl -O http://example.com/file.tar.gz && tar -xzf file.tar.gz
 ```
 
-
 ## 使用提示
 
 1. **使用 Tab 补全** - 减少输入错误

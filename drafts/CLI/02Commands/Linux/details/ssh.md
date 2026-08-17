@@ -149,7 +149,6 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])?
 
 - **密钥认证**：使用公钥/私钥对，无需密码
 
-
 ### 3. 连接成功
 
 成功连接后，你会看到远程服务器的命令提示符：

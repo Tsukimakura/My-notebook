@@ -14,7 +14,6 @@ To achieve stability, we cannot simply overwrite the original array. We must use
 
 3. **Reverse Traversal & Map:** Loop through the original array from **tail to head** and place elements into a new **Output Array** based on the Prefix Sum.
 
-
 ---
 
 ## 2. Deep Dive: Why Prefix Sums?
@@ -25,7 +24,6 @@ The Prefix Sum transforms the data from "Quantity" to "Location".
 
 - **Prefix Sum:** "The `5`s occupy indices ending at index 10."
 
-
 **Why Reverse Traversal?**
 
 - Because the Prefix Sum indicates the **last** available slot for a number.
@@ -33,7 +31,6 @@ The Prefix Sum transforms the data from "Quantity" to "Location".
 - By reading the original array from right to left (end to start), the first instance of a duplicate number we encounter is naturally placed in that "last" slot.
 
 - We then decrement the slot index (`count[val]--`), reserving the previous slot for the next instance of that number.
-
 
 ---
 
@@ -111,13 +108,11 @@ void stableHashSort(int arr[], int n) {
 
 - It is strictly linear if $K$ is close to $N$.
 
-
 ### Space Complexity (The Trade-off)
 
 - **Total:** $O(N+K)$
 
 - The unstable version only needed $O(K)$.
-
 
 ### When to Use?
 

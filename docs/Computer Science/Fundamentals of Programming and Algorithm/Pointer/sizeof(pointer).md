@@ -28,7 +28,6 @@ It is important to note that sizeof(pointer) is determined by how you **compi
 
     - Maximum RAM access: Limited to 4GB.
 
-
 The **Operating System** and the **Compiler** agree on a "Data Model" (often called the ABI - Application Binary Interface). This model tells the program: "We are going to pretend the world is only 32-bits wide," or "We are going to use the full 64-bit width."
 
 ## 3. More

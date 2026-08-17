@@ -8,7 +8,6 @@
 
 - It measures the **number of operations** (growth rate) relative to the input size ($N$).
 
-
 ## 2. The Notation: Big O ($O$)
 
 We uses **Big O Notation** to describe the **Worst-Case Scenario** (the upper bound).

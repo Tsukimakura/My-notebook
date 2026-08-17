@@ -34,7 +34,6 @@ Understanding base conversion is essential for programming, digital logic, and l
 
 5. The result is the remainders **read in reverse order**.
 
-
 ### **Example: Convert 45₁₀ → Binary**
 
 `45 ÷ 2 = 22 R 1   22 ÷ 2 = 11 R 0   11 ÷ 2 = 5  R 1   5  ÷ 2 = 2  R 1   2  ÷ 2 = 1  R 0   1  ÷ 2 = 0  R 1`
@@ -53,7 +52,6 @@ Binary = **101101₂**
 
 4. Continue until fraction becomes 0 (or precision limit reached).
 
-
 ### **Example: Convert 0.625₁₀ → Binary**
 
 `0.625 × 2 = 1.25   → 1   0.25  × 2 = 0.5    → 0   0.5   × 2 = 1.0    → 1`
@@ -69,7 +67,6 @@ Binary fraction = **0.101₂**
 - **Binary → Octal**: group **3 bits** from right to left.
 
 - **Binary → Hexadecimal**: group **4 bits**.
-
 
 Add leading zeros if necessary.
 
@@ -187,11 +184,9 @@ Example: Convert 57₈ → Hex
 1. 5 → 101
     7 → 111
 
-
 → 101111₂
 
 1. Group into 4 bits: 0010 1111
-
 
 → 2F₁₆
 
@@ -207,7 +202,6 @@ Example: Convert 57₈ → Hex
 
 3. Add 1.
 
-
 ### **Example: Represent −5 in 8-bit two’s complement**
 
 1. +5 = 0000 0101
@@ -215,7 +209,6 @@ Example: Convert 57₈ → Hex
 2. Invert → 1111 1010
 
 3. Add 1 → **1111 1011₂**
-
 
 - by this way a signed integer can be calculated by the same way as unsigned integers.
 
@@ -273,7 +266,6 @@ In C, the base (radix) of an integer literal is determined **solely by its textu
 
 - Digits: `0–9`.
 
-
 **Examples:**
 
 `123 42 2025`
@@ -287,7 +279,6 @@ In C, the base (radix) of an integer literal is determined **solely by its textu
 - Start with a leading `0`.
 
 - Digits must be `0–7`.
-
 
 **Examples:**
 
@@ -307,7 +298,6 @@ In C, the base (radix) of an integer literal is determined **solely by its textu
 
 - Digits: `0–9`, `a–f`, `A–F`.
 
-
 **Examples:**
 
 `0xFF 0X1a3 0x7B`
@@ -324,7 +314,6 @@ They are supported starting from **C23**, and also by many compilers as extensio
 - Start with `0b` or `0B`.
 
 - Digits: `0` or `1`.
-
 
 **Examples:**
 

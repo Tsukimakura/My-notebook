@@ -10,7 +10,6 @@ Each time, compare the target with the middle element:
 
 3. If the target is **larger** → search the **right half**.
 
-
 This halves the search range every step → **O(log n)** time complexity.
 
 ## Important condition

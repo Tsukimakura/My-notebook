@@ -10,7 +10,6 @@ Historically, the names come from the assignment operator (=):
 
 - **R-value:** An expression that can only appear on the **R**ight side of an assignment.
 
-
 ```text
 L-value=R-value;L-value=R-value;
 ```
@@ -27,7 +26,6 @@ An **lvalue** refers to an object that persists in memory and occupies an iden
 
 - **Usage:** It designates a storage region so the program can save data there.
 
-
 ### Examples of L-values:
 
 - **Variables:** int x; (x is an lvalue).
@@ -35,7 +33,6 @@ An **lvalue** refers to an object that persists in memory and occupies an iden
 - **Array elements:** arr[0] is an lvalue.
 
 - **Dereferenced pointers:** *ptr is an lvalue (it points to a location).
-
 
 > **Note on Modifiability:**
 > Not all lvalues can be modified. A const variable is an lvalue (it has a memory address), but it is a **non-modifiable lvalue**. You cannot assign a new value to it, but you can still take its address.
@@ -52,7 +49,6 @@ An **rvalue** is a temporary value that does not persist in memory beyond the 
 
 - **Usage:** It provides the data to be stored in an lvalue.
 
-
 ### Examples of R-values:
 
 - **Literals:** 5, 'a', "hello" (string literals are a special exception, but treat numbers as rvalues).
@@ -60,7 +56,6 @@ An **rvalue** is a temporary value that does not persist in memory beyond the 
 - **Math results:** x + 5 (the result is temporary).
 
 - **Function returns:** sqrt(4.0) returns a value, not a memory location.
-
 
 ---
 

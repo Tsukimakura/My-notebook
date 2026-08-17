@@ -8,7 +8,6 @@ The fundamental difference between a declaration and a definition lies in whethe
 
 - **Definition:** Tells the compiler to **create** the entity. It **allocates memory** (storage) for variables or generates machine code for functions.
 
-
 > **The Golden Rule:**
 >
 > - No Memory Reserved = **Declaration**
@@ -35,7 +34,6 @@ struct Student {
 
 - **Explanation:** This code describes the **layout** and **size** of the data type. It informs the compiler what a Student looks like. However, **no memory is reserved** on the stack or heap because no actual student object exists yet.
 
-
 ### B. Structure Variable Definition (The Object)
 
 ```c
@@ -45,7 +43,6 @@ struct Student student1;
 - **Classification:** **Definition**.
 
 - **Explanation:** This code instructs the system to allocate actual bytes of memory (e.g., 54 bytes) to store the variable student1.
-
 
 ---
 
@@ -81,7 +78,6 @@ struct Student student1;
 - **Definitions:** Must appear **exactly once** in the entire program scope.
 
     - Linker Error: If you define int count; in a header file and include it in two source files, the linker will fail (multiple definition of 'count') because it tries to allocate memory at the same address twice.
-
 
 ## 5. Summary Analogy
 

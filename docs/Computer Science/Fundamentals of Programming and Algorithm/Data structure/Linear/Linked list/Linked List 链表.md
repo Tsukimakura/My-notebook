@@ -16,7 +16,6 @@ A **Linked List** is a linear data structure where elements are not stored at 
 
 - **Memory:** Unlike arrays, linked lists can grow and shrink dynamically at runtime, utilizing memory wherever it is available (Heap memory).
 
-
 ### Key Terminology
 
 - **Singly Linked List:** Nodes allow traversal in one direction (forward).
@@ -24,7 +23,6 @@ A **Linked List** is a linear data structure where elements are not stored at 
 - **Doubly Linked List:** Nodes contain two pointers (prev and next), allowing traversal in both directions.
 
 - **Circular Linked List:** The last node points back to the head instead of NULL.
-
 
 ---
 
@@ -40,7 +38,6 @@ A **Linked List** is a linear data structure where elements are not stored at 
 
 5. **traverse()**: Visit every node to print or process data.
 
-
 ---
 
 ## 3. Implementation in C Language
@@ -50,7 +47,6 @@ Below is an implementation of a **Singly Linked List**.
 - **Logic:** We use a struct Node.
 
 - **Pointers:** Functions receive Node** head_ref (pointer to the head pointer) so they can modify the actual head of the list in the main function.
-
 
 ```c
 #include <stdio.h>
@@ -185,7 +181,6 @@ Linked Lists are preferred when the number of elements is not known in advance o
 
 4. **Music Playlist:** Playing the next or previous song.
 
-
 ---
 
 ## 5. Important Analysis
@@ -207,13 +202,11 @@ Linked Lists are preferred when the number of elements is not known in advance o
 
     : However, Linked Lists use **more memory per element** than arrays because they must store the data plus the pointer (extra 4 or 8 bytes per node).
 
-
 ### Array vs. Linked List
 
 - **Arrays:** Best for "Read-Heavy" workloads where random access (index-based) is frequent. Fixed size (static) or expensive resizing (dynamic).
 
 - **Linked Lists:** Best for "Write-Heavy" workloads where insertions/deletions at the beginning or middle are frequent. Dynamic size.
-
 
 ---
 

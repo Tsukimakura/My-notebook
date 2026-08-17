@@ -10,7 +10,6 @@
 
 - **空格**：`\,`（小间距）`\;`（中间距）`\quad`（大间距）
 
-
 ---
 
 ## 📊 数学分析常用符号
@@ -263,7 +262,6 @@ $\oplus$  % 直和符号
 % Kronecker积
 $A \otimes B$  % 注意：也是⊗，根据上下文理解
 
-
 ### 7.常用集合符号
 
 #### 1. **基本符号**
@@ -319,7 +317,6 @@ latex
 \mathbb{R}    % ℝ 实数集
 \mathbb{C}    % ℂ 复数集
 
-
 ## 重要说明
 
 1. **需要宏包**：
@@ -353,53 +350,52 @@ latex
 
 latex
 
-\[
+$$
 f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n
-\]
+$$
 
-\[
+$$
 \lim_{x \to 0} \frac{\sin x}{x} = 1
-\]
+$$
 
-\[
+$$
 \frac{d}{dx} \int_{a}^{x} f(t) dt = f(x)
-\]
+$$
 
-\[
+$$
 \nabla \cdot \mathbf{F} = \frac{\partial F_x}{\partial x} + \frac{\partial F_y}{\partial y} + \frac{\partial F_z}{\partial z}
-\]
+$$
 
 ### 线性代数示例
 
 latex
 
-\[
+$$
 A = \begin{pmatrix}
 a_{11} & a_{12} & \cdots & a_{1n} \\
 a_{21} & a_{22} & \cdots & a_{2n} \\
 \vdots & \vdots & \ddots & \vdots \\
 a_{m1} & a_{m2} & \cdots & a_{mn}
 \end{pmatrix}
-\]
+$$
 
-\[
+$$
 \det(A - \lambda I) = 0
-\]
+$$
 
-\[
+$$
 \mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}
-\]
+$$
 
-\[
+$$
 \| \mathbf{x} \|_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
-\]
+$$
 
 ---
 
 ## 💡 实用技巧
 
 1. **自动编号公式**：
-
 
 latex
 
@@ -408,7 +404,6 @@ e^{i\pi} + 1 = 0
 \end{equation}
 
 1. **多行公式对齐**：
-
 
 latex
 
@@ -419,14 +414,12 @@ f(x) &= (x+1)^2 \\
 
 1. **括号自适应大小**：
 
-
 latex
 
 \left( \frac{1}{1 + \frac{1}{x}} \right)
 \big( \Big( \bigg( \Bigg(
 
 1. **分段函数**：
-
 
 latex
 
@@ -436,7 +429,6 @@ x^2 & \text{if } x \geq 0 \\
 \end{cases}
 
 1. **上下标组合**：
-
 
 latex
 

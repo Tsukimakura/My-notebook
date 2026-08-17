@@ -11,9 +11,9 @@ The IEEE 754 Standard is the universal convention used by modern computers to re
 
 Any floating-point number $V$ is encoded by breaking it down into three non-continuous components based on the formula:
 
-\[
+$$
  V = (-1)^S \times (1.M) \times 2^{(E - Bias)}
-\]
+$$
 
 ### A. The Sign Bit ($S$)
 

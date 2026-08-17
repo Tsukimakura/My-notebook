@@ -10,7 +10,6 @@
 
 - **Unstable Sort Result:** `[ 1, 2(B), 2(A) ]` (The order flipped).
 
-
 ## 2. Why Does It Matter?
 
 It matters when sorting **objects** with multiple fields, not just simple integers.
@@ -23,13 +22,11 @@ Original List (Sorted by Name):
 
 2. {80, **Bob**}
 
-
 If we now sort by **Grade**:
 
 - **Stable Sort:** Alice remains before Bob (Original name order is kept).
 
 - **Unstable Sort:** Bob might jump before Alice. The alphabetical work you did previously is destroyed.
-
 
 ## 3. Algorithm Classification
 

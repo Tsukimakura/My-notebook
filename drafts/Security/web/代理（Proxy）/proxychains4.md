@@ -45,7 +45,6 @@ sudo make install
 
 - `~/.proxychains/proxychains.conf`
 
-
 ### 创建自定义配置文件：
 
 ```bash
@@ -94,7 +93,6 @@ proxychains4 -f /home/user/my_proxy.conf nmap target.com
 
 - `-v`：详细模式
 
-
 ## 配置详解
 
 ### 代理链模式
@@ -124,7 +122,6 @@ proxychains4 -f /home/user/my_proxy.conf nmap target.com
 
     - `chain_len` 指定使用的代理数量
 
-
 ### 代理类型语法
 
 ```text
@@ -137,7 +134,6 @@ type host port [user pass]
 - `socks4` - SOCKS4 代理
 
 - `socks5` - SOCKS5 代理
-
 
 **示例：**
 
@@ -322,7 +318,6 @@ main "$@"
 3. **敏感信息**：如果配置中包含密码，确保文件安全
 
 4. **日志记录**：注意 proxychains 可能会在系统日志中留下记录
-
 
 ## 性能优化
 

@@ -20,17 +20,17 @@ Arithmetic operations (addition, multiplication) propagate carries from lower to
 **Principle:** Simulation of columnar addition (vertical addition).
 Given two large integers $A$ and $B$:
 
-\[
+$$
 C_i = A_i + B_i + \text{carry}
-\]
+$$
 
-\[
+$$
 Result_i = C_i \pmod{10}
-\]
+$$
 
-\[
+$$
 \text{New Carry} = \lfloor C_i / 10 \rfloor
-\]
+$$
 
 **Implementation Logic:**
 1. Iterate from $i = 0$ to $\max(len_A, len_B)$.
@@ -46,9 +46,9 @@ The product of digit $A[i]$ and $B[j]$ contributes to the position $C[i+j]$.
 
 **Mathematical relation:**
 
-\[
+$$
 C_{i+j} = C_{i+j} + (A_i \times B_j)
-\]
+$$
 
 **Implementation Logic:**
 1. Initialize result array $C$ to 0.

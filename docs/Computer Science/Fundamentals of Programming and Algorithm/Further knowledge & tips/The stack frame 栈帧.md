@@ -10,7 +10,6 @@ A **Stack Frame** is a temporary, private workspace in memory allocated for a�
 
 - **Location:** Resides in the **Stack Segment**.
 
-
 ## **2. Anatomy (High Address -> Low Address)**
 
 A typical stack frame consists of four layers. The frame is bounded by two CPU registers: **EBP** (top/anchor) and **ESP** (bottom).
@@ -27,7 +26,6 @@ A typical stack frame consists of four layers. The frame is bounded by two CPU r
 - **EBP (Base Pointer):** The **Anchor**. It remains fixed during the function execution. Used to access locals (e.g., EBP - 4) and arguments (e.g., EBP + 8).
 
 - **ESP (Stack Pointer):** The **Moving Top**. It changes as data is pushed/popped or as memory is allocated for locals.
-
 
 ## **4. Lifecycle (Assembly View)**
 

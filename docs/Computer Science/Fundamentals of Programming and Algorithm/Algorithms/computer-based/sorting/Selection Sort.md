@@ -14,7 +14,6 @@ For an array of size `n`:
 
 4. Repeat until the array is sorted
 
-
 ## Time complexity
 
 - **O(n²)** comparisons

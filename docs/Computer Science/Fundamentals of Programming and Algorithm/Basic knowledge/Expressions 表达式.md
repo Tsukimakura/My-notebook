@@ -122,7 +122,6 @@ i++;        // Post-increment expression used as a statement.
 ;           // Null statement (empty expression).
 ```
 
-
 ## 6. Operators
 
 Operators are special symbols that perform operations on operands(操作数) (variables, constants).

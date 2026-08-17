@@ -24,7 +24,6 @@ int main()
 最终输出c的值是2没有改变。
 本题考查C语言中else与if的配对规则：在C语言中，**else总是与同一作用域内最近的、尚未匹配的if语句匹配**。这个规则被称为"**最近匹配原则**"或"**dangling else问题**"的解决方案。
 
-
 1. **Among the following statements which intend to define arrays, which one is wrong?**
 
     	A. `int x[2][]={1,2,4,6}`;
@@ -130,7 +129,6 @@ printf("a=%d,b=%d\n",a,b);
     	C p 只是一个一级字符指针，不能进行两次 `[]` 运算，会编译错误.
 
     	D 先算 `++p` 得到 `&s[0][1]` ，再解引用，得到 `'b'` ，最后 `+2` 得到 `'d'` 正确.
-
 
 5. **The following code fragment will output `_____`.**
 ```c

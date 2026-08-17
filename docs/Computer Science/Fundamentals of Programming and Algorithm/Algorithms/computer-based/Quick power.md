@@ -6,18 +6,18 @@ The algorithm leverages the **binary representation** of the exponent $n$ to com
 
 **Binary Decomposition:**
 
-\[
+$$
 x^n = x^{(b_k 2^k + \dots + b_0 2^0)} = \prod_{i=0}^{k} (x^{2^i})^{b_i}
-\]
+$$
 
 Where $b_i \in \{0, 1\}$ is the $i$-th bit of $n$.
 
 **Modular Property (Multiplication Rule):**
 To compute large numbers without overflow, the modulo operator is applied at each multiplication step based on the property:
 
-\[
+$$
 (a \cdot b) \pmod m = [(a \pmod m) \cdot (b \pmod m)] \pmod m
-\]
+$$
 
 This ensures intermediate results never exceed $m^2$, fitting within standard integer types (e.g., `long long`) provided $m < 2^{31}$.
 
@@ -26,9 +26,9 @@ This ensures intermediate results never exceed $m^2$, fitting within standard in
 1. **Initialize:** Set `result = 1`. Pre-reduce `base` ($base \leftarrow base \pmod m$).
 2. **Loop:** While exponent `n > 0`:
     *   **Check LSB:** If `n` is odd (`n & 1`), update result:
-        \(result \leftarrow (result \cdot base) \pmod m\)
+        $result \leftarrow (result \cdot base) \pmod m$
     *   **Square Base:** Square the base for the next bit position:
-        \(base \leftarrow (base \cdot base) \pmod m\)
+        $base \leftarrow (base \cdot base) \pmod m$
     *   **Shift:** Right shift `n` by 1.
 3. **Return:** The final `result`.
 

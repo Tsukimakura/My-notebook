@@ -36,7 +36,6 @@
 
 - **等价函数替换**：不同数据库的相似函数
 
-
 ---
 
 ## 📊 命令行输出内容详解
@@ -69,7 +68,6 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 
 - **注意**：识别WAF有助于调整攻击策略
 
-
 ### 3. **注入测试段**
 
 ```text
@@ -83,7 +81,6 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 
 - **进度指示**：显示当前测试阶段
 
-
 ### 4. **漏洞发现段**
 
 ```text
@@ -94,7 +91,6 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 - **重要性**：⭐⭐⭐⭐⭐
 
 - **关键信息**：参数名、数据库类型、注入技术
-
 
 ### 5. **数据库指纹段**
 
@@ -109,7 +105,6 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 - **重要性**：⭐⭐⭐⭐☆
 
 - **用途**：确定后续利用的payload
-
 
 ### 6. **数据提取段**
 
@@ -127,7 +122,6 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 
 - **关键数据**：数据库名、表名、列名、数据记录
 
-
 ### 7. **文件操作段**
 
 ```text
@@ -139,7 +133,6 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 - **重要性**：⭐⭐⭐⭐⭐
 
 - **风险等级**：高危操作
-
 
 ---
 
@@ -156,7 +149,6 @@ sqlmap -u "http://example.com/page.php?id=1" --batch
 - **🟣 紫色/CRITICAL**：关键信息、重要发现
 
 - **🔵 蓝色/PAYLOAD**：发送的payload详情
-
 
 ### 常见状态符号：
 
@@ -247,7 +239,6 @@ www-data
 
 - **风险等级**：极高
 
-
 ### 2. **WAF 绕过**
 
 ```text
@@ -258,7 +249,6 @@ www-data
 - **含义**：识别WAF并使用篡改脚本绕过
 
 - **技术要点**：自动调整策略应对防护
-
 
 ### 3. **性能优化信息**
 

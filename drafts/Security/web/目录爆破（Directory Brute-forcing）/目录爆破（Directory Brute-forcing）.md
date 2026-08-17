@@ -12,7 +12,6 @@
 
 - **扩大攻击面**：为后续攻击提供更多目标
 
-
 ## 为什么需要目录爆破？
 
 ### 1. 发现隐藏资源
@@ -27,7 +26,6 @@
 
 - 测试页面 (`/test`, `/dev`)
 
-
 ### 2. 信息收集
 
 - API端点 (`/api/v1/users`)
@@ -35,7 +33,6 @@
 - 日志文件 (`/logs`, `/access.log`)
 
 - 源代码 (`/.git`, `/src`)
-
 
 ### 3. CTF和渗透测试
 
@@ -77,7 +74,6 @@ dirbuster
 
 - 可以导入自定义字典
 
-
 ### 2. Gobuster（命令行，推荐）
 
 ```bash
@@ -94,7 +90,6 @@ gobuster dir -u http://target.com -w wordlist.txt -x php,html,txt -t 50
 - 支持多种扩展名
 
 - 结果输出清晰
-
 
 ### 3. Dirsearch（命令行）
 
@@ -113,7 +108,6 @@ python3 dirsearch.py -u http://target.com -w wordlist.txt -e php,html -t 30
 
 - 报告格式多样
 
-
 ### 4. FFuf（命令行）
 
 ```bash
@@ -131,7 +125,6 @@ ffuf -u http://target.com/FUZZ -w wordlist.txt -e .php,.html -mc 200,301,302
 
 - 支持多种模糊测试
 
-
 ## 字典文件详解
 
 ### 常用字典类型：
@@ -144,7 +137,6 @@ ffuf -u http://target.com/FUZZ -w wordlist.txt -e .php,.html -mc 200,301,302
 
 - **big.txt** - 更全面的列表
 
-
 #### 2. 技术特定字典
 
 - **CMS相关**：WordPress、Joomla、Drupal专用
@@ -152,7 +144,6 @@ ffuf -u http://target.com/FUZZ -w wordlist.txt -e .php,.html -mc 200,301,302
 - **框架相关**：Laravel、Django、Rails专用
 
 - **API相关**：REST API端点
-
 
 #### 3. 自定义字典
 
@@ -296,7 +287,6 @@ proxychains4 -f proxy.conf python3 dirsearch.py -u http://192.168.192.8:10822/ -
 
 - `/api/flag`
 
-
 ## 防御措施
 
 ### 如何防护目录爆破：
@@ -310,7 +300,6 @@ proxychains4 -f proxy.conf python3 dirsearch.py -u http://192.168.192.8:10822/ -
 4. **监控日志**：检测扫描行为
 
 5. **最小化暴露**：删除不必要的文件
-
 
 ### 检测扫描行为：
 
@@ -331,7 +320,6 @@ tail -f access.log | grep -E "(admin|backup|config|\.git)"
 3. **遵守规则**：只在授权范围内测试
 
 4. **记录结果**：保存扫描结果供后续分析
-
 
 ### 工具选择建议：
 

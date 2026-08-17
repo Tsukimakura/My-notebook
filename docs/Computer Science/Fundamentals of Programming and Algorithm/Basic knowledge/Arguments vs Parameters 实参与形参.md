@@ -1,6 +1,5 @@
 # Arguments vs Parameters 实参与形参
 
-
 Here is an explanation of the relationship between arguments and parameters in C, and how pointers bridge the gap between them to allow for more powerful data manipulation.
 
 ---
@@ -12,7 +11,6 @@ In C, these two terms are often used interchangeably, but there is a distinct te
 - **Parameters (Formal Parameters):** These are the variables listed in the **function definition**. They act as placeholders or local variables within that function.
 
 - **Arguments (Actual Parameters):** These are the real values or variables you pass to the function when you **call** it.
-
 
 ### The Relationship: "Pass by Value"
 
@@ -66,7 +64,6 @@ This is where **Pointers** come in. To modify the original data, we don't pass
 2. **The Parameter:** The function is defined to accept a **pointer** (int *p). A pointer is simply a variable designed to store an address.
 
 3. **The Relationship:** The value being copied is the **memory address**.
-
 
 Because the parameter now holds the location of the original argument, we can use the **dereference operator (*)** to travel to that address and modify the original data.
 

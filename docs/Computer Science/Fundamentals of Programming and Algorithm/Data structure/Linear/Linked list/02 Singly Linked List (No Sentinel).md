@@ -116,7 +116,6 @@ Now `head` is safe (either NULL or not the key). We use `prev` and `curr`.
     1. Move `prev` to `curr`.
     2. Move `curr` to `curr->next`.
 
-
 	```c
 	void deleteAll(Node** headRef, int key) {
     // 1. Handle the head node(s)
@@ -150,7 +149,6 @@ Now `head` is safe (either NULL or not the key). We use `prev` and `curr`.
     }
 }
 	```
-
 
 ---
 

@@ -40,7 +40,6 @@ but this is **not valid in standard C** and should be avoided.
 
 - Always ≥ 1 (the first argument is the program name).
 
-
 ### **`argv`**
 
 - Stands for **argument vector**.
@@ -50,7 +49,6 @@ but this is **not valid in standard C** and should be avoided.
 - `argv[0]` = program name
 
 - `argv[1]` ~ `argv[argc-1]` = user-provided arguments
-
 
 ---
 
@@ -67,7 +65,6 @@ Returning a value from `main` reports the program’s execution status to the op
 - `return 0;` — program finished successfully
 
 - `return 1;` — program ended with an error (custom meaning)
-
 
 If you omit `return 0;` in C99 or later, the compiler **automatically inserts it**.
 
@@ -109,7 +106,6 @@ int main(int argc, char *argv[]) {
 - Program execution always begins at the first statement inside `main`.
 
 - Returning an integer communicates status to the operating system.
-
 
 ---
 

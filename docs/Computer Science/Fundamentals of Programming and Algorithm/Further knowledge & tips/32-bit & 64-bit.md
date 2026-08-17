@@ -16,7 +16,6 @@ When 32-bit systems (like the Intel 80386 and later Pentium series) became stand
 
 - The limit of 4,294,967,296 bytes (4 GB) felt unattainable.
 
-
 ### The Crisis (2004–2009)
 
 As software exploded in complexity (3D gaming, video editing, massive databases), applications became "memory hungry."
@@ -24,7 +23,6 @@ As software exploded in complexity (3D gaming, video editing, massive databases)
 - By the mid-2000s, enthusiasts wanted to install 8 GB or 16 GB of RAM to run Windows Vista or Windows 7 smoothly.
 
 - **The Problem:** You could physically plug in 8 GB of RAM, but a 32-bit OS (like Windows XP 32-bit) would ignore everything past the 4 GB mark. It physically couldn't "speak" to those memory sticks.
-
 
 ### The Solution: x86-64 (AMD64)
 
@@ -56,7 +54,6 @@ The CPU has small, ultra-fast storage slots called **Registers** where it does
 
     - Calculation: It can handle massive integers (up to 1.8×pow(10,19)) in a **single clock cycle**. This makes heavy math (encryption, scientific simulation, high-res graphics) significantly faster.
 
-
 ### C. The Data Bus (Throughput) 数据总线
 
 Think of the Data Bus as the highway between the CPU and the RAM.
@@ -66,7 +63,6 @@ Think of the Data Bus as the highway between the CPU and the RAM.
 - **64-bit:** The highway has 64 lanes. The CPU can fetch 8 bytes of data at a time.
 
     - Result: The CPU spends less time waiting for data to arrive from memory.
-
 
 ---
 
@@ -103,7 +99,6 @@ If you are writing C code today, the move to 64-bit brings a specific set of cha
     // On 64-bit, 'ptr' is 8 bytes, 'stored_address' is 4 bytes.
     // You just chopped off half the address! The program will crash.
     ```
-
 
 **Correction for Modern Code:**
 You should use intptr_t (a special type guaranteed to be the same size as a pointer) if you ever need to store an address in an integer variable.

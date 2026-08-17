@@ -38,9 +38,9 @@ Two's Complement was adopted to solve two critical hardware problems found in si
 In Two's Complement, the Most Significant Bit (MSB) acts not just as a sign flag, but as a bit with **negative weight**.
 For an $N$-bit integer $B = b_{n-1} \dots b_0$:
 
-\[
+$$
  Value = -b_{n-1} \cdot 2^{n-1} + \sum_{i=0}^{n-2} b_i \cdot 2^i
-\]
+$$
 
 *   **MSB = 0:** The negative weight is inactive. The number is positive.
 *   **MSB = 1:** The number starts with a massive negative value (e.g., -128 for 8-bit), which is then "filled back up" by the positive weights of the remaining bits.
@@ -51,9 +51,9 @@ For an $N$-bit integer $B = b_{n-1} \dots b_0$:
 *   **Overflow:** Any calculation exceeding $M$ results in the higher bits being physically discarded (hardware truncation).
 *   **Negative Definition:** A negative number $-x$ is mathematically defined as the complement required to complete the cycle:
 
-    \[
+    $$
 -x \equiv (M - x) \pmod M
-    \]
+    $$
 
     *   *Example (8-bit):* $-1$ is represented as $256 - 1 = 255$ (`1111 1111`).
 *   **Calculation Rule:** To find the negative representation: **Invert all bits and add 1**.

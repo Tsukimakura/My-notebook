@@ -10,7 +10,6 @@
 
 - **Input Space:** The space needed to store the input data itself.
 
-
 ## 3. Common Complexity Classes
 
 ### A. $O(1)$
@@ -23,7 +22,6 @@ The algorithm uses a fixed amount of extra memory, regardless of input size.
 
 - Why: They only need a single temporary variable (temp) to swap numbers.
 
-
 ### B. $O(\log N)$
 
  - Logarithmic Space
@@ -32,7 +30,6 @@ Often seen in recursive algorithms. The memory is used by the **Call Stack** (
 
 - **Example:** Quick Sort.
 
-
 ### C. $O(N)$
 
  - Linear Space
@@ -40,7 +37,6 @@ Often seen in recursive algorithms. The memory is used by the **Call Stack** (
 The algorithm creates a copy of the data or a mapping structure.
 
 - **Example:** Merge Sort (needs a helper array to merge); Hash Sort (needs a frequency array).
-
 
 ## 4. The Space-Time Trade-off
 

@@ -13,7 +13,6 @@ A memory leak occurs when memory allocated on the **Heap** (dynamic memory) is
 
 - **Result:** The memory remains marked as "in use" by the OS, but the program no longer has the address (pointer) to access or free it.
 
-
 ## 3. Common Causes in C
 
 ### A. Missing free()
@@ -63,7 +62,6 @@ Since C has no Garbage Collector, tools are essential:
 1. **Valgrind (Memcheck):** The gold standard for Linux. Runs the program in a virtual environment to track every byte allocated and freed.
 
 2. **AddressSanitizer (ASan):** A compiler feature (GCC/Clang). Use flag -fsanitize=address to detect leaks at runtime with low overhead.
-
 
 ## 5. Prevention Strategies
 

@@ -6,7 +6,6 @@ A **Queue** is a linear data structure that works on the **FIFO (First In, Fi
 
 - **FIFO Principle:** The first element added to the queue will be the first one to be removed.
 
-
 ### Key Terminology
 
 - **Front:** The index of the element to be removed next.
@@ -20,7 +19,6 @@ A **Queue** is a linear data structure that works on the **FIFO (First In, Fi
 - **Overflow:** Trying to enqueue into a full queue.
 
 - **Underflow:** Trying to dequeue from an empty queue.
-
 
 ---
 
@@ -36,7 +34,6 @@ A **Queue** is a linear data structure that works on the **FIFO (First In, Fi
 
 5. **isFull()**: Check if the queue has no space left (logic differs by implementation).
 
-
 ---
 
 ## 3. Implementation in C Language
@@ -50,7 +47,6 @@ We define a structure that can be used for both implementations.
 - **rear**: Points to the **next available** empty slot.
 
 - **No count variable**: State is determined solely by pointer comparison.
-
 
 ```c
 #include <stdio.h>
@@ -83,7 +79,6 @@ bool isEmpty(Queue *q) {
 In a standard array-based queue, we simply increment indices.
 
 - **Problem:** Does not reuse freed space at the beginning ("False Overflow").
-
 
 ```c
 // --- Standard Linear Queue Logic ---
@@ -121,7 +116,6 @@ To solve the space waste of Linear Queues, we wrap the indices. To distinguish "
 - **Empty:** front == rear
 
 - **Full:** (rear + 1) % MAX == front (The next position after rear is front).
-
 
 ```c
 // --- Circular Queue Logic (Key Differences) ---
@@ -195,7 +189,6 @@ int main() {
 
 4. **Printer Spooling:** Managing print jobs in order.
 
-
 ---
 
 ## 5. Important Analysis
@@ -204,11 +197,9 @@ int main() {
 
 - **Enqueue/Dequeue/Peek:** $O(1)$ constant time.
 
-
 ### Space Complexity
 
 - $O(N)$: Linear space.
-
 
 ### The "Sacrifice One Slot" Method
 
@@ -219,7 +210,6 @@ In a Circular Queue without a count variable:
 - **Solution:** We decide that the queue is "Full" when rear is one step behind front.
 
 - **Trade-off:** We lose capacity for 1 element (Usable size = MAX - 1), but we save the memory and maintenance of a separate count variable.
-
 
 | State     | Condition                 |
 | --------- | ------------------------- |

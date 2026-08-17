@@ -6,7 +6,6 @@ Pointer comparison evaluates the **memory addresses** held by the pointers, no
 
 - **Result:** In C, comparison operators return an int: 1 for **true** and 0 for **false**.
 
-
 ### **2. Equality Operators (`==, !=`)**
 
 - **Purpose:** To check if two pointers point to the exact same memory location (or if both are NULL).
@@ -25,7 +24,6 @@ Pointer comparison evaluates the **memory addresses** held by the pointers, no
 
     - Any pointer and NULL.
 
-
 ### **3. Relational Operators (<, >, <=, >=)**
 
 - **Purpose:** To determine the order of pointers in memory (lower address vs. higher address).
@@ -40,7 +38,6 @@ Pointer comparison evaluates the **memory addresses** held by the pointers, no
 
     - **Undefined Behavior:** Comparing pointers to completely unrelated variables (e.g., two different int variables declared separately) is undefined and unsafe, even if it compiles.
 
-
 ### **4. Checking for NULL**
 
 - **NULL Macro:** Represents a null pointer constant (defined in <stddef.h>, <stdio.h>, etc.).
@@ -53,13 +50,11 @@ Pointer comparison evaluates the **memory addresses** held by the pointers, no
 
     - Implicit: if (ptr) (Checks if pointer is NOT NULL)
 
-
 ### **5. Important Constraints**
 
 - **Type Mismatch:** Comparing incompatible pointer types (e.g., int* vs char*) generally causes a compiler warning and is unsafe without explicit casting.
 
 - **Struct Padding:** Be careful when comparing pointers within structures; while struct members increase in address order, there may be padding bytes between them.
-
 
 ## **Quick Summary Table**
 

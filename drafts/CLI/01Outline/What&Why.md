@@ -12,7 +12,6 @@ Think of CLI as having a **direct conversation with your computer** using a sp
 
 - **CLI**: Like **telling your smart assistant** exactly what you want
 
-
 ## Key Characteristics
 
 |Aspect|Description|
@@ -38,7 +37,6 @@ Think of CLI as having a **direct conversation with your computer** using a sp
 
 - **Powerful Tools**: Access advanced features not available in GUI
 
-
 ### Common Use Cases:
 
 - **Software Development** (Git, package managers)
@@ -50,7 +48,6 @@ Think of CLI as having a **direct conversation with your computer** using a sp
 - **Network Troubleshooting** (ping, traceroute)
 
 - **Automation Scripts** (scheduled tasks)
-
 
 ## CLI Across Different Systems
 

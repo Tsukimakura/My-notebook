@@ -11,7 +11,6 @@ Encodings specify:
 
 - The **byte representation** used when storing/transmitting text
 
-
 Without a consistent encoding, text may appear corrupted (mojibake), especially when mixing languages.
 
 ---
@@ -28,7 +27,6 @@ Without a consistent encoding, text may appear corrupted (mojibake), especially 
 
 - The earliest widely adopted encoding (1960s)
 
-
 **Usage scenario:**
 
 - Early computing and networking protocols
@@ -36,7 +34,6 @@ Without a consistent encoding, text may appear corrupted (mojibake), especially 
 - Modern systems still keep ASCII as a **subset** of Unicode
 
 - Suitable for English-only environments
-
 
 ---
 
@@ -52,7 +49,6 @@ Examples: **ISO-8859-1 (Latin-1)**, ISO-8859-15, Windows-1252
 
 - Different regions use different variants
 
-
 **Usage scenario:**
 
 - Older Western European systems and documents
@@ -60,7 +56,6 @@ Examples: **ISO-8859-1 (Latin-1)**, ISO-8859-15, Windows-1252
 - Legacy software
 
 - Email, early Web content before Unicode adoption
-
 
 ---
 
@@ -72,20 +67,17 @@ Examples: **ISO-8859-1 (Latin-1)**, ISO-8859-15, Windows-1252
 
 - Few thousand characters
 
-
 ### **GBK**
 
 - Extension of GB2312
 
 - Supports simplified + traditional Chinese
 
-
 ### **GB18030**
 
 - The mandatory Chinese encoding standard
 
 - Covers all Unicode characters
-
 
 **Usage scenarios:**
 
@@ -94,7 +86,6 @@ Examples: **ISO-8859-1 (Latin-1)**, ISO-8859-15, Windows-1252
 - Modern Chinese applications are required to support **GB18030**
 
 - Legacy documents and websites in China may still use these encodings
-
 
 ---
 
@@ -106,7 +97,6 @@ Examples: **ISO-8859-1 (Latin-1)**, ISO-8859-15, Windows-1252
 
 - Variable-length encodings
 
-
 **Usage scenarios:**
 
 - Japanese Windows systems (Shift-JIS)
@@ -114,7 +104,6 @@ Examples: **ISO-8859-1 (Latin-1)**, ISO-8859-15, Windows-1252
 - Older Unix/Linux in Japan (EUC-JP)
 
 - Legacy Japanese websites and applications
-
 
 ---
 
@@ -138,7 +127,6 @@ Unicode itself does not specify the storage format — that’s the role of **UT
 
 - Handles all languages efficiently
 
-
 **Usage scenarios:**
 
 - The modern Web (HTML, JSON, XML)
@@ -148,7 +136,6 @@ Unicode itself does not specify the storage format — that’s the role of **UT
 - Linux systems default to UTF-8
 
 - Cross-platform applications
-
 
 ---
 
@@ -162,7 +149,6 @@ Unicode itself does not specify the storage format — that’s the role of **UT
 
 - BOM (Byte Order Mark) sometimes required
 
-
 **Usage scenarios:**
 
 - Windows internal encoding (UTF-16 LE)
@@ -170,7 +156,6 @@ Unicode itself does not specify the storage format — that’s the role of **UT
 - Java and JavaScript string representation
 
 - Some large databases and enterprise systems
-
 
 ---
 
@@ -182,7 +167,6 @@ Unicode itself does not specify the storage format — that’s the role of **UT
 
 - Very simple mapping (1 code point = 1 integer)
 
-
 **Usage scenarios:**
 
 - Internal text processing
@@ -190,7 +174,6 @@ Unicode itself does not specify the storage format — that’s the role of **UT
 - Academic or specialized applications where fast indexing matters
 
 - Rarely used for storage or transmission due to size
-
 
 ---
 

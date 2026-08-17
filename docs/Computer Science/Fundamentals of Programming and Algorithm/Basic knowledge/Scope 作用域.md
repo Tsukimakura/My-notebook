@@ -30,7 +30,6 @@
     }
     ```
 
-
 **B. File Scope (Global Scope)**
 
 - **Definition:** Variables declared **outside** of all functions (usually at the top of the file).
@@ -39,13 +38,11 @@
 
 - **Lifetime:** Exists for the entire duration of the program.
 
-
 **C. Function Scope**
 
 - **Specific Case:** Applies **only to Labels** (used with goto).
 
 - **Rule:** A label is visible throughout the entire function, regardless of which block it is in.
-
 
 **D. Function Prototype Scope**
 
@@ -56,7 +53,6 @@
     ```c
     void myFunc(int a, int b); // 'a' and 'b' have prototype scope here
     ```
-
 
 ---
 
@@ -71,13 +67,11 @@
 
 - **On Local Variables:** Does **not** change scope (still only visible in the block), but extends **lifetime** (persists between function calls).
 
-
 **B. extern (External Linkage)**
 
 - **Purpose:** Declares a variable that is defined in another file.
 
 - **Effect:** Extends the scope of a global variable from File A to File B.
-
 
 ---
 
@@ -95,7 +89,6 @@
         printf("%d", x); // Prints 5
     }
     ```
-
 
 ---
 

@@ -8,7 +8,6 @@ A pointer stores a memory address. However, C requires you to specify **what ki
 
 - **Example:** int *ptr; means ptr holds the address of an integer variable.
 
-
 ## 2. Why do Pointer Types Matter?
 
 Since all pointers just store addresses (which are just numbers/hex codes), why do we need types like int* or double*?
@@ -25,7 +24,6 @@ The type tells the compiler **how many bytes to read** and how to interpret th
 
 - double *p: Reads **8 bytes** at the address.
 
-
 ### B. Pointer Arithmetic (Step Size)
 
 The type tells the compiler how far to jump when you add to a pointer (p + 1).
@@ -35,7 +33,6 @@ The type tells the compiler how far to jump when you add to a pointer (p + 1).
 - If p is int* (size 4): p + 1 moves **4 bytes** forward.
 
 - If p is struct* (size 100): p + 1 moves **100 bytes** forward.
-
 
 ## 3. Common Pointer Types
 

@@ -4,7 +4,6 @@
 
 To interact with the command line (Terminal/Shell), the main function is defined as:
 
-
 ```c
 int main(int argc, char const *argv[])
 ```
@@ -23,7 +22,6 @@ int main(int argc, char const *argv[])
 
     - Count: **3** (1: ./demo, 2: hello, 3: world)
 
-
 ### **`char const *argv[]` (Argument Vector)**
 
 - **Definition:** An array of strings (pointers to characters) containing the actual arguments.
@@ -36,7 +34,6 @@ int main(int argc, char const *argv[])
 
     - `argv[argc]`: Always NULL (marks the end of the array).
 
-
 ## 3. Deep Dive: The `argv[0]` Pitfall
 
 The slide highlighted a specific behavior regarding **Unix Symbolic Links**.
@@ -44,7 +41,6 @@ The slide highlighted a specific behavior regarding **Unix Symbolic Links**.
 - **Fact:** `argv[0]` is **not** necessarily the original name of the compiled binary file.
 
 - **Reality:** `argv[0]` reflects **how the program was invoked** in the terminal.
-
 
 ### **Scenario: Symbolic Links (Symlinks)**
 
@@ -59,7 +55,6 @@ The slide highlighted a specific behavior regarding **Unix Symbolic Links**.
     - If you run ./tool: `argv[0]` is "./tool".
 
     - If you run ./linkname: `argv[0]` is "./linkname".
-
 
 **Conclusion:** Even though the underlying executable code is identical, the program can detect which "name" the user called it by.
 

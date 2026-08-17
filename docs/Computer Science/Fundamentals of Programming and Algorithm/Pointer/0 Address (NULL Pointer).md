@@ -10,7 +10,6 @@
 
     - NULL is essentially defined as (void *)0 or simply 0.
 
-
 ## 2. Key Characteristics
 
 - **Reserved Area:** The Operating System typically reserves the lowest segment of memory (including address 0) so programs cannot use it.
@@ -20,7 +19,6 @@
 - **The Consequence:** If you try to access data at address 0 (dereferencing a NULL pointer), the program will crash.
 
     - **Error Message:** usually "Segmentation Fault" (Segfault) on Linux/Unix or "Access Violation" on Windows.
-
 
 ## 3. Usage Patterns
 

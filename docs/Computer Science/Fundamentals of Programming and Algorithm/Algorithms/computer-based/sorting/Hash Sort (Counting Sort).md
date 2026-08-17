@@ -10,7 +10,6 @@
 
 - **Core Principle:** **Hashing / Direct Addressing**. It maps the value of an element to a specific position in a "frequency array" to count its occurrence.
 
-
 ## 2. Key Statistics
 
 - **Time Complexity:** $O(N+K)$
@@ -24,7 +23,6 @@
     - Requires an auxiliary array of size $K$.
 
 - **Stability:** Stable (if implemented carefully), but the basic version is often unstable.
-
 
 ---
 
@@ -42,7 +40,6 @@
 5. **Reconstruction:** Traverse the `HashTable`. If an index has a non-zero count, write the corresponding value (`Index + Min`) back into the original array.
 
 6. **Cleanup:** Free the allocated memory.
-
 
 ---
 
@@ -127,11 +124,9 @@ int main() {
 
     - Real Value: 100 -> Index: 100 - (-5) = 105
 
-
 ### Space-Time Tradeoff
 
 - Hash sort sacrifices **Memory (Space)** to gain **Speed (Time)**.
-
 
 ---
 
@@ -142,7 +137,6 @@ int main() {
 1. **Linear Time:** It is much faster than Quick Sort ($O(N \log N)$) when the data range ($K$) is small compared to $N$.
 
 2. **Simplicity:** The logic is straightforward (count, then print).
-
 
 ### Disadvantages
 
@@ -155,7 +149,6 @@ int main() {
     - Strings require complex hashing (Radix Sort).
 
 3. **Not In-Place:** Requires extra memory allocation.
-
 
 ---
 

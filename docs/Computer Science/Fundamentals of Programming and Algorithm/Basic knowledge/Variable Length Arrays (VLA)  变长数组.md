@@ -8,7 +8,6 @@
 
 - **Clarification:** "Variable Length" means the size is set when the array is created. Once created, the size **cannot change** (unlike std::vector in C++).
 
-
 ## 2. Syntax Comparison
 
 **Traditional Array (C89):**
@@ -40,7 +39,6 @@ int arr[n];      // OK: Size determined here
     -  int arr[n] = {0}; (Error)
 
     -  You must use a loop or memset to set values.
-
 
 ## 4. VLA as Function Arguments
 

@@ -10,7 +10,6 @@
 
 - **快照机制**：每次提交都是项目文件的完整快照，而非差异比较
 
-
 ### 1.2 核心概念解析
 
 - **仓库（Repository）**：项目及其版本历史的存储位置
@@ -20,7 +19,6 @@
 - **暂存区**：准备下次提交的更改的中间区域
 
 - **提交（Commit）**：永久的版本快照
-
 
 ### 1.3 Git 三区工作流
 
@@ -51,7 +49,6 @@ git config --global core.editor "code --wait"
 - **Git Graph**：可视化提交历史
 
 - **Remote - WSL**：在 WSL 中无缝使用 VS Code
-
 
 ### 2.3 初始化 Git 仓库
 
@@ -152,7 +149,6 @@ git commit -m "合并feature-branch"
 - **Git Flow**：main、develop、feature、release、hotfix 分支
 
 - **GitHub Flow**：简化的工作流，适合持续交付
-
 
 ## 第 5 章：远程仓库协作
 
@@ -255,7 +251,6 @@ git bisect reset
 
 6. 代码审查和合并
 
-
 ### 7.2 GitHub 功能特性
 
 - **Issues**：问题跟踪和管理
@@ -267,7 +262,6 @@ git bisect reset
 - **Wiki**：项目文档
 
 - **Discussions**：社区讨论
-
 
 ## 第 8 章：最佳实践与故障处理
 

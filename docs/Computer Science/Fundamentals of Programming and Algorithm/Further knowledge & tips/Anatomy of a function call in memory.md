@@ -18,7 +18,6 @@
 
     - **Lifetime:** Dynamic. Allocated when the function is called, freed (released) when it returns.
 
-
 ---
 
 ## **2. The Key Hardware Registers**
@@ -45,7 +44,6 @@ Before looking at the process, we must know the CPU registers involved:
 
     - Local variables are accessed relative to this anchor (e.g., EBP - 4).
 
-
 ---
 
 ## **3. The Lifecycle of a Function Call**
@@ -68,7 +66,6 @@ Before looking at the process, we must know the CPU registers involved:
 
     - The **EIP** is updated to point to the start of func.
 
-
 ### **Phase B: Function Prologue (Entry into func)**
 
 This is the "Setup" phase, executed immediately upon entering the function.
@@ -81,7 +78,6 @@ sub esp, N    ; 3. Move Stack Pointer down to reserve N bytes for locals
 
 - **Logical Result:** A new Stack Frame is established. EBP is now the stable anchor for func.
 
-
 ### **Phase C: Execution (Body)**
 
 - Local variables are stored in the space created by sub esp, N.
@@ -89,7 +85,6 @@ sub esp, N    ; 3. Move Stack Pointer down to reserve N bytes for locals
 - They are accessed via negative offsets from EBP (e.g.,`[ebp - 4]`).
 
 - **Note:** If these variables are not initialized, they contain "garbage" (values left over from previous function calls).
-
 
 ### **Phase D: Function Epilogue (Exit / Return)**
 
@@ -102,7 +97,6 @@ ret           ; 3. Pop the Return Address into EIP
 ```
 
 - **Memory Release:** "Freeing" memory here just means moving the ESP pointer back up. The data physically remains but is considered "invalid/overwritten."
-
 
 ---
 
@@ -133,13 +127,11 @@ ret           ; 3. Pop the Return Address into EIP
 
 - **Current EBP** points to  ->  **Saved EBP** (of caller)  ->**Saved EBP** (of caller's caller)...
 
-
 ### **The Stack Backtrace**
 
 - Debuggers use this chain to generate a **Stack Trace**.
 
 - If the program crashes, the debugger looks at the current EBP, reads the value inside, jumps to that address, and repeats until it reaches the OS entry point. This is how it tells you: "Crash in func(), called by main()."
-
 
 ---
 

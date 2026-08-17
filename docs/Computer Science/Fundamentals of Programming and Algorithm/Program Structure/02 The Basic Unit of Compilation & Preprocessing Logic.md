@@ -9,9 +9,9 @@ The **Compilation Unit** (or Translation Unit) is the fundamental atomic unit th
 A Compilation Unit is not just the `.c` file you write. It is the result of the preprocessing stage.
 **Formula:**
 
-\[
+$$
  \text{Compilation Unit} = \text{Source File (.c)} + \text{Recursively Expanded Headers} - \text{Comments} - \text{Excluded Code blocks}
-\]
+$$
 
 ### Core Characteristic: Independence
 

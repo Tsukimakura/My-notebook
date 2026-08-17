@@ -29,7 +29,6 @@ Used to store a single character. Internally, C stores characters as **integers
 
 - **Note:** char can also be used as a tiny integer (-128 to 127).
 
-
 ### **C. Floating-Point Types**
 
 Used to store numbers with fractional parts (decimals).
@@ -50,7 +49,6 @@ Represents the **absence of type**. It is used in three scenarios:
 
 3. **Generic Pointers:** void *ptr (A pointer that can point to any data type).
 
-
 ---
 
 ## **2. Type Modifiers (Qualifiers)**
@@ -67,20 +65,17 @@ Keywords that alter the meaning of base data types to fit specific needs.
 
     - Format Specifier: %u.
 
-
 ### **B. Size Qualifiers**
 
 - short: Reduces storage size.
 
 - long: Increases storage size.
 
-
 ### **C. const and volatile**
 
 - **const**: The variable becomes read-only after initialization.
 
 - **volatile**: Tells the compiler not to optimize the variable because its value may change unexpectedly (e.g., by hardware or an interrupt).
-
 
 ---
 
@@ -160,7 +155,6 @@ Important for portable and robust code (C99 standard and later).
 
 - **Use:** Represents the size of objects (result of sizeof) and array indices. It guarantees to be big enough to hold the size of the largest possible object in memory.
 
-
 ### **B. Fixed-Width Integers (<stdint.h>)**
 
 Used when you need exact sizes regardless of the machine.
@@ -173,7 +167,6 @@ Used when you need exact sizes regardless of the machine.
 
 - int64_t, uint64_t: Exactly 8 bytes.
 
-
 ### **C. Boolean (<stdbool.h>)**
 
 - **Type:** bool
@@ -181,7 +174,6 @@ Used when you need exact sizes regardless of the machine.
 - **Values:** true (1), false (0).
 
 - (Before C99, programmers used int 0 and 1 for logic).
-
 
 ---
 

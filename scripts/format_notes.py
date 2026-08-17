@@ -103,13 +103,8 @@ def normalize_fences(lines: list[str]) -> list[str]:
 
 
 def normalize_display_math(lines: list[str]) -> list[str]:
-    """Use the delimiters configured for Arithmatex/KaTeX.
-
-    ``$$`` blocks are not converted by this site's ``generic`` Arithmatex
-    configuration, leaving them as literal text in the generated HTML.
-    """
+    """Use ``$`` and ``$$`` as the source-level math delimiters."""
     fence: str | None = None
-    in_display_math = False
     result: list[str] = []
     for line in lines:
         match = FENCE.match(line)
@@ -118,16 +113,30 @@ def normalize_display_math(lines: list[str]) -> list[str]:
             fence = None if fence == marker else marker
             result.append(line)
             continue
-        if fence is None and line.strip() == "$$":
-            indent = line[: len(line) - len(line.lstrip())]
-            result.append(f"{indent}{r'\]' if in_display_math else r'\['}")
-            in_display_math = not in_display_math
-            continue
         stripped = line.strip()
+        if fence is None and stripped in {r"\[", r"\]"}:
+            indent = line[: len(line) - len(line.lstrip())]
+            result.append(f"{indent}$$")
+            continue
         if fence is None and stripped.startswith("$$") and stripped.endswith("$$") and len(stripped) > 4:
             indent = line[: len(line) - len(line.lstrip())]
-            result.extend([f"{indent}\\[", stripped[2:-2].strip(), f"{indent}\\]"])
+            result.extend([f"{indent}$$", stripped[2:-2].strip(), f"{indent}$$"])
             continue
+        result.append(line)
+    return result
+
+
+def normalize_inline_math(lines: list[str]) -> list[str]:
+    """Convert legacy ``\\(...\\)`` inline delimiters to dollar delimiters."""
+    fence: str | None = None
+    result: list[str] = []
+    for line in lines:
+        match = FENCE.match(line)
+        if match:
+            marker = match.group("marker")[0]
+            fence = None if fence == marker else marker
+        if fence is None:
+            line = re.sub(r"\\\((.*?)\\\)", r"$\1$", line)
         result.append(line)
     return result
 
@@ -156,12 +165,8 @@ def normalize_ordered_lists(lines: list[str]) -> list[str]:
             continue
 
         stripped = line.strip()
-        if stripped == r"\[":
-            display_math_depth += 1
-            result.append(line)
-            continue
-        if stripped == r"\]":
-            display_math_depth = max(0, display_math_depth - 1)
+        if stripped == "$$":
+            display_math_depth = 0 if display_math_depth else 1
             result.append(line)
             continue
 
@@ -233,14 +238,16 @@ def surround_display_math(lines: list[str]) -> list[str]:
     """Keep display-math delimiters in standalone Markdown blocks."""
     result: list[str] = []
     fence: str | None = None
+    in_display_math = False
     for index, line in enumerate(lines):
         match = FENCE.match(line)
         if match:
             marker = match.group("marker")[0]
             fence = None if fence == marker else marker
-        opening = fence is None and line.strip() == r"\["
-        closing = fence is None and line.strip() == r"\]"
-        if not line and fence is None and result and result[-1].strip() == r"\[":
+        delimiter = fence is None and line.strip() == "$$"
+        opening = delimiter and not in_display_math
+        closing = delimiter and in_display_math
+        if not line and fence is None and result and result[-1] == "":
             continue
         if closing:
             while result and result[-1] == "":
@@ -248,6 +255,8 @@ def surround_display_math(lines: list[str]) -> list[str]:
         if opening and result and result[-1] != "":
             result.append("")
         result.append(line)
+        if delimiter:
+            in_display_math = not in_display_math
         if closing and index + 1 < len(lines) and lines[index + 1] != "":
             result.append("")
     return result
@@ -277,6 +286,7 @@ def format_text(text: str, path: Path) -> str:
     lines = normalize_headings(lines, path)
     lines = normalize_fences(lines)
     lines = normalize_display_math(lines)
+    lines = normalize_inline_math(lines)
     lines = normalize_ordered_lists(lines)
     lines = indent_list_continuations(lines)
     lines = surround_display_math(lines)

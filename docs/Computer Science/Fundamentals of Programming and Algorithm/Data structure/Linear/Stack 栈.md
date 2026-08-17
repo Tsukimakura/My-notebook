@@ -20,7 +20,6 @@ A **Stack** is a linear data structure that follows a specific order in which 
 
 - **Underflow:** Trying to pop when top is at index 0.
 
-
 ---
 
 ## 2. Core Operations
@@ -35,7 +34,6 @@ A **Stack** is a linear data structure that follows a specific order in which 
 
 5. **isFull()**: Returns true if top equals the maximum size definition.
 
-
 ---
 
 ## 3. Implementation in C Language (Modified top Logic)
@@ -47,7 +45,6 @@ A **Stack** is a linear data structure that follows a specific order in which 
 - **Full Condition:** `top == MAX`
 
 - **Empty Condition:** `top == 0`
-
 
 ```c
 #include <stdio.h>
@@ -162,7 +159,6 @@ Stacks are ubiquitous in computing due to their LIFO nature.
 
     - Text editors store modification history in a stack.
 
-
 ---
 
 ## 5. Important Analysis
@@ -177,7 +173,6 @@ Stacks are ubiquitous in computing due to their LIFO nature.
 
 - **Peek:** $O(1)$
      - Constant time access.
-
 
 ### Space Complexity
 

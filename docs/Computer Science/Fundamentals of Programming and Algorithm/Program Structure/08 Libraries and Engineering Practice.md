@@ -80,7 +80,6 @@ The linker processes files from left to right.
 *   **Incorrect Order (often leads to `undefined reference`):** `gcc -lmy_library my_program.c`
     *   The linker sees `libmy_library` first, may discard it if no immediate need, then finds `my_program.c` needing symbols from it.
 
-
 ## Headaches with Debugging Linker Errors
 
 *   **`undefined reference to 'symbol'`:** The linker couldn't find the definition. Check `-l` flags, `-L` paths, and the linking order.

@@ -8,7 +8,6 @@ Insertion sort works like sorting **playing cards in your hand**:
 
 2. Insert it into the correct position among already sorted cards.
 
-
 ## Process for an array:
 
 - Treat `arr[0]` as sorted.
@@ -20,7 +19,6 @@ Insertion sort works like sorting **playing cards in your hand**:
 - …
 
 - After `n-1` insertions, the entire array is sorted.
-
 
 ## Complexity
 

@@ -20,7 +20,6 @@ Its purpose is to help you **think and design** before writing real code.
 
 - No need to worry about real coding rules (types, semicolons, etc.).
 
-
 ---
 
 ## 3. Common Keywords

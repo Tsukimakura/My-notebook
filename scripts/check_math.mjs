@@ -38,8 +38,18 @@ function formulasIn(file) {
     if (fence !== null) continue;
 
     const trimmed = line.trim();
+    if (trimmed === "\\[" || trimmed === "\\]") {
+      throw new Error(`${file}:${index + 1}: use $$ for display math, not \\[ ... \\]`);
+    }
     if (trimmed === "$$") {
-      throw new Error(`${file}:${index + 1}: use \\[ ... \\] for display math, not $$`);
+      if (start === null) {
+        start = index + 1;
+        body = [];
+      } else {
+        formulas.push({ line: start, source: body.join("\n") });
+        start = null;
+      }
+      continue;
     }
     if (trimmed === "\\[") {
       if (start !== null) throw new Error(`${file}:${index + 1}: nested display formula`);
@@ -59,6 +69,9 @@ function formulasIn(file) {
     }
 
     const prose = line.replace(/`[^`]*`/g, "");
+    if (prose.includes("\\(") || prose.includes("\\)")) {
+      throw new Error(`${file}:${index + 1}: use $ for inline math, not \\(...\\)`);
+    }
     for (const match of prose.matchAll(/(?<!\\)\$([^$\n]+?)(?<!\\)\$/g)) {
       formulas.push({ line: index + 1, source: match[1], display: false });
     }

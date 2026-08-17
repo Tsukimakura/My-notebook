@@ -1,6 +1,5 @@
 # summary cheat sheet
 
-
 | Algorithm           | Time (Avg)    | Space        | Stability | Type    | Best For...                                            |
 | ------------------- | ------------- | ------------ | --------- | ------- | ------------------------------------------------------ |
 | **Bubble Sort**     | $O(N^2)$      | $O(1)$       | Yes       | Swap    | Teaching concepts; tiny datasets.                      |

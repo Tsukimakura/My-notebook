@@ -6,7 +6,6 @@ In C, the static keyword modifies two fundamental properties of variables and 
 
 2. **Visibility (Linkage):** Who can see and use the variable/function.
 
-
 The behavior depends on **where** you place the keyword.
 
 ---
@@ -22,7 +21,6 @@ The behavior depends on **where** you place the keyword.
 - **Lifetime:** They exist for the **entire duration** of the program execution.
 
 - **Initialization:** They are initialized **only once** when the program starts (before main runs). If you enter the function a second time, the initialization line is skipped.
-
 
 ### **Code Example**
 
@@ -59,7 +57,6 @@ int main() {
 - **Visibility:** The variable is hidden from other translation units (.c files). If file1.c has static int x;, file2.c cannot access x using extern.
 
 - **Encapsulation:** This is the C way of creating "private" members. It prevents **naming conflicts** with variables in other files.
-
 
 ### **Code Example**
 
@@ -99,7 +96,6 @@ extern int secret; // ERROR: Linker cannot find 'secret'
 
     2. **Optimization:** Since the compiler knows the function cannot be called from outside, it might inline the function code more aggressively.
 
-
 ### **Code Example**
 
 ```c
@@ -127,7 +123,6 @@ To understand static fully, you must look at how C programs use memory segment
 
 - **static variables:** Stored in fixed memory addresses in the **Data Segment**. The address remains valid and the content remains untouched until the OS terminates the program.
 
-
 ### **B. The Zero-Initialization Rule (.bss Section)**
 
 If you declare a static variable but do not assign a value, it is guaranteed to be **Zero**:
@@ -139,7 +134,6 @@ static int x; // x is guaranteed to be 0
 - **Why?** Uninitialized static variables go into the **.bss segment** (Block Started by Symbol).
 
 - **Startup:** Before main() runs, the C Runtime (CRT) startup code iterates over the .bss memory block and sets every byte to zero. Standard stack variables do not get this treatment (they contain garbage values).
-
 
 ---
 

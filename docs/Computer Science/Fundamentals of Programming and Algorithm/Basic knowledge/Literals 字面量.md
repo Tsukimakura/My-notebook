@@ -84,7 +84,6 @@ enum Color { RED = 1, GREEN = 2, BLUE = 3 };
 
 - String literals have **static storage duration** and should not be changed.
 
-
 Example:
 
 ```c

@@ -24,7 +24,6 @@ Quick Sort is a classic **divide-and-conquer** sorting algorithm.
 
 - Finally swap pivot into its final position.
 
-
 ### Lomuto Partition Pseudocode
 
 ```c
@@ -89,7 +88,6 @@ void quicksort_lomuto(int arr[], int l, int r) {
 
 - Return the split point j
 
-
 ### Hoare Partition Pseudocode
 
 ```c
@@ -126,7 +124,6 @@ void quicksort_hoare(int arr[], int l, int r) {
      }
 }
 ```
-
 
 ```c
 // if choose pivot from the middle

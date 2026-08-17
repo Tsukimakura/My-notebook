@@ -12,7 +12,6 @@ Bubble sort repeatedly scans the array, comparing each pair of adjacent elements
 
 - After one full pass, the **largest element moves to the end** (like a bubble rising)
 
-
 Repeat this process `n-1` times.
 
 ## Time complexity

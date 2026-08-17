@@ -22,7 +22,6 @@ The **preprocessor** handles all lines starting with `#`, including:
 
 - Processing conditional compilation (`#ifdef`, `#ifndef`)
 
-
 The output is still C code, but now fully expanded.
 
 ---
@@ -40,7 +39,6 @@ Important steps here:
 
 - Generating assembly code (e.g., `.s` file)
 
-
 This step maps your high-level constructs into low-level instructions.
 
 ---
@@ -52,7 +50,6 @@ The **assembler** converts assembly code into machine code, producing an **objec
 - `.o` on Linux/macOS
 
 - `.obj` on Windows
-
 
 This file contains binary instructions, but the program is still incomplete because external functions are unresolved.
 
@@ -73,7 +70,6 @@ The **linker** combines multiple object files and libraries into a **complete ex
     - `a.out` or custom output on Linux
 
     - `.exe` on Windows
-
 
 Static and dynamic linking may both occur.
 
@@ -97,7 +93,6 @@ When you run the executable, the **operating system loader** performs:
 
 - Jumping to the entry point (`_start`)
 
-
 At this point, the program is ready to execute.
 
 ---
@@ -115,7 +110,6 @@ Execution begins at `_start`, then proceeds through:
 4. Returning the exit code
 
 5. Cleanup by the OS after the program terminates
-
 
 The CPU executes the machine instructions step by step.
 

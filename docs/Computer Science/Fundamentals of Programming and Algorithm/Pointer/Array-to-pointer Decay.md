@@ -70,7 +70,6 @@ int main(){
 
 We can prove the property of the decayed array name by testing the stride of a pointer `int *p = Array_name` (suppose it is an int array).(Omit)
 
-
 ---
 
 ## 2. The General Rule
@@ -87,7 +86,6 @@ int *ptr = nums;
 Here, `nums` is an array of 5 integers. However, when we assign it to `ptr`, `nums` **decays** into `&nums[0]`.
 
 - The type changes from `int[5]` to `int *`.
-
 
 This allows us to do pointer arithmetic easily:
 
@@ -144,13 +142,11 @@ Using & on an array name returns a **pointer to the whole array**, not a poin
 
 - &arr (no decay) --> Type: `int (*)[10]` (Pointer to an Array of 10 Integers)
 
-
 While the numerical value of the address is the same, the **type** and **stride** are different.
 
 - arr + 1 jumps **4 bytes** (next integer).
 
 - &arr + 1 jumps **40 bytes** (skips the whole array).
-
 
 ### C. String Literal Initialization
 

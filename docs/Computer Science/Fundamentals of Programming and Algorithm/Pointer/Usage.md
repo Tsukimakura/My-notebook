@@ -51,7 +51,6 @@ Passing a large struct or array **by value** means:
 Example:
 A struct with a 4 MB array would copy all 4 MB when passed by value.
 
-
 1. Pointers avoid copying
 
 Passing a pointer only copies an **8-byte address**, regardless of how large the original object is.
@@ -89,7 +88,6 @@ Features:
 
 - Returns `NULL` if allocation fails
 
-
 Example:
 
 `int *p = malloc(5 * sizeof(int));  // allocate space for 5 ints`
@@ -107,7 +105,6 @@ Features:
 - Memory is automatically **zero-initialized**
 
 - Useful for arrays
-
 
 Example:
 
@@ -128,7 +125,6 @@ Features:
 - **Returns a new pointer** (old pointer becomes invalid)
 
 - Can be used to grow or shrink arrays
-
 
 Example:
 

@@ -8,7 +8,6 @@
 
 - **Purpose:** To improve code readability, simplify complex declarations, and enhance portability.
 
-
 ---
 
 ## **2. Common Usage Patterns**
@@ -86,7 +85,6 @@ Simplifies the syntax for function pointers significantly.
     Handler signal(int, Handler);
     ```
 
-
 ---
 
 ## **3. Deep Dive: Compiler Principles**
@@ -99,7 +97,6 @@ Unlike #define (which is handled by the **Preprocessor** via text replacemen
 
 - **Scope:** It obeys C scoping rules (block scope vs. file scope).
 
-
 ### **B. Storage Class Specifier**
 
 Grammatically, C classifies typedef as a **Storage Class Specifier**, grouping it with extern, static, auto, and register.
@@ -111,7 +108,6 @@ Grammatically, C classifies typedef as a **Storage Class Specifier**, groupin
     ```c
     typedef static int MyInt; // ERROR: Multiple storage classes
     ```
-
 
 ### **C. The const Trap (Critical)**
 
@@ -127,7 +123,6 @@ const PCHAR p;
 - **Intuition (Wrong):** You might think this expands to const char* p (Pointer to a constant character).
 
 - **Reality (Right):** It is treated as char* const p (Constant pointer to a mutable character).
-
 
 **Explanation:**
 The compiler treats PCHAR as a single atomic unit (a pointer type). When you apply const, it makes that **unit** constant.

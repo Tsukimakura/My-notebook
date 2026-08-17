@@ -12,21 +12,21 @@ The algorithm transforms a standard polynomial into a **nested multiplication** 
 
 A polynomial of degree $n$ is typically expressed as:
 
-\[
+$$
 P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0
-\]
+$$
 
 Evaluating this directly is computationally expensive because calculating $x^k$ requires multiple multiplications. Qin Jiushao’s algorithm rewrites the polynomial as:
 
-\[
+$$
 P(x) = ((\dots((a_n x + a_{n-1})x + a_{n-2})x + \dots + a_1)x + a_0)
-\]
+$$
 
 ### Iterative Process:
 
 1. Let $v_n = a_n$
 2. For $i = n-1$ down to $0$:
-       \(v_i = v_{i+1} \cdot x + a_i\)
+       $v_i = v_{i+1} \cdot x + a_i$
 3. The final result is $v_0$.
 
 ---

@@ -16,7 +16,6 @@
 
     3. **Collision:** When different inputs produce the same output.
 
-
 ---
 
 ## 2. The Core Link: Hash Value = Address
@@ -34,7 +33,6 @@ The most important concept to understand is **how the computer uses the Hash Va
     - It allows **Direct Access ($O(1)$)**.
 
     - The computer does not need to "search" for data. It calculates the Hash Value and "teleports" directly to that physical location in memory.
-
 
 > **Analogy:**
 >
@@ -64,7 +62,6 @@ It uses the simplest possible Hash Function: **The Identity Function**.  $H(x)=
 3. **Addressing:** The computer goes directly to **Index (Address) 5** in the array.
 
 4. **Action:** It increments the counter at that address.
-
 
 ### Handling "Collisions"
 
