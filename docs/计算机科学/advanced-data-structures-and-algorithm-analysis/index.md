@@ -18,6 +18,8 @@ Advanced data structures + algorithm analysis: invariants（不变量）, correc
 
 - [Lecture 1: AVL Trees, Splay Trees, and Amortized Analysis](lecture-01-avl-splay-amortized-analysis.md)：英中对照笔记、小测与 HW1 解析。
 - [Lecture 2: Red-Black Trees and B+ Trees](lecture-02-red-black-bplus-trees.md)：红黑树、B+ 树、第二周小测／HW2 与线下讨论解析。
+- [Lecture 3: Inverted File Index](lecture-03-inverted-file-index.md)：倒排索引、构建／压缩／更新、检索评价与第三周小测／HW3 解析。
+- [HW3: Document Distance](hw3-document-distance.md)：完整题目、稀疏词频向量、余弦角距离与 C 实现。
 - [HW1: Root of AVL Tree](hw1-avl-root.md)：完整题目、样例与 C 实现。
 
 **Prerequisites（前置知识）：**BST、递归、指针树、渐近记号与对数。第二课时沿用 BST 顺序与渐近分析，新增黑高和多路树的占用约束。

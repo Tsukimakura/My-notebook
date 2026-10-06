@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 355" role="img">
+<style>text{font-family:Arial,sans-serif;fill:#172b4d;font-size:16px}.title{font-size:20px;font-weight:bold}.box{fill:#eff6ff;stroke:#2563eb;stroke-width:2}line,path{stroke:#64748b;stroke-width:2;fill:none}</style>
+<rect width="100%" height="100%" fill="white"/>
+<text x="30" y="35" class="title">Term partitioning: full posting lists</text>
+<text x="510" y="35" class="title">Document partitioning: local documents</text>
+<rect class="box" x="30" y="65" width="405" height="60" rx="6"/><text x="42" y="100.0" class="">Node A: gold → D1,D2,D4</text>
+<rect class="box" x="30" y="145" width="405" height="60" rx="6"/><text x="42" y="180.0" class="">Node B: silver → D1,D3</text>
+<text x="30" y="250" class="">One term: route to its owner.</text>
+<text x="30" y="280" class="">Hot terms can overload one node.</text>
+<rect class="box" x="510" y="65" width="420" height="60" rx="6"/><text x="522" y="100.0" class="">Node 1 (D1,D2): gold → D1,D2</text>
+<rect class="box" x="510" y="145" width="420" height="60" rx="6"/><text x="522" y="180.0" class="">Node 2 (D3,D4): gold → D4</text>
+<text x="510" y="250" class="">One term: query shards, merge results.</text>
+<text x="510" y="280" class="">New documents are easy to distribute.</text>
+<text x="30" y="330" class="">A real deployment can combine both partitioning directions.</text>
+</svg>
