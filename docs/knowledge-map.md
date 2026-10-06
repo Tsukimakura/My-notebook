@@ -17,6 +17,7 @@ sources: []
   - 数学分析、线性代数、离散数学
   - 普通物理与课程复习材料
 - [概率论和数理统计](数理基础/probability-and-mathematical-statistics/index.md)：概率基础、古典与几何概型、条件概率、全概率与贝叶斯公式。
+- [普通物理学 II](数理基础/general-physics-ii/index.md)：电荷、电场、电势、导体与静电屏蔽，及电流、电阻和电容。
 
 ## 计算机科学
 

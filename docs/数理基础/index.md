@@ -29,3 +29,4 @@ sources: []
 - [数学分析 II](Mathematical%20Analysis%20II/数学分析II复习总纲.md)
 - [离散数学](Theoretical%20Basis%20for%20Discrete%20Mathematics/01_Logic%20and%20Proofs/10_Propositional%20Language/00_Propositonal%20Languange.md)
 - [普通物理 I](General%20Physics%20I%20(H)/learning%20notes/10_Newton's%20Laws/01_Motion_in_1D.md)
+- [普通物理学 II（General Physics II）](general-physics-ii/index.md)：前六课的电场、电势、高斯定律、静电学微分形式、导体与镜像法、电阻和电容；附数学工具、公式速查和示意图。
