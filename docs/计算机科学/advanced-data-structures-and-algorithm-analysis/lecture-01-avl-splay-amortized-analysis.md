@@ -446,7 +446,7 @@ Check by aggregate analysis: for power-of-two $N$, copied items $1+2+\cdots+N/2=
 
 ### 6.5 Week 2 review questions（第二周复习题）
 
-以下题目来自第二周小测，只涉及本课知识。
+以下题目来自第二周小测，只涉及本课知识；[第二课时的新知识题](lecture-02-red-black-bplus-trees.md)按知识点另行整理。
 
 **WK2 MC1: delete 3 from the following splay tree; which statement is impossible?** Input: `7(5(2(1,3(∅,4)),6),9(8,∅))`.
 
