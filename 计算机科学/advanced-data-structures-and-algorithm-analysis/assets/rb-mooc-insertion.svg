@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 765" role="img">
+<style>text{font-family:Arial,sans-serif} .title{font-size:16px;font-weight:bold;fill:#172b4d} line{stroke:#64748b;stroke-width:2}.key{font-size:15px;fill:white;font-weight:bold}</style>
+<rect width="100%" height="100%" fill="white"/>
+<text class="title" x="175.0" y="27" text-anchor="middle">Insert 3</text>
+<circle cx="175.0" cy="70" r="21" fill="#1e293b"/><text class="key" x="175.0" y="75" text-anchor="middle">3</text>
+<text class="title" x="525.0" y="27" text-anchor="middle">Insert 4</text>
+<line x1="450.0" y1="70" x2="600.0" y2="135"/>
+<circle cx="450.0" cy="70" r="21" fill="#1e293b"/><text class="key" x="450.0" y="75" text-anchor="middle">3</text>
+<circle cx="600.0" cy="135" r="21" fill="#b91c1c"/><text class="key" x="600.0" y="140" text-anchor="middle">4</text>
+<text class="title" x="875.0" y="27" text-anchor="middle">Insert 5</text>
+<line x1="875.0" y1="70" x2="775.0" y2="135"/>
+<line x1="875.0" y1="70" x2="975.0" y2="135"/>
+<circle cx="775.0" cy="135" r="21" fill="#b91c1c"/><text class="key" x="775.0" y="140" text-anchor="middle">3</text>
+<circle cx="875.0" cy="70" r="21" fill="#1e293b"/><text class="key" x="875.0" y="75" text-anchor="middle">4</text>
+<circle cx="975.0" cy="135" r="21" fill="#b91c1c"/><text class="key" x="975.0" y="140" text-anchor="middle">5</text>
+<text class="title" x="175.0" y="282" text-anchor="middle">Insert 6</text>
+<line x1="137.5" y1="325" x2="62.5" y2="390"/>
+<line x1="137.5" y1="325" x2="212.5" y2="390"/>
+<line x1="212.5" y1="390" x2="287.5" y2="455"/>
+<circle cx="62.5" cy="390" r="21" fill="#1e293b"/><text class="key" x="62.5" y="395" text-anchor="middle">3</text>
+<circle cx="137.5" cy="325" r="21" fill="#1e293b"/><text class="key" x="137.5" y="330" text-anchor="middle">4</text>
+<circle cx="212.5" cy="390" r="21" fill="#1e293b"/><text class="key" x="212.5" y="395" text-anchor="middle">5</text>
+<circle cx="287.5" cy="455" r="21" fill="#b91c1c"/><text class="key" x="287.5" y="460" text-anchor="middle">6</text>
+<text class="title" x="525.0" y="282" text-anchor="middle">Insert 1</text>
+<line x1="465.0" y1="390" x2="405.0" y2="455"/>
+<line x1="525.0" y1="325" x2="465.0" y2="390"/>
+<line x1="525.0" y1="325" x2="585.0" y2="390"/>
+<line x1="585.0" y1="390" x2="645.0" y2="455"/>
+<circle cx="405.0" cy="455" r="21" fill="#b91c1c"/><text class="key" x="405.0" y="460" text-anchor="middle">1</text>
+<circle cx="465.0" cy="390" r="21" fill="#1e293b"/><text class="key" x="465.0" y="395" text-anchor="middle">3</text>
+<circle cx="525.0" cy="325" r="21" fill="#1e293b"/><text class="key" x="525.0" y="330" text-anchor="middle">4</text>
+<circle cx="585.0" cy="390" r="21" fill="#1e293b"/><text class="key" x="585.0" y="395" text-anchor="middle">5</text>
+<circle cx="645.0" cy="455" r="21" fill="#b91c1c"/><text class="key" x="645.0" y="460" text-anchor="middle">6</text>
+<text class="title" x="875.0" y="282" text-anchor="middle">Insert 2</text>
+<line x1="800.0" y1="390" x2="750.0" y2="455"/>
+<line x1="800.0" y1="390" x2="850.0" y2="455"/>
+<line x1="900.0" y1="325" x2="800.0" y2="390"/>
+<line x1="900.0" y1="325" x2="950.0" y2="390"/>
+<line x1="950.0" y1="390" x2="1000.0" y2="455"/>
+<circle cx="750.0" cy="455" r="21" fill="#b91c1c"/><text class="key" x="750.0" y="460" text-anchor="middle">1</text>
+<circle cx="800.0" cy="390" r="21" fill="#1e293b"/><text class="key" x="800.0" y="395" text-anchor="middle">2</text>
+<circle cx="850.0" cy="455" r="21" fill="#b91c1c"/><text class="key" x="850.0" y="460" text-anchor="middle">3</text>
+<circle cx="900.0" cy="325" r="21" fill="#1e293b"/><text class="key" x="900.0" y="330" text-anchor="middle">4</text>
+<circle cx="950.0" cy="390" r="21" fill="#1e293b"/><text class="key" x="950.0" y="395" text-anchor="middle">5</text>
+<circle cx="1000.0" cy="455" r="21" fill="#b91c1c"/><text class="key" x="1000.0" y="460" text-anchor="middle">6</text>
+<text class="title" x="175.0" y="537" text-anchor="middle">Insert 7</text>
+<line x1="89.28571428571429" y1="645" x2="46.42857142857143" y2="710"/>
+<line x1="89.28571428571429" y1="645" x2="132.14285714285714" y2="710"/>
+<line x1="175.0" y1="580" x2="89.28571428571429" y2="645"/>
+<line x1="175.0" y1="580" x2="260.7142857142857" y2="645"/>
+<line x1="260.7142857142857" y1="645" x2="217.85714285714286" y2="710"/>
+<line x1="260.7142857142857" y1="645" x2="303.57142857142856" y2="710"/>
+<circle cx="46.42857142857143" cy="710" r="21" fill="#b91c1c"/><text class="key" x="46.42857142857143" y="715" text-anchor="middle">1</text>
+<circle cx="89.28571428571429" cy="645" r="21" fill="#1e293b"/><text class="key" x="89.28571428571429" y="650" text-anchor="middle">2</text>
+<circle cx="132.14285714285714" cy="710" r="21" fill="#b91c1c"/><text class="key" x="132.14285714285714" y="715" text-anchor="middle">3</text>
+<circle cx="175.0" cy="580" r="21" fill="#1e293b"/><text class="key" x="175.0" y="585" text-anchor="middle">4</text>
+<circle cx="217.85714285714286" cy="710" r="21" fill="#b91c1c"/><text class="key" x="217.85714285714286" y="715" text-anchor="middle">5</text>
+<circle cx="260.7142857142857" cy="645" r="21" fill="#1e293b"/><text class="key" x="260.7142857142857" y="650" text-anchor="middle">6</text>
+<circle cx="303.57142857142856" cy="710" r="21" fill="#b91c1c"/><text class="key" x="303.57142857142856" y="715" text-anchor="middle">7</text>
+</svg>

@@ -1,0 +1,67 @@
+{
+  "created": "2026-10-06",
+  "generator": "figure-source.py",
+  "page_numbering": "PDF page sequence, 1-based",
+  "figures": [
+    {
+      "asset": "event-operations.webp",
+      "editable": "event-operations.svg",
+      "type": "original-illustration",
+      "source": "PS ch1-2026.pdf，PDF 页序 21–29",
+      "additional_note": null,
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "e33b566d54dac08394e19ab33f9dd857027b12976b5878f326fe0e827609d192"
+    },
+    {
+      "asset": "frequency-stability.webp",
+      "editable": "frequency-stability.svg",
+      "type": "original-illustration",
+      "source": "PS ch1-2026.pdf，PDF 页序 37–40",
+      "additional_note": "模拟数据，NumPy default_rng(20261006)，每组 5000 次",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "f36a8f27db2bfbcdb32c88c2d6ec9d5c7b36d8a06293781ae03d2a2cba2f23a2"
+    },
+    {
+      "asset": "birthday-probability.webp",
+      "editable": "birthday-probability.svg",
+      "type": "original-illustration",
+      "source": "PS ch1-2026.pdf，PDF 页序 59–60",
+      "additional_note": null,
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "4dfb5645dcb6fe5fb3915118fcdfdc2f225cad4b1879902d09eab524b81bd943"
+    },
+    {
+      "asset": "buffon-needle.webp",
+      "editable": "buffon-needle.svg",
+      "type": "original-illustration",
+      "source": "第二节课 ppt_035.png–ppt_041.png，约 40:03–46:02",
+      "additional_note": "第二节课 ppt_035.png–ppt_041.png，约 40:03–46:02",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "ddbeaee93949182ab2cfef828714c03649fe803ae05435146b49bef427c75fc1"
+    },
+    {
+      "asset": "total-probability-tree.webp",
+      "editable": "total-probability-tree.svg",
+      "type": "original-illustration",
+      "source": "PS ch1-2026.pdf，PDF 页序 91",
+      "additional_note": null,
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "a1c927ed36416e9601836772f7640f35c649a740514a5ca03f6b9609a50ee007"
+    },
+    {
+      "asset": "monty-hall.webp",
+      "editable": "monty-hall.svg",
+      "type": "original-illustration",
+      "source": "PS ch1-2026.pdf，PDF 页序 92",
+      "additional_note": "第二节课约 127:42–141:38",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "1558af5a6f05c7a892da98b567dc0e6a93c7b39b4d686670c0b7da7277b78925"
+    }
+  ]
+}
