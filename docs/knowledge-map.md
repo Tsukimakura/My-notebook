@@ -16,6 +16,7 @@ sources: []
 - [数理基础](数理基础/index.md)
   - 数学分析、线性代数、离散数学
   - 普通物理与课程复习材料
+- [概率论和数理统计](数理基础/probability-and-mathematical-statistics/index.md)：概率基础、古典与几何概型、条件概率、全概率与贝叶斯公式。
 
 ## 计算机科学
 
