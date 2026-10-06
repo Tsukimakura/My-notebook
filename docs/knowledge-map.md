@@ -24,6 +24,7 @@ sources: []
   - 数据结构、算法与汇编/计算机系统
   - Web 开发与编程语言
 - [高级数据结构与算法分析课程讲义](计算机科学/advanced-data-structures-and-algorithm-analysis/index.md)
+- [计算机系统 II 理论笔记](计算机科学/Computer%20Systems%20II/index.md)：RISC-V、过程调用与指令流水线。
 
 ## 信息安全
 

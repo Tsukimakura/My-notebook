@@ -37,7 +37,8 @@ sources: []
 ## 系统、语言与开发工具
 
 - [汇编语言](Assembly/00_前置知识.md)
-- [计算机系统](Computer%20Systems%20I/theory/10_Digital%20logic/00_Information%20Representation.md)
+- [计算机系统 I](Computer%20Systems%20I/theory/10_Digital%20logic/00_Information%20Representation.md)：数字逻辑、ISA 与 CPU 基础。
+- [计算机系统 II](Computer%20Systems%20II/index.md)：ISA 与过程调用复习、指令流水线、性能分析与冒险处理。
 - [编程语言](Programming%20Languages/JavaScript/Introduction.md)
 - [Web 开发](Web%20Development/HTML/Outline.md)
 - [笔记与站点工具](Tools/index.md)
