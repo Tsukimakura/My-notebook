@@ -9,7 +9,7 @@ sources: []
 
 # Hash Sort (Counting Sort)
 
-[[Hashing| About its name]]
+[About its name](../../../Further%20knowledge%20%26%20tips/Hashing.md)
 
 ## 1. Overview
 
@@ -115,7 +115,7 @@ int main() {
 }
 ```
 - The algorithm given above is unstable.
-[[Stable hash sort]]
+[Stable hash sort](../../../Further%20knowledge%20%26%20tips/Stable%20hash%20sort.md)
 
 ---
 

@@ -32,7 +32,7 @@ Although binary, these files follow strict structural standards known as **Objec
 ## 4. Internal Anatomy
 
 An object file consists of several key sections. It is not just code; it contains metadata essential for linking.
-[[Memory Allocation 内存分配 | About memory allocation]]
+[About memory allocation](../Basic%20knowledge/Memory%20Allocation%20%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D.md)
 
 ### Machine Instructions (.text Section)
 

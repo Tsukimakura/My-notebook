@@ -32,6 +32,8 @@ sources:
 
 现有笔记统一以 `draft` 初始化，领域标签使用 `cs`、`math-physics`、`security`，入口页使用 `knowledge-management`。无法确认原始创建日期时，`created` 使用 `null`；`updated` 记录最近一次维护日期。`sources: []` 表示尚未整理来源，不代表已核验。
 
+站内跳转使用相对路径的 Markdown 链接（路径中的空格等字符使用 URL 编码），章节跳转使用网站生成的标题锚点。Obsidian 的 `[[双链]]` 仅用于代码中的语法示例，不用于实际导航。
+
 提交前运行 `make format` 自动统一标题层级、代码块标注、空行和尾随空格；再运行 `make check`，它会检查 Markdown 格式、未闭合代码围栏、公式、图片附件链接并执行严格构建。
 
 ## 代码块

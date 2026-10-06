@@ -148,7 +148,7 @@ int main() {
 Stacks are ubiquitous in computing due to their LIFO nature.
 
 1. **Function Call Stack:**
-    	[[Anatomy of a function call in memory]]
+    [Anatomy of a function call in memory](../../Further%20knowledge%20%26%20tips/Anatomy%20of%20a%20function%20call%20in%20memory.md)
 
         - Stores active subroutines. The most recently called function must finish before the previous one resumes.
 

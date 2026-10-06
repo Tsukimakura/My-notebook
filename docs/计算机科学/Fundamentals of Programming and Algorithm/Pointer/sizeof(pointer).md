@@ -51,4 +51,4 @@ This means a 4-byte pointer can refer to byte #0 up to byte #4,294,967,295.  (Th
 ### The 64-bit Expansion
 
 If a pointer is 8 bytes, it is astronomically large. It allows the pointer to address an amount of RAM so large we don't even have physical hardware for it yet.(16 Exabytes (16 billion Gigabytes))
-[[32-bit & 64-bit | Learn more about 32 vs 64-bit systems]]
+[Learn more about 32 vs 64-bit systems](../Further%20knowledge%20%26%20tips/32-bit%20%26%2064-bit.md)

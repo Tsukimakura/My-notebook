@@ -9,7 +9,7 @@ sources: []
 
 # Main Function Return Values
 
-[[main function | Before learning this part]]
+[Before learning this part](../Basic%20knowledge/main%20function%20%E4%B8%BB%E5%87%BD%E6%95%B0.md)
 
 ## 1. Definition
 
@@ -84,7 +84,7 @@ The real power of exit codes lies in automation. Shells use them to decide contr
 
 ### A. Logical Operators
 
-[[Short-Circuit Evaluation 短路运算]]
+[Short-Circuit Evaluation 短路运算](../Basic%20knowledge/Short-Circuit%20Evaluation%20%E7%9F%AD%E8%B7%AF%E8%BF%90%E7%AE%97.md)
 *   **`&&` (AND Operator)**
     *   **Logic:** Run the next command **only if** the previous one succeeded (returned 0).
     *   **Usage:** `gcc main.c -o app && ./app`

@@ -17,4 +17,4 @@ sources: []
 | **Merge Sort**      | $O(N\log N)$ | $O(N)$       | Yes       | D & C   | Linked Lists; when **stability** is guaranteed needed. |
 | **Quick Sort**      | $O(N\log N)$ | $O(\log N)$ | No        | D & C   | **General purpose**; usually the fastest in practice.  |
 | **Hash (Counting)** | $O(N+K)$      | $O(N+K)$     | Yes       | Hashing | **Integers** with a small range ($K$).                 |
-- D & C -- Divide and Conquer  [[Divide-and-conquer]]
+- D & C -- Divide and Conquer  [Divide-and-conquer](../general%20ideas/Divide-and-conquer.md)

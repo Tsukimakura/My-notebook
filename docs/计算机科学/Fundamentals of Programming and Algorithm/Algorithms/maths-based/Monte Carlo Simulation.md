@@ -21,7 +21,7 @@ sources: []
 
 **Implementation**
 Estimate the value of **PI**
-[[Random Numbers |A simple note about random numbers]]
+[A simple note about random numbers](../../Further%20knowledge%20%26%20tips/Random%20Numbers.md)
 ```c
 #include <stdio.h>
 #include <stdlib.h>

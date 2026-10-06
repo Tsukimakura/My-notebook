@@ -30,7 +30,7 @@ The compiler processes one compilation unit at a time and maintains **zero knowl
 
 ### Scope and Linkage
 
-[[static | More about static]]
+[More about static](../Deep%20Dive/static.md)
 The boundaries of a compilation unit define the behavior of the `static` keyword.
 *   **Internal Linkage (`static`):** Variables/functions marked `static` are private to the current compilation unit. They are invisible to the linker and other files.
 *   **External Linkage (`extern`):** By default, functions and global variables are visible to the entire program.

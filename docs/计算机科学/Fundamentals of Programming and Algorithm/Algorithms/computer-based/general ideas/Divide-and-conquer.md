@@ -13,5 +13,5 @@ Recursive algorithms that divide a problem into roughly equal subproblems and th
 
 ## Examples
 
-[[Merge Sort]]
-[[Quick Sort]]
+[Merge Sort](../sorting/Merge%20Sort.md)
+[Quick Sort](../sorting/Quick%20Sort.md)

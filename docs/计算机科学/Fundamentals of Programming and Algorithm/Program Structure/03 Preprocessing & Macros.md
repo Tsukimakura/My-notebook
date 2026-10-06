@@ -75,7 +75,7 @@ Here is a **concise** section on Predefined Macros that fits perfectly into the 
 
 ## 3. Predefined Macros (Compiler Built-ins)
 
-[[Predefined Macros 预定义的宏 | cheat sheet of predefined macros]]
+[cheat sheet of predefined macros](../Quick%20Reference%20tables/Predefined%20Macros%20%E9%A2%84%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8F.md)
 The compiler automatically defines certain macros that are essential for **debugging** and **environment detection**. You do not need to define them yourself.
 
 ### Common Standard Macros
@@ -131,7 +131,7 @@ Macros evaluate arguments every time they appear in the definition.
 *   **The Trap:** `#define SQUARE(x) ((x) * (x))`
 *   **The Error:** `SQUARE(i++)` expands to `((i++) * (i++))`.
 *   **Result:** `i` is incremented twice, leading to **Undefined Behavior**.
-*   **Solution:** Use `static inline` functions [[Inline functions]] for complex logic instead of macros.
+*   **Solution:** Use `static inline` functions [Inline functions](../Further%20knowledge%20%26%20tips/Inline%20functions.md) for complex logic instead of macros.
 
 ---
 
@@ -140,7 +140,7 @@ Macros evaluate arguments every time they appear in the definition.
 ### 5.1 Why can't we duplicate headers?
 
 *   **Declarations** (e.g., `void func(int x);`) **can** be repeated.
-*   **Definitions** (specifically `struct`, `union`, `enum`) **cannot** be repeated. (Actually these "type definitions" are "declarations" [[Declarations vs Definitions 声明和定义]], and we should only do declarations instead of definitions in our headers)
+*   **Definitions** (specifically `struct`, `union`, `enum`) **cannot** be repeated. (Actually these "type definitions" are "declarations" [Declarations vs Definitions 声明和定义](../Basic%20knowledge/Declarations%20vs%20Definitions%20%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89.md), and we should only do declarations instead of definitions in our headers)
 *   If a header file containing `struct User { ... };` is included twice, the compiler sees it as a **Redefinition Error**.
 
 ### 5.2 Include Guards
@@ -213,7 +213,7 @@ This directive forces the compiler to **abort compilation immediately** and prin
 
 ## 7. Advanced Pattern: X-Macros
 
-[[X-Macros | More about X-Macros]]
+[More about X-Macros](../Further%20knowledge%20%26%20tips/X-Macros.md)
 A technique to maintain lists of data in one place and generate different code (enums, string arrays) automatically.
 
 1. **Define List:** Create a file (or macro) with data items wrapped in `X(...)`.

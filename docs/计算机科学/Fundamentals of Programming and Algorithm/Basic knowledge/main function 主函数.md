@@ -132,5 +132,5 @@ int main(int argc, char *argv[]) {
 
     but this is compiler-specific and not portable.
 
-[[Command Line Arguments 命令行参数 | Learn more about Command Line Arguments]]
-[[Main Function Return Values]]
+[Learn more about Command Line Arguments](../Further%20knowledge%20%26%20tips/Command%20Line%20Arguments%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0.md)
+[Main Function Return Values](../Deep%20Dive/Main%20Function%20Return%20Values.md)

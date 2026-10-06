@@ -32,7 +32,7 @@ sources: []
 
 ### 1.3 与其他代理的对比
 
-[[代理（Proxy）| 什么是代理？]]
+[什么是代理？](../../%E4%BB%A3%E7%90%86%EF%BC%88Proxy%EF%BC%89/%E4%BB%A3%E7%90%86%EF%BC%88Proxy%EF%BC%89.md)
 
 |代理类型|工作层级|支持协议|性能|适用场景|
 |---|---|---|---|---|
@@ -312,7 +312,7 @@ ssh -o ProxyCommand="nc -x 127.0.0.1:1080 %h %p" user@remote-host
 
 ### Proxychains 配置
 
-[[proxychains4 | 关于proxychains4]]
+[关于proxychains4](../../%E4%BB%A3%E7%90%86%EF%BC%88Proxy%EF%BC%89/proxychains4.md)
 
 ```bash
 # 安装

@@ -27,4 +27,4 @@ int *p = &num;
 
 - **Indirect Access (Pointer):** If you ask for *p, the CPU goes to 0x204, reads 0x100, realizes that is an address, goes to 0x100, and reads 42.
 
-- when we move to a 64-bit system, the address gets longer (from 8 hexadecimal to 16 hexadecimal) , and accordingly , sizeof(p) turns from 4 to 8.[[sizeof(pointer)]]
+- when we move to a 64-bit system, the address gets longer (from 8 hexadecimal to 16 hexadecimal) , and accordingly , sizeof(p) turns from 4 to 8.[sizeof(pointer)](sizeof%28pointer%29.md)

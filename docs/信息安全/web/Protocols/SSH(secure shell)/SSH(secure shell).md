@@ -118,7 +118,7 @@ sources: []
 
 ## 3. SSH 加密技术详解
 
-[[对称加密与非对称加密 | 参考笔记]]
+[参考笔记](../../../crypto/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E4%B8%8E%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86.md)
 
 ### 3.1 非对称加密（密钥交换）
 
@@ -275,7 +275,7 @@ ssh -R 9090:localhost:3000 username@remoteserver
 
 #### SOCKS 代理
 
-[[SOCKS5 | 参考笔记]]
+[参考笔记](../SOCKS/SOCKS5.md)
 
 ```bash
 # 建立本地 SOCKS5 代理

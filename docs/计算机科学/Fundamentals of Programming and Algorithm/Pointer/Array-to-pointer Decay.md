@@ -83,7 +83,7 @@ We can prove the property of the decayed array name by testing the stride of a p
 
 ## 2. The General Rule
 
-According to the C Standard, whenever an array name appears in an **expression**([[Expressions 表达式#Expressions| Expressions]]), it is automatically converted to a pointer to the first element of that array.
+According to the C Standard, whenever an array name appears in an **expression**([Expressions](../Basic%20knowledge/Expressions%20%E8%A1%A8%E8%BE%BE%E5%BC%8F.md#expressions)), it is automatically converted to a pointer to the first element of that array.
 
 **Example:**
 
@@ -166,7 +166,7 @@ char str[] = "Hello";
 ```
 
 - A string literal always decays into a pointer pointing to the first character (in a read-only part of the memory(text segment)) , but in this case, it doesn't pass the address, but the actual value of all the characters (including `\0`).
-- [[Literals 字面量 | About Literals]] [[Memory Allocation 内存分配 | About Memory Allocation]]
+- [About Literals](../Basic%20knowledge/Literals%20%E5%AD%97%E9%9D%A2%E9%87%8F.md) [About Memory Allocation](../Basic%20knowledge/Memory%20Allocation%20%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D.md)
 
 - The code above is equal to `char str[] = {'H','e','l','l','o','\0'}`
 

@@ -64,7 +64,7 @@ The type tells the compiler how far to jump when you add to a pointer (p + 1).
 
     2. You **cannot do arithmetic** (p++ is illegal) because the compiler doesn't know the step size.
 
-- **Solution:** You must **Type Cast** it to a specific type before using it. (implicit or explicit)[[Type Conversion 类型转换 | more about type conversion]]
+- **Solution:** You must **Type Cast** it to a specific type before using it. (implicit or explicit)[more about type conversion](../Basic%20knowledge/Type%20Conversion%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2.md)
 
 - About the position of `const`
 	- **const on the LEFT of `*`**  Protects the **Data** (Value).
@@ -72,4 +72,4 @@ The type tells the compiler how far to jump when you add to a pointer (p + 1).
 	e.g.
 	`const int *p` OR `int const *p` -- **Pointer to Constant**
 	`int * const p` -- **Constant Pointer**
-	[[typedef | An exception in typedef]]
+	[An exception in typedef](../Deep%20Dive/typedef.md)

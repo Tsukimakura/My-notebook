@@ -9,7 +9,7 @@ sources: []
 
 # Anatomy of a function call in memory
 
-[[Stack 栈 | pre-knowledge about stack]]
+[pre-knowledge about stack](../Data%20structure/Linear/Stack%20%E6%A0%88.md)
 
 ## **1. Memory Segments: Code vs. Execution**
 
@@ -23,7 +23,7 @@ sources: []
 
 - **Stack Segment:**
 
-    - **Content:** Stores **Stack Frames** (local variables, arguments, return addresses).[[The stack frame 栈帧]]
+    - **Content:** Stores **Stack Frames** (local variables, arguments, return addresses).[The stack frame 栈帧](The%20stack%20frame%20%E6%A0%88%E5%B8%A7.md)
 
     - **Lifetime:** Dynamic. Allocated when the function is called, freed (released) when it returns.
 

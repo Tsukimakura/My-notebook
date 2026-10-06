@@ -54,7 +54,7 @@ According to the ISO C Standard, identifiers fall into one of four categories:
 
 ## 3. Intersection: Namespaces vs. Scope
 
-[[Scope 作用域]]
+[Scope 作用域](Scope%20%E4%BD%9C%E7%94%A8%E5%9F%9F.md)
 
 It is crucial to understand that **Namespace** and **Scope** are orthogonal concepts.
 *   **Scope** defines **where** (region) an identifier is visible.

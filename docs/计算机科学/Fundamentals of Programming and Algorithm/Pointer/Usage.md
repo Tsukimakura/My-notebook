@@ -11,7 +11,7 @@ sources: []
 
 ## 1. To indirectly manipulate the arguments
 
-[[Arguments vs Parameters 实参与形参]]
+[Arguments vs Parameters 实参与形参](../Basic%20knowledge/Arguments%20vs%20Parameters%20%E5%AE%9E%E5%8F%82%E4%B8%8E%E5%BD%A2%E5%8F%82.md)
 ```c
 void swap(int *a, int *b){
 	int p = *a;

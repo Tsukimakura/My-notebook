@@ -9,7 +9,7 @@ sources: []
 
 # Scope 作用域
 
-[[Declarations vs Definitions 声明和定义 | pre-knowledge -- declarations and definitions]]
+[pre-knowledge -- declarations and definitions](Declarations%20vs%20Definitions%20%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89.md)
 
 ## **1. Definition**
 
@@ -68,7 +68,7 @@ sources: []
 ## **3. Impact of Keywords (static & extern)**
 
 **A. static (Internal Linkage)**
-[[static | Learn more about static]]
+[Learn more about static](../Deep%20Dive/static.md)
 
 - **On Global Variables:** Limits the scope to **the current file only**. Other files cannot access it using extern.
 

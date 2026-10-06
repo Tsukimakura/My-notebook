@@ -78,7 +78,7 @@ gcc -S hello.i -o hello.s
     *   **Machine Code:** The CPU can read it, but it cannot run yet.
     *   **Placeholder Addresses:** Addresses for functions/variables are set to `0x0` or relative offsets because the final memory layout is unknown.
     *   **Symbol Table:** A list of symbols defined (exported) and symbols needed (imported/undefined) by this file.
-    [[06 Intermediate Product — Relocatable Object File (.o)#Symbol Table | Symbol Table (brief)]]
+    [Symbol Table (brief)](06%20Intermediate%20Product%20%E2%80%94%20Relocatable%20Object%20File%20%28.o%29.md#symbol-table)
 
 ### Command Line
 
