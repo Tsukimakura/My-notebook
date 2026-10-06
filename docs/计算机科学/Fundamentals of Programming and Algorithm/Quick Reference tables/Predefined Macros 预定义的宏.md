@@ -1,3 +1,12 @@
+---
+title: "Predefined Macros 预定义的宏"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Predefined Macros 预定义的宏
 
 Here is a **Quick Reference Table (Cheat Sheet)** for Predefined Macros in C. These are automatically defined by the compiler and are essential for debugging, cross-platform development, and version control.

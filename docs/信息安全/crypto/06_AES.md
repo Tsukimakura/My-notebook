@@ -1,3 +1,12 @@
+---
+title: "06_AES"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 06_AES
 
 [优质讲解 【【AES加密算法】| AES加密过程详解| 对称加密| Rijndael-128| 密码学| 信息安全】](https://www.bilibili.com/video/BV1i341187fK/?share_source=copy_web&vd_source=0ef01121605990d44b8d3543570884c7)

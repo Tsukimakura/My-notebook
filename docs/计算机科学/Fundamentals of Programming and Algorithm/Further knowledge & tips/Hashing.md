@@ -1,3 +1,12 @@
+---
+title: "Hashing"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Hashing
 
 ## 1. What is Hashing?

@@ -1,3 +1,12 @@
+---
+title: "From Source Code to Program Execution"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # From Source Code to Program Execution
 
 ## **1. Writing Source Code**

@@ -1,3 +1,12 @@
+---
+title: "1. 发起 HTTP 请求"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 > B/S 架构 -- 浏览器/服务器结构，客户机上只需浏览器，Web 安全主战。
 > C/S 架构 -- 客户端/服务器结构，攻击者可能会逆向分析客户端安装包，寻找通信协议的漏洞。
 

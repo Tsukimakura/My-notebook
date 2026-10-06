@@ -1,3 +1,12 @@
+---
+title: "PF"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # PF
 
 在标志寄存器中，**PF (Parity Flag)** 被称为 **奇偶标志位**。

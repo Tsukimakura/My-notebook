@@ -1,3 +1,12 @@
+---
+title: "Array-to-pointer Decay"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Array-to-pointer Decay
 
 ## 1. What is "Array Decay"?

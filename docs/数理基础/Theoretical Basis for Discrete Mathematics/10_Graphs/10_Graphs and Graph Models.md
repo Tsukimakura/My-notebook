@@ -1,3 +1,12 @@
+---
+title: "10_Graphs and Graph Models"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Graphs and Graph Models
 
 ## I. Core Definitions

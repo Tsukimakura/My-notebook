@@ -1,3 +1,12 @@
+---
+title: "10_Mathematical Induction"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Mathematical Induction
 
 ## 1. Core Concepts and Intuition

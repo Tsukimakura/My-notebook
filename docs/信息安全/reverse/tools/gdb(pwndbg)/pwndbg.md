@@ -1,3 +1,12 @@
+---
+title: "pwndbg"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # pwndbg
 
 `pwndbg` 是基于 GDB 的一个插件，专为 **CTF Pwn 选手**、**漏洞利用开发者**和**逆向工程师**设计。它极大地增强了 GDB 的原生功能，提供了强大的上下文显示、堆分析工具和漏洞利用辅助功能。

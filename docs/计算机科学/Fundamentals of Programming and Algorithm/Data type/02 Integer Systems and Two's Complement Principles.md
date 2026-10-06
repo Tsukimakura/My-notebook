@@ -1,3 +1,12 @@
+---
+title: "02 Integer Systems and Two's Complement Principles"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02 Integer Systems and Two's Complement Principles
 
 ## 1. Integer Storage Models

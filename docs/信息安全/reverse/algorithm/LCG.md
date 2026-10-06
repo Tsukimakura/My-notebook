@@ -1,3 +1,12 @@
+---
+title: "LCG"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # LCG
 
 线性同余生成器（Linear Congruential Generator, 简称 LCG）是计算机科学中最古老且最广为人知的伪随机数生成算法之一。其核心优势在于极高的计算效率和极小的内存占用，但由于其数学特性的限制，生成的随机数序列在统计学上存在固有缺陷，不适用于密码学或高精度的科学模拟。

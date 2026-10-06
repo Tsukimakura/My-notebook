@@ -1,3 +1,12 @@
+---
+title: "01 The C Compilation Pipeline"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01 The C Compilation Pipeline
 
 In C, "compiling" is actually a pipeline process known as **Translation**. The compiler driver (e.g., GCC) orchestrates four distinct stages to transform human-readable source code into machine-executable binaries.

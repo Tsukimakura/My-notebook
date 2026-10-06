@@ -1,3 +1,12 @@
+---
+title: "Go 逆向"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Go 逆向
 
 ## 1. Go 二进制文件的核心特征

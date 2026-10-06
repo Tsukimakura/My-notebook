@@ -1,3 +1,12 @@
+---
+title: "Space complexity"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Space complexity
 
 ## 1. Definition

@@ -1,3 +1,12 @@
+---
+title: "30_Complexity of Algorithms"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 30_Complexity of Algorithms
 
 ## **1. Introduction to Algorithm Complexity**

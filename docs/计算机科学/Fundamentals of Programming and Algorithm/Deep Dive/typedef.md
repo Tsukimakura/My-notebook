@@ -1,3 +1,12 @@
+---
+title: "typedef"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # typedef
 
 ## **1. Core Concept**

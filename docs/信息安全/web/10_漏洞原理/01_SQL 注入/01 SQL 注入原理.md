@@ -1,3 +1,12 @@
+---
+title: "SQL 注入原理"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # SQL 注入原理
 
 > 可以选择在线靶场或本地搭建靶场进行练习。

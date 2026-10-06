@@ -1,3 +1,12 @@
+---
+title: "dnSpy"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # dnSpy
 
 dnSpy 是一款基于 .NET 的逆向工程工具，集成了反编译器、调试器和汇编编辑器等功能。它是 GitHub 上开源项目 ILSpy 的一个分支，但在功能深度和交互性上进行了极大的扩展，被誉为 .NET 逆向的“瑞士军刀”。

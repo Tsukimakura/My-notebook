@@ -1,3 +1,12 @@
+---
+title: "06 Random Access in Files"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 06 Random Access in Files
 
 ## 1. The Concept of File Positioning

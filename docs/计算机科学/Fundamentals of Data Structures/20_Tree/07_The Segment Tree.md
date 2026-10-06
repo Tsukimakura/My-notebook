@@ -1,3 +1,12 @@
+---
+title: "07_The Segment Tree"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 07_The Segment Tree
 
 ## 1. Motivation

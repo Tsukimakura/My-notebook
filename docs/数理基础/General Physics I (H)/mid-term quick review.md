@@ -1,3 +1,12 @@
+---
+title: "mid-term quick review"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # mid-term quick review
 
 ## Newton's Laws

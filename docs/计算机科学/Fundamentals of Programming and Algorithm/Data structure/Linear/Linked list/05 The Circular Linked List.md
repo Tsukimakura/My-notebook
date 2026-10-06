@@ -1,3 +1,12 @@
+---
+title: "05 The Circular Linked List"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 05 The Circular Linked List
 
 ## **1. The Concept & Purpose**

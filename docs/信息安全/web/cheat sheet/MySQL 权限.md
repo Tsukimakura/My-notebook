@@ -1,3 +1,12 @@
+---
+title: "MySQL 权限"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # MySQL 权限
 
 ## 1. 核心数据操作权限 (DML - Data Manipulation)

@@ -1,3 +1,12 @@
+---
+title: "01_Motion_in_1D"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01_Motion_in_1D
 
 ## 1. Fundamental Concepts & Definitions

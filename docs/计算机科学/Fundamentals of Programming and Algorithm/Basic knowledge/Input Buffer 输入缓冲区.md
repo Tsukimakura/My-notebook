@@ -1,3 +1,12 @@
+---
+title: "Input Buffer 输入缓冲区"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Input Buffer 输入缓冲区
 
 ## 1. Basic Concepts

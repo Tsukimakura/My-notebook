@@ -1,3 +1,12 @@
+---
+title: "**Number Base Conversion — Detailed Notes (Computer Science)**"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # **Number Base Conversion — Detailed Notes (Computer Science)**
 
 ## **1. Introduction**

@@ -1,3 +1,12 @@
+---
+title: "objdump"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # objdump
 
 ## 核心前置概念：BFD 库与 `objdump` 的底层逻辑

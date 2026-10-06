@@ -1,3 +1,12 @@
+---
+title: "80_Graph Coloring"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 80_Graph Coloring
 
 ## I. Map Coloring and Dual Graphs

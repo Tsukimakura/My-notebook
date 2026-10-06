@@ -1,3 +1,12 @@
+---
+title: "05 Read & Write Operations for Binary Files"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 05 Read & Write Operations for Binary Files
 
 ## 1. Characteristics of Binary Files

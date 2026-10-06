@@ -1,3 +1,12 @@
+---
+title: "Valgrind"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Valgrind
 
 Valgrind 是 Linux 平台下用于内存调试、内存泄漏检测以及性能分析的工具集合。它通过构建合成 CPU 来仿真执行程序，从而监控内存访问和程序行为。

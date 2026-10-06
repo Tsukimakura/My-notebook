@@ -1,3 +1,12 @@
+---
+title: "00_Propositonal Languange"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 00_Propositonal Languange
 
 ## 1. Introduction to Propositions

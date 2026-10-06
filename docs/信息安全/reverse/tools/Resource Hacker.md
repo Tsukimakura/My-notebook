@@ -1,3 +1,12 @@
+---
+title: "Resource Hacker"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Resource Hacker
 
 ## 一、 左侧目录 -- 解剖 PE 文件

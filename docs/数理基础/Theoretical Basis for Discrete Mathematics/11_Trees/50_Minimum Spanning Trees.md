@@ -1,3 +1,12 @@
+---
+title: "50_Minimum Spanning Trees"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 50_Minimum Spanning Trees
 
 ## I. The Concept of Minimum Spanning Trees

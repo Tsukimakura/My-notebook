@@ -1,3 +1,12 @@
+---
+title: "40_Set Cardinality"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 40_Set Cardinality
 
 ## 1. Defining Cardinality

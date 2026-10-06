@@ -1,3 +1,12 @@
+---
+title: "50_Euler and Hamilton Paths"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 50_Euler and Hamilton Paths
 
 ## I. Euler Paths and Circuits (Edge-Focused)

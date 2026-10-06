@@ -1,3 +1,12 @@
+---
+title: "obsidian"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # obsidian
 
 ## 1. 双向链接

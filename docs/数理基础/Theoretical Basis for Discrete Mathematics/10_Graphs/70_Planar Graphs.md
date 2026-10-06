@@ -1,3 +1,12 @@
+---
+title: "70_Planar Graphs"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 70_Planar Graphs
 
 ## I. Core Definitions

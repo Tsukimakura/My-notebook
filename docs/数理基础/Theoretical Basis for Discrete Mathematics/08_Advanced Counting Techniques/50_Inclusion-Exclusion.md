@@ -1,3 +1,12 @@
+---
+title: "50_Inclusion-Exclusion"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 50_Inclusion-Exclusion
 
 ## 1. The Core Concept

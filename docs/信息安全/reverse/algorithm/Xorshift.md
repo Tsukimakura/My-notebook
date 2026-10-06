@@ -1,3 +1,12 @@
+---
+title: "Xorshift"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Xorshift
 
 Xorshift 是一类由统计学家 George Marsaglia 于 2003 年提出的伪随机数生成器 (PRNG)。

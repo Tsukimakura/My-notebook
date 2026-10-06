@@ -1,3 +1,12 @@
+---
+title: "Sorting stability"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Sorting stability
 
 ## 1. Definition

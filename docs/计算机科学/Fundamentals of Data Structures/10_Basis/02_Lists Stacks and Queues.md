@@ -1,3 +1,12 @@
+---
+title: "1. Abstract Data Type (ADT)"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 1. Abstract Data Type (ADT)
 
 - **Standard Data Type:** A data type is formally defined as a mathematical set of objects combined with a set of allowable operations.

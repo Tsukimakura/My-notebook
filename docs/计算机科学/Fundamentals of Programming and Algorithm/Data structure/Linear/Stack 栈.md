@@ -1,3 +1,12 @@
+---
+title: "Stack 栈"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Stack 栈
 
 ## 1. Concept & Definition

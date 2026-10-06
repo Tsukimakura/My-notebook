@@ -1,3 +1,12 @@
+---
+title: "Win GUI"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Win GUI
 
 **从“面向过程”的逆向思维，转变为“面向事件”的逆向思维。**

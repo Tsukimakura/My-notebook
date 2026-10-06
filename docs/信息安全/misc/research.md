@@ -1,3 +1,12 @@
+---
+title: "Coding Agent 安全调研记录"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Coding Agent 安全调研记录
 
 > 访问日期：2026-07-28。本文将资料分为三类：官方安全公告、研究者复盘、产品文档/社区 Issue。只有官方安全公告可以直接表述为“已确认漏洞”；社区 Issue 仅作为待验证线索。

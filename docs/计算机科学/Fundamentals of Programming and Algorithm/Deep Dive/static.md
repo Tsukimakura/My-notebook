@@ -1,3 +1,12 @@
+---
+title: "static"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # static
 
 In C, the static keyword modifies two fundamental properties of variables and functions:

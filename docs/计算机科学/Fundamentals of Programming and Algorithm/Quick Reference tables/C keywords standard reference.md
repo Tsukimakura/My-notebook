@@ -1,3 +1,12 @@
+---
+title: "C keywords standard reference"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # C keywords standard reference
 
 Here is a comprehensive, professional engineering reference for **C Language Keywords**.

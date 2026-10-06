@@ -1,3 +1,12 @@
+---
+title: "Type Conversion 类型转换"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Type Conversion 类型转换
 
 **Type conversion is the process of converting a variable from one data type to another.**

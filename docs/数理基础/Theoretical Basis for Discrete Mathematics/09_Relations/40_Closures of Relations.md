@@ -1,3 +1,12 @@
+---
+title: "40_Closures of Relations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 40_Closures of Relations
 
 ## 1. Definition of Closure

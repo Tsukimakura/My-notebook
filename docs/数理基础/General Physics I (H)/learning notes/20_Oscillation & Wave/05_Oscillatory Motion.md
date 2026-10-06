@@ -1,3 +1,12 @@
+---
+title: "05_Oscillatory Motion"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 05_Oscillatory Motion
 
 ## 1. Applications of Oscillatory Motion

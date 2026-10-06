@@ -1,3 +1,12 @@
+---
+title: "03 The Core of File Operations--The FILE Structure"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 03 The Core of File Operations--The FILE Structure
 
 ## 1. The FILE Structure

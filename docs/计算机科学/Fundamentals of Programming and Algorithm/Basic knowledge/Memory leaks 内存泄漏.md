@@ -1,3 +1,12 @@
+---
+title: "Memory leaks 内存泄漏"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Memory leaks 内存泄漏
 
 ## 1. Origin of the Term (Literal Meaning)

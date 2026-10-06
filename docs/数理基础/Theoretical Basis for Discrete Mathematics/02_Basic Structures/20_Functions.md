@@ -1,3 +1,12 @@
+---
+title: "20_Functions"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Functions
 
 ## 1. Introduction and Core Definitions

@@ -1,3 +1,12 @@
+---
+title: "12_DFS"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 12_DFS
 
 ## 1. DFS Fundamentals

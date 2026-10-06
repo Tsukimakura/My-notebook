@@ -1,3 +1,12 @@
+---
+title: "Relativity"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Relativity
 
 ## 1. The Speed of Light & Ether Hypothesis

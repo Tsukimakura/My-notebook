@@ -1,3 +1,12 @@
+---
+title: "07_Induction and Recursion"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 07_Induction and Recursion
 
 ## 一、 数学归纳法 (Mathematical Induction)

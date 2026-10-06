@@ -1,3 +1,12 @@
+---
+title: "Character Constants 字符常量"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Character Constants 字符常量
 
 ## 1. Definition and Syntax

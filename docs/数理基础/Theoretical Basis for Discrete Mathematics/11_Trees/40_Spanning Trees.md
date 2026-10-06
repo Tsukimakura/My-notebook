@@ -1,3 +1,12 @@
+---
+title: "40_Spanning Trees"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 40_Spanning Trees
 
 ## I. Core Definitions and Concepts

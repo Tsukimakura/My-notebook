@@ -1,3 +1,12 @@
+---
+title: "02 The Basic Unit of Compilation & Preprocessing Logic"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02 The Basic Unit of Compilation & Preprocessing Logic
 
 ## 1. The Compilation Unit (Translation Unit)

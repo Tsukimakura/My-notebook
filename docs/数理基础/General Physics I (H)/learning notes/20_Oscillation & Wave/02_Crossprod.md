@@ -1,3 +1,12 @@
+---
+title: "02_Crossprod"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02_Crossprod
 
 ## 1. Rotational Dynamics: Atwood's Machine Examples

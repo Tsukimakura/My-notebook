@@ -1,3 +1,12 @@
+---
+title: "04_Binary Search Tree"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04_Binary Search Tree
 
 ## 1. The Binary Search Tree (BST) ADT

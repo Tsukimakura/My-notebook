@@ -1,3 +1,12 @@
+---
+title: "SEH"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # SEH
 
 **SEH（结构化异常处理）** 是 Windows 操作系统处理程序错误（如除零错、内存非法访问等）的一种机制。在逆向和脱壳中，它经常被用来进行反调试或控制程序执行流。

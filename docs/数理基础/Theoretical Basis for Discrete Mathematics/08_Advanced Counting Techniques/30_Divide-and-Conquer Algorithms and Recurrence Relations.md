@@ -1,3 +1,12 @@
+---
+title: "30_Divide-and-Conquer Algorithms and Recurrence Relations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 30_Divide-and-Conquer Algorithms and Recurrence Relations
 
 ## 1. The Divide-and-Conquer Paradigm

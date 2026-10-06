@@ -1,3 +1,12 @@
+---
+title: "Time complexity"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Time complexity
 
 ## 1. Definition

@@ -1,3 +1,12 @@
+---
+title: "hook & 算法剥离"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # hook & 算法剥离
 
 ## 一、 Hook

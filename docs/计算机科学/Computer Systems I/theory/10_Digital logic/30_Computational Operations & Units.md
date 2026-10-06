@@ -1,3 +1,12 @@
+---
+title: "Addition"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Addition
 
 ## **1. Basic Concepts: Iterative Combinational Circuits**

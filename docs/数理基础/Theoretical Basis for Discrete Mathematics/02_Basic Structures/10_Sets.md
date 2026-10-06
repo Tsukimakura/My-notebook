@@ -1,3 +1,12 @@
+---
+title: "Introduction"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Introduction
 
 ## 1. Introduction and Basic Definitions

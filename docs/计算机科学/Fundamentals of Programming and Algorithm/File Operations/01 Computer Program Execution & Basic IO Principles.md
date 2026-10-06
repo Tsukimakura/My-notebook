@@ -1,3 +1,12 @@
+---
+title: "01 Computer Program Execution & Basic IO Principles"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01 Computer Program Execution & Basic IO Principles
 
 ## 1. Principles of Program Execution

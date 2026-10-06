@@ -1,3 +1,12 @@
+---
+title: "知识地图"
+status: draft
+tags: [knowledge-management]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 知识地图
 
 本笔记库以可复用的知识领域组织；课程复习材料、例题和阶段性总结则作为这些领域的辅助入口。

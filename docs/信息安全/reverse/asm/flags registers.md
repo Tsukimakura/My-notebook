@@ -1,3 +1,12 @@
+---
+title: "flags registers"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # flags registers
 
 如果说通用寄存器是 CPU 的“工作台”，那么**标志寄存器（Flags Register）**就是 CPU 的**“状态面板”**。

@@ -1,3 +1,12 @@
+---
+title: "apk"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # apk
 
 ## 第一部分：APK 的本质

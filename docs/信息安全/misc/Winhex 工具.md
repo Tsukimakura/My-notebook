@@ -1,3 +1,12 @@
+---
+title: "Winhex 工具"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Winhex 工具
 
 当一个加密卷被解密并挂载为逻辑驱动器（Logical Drive）后，WinHex 解析的是该卷内部的**文件系统**（通常为 FAT32、NTFS 或 exFAT）。用户看到的视图是操作系统层面的文件目录结构与底层数据恢复信息的结合。

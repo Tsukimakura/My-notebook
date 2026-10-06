@@ -1,3 +1,12 @@
+---
+title: "LEA"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # LEA
 
 **LEA** 指令的全称是 **Load Effective Address**（加载有效地址）。

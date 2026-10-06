@@ -1,3 +1,12 @@
+---
+title: "Scope 作用域"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Scope 作用域
 
 [[Declarations vs Definitions 声明和定义 | pre-knowledge -- declarations and definitions]]

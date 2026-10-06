@@ -1,3 +1,12 @@
+---
+title: "07_Gravity"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 07_Gravity
 
 ## **Law of Gravity**

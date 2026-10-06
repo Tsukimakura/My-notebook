@@ -1,3 +1,12 @@
+---
+title: "11_Minimum Spanning Tree (MST)"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 11_Minimum Spanning Tree (MST)
 
 ## 1. Definitions

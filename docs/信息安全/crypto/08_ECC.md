@@ -1,3 +1,12 @@
+---
+title: "08_ECC"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 08_ECC
 
 ## **1. 椭圆曲线的数学基础 (Mathematical Foundations)**

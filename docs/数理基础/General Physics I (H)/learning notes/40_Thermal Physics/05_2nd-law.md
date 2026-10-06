@@ -1,3 +1,12 @@
+---
+title: "05_2nd-law"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 05_2nd-law
 
 ## 1. The Carnot Cycle (Sadi Carnot, 1824)

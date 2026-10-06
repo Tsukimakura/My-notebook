@@ -30,6 +30,8 @@ sources:
 
 每篇文章只能有一个一级标题。不要把“已校验”写成默认状态；只有对照教材、标准或原始资料完成核对后才使用 `reviewed`。
 
+现有笔记统一以 `draft` 初始化，领域标签使用 `cs`、`math-physics`、`security`，入口页使用 `knowledge-management`。无法确认原始创建日期时，`created` 使用 `null`；`updated` 记录最近一次维护日期。`sources: []` 表示尚未整理来源，不代表已核验。
+
 提交前运行 `make format` 自动统一标题层级、代码块标注、空行和尾随空格；再运行 `make check`，它会检查 Markdown 格式、未闭合代码围栏、公式、图片附件链接并执行严格构建。
 
 ## 代码块

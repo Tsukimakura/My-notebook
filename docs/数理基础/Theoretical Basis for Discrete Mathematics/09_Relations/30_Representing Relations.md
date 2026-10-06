@@ -1,3 +1,12 @@
+---
+title: "30_Representing Relations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 30_Representing Relations
 
 ## 1. Representing Relations Using Matrices

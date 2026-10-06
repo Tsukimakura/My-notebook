@@ -1,3 +1,12 @@
+---
+title: "代理（Proxy）"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 代理（Proxy）
 
 ## 1. 代理基础概念

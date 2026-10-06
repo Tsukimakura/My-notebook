@@ -1,3 +1,12 @@
+---
+title: "The stack frame 栈帧"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # The stack frame 栈帧
 
 ## **1. Definition**

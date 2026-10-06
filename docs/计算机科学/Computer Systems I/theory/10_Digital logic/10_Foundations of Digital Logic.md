@@ -1,3 +1,12 @@
+---
+title: "Introduction to Digital Systems"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Introduction to Digital Systems
 
 - **System Conversion:** Real-world analog signals are captured (e.g., by a microphone) and converted to digital via an **ADC** (Analog-to-Digital Converter) for processing. After digital processing, a **DAC** (Digital-to-Analog Converter) translates the signals back to analog for output (e.g., to a speaker).

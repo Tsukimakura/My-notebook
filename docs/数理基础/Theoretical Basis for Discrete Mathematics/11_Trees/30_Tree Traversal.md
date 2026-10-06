@@ -1,3 +1,12 @@
+---
+title: "30_Tree Traversal"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 30_Tree Traversal
 
 ## I. Traversal Algorithms

@@ -1,3 +1,12 @@
+---
+title: "SOCKS5"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # SOCKS5
 
 ## 1. SOCKS5 协议基础

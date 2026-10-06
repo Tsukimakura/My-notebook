@@ -1,3 +1,12 @@
+---
+title: "NTFS ADS"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # NTFS ADS
 
 > NTFS 交换数据流 (Alternate Data Streams, ADS)。

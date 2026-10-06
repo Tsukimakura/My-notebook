@@ -1,3 +1,12 @@
+---
+title: "02_gas"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02_gas
 
 ## 1. Kinetic Theory of Ideal Gases

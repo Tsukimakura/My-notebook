@@ -1,3 +1,12 @@
+---
+title: "50_Matrices"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 50_Matrices
 
 ## **1. Matrices: Definition and Notation**

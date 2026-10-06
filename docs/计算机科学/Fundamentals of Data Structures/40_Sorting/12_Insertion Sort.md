@@ -1,3 +1,12 @@
+---
+title: "12_Insertion Sort"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 12_Insertion Sort
 
 ## 1. Preliminaries

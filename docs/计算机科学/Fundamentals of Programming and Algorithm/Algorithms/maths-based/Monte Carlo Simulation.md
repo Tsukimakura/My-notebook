@@ -1,3 +1,12 @@
+---
+title: "Monte Carlo Simulation"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Monte Carlo Simulation
 
 **Basic steps:**

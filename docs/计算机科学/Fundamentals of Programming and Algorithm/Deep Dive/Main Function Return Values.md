@@ -1,3 +1,12 @@
+---
+title: "Main Function Return Values"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Main Function Return Values
 
 [[main function | Before learning this part]]

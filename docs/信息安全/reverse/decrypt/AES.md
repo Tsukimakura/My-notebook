@@ -1,3 +1,12 @@
+---
+title: "AES"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # AES
 
 高级加密标准（Advanced Encryption Standard，AES），在密码学中又称 Rijndael 加密法，是美国联邦政府采用的一种区块加密标准。在 CTF 逆向工程中，AES 是最常出现的对称加密算法之一。选手不仅需要理解其数学原理，更需要掌握如何在汇编代码中快速识别算法特征、判断加密模式以及提取密钥。

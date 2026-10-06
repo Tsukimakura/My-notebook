@@ -303,6 +303,14 @@ def surround_headings(lines: list[str]) -> list[str]:
 
 
 def format_text(text: str, path: Path) -> str:
+    # YAML metadata is not Markdown: preserve it before normalizing the body.
+    front_matter = ""
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    if text.startswith("---\n"):
+        match = re.match(r"\A---\n.*?\n(?:---|\.\.\.)\n", text, re.DOTALL)
+        if match:
+            front_matter = match.group(0)
+            text = text[match.end():].lstrip("\n")
     lines = [line.rstrip() for line in text.replace("\r\n", "\n").replace("\r", "\n").split("\n")]
     while lines and lines[-1] == "":
         lines.pop()
@@ -316,7 +324,7 @@ def format_text(text: str, path: Path) -> str:
     lines = surround_headings(lines)
     while lines and lines[-1] == "":
         lines.pop()
-    return "\n".join(lines) + "\n"
+    return front_matter + ("\n" if front_matter else "") + "\n".join(lines) + "\n"
 
 
 def markdown_files(roots: list[Path]) -> list[Path]:

@@ -1,3 +1,12 @@
+---
+title: "Base 系列编码"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Base 系列编码
 
 **Base 系列编码**（Base-N Encoding）的目的是 **将不可读、易出错的“二进制数据”转换成安全的“可打印字符”。**

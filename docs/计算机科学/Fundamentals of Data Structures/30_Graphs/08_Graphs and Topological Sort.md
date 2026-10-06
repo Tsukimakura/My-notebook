@@ -1,3 +1,12 @@
+---
+title: "Graphs and Topological Sort"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Graphs and Topological Sort
 
 ## **1. Definitions**

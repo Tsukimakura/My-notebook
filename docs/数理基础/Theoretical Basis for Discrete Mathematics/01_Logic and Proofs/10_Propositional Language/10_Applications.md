@@ -1,3 +1,12 @@
+---
+title: "10_Applications"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Applications
 
 ## 1. Overview

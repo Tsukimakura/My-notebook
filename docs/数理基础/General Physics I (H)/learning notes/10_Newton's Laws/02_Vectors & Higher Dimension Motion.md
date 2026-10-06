@@ -1,3 +1,12 @@
+---
+title: "02_Vectors & Higher Dimension Motion"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02_Vectors & Higher Dimension Motion
 
 ## 1. Kinematics in Higher Dimensions

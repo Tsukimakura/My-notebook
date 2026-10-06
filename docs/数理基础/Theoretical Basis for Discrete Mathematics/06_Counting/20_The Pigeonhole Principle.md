@@ -1,3 +1,12 @@
+---
+title: "20_The Pigeonhole Principle"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_The Pigeonhole Principle
 
 ## 1. The Basic Pigeonhole Principle

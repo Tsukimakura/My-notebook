@@ -1,3 +1,12 @@
+---
+title: "Josephus Problem"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Josephus Problem
 
 ## 一、 什么是约瑟夫环？

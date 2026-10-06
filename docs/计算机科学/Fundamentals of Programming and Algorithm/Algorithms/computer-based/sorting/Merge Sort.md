@@ -1,3 +1,12 @@
+---
+title: "Merge Sort"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Merge Sort
 
 ![归并排序示意图，来源：翁恺 2025 程算课程 PPT](../../../../../assets/c-programming/merge-sort-wk.png)

@@ -1,3 +1,12 @@
+---
+title: "C sharp (.NET)"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # C sharp (.NET)
 
 ## .NET

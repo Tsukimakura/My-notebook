@@ -1,3 +1,12 @@
+---
+title: "Problems & keys"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Problems & keys
 
 ## 时间复杂度分析

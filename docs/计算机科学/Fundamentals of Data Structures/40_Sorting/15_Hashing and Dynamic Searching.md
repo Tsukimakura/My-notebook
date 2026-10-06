@@ -1,3 +1,12 @@
+---
+title: "15_Hashing and Dynamic Searching"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 15_Hashing and Dynamic Searching
 
 ## I. Introduction to Searching Methods

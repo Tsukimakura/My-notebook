@@ -1,3 +1,12 @@
+---
+title: "upx"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # upx
 
 ## 一、 UPX 壳基础原理

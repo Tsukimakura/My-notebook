@@ -1,3 +1,12 @@
+---
+title: "MC 联机服务端和客户端配置"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # MC 联机服务端和客户端配置
 
 这份教程汇集了我们之前解决的所有问题，是**针对4GB内存Ubuntu主机 + Windows客户端（HMCL）** 的终极配置方案。

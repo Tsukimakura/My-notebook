@@ -1,3 +1,12 @@
+---
+title: "07 The Doubly Linked List with Double Sentinels"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 07 The Doubly Linked List with Double Sentinels
 
 ## **1. The Concept & Purpose**

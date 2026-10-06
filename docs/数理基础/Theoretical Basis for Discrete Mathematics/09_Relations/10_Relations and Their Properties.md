@@ -1,3 +1,12 @@
+---
+title: "10_Relations and Their Properties"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Relations and Their Properties
 
 ## 1. Basics of Binary Relations

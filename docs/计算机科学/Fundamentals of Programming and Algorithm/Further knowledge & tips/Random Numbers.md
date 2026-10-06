@@ -1,3 +1,12 @@
+---
+title: "Random Numbers"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Random Numbers
 
 - C generates pseudo-random (伪随机)numbers using `<stdlib.h>` functions: `rand()` and `srand()`

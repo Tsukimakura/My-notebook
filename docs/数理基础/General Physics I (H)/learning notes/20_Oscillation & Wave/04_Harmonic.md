@@ -1,3 +1,12 @@
+---
+title: "04_Harmonic"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04_Harmonic
 
 ## 1. Equilibrium Overview

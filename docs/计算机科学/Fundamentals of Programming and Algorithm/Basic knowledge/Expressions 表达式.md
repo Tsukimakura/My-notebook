@@ -1,3 +1,12 @@
+---
+title: "Expressions 表达式"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Expressions 表达式
 
 ## 1. Definition and Fundamental Nature

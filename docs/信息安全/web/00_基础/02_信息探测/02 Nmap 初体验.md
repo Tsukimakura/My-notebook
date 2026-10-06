@@ -1,3 +1,12 @@
+---
+title: "1. 探测主机信息"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 > Nmap 是一个开源的网络连接端扫描软件，用来扫描计算机开放的网络连接端，确定哪些服务运行在哪些连接端，并推断计算机运行哪个操作系统。另外，它也用于评估网络系统安全。
 
 https://nmap.org/

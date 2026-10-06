@@ -1,3 +1,12 @@
+---
+title: "14_Quick_Table_Bucket Sort"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 14_Quick_Table_Bucket Sort
 
 **Overview:** Quicksort is widely considered the fastest known sorting algorithm in practice. It utilizes a divide-and-conquer strategy.

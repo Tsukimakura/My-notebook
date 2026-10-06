@@ -1,3 +1,12 @@
+---
+title: "20_Strong Induction and Well-Ordering"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Strong Induction and Well-Ordering
 
 ## 1. Strong Induction

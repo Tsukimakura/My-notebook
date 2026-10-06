@@ -1,3 +1,12 @@
+---
+title: "10_Introduction to Proofs"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Introduction to Proofs
 
 ## 1. Methods of Proving Conditional Statements ($p \rightarrow q$)

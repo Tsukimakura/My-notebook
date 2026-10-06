@@ -1,3 +1,12 @@
+---
+title: "09 Common Linked List Algorithm Problems"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 09 Common Linked List Algorithm Problems
 
 In algorithmic interviews (like LeetCode), Linked List problems usually test two things: **Pointer Manipulation** and **Edge Case Handling**.

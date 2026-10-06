@@ -1,3 +1,12 @@
+---
+title: "Sequence Points 序列点"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Sequence Points 序列点
 
 ## 1. Definition of a Sequence Point

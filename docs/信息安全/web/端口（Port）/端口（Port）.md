@@ -1,3 +1,12 @@
+---
+title: "端口（Port）"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 端口（Port）
 
 ## 什么是端口？

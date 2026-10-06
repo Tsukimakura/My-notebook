@@ -1,3 +1,12 @@
+---
+title: "Less-1"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Less-1
 
 1. `?id=1` 查询到数据显示在页面上；

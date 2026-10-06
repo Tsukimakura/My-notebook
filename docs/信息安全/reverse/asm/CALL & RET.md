@@ -1,3 +1,12 @@
+---
+title: "CALL & RET"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # CALL & RET
 
 在汇编语言中，`CALL` 和 `RET` 是实现**函数（子程序）调用**的核心指令。

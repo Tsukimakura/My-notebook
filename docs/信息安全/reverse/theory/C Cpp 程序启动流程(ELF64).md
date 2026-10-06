@@ -1,3 +1,12 @@
+---
+title: "C Cpp 程序启动流程(ELF64)"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # C Cpp 程序启动流程(ELF64)
 
 C/C++ 程序的启动流程是一个复杂且严谨的过程，涉及操作系统内核、动态链接器、C 运行时库（CRT, C Runtime）以及用户代码的协同工作。虽然开发者通常认为程序从 `main` 函数开始执行，但在此之前，系统已经完成了一系列初始化操作。

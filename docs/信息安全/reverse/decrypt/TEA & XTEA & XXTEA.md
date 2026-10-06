@@ -1,3 +1,12 @@
+---
+title: "TEA & XTEA & XXTEA"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # TEA & XTEA & XXTEA
 
 ## 1. TEA 系列的核心特征：黄金分割率 Delta

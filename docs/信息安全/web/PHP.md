@@ -1,3 +1,12 @@
+---
+title: "PHP"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # PHP
 
 ## 1. 基础标记与执行

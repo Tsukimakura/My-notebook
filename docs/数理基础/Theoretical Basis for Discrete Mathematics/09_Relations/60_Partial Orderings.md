@@ -1,3 +1,12 @@
+---
+title: "60_Partial Orderings"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 60_Partial Orderings
 
 ## 1. Core Definitions

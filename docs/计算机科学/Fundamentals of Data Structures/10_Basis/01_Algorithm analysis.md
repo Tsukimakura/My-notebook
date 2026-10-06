@@ -1,3 +1,12 @@
+---
+title: "01_Algorithm analysis"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01_Algorithm analysis
 
 ## 1. Programs vs. Algorithms

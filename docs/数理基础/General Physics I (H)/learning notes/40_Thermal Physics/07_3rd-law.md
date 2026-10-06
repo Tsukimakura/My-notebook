@@ -1,3 +1,12 @@
+---
+title: "07_3rd-law"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 07_3rd-law
 
 ## 1. The Third Law of Thermodynamics

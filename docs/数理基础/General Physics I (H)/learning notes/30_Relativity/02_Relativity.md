@@ -1,3 +1,12 @@
+---
+title: "02_Relativity"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02_Relativity
 
 ## 1. The Lorentz Transformation (Standard Configuration)

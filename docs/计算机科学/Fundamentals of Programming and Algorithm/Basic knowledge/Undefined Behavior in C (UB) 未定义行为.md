@@ -1,3 +1,12 @@
+---
+title: "Undefined Behavior in C (UB) 未定义行为"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Undefined Behavior in C (UB) 未定义行为
 
 ## 1. Definition and Classification

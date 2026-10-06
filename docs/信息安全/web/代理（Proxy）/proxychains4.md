@@ -1,3 +1,12 @@
+---
+title: "proxychains4"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # proxychains4
 
 ## 什么是 proxychains4？

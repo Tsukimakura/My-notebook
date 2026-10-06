@@ -1,3 +1,12 @@
+---
+title: "scanf Return Value"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # scanf Return Value
 
 ## 1. Function Prototype

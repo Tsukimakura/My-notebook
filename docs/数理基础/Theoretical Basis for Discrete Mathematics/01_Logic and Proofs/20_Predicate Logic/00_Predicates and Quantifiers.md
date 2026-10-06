@@ -1,3 +1,12 @@
+---
+title: "00_Predicates and Quantifiers"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 00_Predicates and Quantifiers
 
 ## 1. The Limitations of Propositional Logic

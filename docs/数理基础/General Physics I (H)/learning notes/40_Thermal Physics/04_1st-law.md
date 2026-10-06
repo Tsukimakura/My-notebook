@@ -1,3 +1,12 @@
+---
+title: "04_1st-law"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04_1st-law
 
 ## 1. The First Law of Thermodynamics

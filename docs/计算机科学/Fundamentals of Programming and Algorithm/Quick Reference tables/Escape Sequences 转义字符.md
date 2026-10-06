@@ -1,3 +1,12 @@
+---
+title: "Escape Sequences 转义字符"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Escape Sequences 转义字符
 
 | Escape       | Meaning / description                   | Value / notes                                                             | Example (char or string literal)                               |

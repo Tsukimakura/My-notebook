@@ -1,3 +1,12 @@
+---
+title: "Linked List 链表"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Linked List 链表
 
 ## 1. Concept & Definition

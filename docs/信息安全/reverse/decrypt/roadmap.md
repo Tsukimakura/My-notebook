@@ -1,3 +1,12 @@
+---
+title: "roadmap"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # roadmap
 
 逆向选手对密码学的掌握核心在于三个词：**识别（Identify）、提取（Extract）、还原（Reproduce/Decrypt）**。

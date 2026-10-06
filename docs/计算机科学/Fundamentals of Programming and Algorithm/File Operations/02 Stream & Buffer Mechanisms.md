@@ -1,3 +1,12 @@
+---
+title: "02 Stream & Buffer Mechanisms"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02 Stream & Buffer Mechanisms
 
 ## 1. The Concept of Streams

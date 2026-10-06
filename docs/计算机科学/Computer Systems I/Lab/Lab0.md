@@ -1,3 +1,12 @@
+---
+title: "基础概念"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 基础概念
 
 ## 一、 宏观统称：EDA 工具 (Electronic Design Automation)

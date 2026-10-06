@@ -1,3 +1,12 @@
+---
+title: "RSA"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # RSA
 
 RSA 是非对称加密算法。公钥加密，私钥解密。

@@ -1,3 +1,12 @@
+---
+title: "信息安全"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 信息安全
 
 本区按安全领域组织，而非按一次课程或竞赛经历划分。学习基础概念时优先阅读原理页；练习记录和题目复盘作为对应领域的补充材料。

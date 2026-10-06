@@ -1,3 +1,12 @@
+---
+title: "09_Shortest Path Algorithms"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 09_Shortest Path Algorithms
 
 ## 1. Core Concepts

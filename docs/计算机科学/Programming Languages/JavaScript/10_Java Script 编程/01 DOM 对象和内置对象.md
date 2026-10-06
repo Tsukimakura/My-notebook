@@ -1,3 +1,12 @@
+---
+title: "DOM 对象和内置对象"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # DOM 对象和内置对象
 
 ## 1. 与用户交互

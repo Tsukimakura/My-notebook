@@ -1,3 +1,12 @@
+---
+title: "30_Sequences and Summations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 30_Sequences and Summations
 
 ## 1. Sequences: Introduction and Definitions

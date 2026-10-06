@@ -1,3 +1,12 @@
+---
+title: "02-HTTP头部字段辞典"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02-HTTP头部字段辞典
 
 - 以表格形式记录，包含：

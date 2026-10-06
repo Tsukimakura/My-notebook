@@ -1,3 +1,12 @@
+---
+title: "SSH(secure shell)"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # SSH(secure shell)
 
 ## 1. SSH 基础概念

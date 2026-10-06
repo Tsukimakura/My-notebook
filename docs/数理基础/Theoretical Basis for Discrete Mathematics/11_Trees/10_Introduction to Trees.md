@@ -1,3 +1,12 @@
+---
+title: "10_Introduction to Trees"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Introduction to Trees
 
 ## I. Core Definitions

@@ -1,3 +1,12 @@
+---
+title: "Short-Circuit Evaluation 短路运算"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Short-Circuit Evaluation 短路运算
 
 ## 1. Definition

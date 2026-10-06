@@ -1,3 +1,12 @@
+---
+title: "05_Priority Queues (Heaps)"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 05_Priority Queues (Heaps)
 
 > A **Priority Queue** is a specialized data structure designed to efficiently locate and remove the element with the highest (or lowest) priority, rather than following a strict First-In-First-Out (FIFO) or Last-In-First-Out (LIFO) order.

@@ -1,3 +1,12 @@
+---
+title: "Advanced C Type Qualifiers & Concepts 类型修饰符与其它概念"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Advanced C Type Qualifiers & Concepts 类型修饰符与其它概念
 
 ## **1. Advanced Type Qualifiers**

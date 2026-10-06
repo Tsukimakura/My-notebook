@@ -1,3 +1,12 @@
+---
+title: "MD5"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # MD5
 
 ## 1. MD5 基础理论与特性

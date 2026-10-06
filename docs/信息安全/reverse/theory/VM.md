@@ -1,3 +1,12 @@
+---
+title: "VM"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # VM
 
 > 虚拟机（Virtual Machine, VM）保护是一种常见且难度较高的代码混淆与保护技术。其核心思想是将原本的机器指令（如 x86、ARM 等）转换为自定义的字节码（Bytecode），并在程序内部嵌入一个自定义的解释器（VM 引擎）来执行这些字节码。

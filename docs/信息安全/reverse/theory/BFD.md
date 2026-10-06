@@ -1,3 +1,12 @@
+---
+title: "BFD"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # BFD
 
 GNU BFD (Binary File Descriptor) 。在底层开发、逆向工程和二进制安全领域，理解 BFD 是理解整个 GNU 编译工具链（Toolchain）运作机制的钥匙。

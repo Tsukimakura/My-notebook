@@ -1,3 +1,12 @@
+---
+title: "30_Primes and Greatest Common Divisors"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 30_Primes and Greatest Common Divisors
 
 ## **1. Prime Numbers and Their Properties**

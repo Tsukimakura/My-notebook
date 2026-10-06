@@ -1,3 +1,12 @@
+---
+title: "07_Sinusoidal Waves"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 07_Sinusoidal Waves
 
 ## 1. Sinusoidal Waves

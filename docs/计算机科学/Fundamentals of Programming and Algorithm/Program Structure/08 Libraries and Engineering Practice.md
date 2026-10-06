@@ -1,3 +1,12 @@
+---
+title: "08 Libraries and Engineering Practice"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 08 Libraries and Engineering Practice
 
 ## 1. Static Libraries (.a / .lib)

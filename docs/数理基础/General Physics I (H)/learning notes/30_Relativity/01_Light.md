@@ -1,3 +1,12 @@
+---
+title: "01_Light"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01_Light
 
 ## 1. Early Measurements of the Speed of Light

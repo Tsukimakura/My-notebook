@@ -1,3 +1,12 @@
+---
+title: "JavaScript"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # JavaScript
 
 ## 1. JavaScript 基本介绍

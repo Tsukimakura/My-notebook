@@ -1,3 +1,12 @@
+---
+title: "Introduction to Verilog HDL `(*)`"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Introduction to Verilog HDL `(*)`
 
 ## 1. Background: Heterogeneous Computing

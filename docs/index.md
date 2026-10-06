@@ -1,3 +1,12 @@
+---
+title: "Tsukimakura's notebook"
+status: draft
+tags: [knowledge-management]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Tsukimakura's notebook
 
 这是一个持续演进的学习知识库，记录计算机科学、信息安全、数学与相关工具的学习过程。

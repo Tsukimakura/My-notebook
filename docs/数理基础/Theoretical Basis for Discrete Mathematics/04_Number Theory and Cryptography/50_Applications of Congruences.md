@@ -1,3 +1,12 @@
+---
+title: "50_Applications of Congruences"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 50_Applications of Congruences
 
 ## **1. Hashing Functions**

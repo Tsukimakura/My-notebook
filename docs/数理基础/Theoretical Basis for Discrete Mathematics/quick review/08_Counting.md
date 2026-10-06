@@ -1,3 +1,12 @@
+---
+title: "08_Counting"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 08_Counting
 
 ## I. 基本计数原理 (Fundamental Counting Principles)

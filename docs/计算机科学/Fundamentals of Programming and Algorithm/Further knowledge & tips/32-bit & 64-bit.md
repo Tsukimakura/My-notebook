@@ -1,3 +1,12 @@
+---
+title: "32-bit & 64-bit"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 32-bit & 64-bit
 
 The evolution from 32-bit to 64-bit systems is one of the most significant milestones in computing history. It was driven primarily by one problem: **The 4GB Memory Wall.**

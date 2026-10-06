@@ -1,3 +1,12 @@
+---
+title: "DF"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # DF
 
 在标志寄存器（RFLAGS）中，**DF (Direction Flag)** 被称为 **方向标志位**。

@@ -1,3 +1,12 @@
+---
+title: "20_Integer Representations and Algorithms"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Integer Representations and Algorithms
 
 ## **1. Base $b$ Representations**

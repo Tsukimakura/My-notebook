@@ -1,3 +1,12 @@
+---
+title: "50_Equivalence Relations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 50_Equivalence Relations
 
 ## 1. Core Definitions

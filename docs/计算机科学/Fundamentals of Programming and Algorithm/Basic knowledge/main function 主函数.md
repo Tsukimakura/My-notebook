@@ -1,3 +1,12 @@
+---
+title: "**The `main` Function in C**"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # **The `main` Function in C**
 
 In C programming, the **`main` function** is the entry point of every program. When a C program starts running, **execution always begins from `main`**, regardless of how many other functions the program contains.

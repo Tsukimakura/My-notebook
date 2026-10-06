@@ -1,3 +1,12 @@
+---
+title: "01_Propositional Language"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01_Propositional Language
 
 ## 一、 命题逻辑基础

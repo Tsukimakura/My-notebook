@@ -1,3 +1,12 @@
+---
+title: "Newton's method"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Newton's method
 
 **Iteration Process:**

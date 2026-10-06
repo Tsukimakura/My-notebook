@@ -1,3 +1,12 @@
+---
+title: "目录爆破（Directory Brute-forcing）"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 目录爆破（Directory Brute-forcing）
 
 ## 什么是目录爆破？

@@ -1,3 +1,12 @@
+---
+title: "02_古典密码与 Enigma 密码机"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02_古典密码与 Enigma 密码机
 
 ## 1. 密码学基本概念

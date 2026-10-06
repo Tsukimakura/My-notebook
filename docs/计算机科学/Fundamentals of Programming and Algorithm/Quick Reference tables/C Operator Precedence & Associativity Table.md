@@ -1,3 +1,12 @@
+---
+title: "C Operator Precedence & Associativity Table"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # C Operator Precedence & Associativity Table
 
 | Precedence (High→Low) | Operators                                                                                                                                                                            | Description                                   | Associativity    |

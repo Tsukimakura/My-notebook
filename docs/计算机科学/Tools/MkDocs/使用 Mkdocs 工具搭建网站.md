@@ -1,3 +1,12 @@
+---
+title: "使用 Mkdocs 工具搭建网站"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 使用 Mkdocs 工具搭建网站
 
 这是一个非常专业的要求。在 Python 开发中，使用**虚拟环境 (Virtual Environment)** 是最佳实践，它可以隔离不同项目的依赖，避免“依赖地狱”。

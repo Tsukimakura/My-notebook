@@ -1,3 +1,12 @@
+---
+title: "EZStego"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # EZStego
 
 EZStego 是一种极其经典且巧妙的隐写算法，专门针对**索引颜色模式**（Indexed Color）的图像（如 GIF，或前文提到的 Color Type 为 3 的 PNG 文件）设计。

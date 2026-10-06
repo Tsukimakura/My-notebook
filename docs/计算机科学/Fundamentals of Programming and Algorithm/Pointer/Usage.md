@@ -1,3 +1,12 @@
+---
+title: "Usage"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Usage
 
 ## 1. To indirectly manipulate the arguments

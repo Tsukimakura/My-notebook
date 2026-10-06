@@ -1,3 +1,12 @@
+---
+title: "数理基础"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 数理基础
 
 基础学科笔记以“系统梳理—技巧总结—考前复习”三种阅读目标组织。学习新概念时优先阅读知识梳理；复习时再使用技巧与历年卷页面。

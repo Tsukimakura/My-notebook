@@ -1,3 +1,12 @@
+---
+title: "GDB Command Line Debugging"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # GDB Command Line Debugging
 
 ## 1. Core Concepts and Principles

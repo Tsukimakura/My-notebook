@@ -1,3 +1,12 @@
+---
+title: "IAT"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # IAT
 
 > 导入表（Import Table）及导入地址表（Import Address Table, 简称 **IAT**）是 PE（Portable Executable）文件格式中最关键的结构之一。

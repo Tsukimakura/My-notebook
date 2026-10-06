@@ -1,3 +1,12 @@
+---
+title: "JS"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # JS
 
 ## 1. 变量与作用域

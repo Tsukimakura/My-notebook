@@ -1,3 +1,12 @@
+---
+title: "overview"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # overview
 
 算法逆向工程（Algorithm Reverse Engineering）是逆向工程领域中的核心技能之一，旨在从已编译的二进制程序（如 EXE, ELF, SO, APK）中提取核心逻辑、加密流程或数据处理规则。它不依赖源码，而是通过分析汇编代码、内存状态和输入输出关系来还原算法的数学本质。

@@ -1,3 +1,12 @@
+---
+title: "1. Target"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 > 漏洞扫描器可以快速帮助我们发现漏洞，但对于一些漏洞，自动化软件无法识别。比如一些逻辑性漏洞，及其隐蔽的 XSS 漏洞或者 SQL 注入漏洞。进行漏扫时，必须与人工渗透相结合。漏洞扫描也属于信息探测的一种。
 
 > 本节介绍 Burp Suite Proxy 之外的其他模块。

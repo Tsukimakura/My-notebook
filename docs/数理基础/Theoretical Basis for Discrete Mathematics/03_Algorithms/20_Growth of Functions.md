@@ -1,3 +1,12 @@
+---
+title: "20_Growth of Functions"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Growth of Functions
 
 ## **1. Big-O Notation ($O$)**

@@ -1,3 +1,12 @@
+---
+title: "DirBuster"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # DirBuster
 
 > 渗透测试中，探测 Web 目录结构和隐藏的敏感文件必不可少。通过探测了解网站的结构，获取管理员的一些敏感信息，如网站后台管理界面、文件上传界面，有时甚至可能扫描出网站的源代码。

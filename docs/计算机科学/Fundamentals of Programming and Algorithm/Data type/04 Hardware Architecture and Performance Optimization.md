@@ -1,3 +1,12 @@
+---
+title: "04 Hardware Architecture and Performance Optimization"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04 Hardware Architecture and Performance Optimization
 
 ## 1. Logic Devices vs. Sequential Devices

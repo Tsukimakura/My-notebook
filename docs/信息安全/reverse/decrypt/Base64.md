@@ -1,3 +1,12 @@
+---
+title: "Base64"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Base64
 
 Base64 是一种基于 64 个可打印字符来表示二进制数据的表示方法。它是网络上最常见的用于传输 8Bit 字节码的编码方式之一，广泛应用于电子邮件（MIME）、网页传输、以及 CTF 逆向工程中的数据混淆与编码。

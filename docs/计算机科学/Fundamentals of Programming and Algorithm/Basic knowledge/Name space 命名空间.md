@@ -1,3 +1,12 @@
+---
+title: "Name space 命名空间"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Name space 命名空间
 
 ## 1. Core Concept

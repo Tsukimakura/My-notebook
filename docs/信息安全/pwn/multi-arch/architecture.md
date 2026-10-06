@@ -1,3 +1,12 @@
+---
+title: "四种架构函数调用 ABI 与栈帧布局对比"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 四种架构函数调用 ABI 与栈帧布局对比
 
 **架构：x86-64（System V ABI）、AArch64（AAPCS64）、RISC-V64（LP64 ABI）、32-bit MIPS（O32 ABI）**

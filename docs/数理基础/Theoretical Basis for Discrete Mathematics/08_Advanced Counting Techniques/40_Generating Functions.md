@@ -1,3 +1,12 @@
+---
+title: "40_Generating Functions"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 40_Generating Functions
 
 ## 1. Introduction to Generating Functions

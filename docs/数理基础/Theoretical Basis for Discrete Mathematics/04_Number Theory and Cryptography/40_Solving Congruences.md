@@ -1,3 +1,12 @@
+---
+title: "40_Solving Congruences"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 40_Solving Congruences
 
 ## **1. Linear Congruences and Inverses**

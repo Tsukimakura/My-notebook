@@ -1,3 +1,12 @@
+---
+title: "High-Precision Arithmetic"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # High-Precision Arithmetic
 
 ## 1. Data Structure & Representation

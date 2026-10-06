@@ -1,3 +1,12 @@
+---
+title: "Arguments vs Parameters 实参与形参"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Arguments vs Parameters 实参与形参
 
 Here is an explanation of the relationship between arguments and parameters in C, and how pointers bridge the gap between them to allow for more powerful data manipulation.

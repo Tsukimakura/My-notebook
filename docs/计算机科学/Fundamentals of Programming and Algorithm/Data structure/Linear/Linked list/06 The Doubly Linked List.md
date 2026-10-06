@@ -1,3 +1,12 @@
+---
+title: "06 The Doubly Linked List"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 06 The Doubly Linked List
 
 ## **1. The Concept & Purpose**

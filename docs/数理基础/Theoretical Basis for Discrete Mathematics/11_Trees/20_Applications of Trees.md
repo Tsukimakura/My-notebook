@@ -1,3 +1,12 @@
+---
+title: "20_Applications of Trees"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Applications of Trees
 
 ## I. Binary Search Trees (BST)

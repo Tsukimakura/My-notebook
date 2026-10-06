@@ -1,3 +1,12 @@
+---
+title: "0 Address (NULL Pointer)"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 0 Address (NULL Pointer)
 
 ## 1. What is "Address 0"?

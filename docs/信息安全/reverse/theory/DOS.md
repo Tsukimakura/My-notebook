@@ -1,3 +1,12 @@
+---
+title: "DOS"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # DOS
 
 ## 1. DOS (Disk Operating System)：磁盘操作系统的泛称

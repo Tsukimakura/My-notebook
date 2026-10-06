@@ -1,3 +1,12 @@
+---
+title: "Types of pointers"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Types of pointers
 
 ## 1. The Concept

@@ -1,3 +1,12 @@
+---
+title: "40_Recursive Algorithms"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 40_Recursive Algorithms
 
 ## 1. Definition and Core Concepts

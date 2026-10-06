@@ -1,3 +1,12 @@
+---
+title: "20_Solving Linear Recurrence Relations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Solving Linear Recurrence Relations
 
 ## 1. Linear Homogeneous Recurrence Relations (LHRR)

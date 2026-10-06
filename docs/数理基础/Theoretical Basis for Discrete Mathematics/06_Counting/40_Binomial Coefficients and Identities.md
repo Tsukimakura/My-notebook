@@ -1,3 +1,12 @@
+---
+title: "40_Binomial Coefficients and Identities"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 40_Binomial Coefficients and Identities
 
 ## 1. The Binomial Theorem

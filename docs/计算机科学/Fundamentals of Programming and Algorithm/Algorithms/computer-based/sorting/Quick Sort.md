@@ -1,3 +1,12 @@
+---
+title: "Quick Sort"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Quick Sort
 
 Quick Sort is a classic **divide-and-conquer** sorting algorithm.

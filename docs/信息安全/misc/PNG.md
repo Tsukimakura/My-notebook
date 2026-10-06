@@ -1,3 +1,12 @@
+---
+title: "PNG"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # PNG
 
 ## 1. 文件头标识 (File Signature)

@@ -1,3 +1,12 @@
+---
+title: "MySQL"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # MySQL
 
 ## 1. DDL (Data Definition Language) - 数据定义

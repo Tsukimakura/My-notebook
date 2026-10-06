@@ -1,3 +1,12 @@
+---
+title: "一、AArch64 (ARM64)"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 下面整理 **AArch64、RISC-V64、MIPS32** 三种架构的：
 
 1. **寄存器体系**

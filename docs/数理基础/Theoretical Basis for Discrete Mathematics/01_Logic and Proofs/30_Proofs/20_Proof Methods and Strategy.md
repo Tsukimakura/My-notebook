@@ -1,3 +1,12 @@
+---
+title: "20_Proof Methods and Strategy"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Proof Methods and Strategy
 
 ## 1. Proof by Cases

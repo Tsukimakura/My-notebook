@@ -1,3 +1,12 @@
+---
+title: "readelf"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # readelf
 
 `readelf` 是分析 Linux 二进制文件（如可执行文件、共享库 `.so`、目标文件 `.o`）的利器，它直接解析 ELF 格式，不依赖 BFD 库，因此提供的信息比 `objdump` 更底层且未经修饰。

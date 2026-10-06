@@ -1,3 +1,12 @@
+---
+title: "04 The Tail Pointer"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04 The Tail Pointer
 
 ## **1. The Concept & Purpose**

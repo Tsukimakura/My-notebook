@@ -1,3 +1,12 @@
+---
+title: "05_DES"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 05_DES
 
 [优质讲解【DES加密算法｜密码学｜信息安全】](https://www.bilibili.com/video/BV1KQ4y127AT/?share_source=copy_web&vd_source=0ef01121605990d44b8d3543570884c7)

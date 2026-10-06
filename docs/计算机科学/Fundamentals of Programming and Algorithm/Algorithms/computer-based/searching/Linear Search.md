@@ -1,3 +1,12 @@
+---
+title: "Linear Search"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Linear Search
 
 - The search starts at the beginning of the array and goes straight down the line ofelements until it finds a match or reaches the end of the array.

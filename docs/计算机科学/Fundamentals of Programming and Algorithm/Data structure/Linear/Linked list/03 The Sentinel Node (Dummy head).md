@@ -1,3 +1,12 @@
+---
+title: "03 The Sentinel Node (Dummy head)"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 03 The Sentinel Node (Dummy head)
 
 ## **1. The Concept & Purpose**

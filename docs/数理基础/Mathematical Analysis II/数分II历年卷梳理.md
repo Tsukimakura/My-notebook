@@ -1,3 +1,12 @@
+---
+title: "基础/技巧"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 > 已整理 22-23 春夏期末（除最后两问）、23-24 春夏期末（除最后一题）、24-25 春夏期末（除最后一题）
 
 # 基础/技巧

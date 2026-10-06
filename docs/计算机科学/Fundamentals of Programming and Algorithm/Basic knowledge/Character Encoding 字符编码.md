@@ -1,3 +1,12 @@
+---
+title: "Character Encoding 字符编码"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Character Encoding 字符编码
 
 **Character encoding** is the mechanism that maps characters (letters, digits, symbols) to numeric codes so they can be stored in memory or transmitted over networks.

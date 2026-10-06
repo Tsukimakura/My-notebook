@@ -1,3 +1,12 @@
+---
+title: "05 Type Conversion Mechanisms"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 05 Type Conversion Mechanisms
 
 ## 1. The Nature of Conversion

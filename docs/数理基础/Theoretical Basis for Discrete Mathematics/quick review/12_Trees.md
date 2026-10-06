@@ -1,3 +1,12 @@
+---
+title: "12_Trees"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 12_Trees
 
 ## **1. 树的基础知识与性质 (Tree Fundamentals & Properties)**

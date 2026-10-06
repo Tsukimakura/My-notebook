@@ -1,3 +1,12 @@
+---
+title: "Shell Sort"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Shell Sort
 
 > Shellsort (invented by Donald Shell) improves upon Insertion Sort by comparing elements that are distant, rather than strictly adjacent.

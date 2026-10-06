@@ -1,3 +1,12 @@
+---
+title: "Hex_Binary_Decimal Engineering Reference"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Hex_Binary_Decimal Engineering Reference
 
 ## 1. The Nibble Lookup (4-bit Base)

@@ -1,3 +1,12 @@
+---
+title: "10_Algorithms"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Algorithms
 
 ## **1. Core Concepts and Properties**

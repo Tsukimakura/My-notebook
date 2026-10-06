@@ -1,3 +1,12 @@
+---
+title: "Prime Number Identification"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Prime Number Identification
 
 ## Method 1: The Square Root Optimized Trial Division

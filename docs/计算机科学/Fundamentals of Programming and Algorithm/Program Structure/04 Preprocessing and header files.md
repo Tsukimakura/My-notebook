@@ -1,3 +1,12 @@
+---
+title: "04 Preprocessing and header files"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04 Preprocessing and header files
 
 ## 1. Header File Management

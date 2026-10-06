@@ -1,3 +1,12 @@
+---
+title: "30_Propositional Normal Forms"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 30_Propositional Normal Forms
 
 ## 1. Propositional Formulas & Literals

@@ -1,3 +1,12 @@
+---
+title: "60_Applications of Inclusion-Exclusion"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 60_Applications of Inclusion-Exclusion
 
 ## 1. Alternative Form of Inclusion-Exclusion (Counting by Properties)

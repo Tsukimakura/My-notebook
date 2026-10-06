@@ -1,3 +1,12 @@
+---
+title: "Python 运算符优先级"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Python 运算符优先级
 
 ## Python 运算符优先级表

@@ -1,3 +1,12 @@
+---
+title: "10_Relations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Relations
 
 ## **1. 关系的核心性质 (Core Properties of Relations)**

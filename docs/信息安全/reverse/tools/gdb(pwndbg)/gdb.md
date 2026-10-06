@@ -1,3 +1,12 @@
+---
+title: "gdb"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # gdb
 
 ## 一、 启动与环境控制 (Startup & Context)

@@ -1,3 +1,12 @@
+---
+title: "Command Line Arguments 命令行参数"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Command Line Arguments 命令行参数
 
 ## 1. The Standard Prototype

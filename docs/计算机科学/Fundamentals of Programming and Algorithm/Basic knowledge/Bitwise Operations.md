@@ -1,3 +1,12 @@
+---
+title: "Bitwise Operations"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Bitwise Operations
 
 ## 1. Overview

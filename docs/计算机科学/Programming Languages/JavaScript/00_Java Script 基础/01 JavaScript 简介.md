@@ -1,3 +1,12 @@
+---
+title: "JavaScript 简介"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # JavaScript 简介
 
 ## 1. 服务器端与客户端编程

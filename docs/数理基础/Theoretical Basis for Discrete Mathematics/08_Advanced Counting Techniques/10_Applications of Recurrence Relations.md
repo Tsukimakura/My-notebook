@@ -1,3 +1,12 @@
+---
+title: "10_Applications of Recurrence Relations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Applications of Recurrence Relations
 
 ## 1. Fundamentals of Recurrence Relations

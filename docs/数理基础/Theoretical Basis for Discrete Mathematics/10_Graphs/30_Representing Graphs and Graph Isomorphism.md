@@ -1,3 +1,12 @@
+---
+title: "30_Representing Graphs and Graph Isomorphism"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 30_Representing Graphs and Graph Isomorphism
 
 ## I. Methods for Representing Graphs

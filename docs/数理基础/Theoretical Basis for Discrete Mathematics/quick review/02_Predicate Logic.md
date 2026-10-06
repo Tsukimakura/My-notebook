@@ -1,3 +1,12 @@
+---
+title: "02_Predicate Logic"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 02_Predicate Logic
 
 ## 一、 谓词逻辑基础

@@ -1,3 +1,12 @@
+---
+title: "MySQL 常用函数速查表"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # MySQL 常用函数速查表
 
 ## 🟢 第一类：系统信息收集 (Reconnaissance)

@@ -1,3 +1,12 @@
+---
+title: "20_Logical Equivalences"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Logical Equivalences
 
 ## 1. Classifications of Propositions

@@ -1,3 +1,12 @@
+---
+title: "01 The Essence and Core Philosophy of Data Types"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01 The Essence and Core Philosophy of Data Types
 
 ## 1. The Nature of Memory and Data Types

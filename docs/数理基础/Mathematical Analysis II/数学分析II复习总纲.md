@@ -1,3 +1,12 @@
+---
+title: "数学分析II复习总纲"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 数学分析II复习总纲
 
 ## 第一篇：级数理论（从离散求和到函数全局逼近）

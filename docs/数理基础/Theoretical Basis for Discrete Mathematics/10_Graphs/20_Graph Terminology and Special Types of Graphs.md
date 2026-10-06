@@ -1,3 +1,12 @@
+---
+title: "20_Graph Terminology and Special Types of Graphs"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 20_Graph Terminology and Special Types of Graphs
 
 ## I. Basic Terminology (Undirected Graphs)

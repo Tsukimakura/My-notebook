@@ -1,3 +1,12 @@
+---
+title: "07 File Descriptors & The Kernel"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 07 File Descriptors & The Kernel
 
 ## 1. The File Descriptor (FD)

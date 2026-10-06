@@ -1,3 +1,12 @@
+---
+title: "05_Algorithms"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 05_Algorithms
 
 ## 一、 算法基础 (Algorithms)

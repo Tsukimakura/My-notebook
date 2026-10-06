@@ -1,3 +1,12 @@
+---
+title: "Outline"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Outline
 
 ## 什么是 HTML

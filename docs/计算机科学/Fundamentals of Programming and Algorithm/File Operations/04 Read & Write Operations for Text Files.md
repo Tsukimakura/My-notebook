@@ -1,3 +1,12 @@
+---
+title: "04 Read & Write Operations for Text Files"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04 Read & Write Operations for Text Files
 
 ## 1. Characteristics of Text Files

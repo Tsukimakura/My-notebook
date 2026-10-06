@@ -1,3 +1,12 @@
+---
+title: "绪论"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 绪论
 
 ## 一、 物理实验概述

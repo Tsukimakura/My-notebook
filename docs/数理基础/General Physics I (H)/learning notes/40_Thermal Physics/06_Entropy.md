@@ -1,3 +1,12 @@
+---
+title: "06_Entropy"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 06_Entropy
 
 ## 1. The Clausius Inequality and Entropy

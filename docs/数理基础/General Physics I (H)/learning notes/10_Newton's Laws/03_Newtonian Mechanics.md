@@ -1,3 +1,12 @@
+---
+title: "03_Newtonian Mechanics"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 03_Newtonian Mechanics
 
 ## 1. Overview & Applicability

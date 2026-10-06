@@ -1,3 +1,12 @@
+---
+title: "04_Basic Structures"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04_Basic Structures
 
 ## 一、 集合与集合操作 (Sets)

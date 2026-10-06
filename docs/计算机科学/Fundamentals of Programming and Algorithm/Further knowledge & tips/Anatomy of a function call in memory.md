@@ -1,3 +1,12 @@
+---
+title: "Anatomy of a function call in memory"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Anatomy of a function call in memory
 
 [[Stack 栈 | pre-knowledge about stack]]

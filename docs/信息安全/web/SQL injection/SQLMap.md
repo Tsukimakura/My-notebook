@@ -1,3 +1,12 @@
+---
+title: "SQLMap 工作原理&输出内容详解"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # SQLMap 工作原理&输出内容详解
 
 ## SQLMap 工作原理

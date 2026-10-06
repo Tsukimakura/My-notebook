@@ -1,3 +1,12 @@
+---
+title: "03_Proof"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 03_Proof
 
 ## 一、 有效论证与推理规则

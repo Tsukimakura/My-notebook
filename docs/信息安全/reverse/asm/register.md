@@ -1,3 +1,12 @@
+---
+title: "register"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # register
 
 在汇编语言的学习中，**寄存器（Register）** 是最核心的概念之一。你可以把 CPU 想象成一个超级工厂，而寄存器就是工人手里最快的“工作台”。

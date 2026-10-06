@@ -1,3 +1,12 @@
+---
+title: "PUSHAD POPAD PUSHFD POPFD"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # PUSHAD POPAD PUSHFD POPFD
 
 在汇编语言中，这四条指令是“批量操作”的代表。它们的后缀非常有规律：**A** 代表 **All**（所有通用寄存器），**F** 代表 **Flags**（标志寄存器），**D** 代表 **Double word**（32位数据）。

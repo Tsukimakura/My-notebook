@@ -1,3 +1,12 @@
+---
+title: "Definition"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Definition
 
 Technically, a **Pointer** is a variable whose value is the **memory address** of another variable.

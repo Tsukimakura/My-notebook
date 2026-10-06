@@ -1,3 +1,12 @@
+---
+title: "03 Floating Point Systems (IEEE 754)"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 03 Floating Point Systems (IEEE 754)
 
 ## 1. Introduction to the IEEE 754 Standard

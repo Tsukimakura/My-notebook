@@ -1,3 +1,12 @@
+---
+title: "**1. Visual Memory Layout (Revised)**"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # **1. Visual Memory Layout (Revised)**
 
 This diagram reflects the **Linux/ELF** standard layout, incorporating `.rodata` and the distinction between the Main Thread Stack and Child Thread Stacks.

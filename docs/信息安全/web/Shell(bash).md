@@ -1,3 +1,12 @@
+---
+title: "Shell(bash)"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Shell(bash)
 
 ## 1. 基础结构与执行

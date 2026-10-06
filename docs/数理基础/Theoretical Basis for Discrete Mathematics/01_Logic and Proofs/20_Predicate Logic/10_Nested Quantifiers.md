@@ -1,3 +1,12 @@
+---
+title: "10_Nested Quantifiers"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Nested Quantifiers
 
 ## 1. Introduction to Nested Quantifiers

@@ -1,3 +1,12 @@
+---
+title: "LaTeX 数学符号语法笔记"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # LaTeX 数学符号语法笔记
 
 ## 基础语法规则

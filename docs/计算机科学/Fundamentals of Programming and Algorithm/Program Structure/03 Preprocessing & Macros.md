@@ -1,3 +1,12 @@
+---
+title: "03 Preprocessing & Macros"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 03 Preprocessing & Macros
 
 ## 1. Fundamentals of Macros

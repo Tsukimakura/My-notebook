@@ -1,3 +1,12 @@
+---
+title: "01 Overview"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01 Overview
 
 ## **1. What is a Linked List?**

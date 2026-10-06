@@ -1,3 +1,12 @@
+---
+title: "ASCII"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # ASCII
 
 ## 1. Control Characters (0–31 & 127)

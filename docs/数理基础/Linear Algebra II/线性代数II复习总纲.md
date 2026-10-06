@@ -1,3 +1,12 @@
+---
+title: "线性代数II复习总纲"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 线性代数II复习总纲
 
 ## 一、 空间几何与代数结构的映射

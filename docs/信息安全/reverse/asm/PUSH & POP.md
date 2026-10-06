@@ -1,3 +1,12 @@
+---
+title: "PUSH & POP"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # PUSH & POP
 
 在汇编语言中，`PUSH` 和 `POP` 是操作 **栈（Stack）** 最核心的指令。

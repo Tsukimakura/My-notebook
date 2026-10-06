@@ -1,3 +1,12 @@
+---
+title: "3-Way"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 3-Way
 
 3-Way 算法是由 Joan Daemen（后来 AES 算法的设计者之一）于 1994 年设计的一种分组密码算法。在 CTF 逆向工程竞赛中，该算法因其结构清晰、特征常量明显以及便于魔改（Modified）的特性，常被出题人用于构建自定义加密题目。

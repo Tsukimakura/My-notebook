@@ -1,3 +1,12 @@
+---
+title: "控制流平坦化(CFF)"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 控制流平坦化(CFF)
 
 **控制流平坦化（Control Flow Flattening，简称 CFF）** 是一种高级的代码混淆技术。它的核心目的是将程序原本清晰、有层次的执行流程（如树状或网状结构）“压扁”，变成一个扁平的、难以阅读的结构。

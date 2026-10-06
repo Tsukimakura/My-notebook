@@ -1,3 +1,12 @@
+---
+title: "Declarations vs Definitions 声明和定义"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Declarations vs Definitions 声明和定义
 
 ## 1. The Core Distinction: Memory Allocation

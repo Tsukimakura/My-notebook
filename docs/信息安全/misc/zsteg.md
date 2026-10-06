@@ -1,3 +1,12 @@
+---
+title: "zsteg"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # zsteg
 
 `zsteg` 是一款开源的命令行隐写分析工具，主要用于检测和提取 **PNG** 和 **BMP** 图像文件中隐藏的机密数据。它能够自动化测试多种常见的隐写算法，是进行文件格式分析和数据取证时的核心利器。

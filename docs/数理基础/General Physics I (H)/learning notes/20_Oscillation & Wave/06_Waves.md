@@ -1,3 +1,12 @@
+---
+title: "06_Waves"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 06_Waves
 
 ## 1. Introduction to Waves

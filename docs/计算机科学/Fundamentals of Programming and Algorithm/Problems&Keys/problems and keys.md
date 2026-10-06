@@ -1,3 +1,12 @@
+---
+title: "problems and keys"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # problems and keys
 
 ## Fall

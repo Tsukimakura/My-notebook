@@ -1,3 +1,12 @@
+---
+title: "08_Sound Wave"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 08_Sound Wave
 
 ## **1. Elasticity**

@@ -1,3 +1,12 @@
+---
+title: "10_Divisibility and Modular Arithmetic"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_Divisibility and Modular Arithmetic
 
 ## **1. Division**

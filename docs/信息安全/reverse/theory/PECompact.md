@@ -1,3 +1,12 @@
+---
+title: "PECompact"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # PECompact
 
 > PECompact2 是一款极具代表性的 Windows 平台 PE 可执行文件压缩壳。相较于基础的 UPX 壳，PECompact2 具备更高的压缩比，并引入了结构化异常处理（SEH）和 API 劫持等反分析机制，增加了脱壳的难度。

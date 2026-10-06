@@ -1,3 +1,12 @@
+---
+title: "60_Generating Permutations and Combinations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 60_Generating Permutations and Combinations
 
 ## 1. Generating Permutations

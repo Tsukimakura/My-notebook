@@ -1,3 +1,12 @@
+---
+title: "Test time"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Test time
 
 - `time(0)` returns the value of time in seconds since 0 hours, 0 minutes, 0 seconds,

@@ -1,3 +1,12 @@
+---
+title: "03_heat"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 03_heat
 
 ## 1. Heat and Phase Transitions

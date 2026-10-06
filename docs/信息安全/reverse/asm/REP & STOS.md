@@ -1,3 +1,12 @@
+---
+title: "REP & STOS"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # REP & STOS
 
 在汇编语言中，`REP` 和 `STOS` 是执行**大块内存操作**（比如初始化数组、清空缓冲区）时的“黄金搭档”。它们属于**字符串操作指令集**。

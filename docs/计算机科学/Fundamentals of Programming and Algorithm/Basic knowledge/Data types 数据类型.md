@@ -1,3 +1,12 @@
+---
+title: "Data types 数据类型"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Data types 数据类型
 
 In C, data types specify the type, size, and range of data that can be stored in a variable. They are broadly categorized into four groups.

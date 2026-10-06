@@ -1,3 +1,12 @@
+---
+title: "Identifiers 标识符"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Identifiers 标识符
 
 ## 1. What is an Identifier?

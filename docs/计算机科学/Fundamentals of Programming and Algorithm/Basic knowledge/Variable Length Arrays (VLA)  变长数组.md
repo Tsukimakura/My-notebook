@@ -1,3 +1,12 @@
+---
+title: "Variable Length Arrays (VLA)  变长数组"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Variable Length Arrays (VLA)  变长数组
 
 ## 1. What is a VLA?

@@ -1,3 +1,12 @@
+---
+title: "09_Advanced Counting Techniques"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 09_Advanced Counting Techniques
 
 ## I. 递推关系与建模 (Recurrence Relations & Modeling)

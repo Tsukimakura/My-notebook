@@ -1,3 +1,12 @@
+---
+title: "10_The Basics of Counting"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 10_The Basics of Counting
 
 ## 1. Fundamental Counting Principles

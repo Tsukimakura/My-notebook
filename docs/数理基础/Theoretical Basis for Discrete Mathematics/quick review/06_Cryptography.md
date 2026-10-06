@@ -1,3 +1,12 @@
+---
+title: "06_Cryptography"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 06_Cryptography
 
 ## 一、 整除与同余基础 (Divisibility and Modular Arithmetic)

@@ -1,3 +1,12 @@
+---
+title: "01_Rotation"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 01_Rotation
 
 ## 1. Introduction: From Point Particle to Rigid Object

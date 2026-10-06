@@ -1,3 +1,12 @@
+---
+title: "基础/思想方法"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 > 已整理 23-24 期末（除证明题倒数第二题）、24-25 期末1~4（复习四的思想方法）
 
 # 基础/思想方法

@@ -1,3 +1,12 @@
+---
+title: "04_Work"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 04_Work
 
 ## **1. Work**

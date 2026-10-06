@@ -1,3 +1,12 @@
+---
+title: "PyArmor"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # PyArmor
 
 简单来说，**PyArmor 是一个专门用来混淆和加密 Python 脚本的强大工具。** 它的主要目的是保护 Python 程序的源代码和核心逻辑，防止被轻易逆向工程或篡改。因为 Python 是解释型语言，默认编译出的 `.pyc` 文件非常容易被 `uncompyle6` 等工具还原成毫无保留的 `.py` 源码，所以开发者会使用 PyArmor 这样的工具来加壳。

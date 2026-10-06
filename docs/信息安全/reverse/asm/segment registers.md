@@ -1,3 +1,12 @@
+---
+title: "segment registers"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # segment registers
 
 在汇编语言中，**段寄存器（Segment Registers）** 是一个让很多初学者感到困惑的概念。

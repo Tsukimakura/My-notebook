@@ -1,3 +1,12 @@
+---
+title: "Win32-PEB"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Win32-PEB
 
 ## 一、 核心概念与底层架构关联

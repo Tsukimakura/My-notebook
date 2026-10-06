@@ -1,3 +1,12 @@
+---
+title: "Pointer comparison"
+status: draft
+tags: [cs]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Pointer comparison
 
 ## **1. The Core Concept**

@@ -1,3 +1,12 @@
+---
+title: "Network Flow"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # Network Flow
 
 ## I. Basic Definitions and Flow Constraints

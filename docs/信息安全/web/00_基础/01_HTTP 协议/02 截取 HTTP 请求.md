@@ -1,3 +1,12 @@
+---
+title: "1. Burp Suite Proxy 初体验"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 > 很多网站为减少服务器端压力，在后台方面减少验证，只在 Web 前端用 JavaScript 进行验证，大大增加安全隐患。渗透测试中，常通过 HTTP 请求的截取来发现一些隐秘的漏洞，如绕过 JS 验证、发现隐藏标签内容等。
 
 # 1. Burp Suite Proxy 初体验

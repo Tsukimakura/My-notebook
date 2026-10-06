@@ -1,3 +1,12 @@
+---
+title: "AF"
+status: draft
+tags: [security]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # AF
 
 在标志寄存器（RFLAGS）中，**AF (Auxiliary Carry Flag)** 被称为 **辅助进位标志位**。

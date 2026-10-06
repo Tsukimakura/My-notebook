@@ -1,3 +1,12 @@
+---
+title: "50_Generalized Permutations and Combinations"
+status: draft
+tags: [math-physics]
+created: null
+updated: 2026-10-06
+sources: []
+---
+
 # 50_Generalized Permutations and Combinations
 
 ## 1. Permutations and Combinations with Repetition
