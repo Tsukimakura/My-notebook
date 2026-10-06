@@ -23,6 +23,7 @@ sources: []
   - C 程序设计、语言速查与程序运行机制
   - 数据结构、算法与汇编/计算机系统
   - Web 开发与编程语言
+- [高级数据结构与算法分析课程讲义](计算机科学/advanced-data-structures-and-algorithm-analysis/index.md)
 
 ## 信息安全
 

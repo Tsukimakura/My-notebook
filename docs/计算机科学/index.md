@@ -22,6 +22,7 @@ sources: []
 
 ## 数据结构与算法
 
+- [高级数据结构与算法分析](advanced-data-structures-and-algorithm-analysis/index.md)：AVL、Splay 与摊还分析笔记及习题解析。
 - [算法总览](Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/general%20ideas/Time%20complexity.md)
 - [排序](Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/summary%20cheat%20sheet.md)
 - [搜索与图遍历](Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/searching/Binary%20Search.md)

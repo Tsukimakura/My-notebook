@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 390" role="img">
+<style>text{font-family:Arial,sans-serif;fill:#172b4d} .title{font-size:17px;font-weight:bold} .node{font-size:15px} line{stroke:#64748b;stroke-width:2} circle{fill:#eff6ff;stroke:#2563eb;stroke-width:2}</style>
+<rect width="100%" height="100%" fill="white"/>
+<text class="title" x="180.0" y="27" text-anchor="middle">After inserting 9</text>
+<line x1="118.0" y1="70" x2="56.0" y2="140"/>
+<line x1="118.0" y1="70" x2="242.0" y2="140"/>
+<line x1="242.0" y1="140" x2="180.0" y2="210"/>
+<line x1="242.0" y1="140" x2="304.0" y2="210"/>
+<circle cx="56.0" cy="140" r="22"/>
+<text class="node" x="56.0" y="145" text-anchor="middle">1</text>
+<circle cx="118.0" cy="70" r="22"/>
+<text class="node" x="118.0" y="75" text-anchor="middle">2</text>
+<circle cx="180.0" cy="210" r="22"/>
+<text class="node" x="180.0" y="215" text-anchor="middle">4</text>
+<circle cx="242.0" cy="140" r="22"/>
+<text class="node" x="242.0" y="145" text-anchor="middle">5</text>
+<circle cx="304.0" cy="210" r="22"/>
+<text class="node" x="304.0" y="215" text-anchor="middle">9</text>
+<text class="title" x="540.0" y="27" text-anchor="middle">After inserting 3</text>
+<line x1="462.5" y1="140" x2="410.8333333333333" y2="210"/>
+<line x1="462.5" y1="140" x2="514.1666666666666" y2="210"/>
+<line x1="565.8333333333334" y1="70" x2="462.5" y2="140"/>
+<line x1="565.8333333333334" y1="70" x2="617.5" y2="140"/>
+<line x1="617.5" y1="140" x2="669.1666666666667" y2="210"/>
+<circle cx="410.8333333333333" cy="210" r="22"/>
+<text class="node" x="410.8333333333333" y="215" text-anchor="middle">1</text>
+<circle cx="462.5" cy="140" r="22"/>
+<text class="node" x="462.5" y="145" text-anchor="middle">2</text>
+<circle cx="514.1666666666666" cy="210" r="22"/>
+<text class="node" x="514.1666666666666" y="215" text-anchor="middle">3</text>
+<circle cx="565.8333333333334" cy="70" r="22"/>
+<text class="node" x="565.8333333333334" y="75" text-anchor="middle">4</text>
+<circle cx="617.5" cy="140" r="22"/>
+<text class="node" x="617.5" y="145" text-anchor="middle">5</text>
+<circle cx="669.1666666666667" cy="210" r="22"/>
+<text class="node" x="669.1666666666667" y="215" text-anchor="middle">9</text>
+<text class="title" x="900.0" y="27" text-anchor="middle">After inserting 7</text>
+<line x1="803.125" y1="140" x2="764.375" y2="210"/>
+<line x1="803.125" y1="140" x2="841.875" y2="210"/>
+<line x1="880.625" y1="70" x2="803.125" y2="140"/>
+<line x1="880.625" y1="70" x2="958.125" y2="140"/>
+<line x1="958.125" y1="140" x2="919.375" y2="210"/>
+<line x1="958.125" y1="140" x2="1035.625" y2="210"/>
+<line x1="1035.625" y1="210" x2="996.875" y2="280"/>
+<circle cx="764.375" cy="210" r="22"/>
+<text class="node" x="764.375" y="215" text-anchor="middle">1</text>
+<circle cx="803.125" cy="140" r="22"/>
+<text class="node" x="803.125" y="145" text-anchor="middle">2</text>
+<circle cx="841.875" cy="210" r="22"/>
+<text class="node" x="841.875" y="215" text-anchor="middle">3</text>
+<circle cx="880.625" cy="70" r="22"/>
+<text class="node" x="880.625" y="75" text-anchor="middle">4</text>
+<circle cx="919.375" cy="210" r="22"/>
+<text class="node" x="919.375" y="215" text-anchor="middle">5</text>
+<circle cx="958.125" cy="140" r="22"/>
+<text class="node" x="958.125" y="145" text-anchor="middle">6</text>
+<circle cx="996.875" cy="280" r="22"/>
+<text class="node" x="996.875" y="285" text-anchor="middle">7</text>
+<circle cx="1035.625" cy="210" r="22"/>
+<text class="node" x="1035.625" y="215" text-anchor="middle">9</text>
+</svg>

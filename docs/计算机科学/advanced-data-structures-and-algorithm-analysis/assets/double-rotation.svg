@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 390" role="img">
+<style>text{font-family:Arial,sans-serif;fill:#172b4d} .title{font-size:17px;font-weight:bold} .node{font-size:15px} line{stroke:#64748b;stroke-width:2} circle{fill:#eff6ff;stroke:#2563eb;stroke-width:2}</style>
+<rect width="100%" height="100%" fill="white"/>
+<text class="title" x="180.0" y="27" text-anchor="middle">LR: before</text>
+<line x1="91.42857142857143" y1="140" x2="47.14285714285714" y2="210"/>
+<line x1="91.42857142857143" y1="140" x2="180.0" y2="210"/>
+<line x1="180.0" y1="210" x2="135.71428571428572" y2="280"/>
+<line x1="180.0" y1="210" x2="224.28571428571428" y2="280"/>
+<line x1="268.57142857142856" y1="70" x2="91.42857142857143" y2="140"/>
+<line x1="268.57142857142856" y1="70" x2="312.85714285714283" y2="140"/>
+<circle cx="47.14285714285714" cy="210" r="22"/>
+<text class="node" x="47.14285714285714" y="215" text-anchor="middle">a</text>
+<circle cx="91.42857142857143" cy="140" r="22"/>
+<text class="node" x="91.42857142857143" y="145" text-anchor="middle">B</text>
+<circle cx="135.71428571428572" cy="280" r="22"/>
+<text class="node" x="135.71428571428572" y="285" text-anchor="middle">b</text>
+<circle cx="180.0" cy="210" r="22"/>
+<text class="node" x="180.0" y="215" text-anchor="middle">C</text>
+<circle cx="224.28571428571428" cy="280" r="22"/>
+<text class="node" x="224.28571428571428" y="285" text-anchor="middle">c</text>
+<circle cx="268.57142857142856" cy="70" r="22"/>
+<text class="node" x="268.57142857142856" y="75" text-anchor="middle">A</text>
+<circle cx="312.85714285714283" cy="140" r="22"/>
+<text class="node" x="312.85714285714283" y="145" text-anchor="middle">d</text>
+<text class="title" x="540.0" y="27" text-anchor="middle">1. Rotate left at B</text>
+<line x1="451.42857142857144" y1="210" x2="407.14285714285717" y2="280"/>
+<line x1="451.42857142857144" y1="210" x2="495.7142857142857" y2="280"/>
+<line x1="540.0" y1="140" x2="451.42857142857144" y2="210"/>
+<line x1="540.0" y1="140" x2="584.2857142857142" y2="210"/>
+<line x1="628.5714285714286" y1="70" x2="540.0" y2="140"/>
+<line x1="628.5714285714286" y1="70" x2="672.8571428571429" y2="140"/>
+<circle cx="407.14285714285717" cy="280" r="22"/>
+<text class="node" x="407.14285714285717" y="285" text-anchor="middle">a</text>
+<circle cx="451.42857142857144" cy="210" r="22"/>
+<text class="node" x="451.42857142857144" y="215" text-anchor="middle">B</text>
+<circle cx="495.7142857142857" cy="280" r="22"/>
+<text class="node" x="495.7142857142857" y="285" text-anchor="middle">b</text>
+<circle cx="540.0" cy="140" r="22"/>
+<text class="node" x="540.0" y="145" text-anchor="middle">C</text>
+<circle cx="584.2857142857142" cy="210" r="22"/>
+<text class="node" x="584.2857142857142" y="215" text-anchor="middle">c</text>
+<circle cx="628.5714285714286" cy="70" r="22"/>
+<text class="node" x="628.5714285714286" y="75" text-anchor="middle">A</text>
+<circle cx="672.8571428571429" cy="140" r="22"/>
+<text class="node" x="672.8571428571429" y="145" text-anchor="middle">d</text>
+<text class="title" x="900.0" y="27" text-anchor="middle">2. Rotate right at A</text>
+<line x1="811.4285714285714" y1="140" x2="767.1428571428571" y2="210"/>
+<line x1="811.4285714285714" y1="140" x2="855.7142857142857" y2="210"/>
+<line x1="900.0" y1="70" x2="811.4285714285714" y2="140"/>
+<line x1="900.0" y1="70" x2="988.5714285714286" y2="140"/>
+<line x1="988.5714285714286" y1="140" x2="944.2857142857142" y2="210"/>
+<line x1="988.5714285714286" y1="140" x2="1032.857142857143" y2="210"/>
+<circle cx="767.1428571428571" cy="210" r="22"/>
+<text class="node" x="767.1428571428571" y="215" text-anchor="middle">a</text>
+<circle cx="811.4285714285714" cy="140" r="22"/>
+<text class="node" x="811.4285714285714" y="145" text-anchor="middle">B</text>
+<circle cx="855.7142857142857" cy="210" r="22"/>
+<text class="node" x="855.7142857142857" y="215" text-anchor="middle">b</text>
+<circle cx="900.0" cy="70" r="22"/>
+<text class="node" x="900.0" y="75" text-anchor="middle">C</text>
+<circle cx="944.2857142857142" cy="210" r="22"/>
+<text class="node" x="944.2857142857142" y="215" text-anchor="middle">c</text>
+<circle cx="988.5714285714286" cy="140" r="22"/>
+<text class="node" x="988.5714285714286" y="145" text-anchor="middle">A</text>
+<circle cx="1032.857142857143" cy="210" r="22"/>
+<text class="node" x="1032.857142857143" y="215" text-anchor="middle">d</text>
+</svg>
