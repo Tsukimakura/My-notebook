@@ -3,7 +3,7 @@ title: "Tsukimakura's notebook"
 status: draft
 tags: [knowledge-management]
 created: null
-updated: 2026-10-06
+updated: 2026-10-07
 sources: []
 ---
 
@@ -21,6 +21,7 @@ sources: []
 - [信息安全](信息安全/index.md)：Web 安全、密码学、逆向与二进制安全。
 - [工具与写作](计算机科学/Tools/index.md)：Markdown、LaTeX、Obsidian 与 MkDocs。
 - [计算机系统 II](计算机科学/Computer%20Systems%20II/index.md)：体系结构、RISC-V 与指令流水线理论笔记。
+- [人工智能引论](计算机科学/introduction-to-artificial-intelligence/index.md)：前三课的学科框架、逻辑推理、知识图谱、概率与因果推理，以及搜索入门。
 
 ## 阅读约定
 

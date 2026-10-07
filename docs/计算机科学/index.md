@@ -3,7 +3,7 @@ title: "计算机科学"
 status: draft
 tags: [cs]
 created: null
-updated: 2026-10-06
+updated: 2026-10-07
 sources: []
 ---
 
@@ -27,6 +27,10 @@ sources: []
 - [排序](Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/sorting/summary%20cheat%20sheet.md)
 - [搜索与图遍历](Fundamentals%20of%20Programming%20and%20Algorithm/Algorithms/computer-based/searching/Binary%20Search.md)
 - [线性数据结构](Fundamentals%20of%20Programming%20and%20Algorithm/Data%20structure/Linear/Linked%20list/01%20Overview.md)
+
+## 人工智能
+
+- [人工智能引论](introduction-to-artificial-intelligence/index.md)：前三课的学科框架、可计算性、命题与一阶逻辑、FOIL 与 PRA、概率图模型、因果推理和搜索基础。
 
 ## 速查与延伸
 
