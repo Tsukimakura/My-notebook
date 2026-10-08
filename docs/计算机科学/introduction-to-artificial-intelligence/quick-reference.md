@@ -3,7 +3,7 @@ title: "人工智能引论：概念与公式速查"
 status: draft
 tags: [cs, ai]
 created: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-08
 sources:
   - "~/aid-docs/"
 ---
@@ -93,3 +93,30 @@ $$
 对应解释见 [命题逻辑](03-propositional-logic.md)、[一阶逻辑](04-first-order-logic.md)、[知识图谱](05-knowledge-graph-reasoning.md)、[概率推理](06-probabilistic-reasoning.md)、[因果推理](07-causal-reasoning.md)与[搜索框架](08-search-foundations.md)。
 
 课程来源与公式校订见 [资料对照与校订依据](source-map.md)。
+
+## 第四节课：搜索方法对照
+
+| 方法 | 评价／递归 | 目的 | 关键条件 |
+| --- | --- | --- | --- |
+| 贪婪最佳优先 | $f=h$ | 优先看起来靠近目标的候选 | 有限图正确去重可完备，一般不最优 |
+| A* | $f=g+h$ | 求最小代价路径 | 可采纳启发式；图搜索须一致或允许重新打开 |
+| Minimax | Max 取最大、Min 取最小 | 应对理性对手 | 固定收益视角，有限或截断树 |
+| Alpha–Beta | Max 更新 $\alpha$，Min 更新 $\beta$ | 保持 Minimax 值并减少扩展 | 继承窗口，$\alpha\ge\beta$ 时可剪 |
+| UCB1 | $\bar X_i+C\sqrt{2\ln T/N_i}$ | 平衡探索与利用 | 先处理未采样动作；标准保证要求有界平稳奖励及相应系数 |
+| UCT / MCTS | 选择、扩展、模拟、回传 | 在预算内估计动作价值 | 统一奖励视角；对手不能最大化己方收益 |
+
+一致性：
+
+$$
+h(n)\le c(n,a,n')+h(n')
+\quad\Longrightarrow\quad
+h(n)\le h^*(n),\qquad f(n')\ge f(n).
+$$
+
+推论使用目标 $h=0$，第二项针对沿该转移生成的路径节点。可采纳性不能反向保证一致性。
+
+MCTS 回传（统一根视角）：$N\leftarrow N+1$、$W\leftarrow W+r$；胜／平／负 $r=1,0.5,0$，对手选择时最大化 $1-Q+\mathrm{Bonus}$。回传不是梯度计算，最终落子也不必用探索指标。
+
+交通图：贪婪 $A\to E\to H\to J\to K$ 代价 20；A* $A\to E\to G\to K$ 代价 14。Alpha–Beta 完整树：根值 3，左至右剪枝只访问 5 个叶子。黑白棋：单方无动作则 Pass，双方无动作才终止；必须保存行动方并保护原棋盘。
+
+详解见 [启发式搜索](09-heuristic-search.md)、[对抗搜索](10-adversarial-search.md)、[MCTS](11-monte-carlo-tree-search.md)和 [黑白棋实现](12-reversi-mcts.md)。

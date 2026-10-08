@@ -3,7 +3,7 @@ title: "计算机科学"
 status: draft
 tags: [cs]
 created: null
-updated: 2026-10-07
+updated: 2026-10-08
 sources: []
 ---
 
@@ -30,7 +30,7 @@ sources: []
 
 ## 人工智能
 
-- [人工智能引论](introduction-to-artificial-intelligence/index.md)：前三课的学科框架、可计算性、命题与一阶逻辑、FOIL 与 PRA、概率图模型、因果推理和搜索基础。
+- [人工智能引论](introduction-to-artificial-intelligence/index.md)：前四课的学科框架、可计算性、命题与一阶逻辑、FOIL 与 PRA、概率图模型、因果推理、A*、Alpha–Beta 与 MCTS。
 
 ## 速查与延伸
 

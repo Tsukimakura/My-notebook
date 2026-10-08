@@ -3,7 +3,7 @@ title: "知识地图"
 status: draft
 tags: [knowledge-management]
 created: null
-updated: 2026-10-07
+updated: 2026-10-08
 sources: []
 ---
 
@@ -27,7 +27,7 @@ sources: []
   - Web 开发与编程语言
 - [高级数据结构与算法分析课程讲义](计算机科学/advanced-data-structures-and-algorithm-analysis/index.md)
 - [计算机系统 II 理论笔记](计算机科学/Computer%20Systems%20II/index.md)：RISC-V、过程调用与指令流水线。
-- [人工智能引论](计算机科学/introduction-to-artificial-intelligence/index.md)：可计算性、逻辑、规则学习、概率图模型、因果与搜索。
+- [人工智能引论](计算机科学/introduction-to-artificial-intelligence/index.md)：可计算性、逻辑、规则学习、概率图模型、因果、A* 与博弈树搜索。
 
 ## 信息安全
 
