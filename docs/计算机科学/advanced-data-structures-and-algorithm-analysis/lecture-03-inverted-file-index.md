@@ -3,7 +3,7 @@ title: "Lecture 3: Inverted File Index"
 status: draft
 tags: [cs, algorithms, inverted-index, information-retrieval]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-13
 sources:
   - https://www.icourse163.org/course/ZJU1-1460402161
   - https://nlp.stanford.edu/IR-book/html/htmledition/irbook.html
@@ -170,7 +170,7 @@ A cluster node（集群节点）stores an index of part of the collection. Two p
 
 Real systems may combine both. A shard can omit absent terms physically while retaining the logical vocabulary; a “node” here means a machine/service, not a tree node.
 
-**Quiz 3.3 Q1 / WK3 T/F13:** each document-partitioned node contains a subset of documents within a specified index range. **True**: “index” means **document ID range（文档编号区间）** here.
+**Quiz 3.3 Q1 / WK3 T/F13 / WK4 T/F8:** each document-partitioned node contains a subset of documents within a specified index range. **True**: “index” means **document ID range（文档编号区间）** here.
 
 **HW3 T/F1:** document partitioning stores all documents containing terms in a certain **term range** at each node. **False**: this describes term partitioning's allocation by vocabulary, not by docID.
 
@@ -280,7 +280,7 @@ The slide's precision–recall curve illustrates a tradeoff, not an identity for
 
 **Quiz 3.4 Q2 / WK3 T/F12:** high precision, low recall means most relevant documents are returned but many irrelevant ones are included. **False**: that describes **high recall, low precision**.
 
-**HW3 MC1: high precision and low recall mean which?**
+**HW3 MC1 / WK4 MC4: high precision and low recall mean which?**
 
 - **A.** Most relevant documents retrieved, but too many irrelevant ones returned.
 - **B.** Most retrieved documents relevant, but many relevant documents missed.
@@ -295,7 +295,7 @@ The slide's precision–recall curve illustrates a tradeoff, not an identity for
 
 - Prioritize **precision** when unwanted returned/flagged items are costly: avoid blocking legitimate mail; show a small, useful set of recommendations rather than many irrelevant ones.
 - Prioritize **recall** when omissions are costly: evidence gathering, exhaustive code/paper search, initial screening of suspicious items. **HW3 T/F3:** precision is more important than recall for airport explosive detection — **False in the question's scenario**; detecting dangerous positives is the priority.
-- A two-stage pipeline（两阶段流程）can seek broad recall first, then verify/rank candidates to improve precision. The class's monitoring example distinguishes automatic suspicion alerts from a human's final judgment. The class also contrasts broad initial screening with later confirmation: priority depends on the stage and error costs.
+- A two-stage pipeline（两阶段流程）can seek broad recall first, then verify/rank candidates to improve precision. **WK4 T/F7:** recall is more important than precision for cheating detection in an Online Monitor System — **True in the stated initial-alert scenario**. Broad detection is followed by human verification; an automatic alert is not a final misconduct judgment. The class also contrasts broad initial screening with later confirmation: priority depends on the stage and error costs.
 
 **Shopping/paper-search debate:** information density or corpus size alone does not choose the metric. A comprehensive literature search may emphasize recall; top recommendations may emphasize precision. Personalization（个性化／用户画像）can improve relevance for a particular user, with evaluation tied to that need.
 
@@ -318,6 +318,15 @@ Positive = **spam**, retrieved = **flagged as spam**:
 
 **Answer: C.** B has higher spam precision and also flags fewer legitimate emails in this dataset. A catches more spam. 若把普通邮件改成正类，指标名称与分母也必须重新解释，不能只凭“保护邮件”猜 recall。
 
+**WK4 MC2 (different dataset):** 10,000 legitimate + 2,000 spam emails; A flags 300 legitimate + 1,600 spam, B flags 315 legitimate + 1,800 spam. Choices: **A** precision/A better; **B** recall/B better; **C** precision/B better; **D** recall/A better. Protecting important legitimate mail again selects **C** under the course's precision criterion:
+
+| System | Spam precision | Spam recall | Legitimate-mail false-positive rate |
+| --- | --- | --- | --- |
+| A | $1600/1900\approx84.21\%$ | $1600/2000=80\%$ | $300/10000=3\%$ |
+| B | $1800/2115\approx85.11\%$ | $1800/2000=90\%$ | $315/10000=3.15\%$ |
+
+**指标与代价要分开：**B has higher precision, yet deletes **15 more** legitimate messages on this fixed dataset. If “safe” means minimizing their absolute loss/false-positive rate alone, A is better. The accepted answer **C** follows the lecture's use of spam precision; it is not a universal guarantee of fewer false deletions. Set the operational objective explicitly rather than substituting one metric for another.
+
 ### 5.2 Recall calculation（查全率计算）· HW3 MC3
 
 There are 28,000 documents:
@@ -330,6 +339,15 @@ There are 28,000 documents:
 Recall choices: **A 14% / B 25% / C 33% / D 50%**.
 
 **Answer: C**, $R=4000/(4000+8000)=1/3\approx33\%$. Precision is $4000/(4000+12000)=25\%$; $4000/28000\approx14\%$ is neither metric.
+
+**WK4 T/F2:** with 100,000 documents, is precision 20%? **True** for the supplied table:
+
+| | Relevant | Irrelevant |
+| --- | --- | --- |
+| Retrieved | 10000 | 40000 |
+| Not retrieved | 30000 | 20000 |
+
+$P=10000/(10000+40000)=20\%$; $R=10000/(10000+30000)=25\%$. The whole-collection size is neither denominator.
 
 ### 5.3 Concept grouping（概念辨析）· WK3 MC4
 
@@ -348,7 +366,7 @@ Recall choices: **A 14% / B 25% / C 33% / D 50%**.
 
 **Historical context（线下背景）：** the lecture traces early FTP-directory discovery (Archie), Web crawling (Wanderer), manually curated portals (Yahoo/Sohu), Tianwang, and automated engines (Google/Baidu). The technical progression is **collect → organize → serve**, from manual organization to scalable automatic indexing/ranking. Inverted indexing predates Web search, including patent keyword retrieval. Slide traffic rankings, index-size estimates and company anecdotes are historical examples, not current measurements or algorithm guarantees.
 
-Sources: all supplied `~/ADS-docs/3` MOOC merged/lesson exports and manifest (units **1320673534–1320673550**), **111** video captures, the **21-page** courseware PDF, offline `course_87216_sub_1972040/course_content.md` and **24** captures, plus WK3/HW3 archives. This page covers all **11** MOOC questions and all **10** current-topic WK3 questions; duplicated questions share an explanation. HW3's **seven** nonprogramming questions appear here; its programming task has a [separate complete problem and solution](hw3-document-distance.md).
+Sources: all supplied `~/ADS-docs/3` MOOC merged/lesson exports and manifest (units **1320673534–1320673550**), **111** video captures, the **21-page** courseware PDF, offline `course_87216_sub_1972040/course_content.md` and **24** captures, plus WK3/HW3 archives. This page covers all **11** MOOC questions and all **10** current-topic WK3 questions; duplicated questions share an explanation. **WK4 supplements** from `~/ADS-docs/4/[Archive] ZJUADS_cy2026_QuizWK4.md` and the offline review: all **five** inverted-index/evaluation questions are integrated here (two new datasets and three shared explanations). HW3's **seven** nonprogramming questions appear here; its programming task has a [separate complete problem and solution](hw3-document-distance.md).
 
 - [ZJU MOOC](https://www.icourse163.org/course/ZJU1-1460402161), supplied term 1488053496.
 - [Manning, Raghavan & Schütze, *Introduction to Information Retrieval*](https://nlp.stanford.edu/IR-book/html/htmledition/irbook.html): Boolean/positional indexes, construction, compression and evaluation; supplementary clarification, not an assigned page range.
