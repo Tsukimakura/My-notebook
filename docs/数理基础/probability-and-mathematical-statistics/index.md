@@ -18,6 +18,8 @@ sources:
 
 # 概率论和数理统计（Probability and Mathematical Statistics）
 
+[第一次小测复习：知识主线与题型归纳](materials/quiz-1-review.md)
+
 ## 第一章：概率论的基本概念（Introduction to Probability）
 
 | 主题 | 内容 |
