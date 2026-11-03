@@ -3,7 +3,7 @@ title: "计算机系统 II（Computer Systems II）"
 status: draft
 tags: [cs, computer-systems, architecture, course]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-08
 sources:
   - "课程资料：lec01-2026-chang.pdf、lec02(2).pdf、lec03-2026.pdf"
   - "授课识别文本：first-5-lessons/*/course_content.md"
@@ -32,7 +32,16 @@ sources:
 
 **前置知识：**[系统 I：ISA](../Computer%20Systems%20I/theory/20_Computer%20Organization/01_ISA.md)、[RISC-V](../Computer%20Systems%20I/theory/20_Computer%20Organization/02_RISCV.md)、[CPU 数据通路](../Computer%20Systems%20I/theory/20_Computer%20Organization/03_CPU.md)、[时序逻辑](../Computer%20Systems%20I/theory/10_Digital%20logic/40_Sequential%20Logic%20Design.md)。
 
-## 模型与阅读约定
+## 实验笔记（Laboratory）
+
+[实验目录](lab/index.md)按语法和设计主题持续整理：
+
+- [Verilog / SystemVerilog：硬件描述与模块](lab/verilog/01-hardware-and-modules.md)
+- [组合与时序逻辑](lab/verilog/03-combinational-and-sequential.md)、[状态机与运算电路](lab/verilog/05-fsm-and-arithmetic.md)
+- [接口与握手](lab/verilog/06-interfaces-and-handshakes.md)、[存储、FIFO 与外设](lab/verilog/07-memory-fifo-and-io.md)
+- [仿真与调试](lab/verilog/08-simulation-and-debugging.md)
+
+## 理论模型与阅读约定
 
 - ISA 复习同时涉及 RV32I、RV64I；**寄存器宽度（XLEN）与访存数据宽度分别判断**。出现 `ld/sd` 的例子按 RV64I，出现 `lw/sw` 的例子按 32 位数据解释。
 - 流水线主体采用课件的单发射、顺序执行、五级模型：IF → ID → EX → MEM → WB。具体例题另行注明前递、寄存器同周期读写和分支判定位置。

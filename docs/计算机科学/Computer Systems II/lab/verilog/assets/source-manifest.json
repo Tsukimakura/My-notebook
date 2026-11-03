@@ -1,0 +1,926 @@
+{
+  "source_root": "~/sys1/sys1-sp26",
+  "scanned": "2026-10-08",
+  "scope": "Course HDL under src and repo/sys-project; generated builds and toolchain/vendor regression tests excluded.",
+  "hdl_files": [
+    {
+      "path": "src/lab0-2/submit/AND_GATE_3_INPUTS.v",
+      "sha256": "1f8adb9560fd6973ae91897dc7cf537c4b7e2a6223ddb5f1705f72365ce3cb7b",
+      "lines": 56,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab0-2/submit/OR_GATE_4_INPUTS.v",
+      "sha256": "94c0c896684b70db7641fbc30d4c6e8dae3d605b82358066fcc424817cfa3a18",
+      "lines": 61,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab0-2/submit/main.v",
+      "sha256": "01c0bb1ff0415b60ca50fb5109d9989d20843a7929c791d9d52b0b8b6812dfad",
+      "lines": 105,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab0-3/sim/testbench.v",
+      "sha256": "4419001625300f24d14b81815414cf973f358b11b33c373a44ed60c17f50b778",
+      "lines": 32,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab0-3/submit/main.v",
+      "sha256": "662686323f13ed767edc3f62488442821e5eacfef89274c0400cbd702509c8a2",
+      "lines": 17,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab0-3/syn/top.v",
+      "sha256": "9f720f81e7cf4ab6d8b96711eec34f584bb2a735d476332bc57be101fe9eae39",
+      "lines": 17,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-1/sim/testbench.v",
+      "sha256": "a7c214a793fd902b79872a02e5d3c3a4b41e76d7f07f4be483c2285d81400f73",
+      "lines": 32,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-1/submit/AND_GATE.v",
+      "sha256": "cf78140660e134e9e82cbb8868e24444a0985989807791f2283cfc7dad18e0a3",
+      "lines": 51,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-1/submit/MUX4T1_1.v",
+      "sha256": "b76db0188097f844495fadcfb1dfe7c6f24b9c69687cdca8843c3bd8e7ab71dc",
+      "lines": 131,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-1/submit/Mux8T1_1.v",
+      "sha256": "80f7bf381f6cd027cc3c767ade7148befa9a1eabf075b3a75e8008d36a5bd8d5",
+      "lines": 16,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-1/submit/OR_GATE_4_INPUTS.v",
+      "sha256": "94c0c896684b70db7641fbc30d4c6e8dae3d605b82358066fcc424817cfa3a18",
+      "lines": 61,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-1/syn/top.v",
+      "sha256": "91f05af7542d9f7e9f55b615200aa15b8cc6b0e523d75a4feedcaf1e9e7b3351",
+      "lines": 12,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-2/include/display.vh",
+      "sha256": "dce9bc5ae993899ad76c1fbe8d1868fac3f3bb187fba69f4e046a61218ca0fe1",
+      "lines": 2,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-2/submit/Mux4T1_32.v",
+      "sha256": "d7295ddc6935f88b20e118b78f06f0382f651551de1770180dceddc6ca7620c9",
+      "lines": 21,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab1-2/submit/SegDecoder.v",
+      "sha256": "d41514bdf6c84bd1828d9e666421a29326958e7da078997a383a3510b92ebd98",
+      "lines": 77,
+      "chapters": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "path": "src/lab2-1/include/initial_file.vh",
+      "sha256": "9ea37bc0799df96b15d3f8c701f6434c0af3936906361f9ec2624495e7fe8ad9",
+      "lines": 5,
+      "chapters": [
+        2,
+        4,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab2-1/sim/judge.v",
+      "sha256": "1f0da707cc8a84682fcdaede97adf1e3b7f87d9c67375daa4d75acbfd7e5edcc",
+      "lines": 34,
+      "chapters": [
+        2,
+        4,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab2-1/sim/testbench.v",
+      "sha256": "a8ebd628ec970708445665b04d2498a522752dac6ec954d5e209905658c2a242",
+      "lines": 64,
+      "chapters": [
+        2,
+        4,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab2-1/submit/add_subs.v",
+      "sha256": "7aad0c7238ef7ed52cc01d399153deaa1f5f7cb5ff508718c61a6b820ee771da",
+      "lines": 25,
+      "chapters": [
+        2,
+        4,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab2-1/submit/adder.v",
+      "sha256": "48f8e18de67c13bec5d42e07f9a1afed0bc4c25135cfed47f763320d690f6d5a",
+      "lines": 14,
+      "chapters": [
+        2,
+        4,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab2-1/submit/adders.v",
+      "sha256": "d4ff33aec8aeca0f6be2bb9ac832acd441a544cbc9623c6cfd86ceb0f21a8177",
+      "lines": 24,
+      "chapters": [
+        2,
+        4,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab3-1/include/Define.vh",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lines": 0,
+      "chapters": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "path": "src/lab3-1/submit/FSM.sv",
+      "sha256": "be04d7111e9a3b9ffc6ac7af7d9455a7e1f1d5ea3b6d21b5e56ae709ace2826d",
+      "lines": 38,
+      "chapters": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "path": "src/lab3-2/include/Define.vh",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lines": 0,
+      "chapters": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "path": "src/lab3-2/submit/Cnt.sv",
+      "sha256": "11dad5e786630e55f71ab884528f393fd1fcf1162045beca614d4d195ec7450a",
+      "lines": 30,
+      "chapters": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "path": "src/lab3-2/submit/Cnt2num.sv",
+      "sha256": "a92448dbe05270e314dc841897843470a8e265647e60140eb6d768cd6338d5da",
+      "lines": 56,
+      "chapters": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "path": "src/lab3-3/include/initial_file.vh",
+      "sha256": "18d201e5eaa06fe16d3694ce01de21b9cd1f2cc35f467877ca5e1c2b4871976c",
+      "lines": 5,
+      "chapters": [
+        3,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab3-3/sim/judge.v",
+      "sha256": "a03d2ffe7d8e7ae85da67978e7a25ef521914657729536d26d70ed2f1feae529",
+      "lines": 45,
+      "chapters": [
+        3,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab3-3/sim/testbench.v",
+      "sha256": "d16865b0c226c3e81cdd8a1e8cdac9de8b066d1114e0f26301158921cdfb9cde",
+      "lines": 78,
+      "chapters": [
+        3,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab3-3/submit/Multiplier.sv",
+      "sha256": "6e0fd2497caff4b0db005aaaae8336e4720d7158fdf67b407663939e0592a7f8",
+      "lines": 64,
+      "chapters": [
+        3,
+        5,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-1/include/initial_file.vh",
+      "sha256": "2fa7911947ff4d74b935b391445c57f05922e38773cb56d8fed774e12e475af5",
+      "lines": 5,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-1/sim/judge.sv",
+      "sha256": "fc23b0cd84c0b087881bc2b736783ed35e2dbe681e73959ba03fdf1d7ad3277c",
+      "lines": 59,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-1/sim/testbench.sv",
+      "sha256": "79dd76e2235af0d8a76e4a8d4e6886c4a92af143bb1b6936179318eb085e8108",
+      "lines": 101,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-1/sim/top_sim.sv",
+      "sha256": "f1419c1ed1dd570a125ae94b7cb069d724e7239d82e65206c596cbb078b760d1",
+      "lines": 66,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-1/submit/ConvOperator.sv",
+      "sha256": "d473ca1d00459a287732855ac88097ebc8ff8378530181c5a511d7b6c2591249",
+      "lines": 113,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-1/submit/ConvUnit.sv",
+      "sha256": "aa3454e218082f8b0860232d1649dba8b1b7910f2a37483a38fad72ac86375dd",
+      "lines": 43,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-1/submit/Multiplier.sv",
+      "sha256": "f71c2c7c330b91fb3667bd456f629b480f643c4ed7391bfa840006c94f42281d",
+      "lines": 68,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-1/submit/Shift.sv",
+      "sha256": "2fdf7bcac4976fbe3f1f8f1c5e53fee78548418be698fc62503c3db7a31b9a57",
+      "lines": 68,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-2/include/Define.vh",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lines": 0,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/lab4-2/submit/UartLoop.sv",
+      "sha256": "fb6592adae1c3bd9ebf4af3e5875ffd3ad9e5138a0ea0b6afae77a3382f0e2ef",
+      "lines": 32,
+      "chapters": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "src/project/Core2.sv",
+      "sha256": "654aca6743c62a5c56e1d5fc31adef5b6bada8d21fb9d3fea6f6f566043ae5d1",
+      "lines": 288,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/include/initial_mem.vh",
+      "sha256": "b9b60eb1a460509cec1be4bf17ab7c73a4e62023570692cc6ab58f514942726b",
+      "lines": 5,
+      "chapters": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/ALU.sv",
+      "sha256": "10611f7a4e2975a42d1655105f6a66aba0453b97b2458351a396b052c2bec292",
+      "lines": 38,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/Cmp.sv",
+      "sha256": "4bc419b5dc59ed7710868e290636f8798cade8934a41a35d745b6a39cfb2ad92",
+      "lines": 24,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/Controller.sv",
+      "sha256": "8e102aee463ecc3bd86e049fb7bb33763af802983fa9e41b7afc051ee275429a",
+      "lines": 146,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/Core.sv",
+      "sha256": "7e8134b0f13db2a04110ebe5dc655197738ffffc8caef2b1edb506455825057b",
+      "lines": 212,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/DataPkg.sv",
+      "sha256": "131dba767574021a35886659acd35a7f26630f35c954a25ed947c3e24041f154",
+      "lines": 17,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/DataTrunc.sv",
+      "sha256": "33508a3d15141c3ae326b2b33b3efc11f6245223fd81602a44e69ad3e30b6769",
+      "lines": 33,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/ImmGen.sv",
+      "sha256": "f89ec78939fc50a6de7e0c7ed5ee890ac6a6b146acada210ac322d05914e6446",
+      "lines": 32,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/MaskGen.sv",
+      "sha256": "34fdb820de4c69c21b538f23d3f543a5da0307c3dde73365eb2c5e27aba0c4b3",
+      "lines": 26,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "src/project/submit/RegFile.sv",
+      "sha256": "145b155287e062cd4e4143e0ecf3127a2d847eeda4fcf58debf5a91dc46e8d18",
+      "lines": 34,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/general/DRAM.sv",
+      "sha256": "9bc9821541a8de571fc16f582ba00f4141d5fe85877dec9931932160c7380ccc",
+      "lines": 179,
+      "chapters": [
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/general/Decoupled_ift.sv",
+      "sha256": "3de7e2a3b40b2de5064b49a0f5c5db02f70d0188c3481e39d91ad3218923e265",
+      "lines": 23,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/general/Mem_InterConnect.sv",
+      "sha256": "6667cb87a632b606b25c650ff566de744279fc67cf19104512458d0527da5189",
+      "lines": 141,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/general/Mem_ift.sv",
+      "sha256": "1c75e8fbd9372fd431292c777e85f03aba6f4ca12aaa873c89e625943bc1dd98",
+      "lines": 54,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/general/SCPU.sv",
+      "sha256": "093985ade99587d4f7b2ebe6bf899eff73f61edadf86daf499e5adce5adcd776",
+      "lines": 94,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/general/async.v",
+      "sha256": "8d03da5d85300b9e309b184bcd46269f84b2efc5f19971389bd22dd51c3a6f1c",
+      "lines": 222,
+      "chapters": [
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/general/fifo.sv",
+      "sha256": "7fa6b777d18bad6d52e9466c3e1eb0564393ff8b41c65a07b310e2568d04aeb8",
+      "lines": 289,
+      "chapters": [
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/general/uart.sv",
+      "sha256": "cd4dbdff895a66ac783e48e19efe89217e17c4b109a38a2203b68a82b43c7a77",
+      "lines": 278,
+      "chapters": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/include/bus_struct.vh",
+      "sha256": "91776e2e11a772af55e992bfce73b35ad6e2a137b97b3072fbacd359ce0570b0",
+      "lines": 10,
+      "chapters": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/include/core_struct.vh",
+      "sha256": "942d60a6c19645e7a553af965d9a661e52f62418d239aa8e4f4436e945a8b75e",
+      "lines": 225,
+      "chapters": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/include/decoupled.vh",
+      "sha256": "d8aa4da2e17af7039f93d4e5c824e1e11958a1ba835fd5a4ab8032da12e57335",
+      "lines": 29,
+      "chapters": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/include/mem_ift.vh",
+      "sha256": "7b55586b97646fddf6372cc4ed9fd1852daf02e2fa970d02c3e484977d3b92cd",
+      "lines": 169,
+      "chapters": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/include/mem_struct.vh",
+      "sha256": "c671dd7cf95914b2667732ed654dc472b4702a35a14c1e262ee085f093c74fa5",
+      "lines": 15,
+      "chapters": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/include/uart_struct.vh",
+      "sha256": "2cde73921be6d81ec954a34fbca27a242e56913450562d29b243d38c2aa3fcd9",
+      "lines": 20,
+      "chapters": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "repo/sys-project/sim/cosim.v",
+      "sha256": "4a49cf5aa898817ec6dc04d5f11e2d821f9d9ed61f2fce988ce4c7d74c40afc0",
+      "lines": 89,
+      "chapters": [
+        8
+      ]
+    },
+    {
+      "path": "repo/sys-project/sim/sim_uart.sv",
+      "sha256": "fbe73ccf07dd0047a4ec2db11046f9b2717ecfd6e7bcf4722b7830df995f758d",
+      "lines": 116,
+      "chapters": [
+        8
+      ]
+    },
+    {
+      "path": "repo/sys-project/sim/testbench.sv",
+      "sha256": "368cddd7c08fbef54204b69a5989df6d293efdf11df3954fff67ef34602c3c5d",
+      "lines": 104,
+      "chapters": [
+        8
+      ]
+    },
+    {
+      "path": "repo/sys-project/syn/VRAM.v",
+      "sha256": "67633f76ae45a4530e0bb71ba21a6a31bc09122759801acd155ca59e86b84593",
+      "lines": 30,
+      "chapters": [
+        3,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "repo/sys-project/syn/font_table.v",
+      "sha256": "1456a0f5c203f0e55cceaf5a810f0157adfbdf36c8112d92a79f17da11a353e3",
+      "lines": 8204,
+      "chapters": [
+        3,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "repo/sys-project/syn/io.sv",
+      "sha256": "b6619ea64b0d4c66099e1132f82dc152a9958d92aa8b82b767d4d2978f325771",
+      "lines": 555,
+      "chapters": [
+        3,
+        7,
+        8
+      ]
+    },
+    {
+      "path": "repo/sys-project/syn/top.sv",
+      "sha256": "42301216c8d085af6ae0a090dbbe7c2d778366124db4f1a160b185c31f317671",
+      "lines": 52,
+      "chapters": [
+        3,
+        7,
+        8
+      ]
+    }
+  ],
+  "teaching_documents": [
+    {
+      "path": "docs/Notes.md",
+      "sha256": "55a6c7b28a73e3314ecd11749c6ce81cb3a75b532755afdf65d9d74b80cdc188"
+    },
+    {
+      "path": "docs/docker.md",
+      "sha256": "557e8acd14b5338f862f95153ecbaabe3112aed2641f0d481888a0e9b3a8c42c"
+    },
+    {
+      "path": "docs/index.md",
+      "sha256": "2189c90930d7b8a51b353c3a72fd3968f8c71af43ccbdb6fbaf82b2f969eec36"
+    },
+    {
+      "path": "docs/issue.md",
+      "sha256": "db32e4e1ae6eb536a3598d9f2ea830e0552a3246b2343a8b72a770dfff5f4360"
+    },
+    {
+      "path": "docs/lab0-1.md",
+      "sha256": "6358dc93a4a52dfd25f0633adc5016970223224ba481378df4943ac19110d37c"
+    },
+    {
+      "path": "docs/lab0-2-appendix.md",
+      "sha256": "d474246f4bb46e3e592990b413eba0fcfa1f5cef1884a22c2493db0fa40dbeb2"
+    },
+    {
+      "path": "docs/lab0-2.md",
+      "sha256": "60b841d2b2b3fa7fc58de8406ea889324e9b333ca59b9fc41c53bc598b391437"
+    },
+    {
+      "path": "docs/lab1-1.md",
+      "sha256": "b7ddb786ea5e33e368b98a32a8f07c30cbc2419e6c442de84a9e1d2f0359411f"
+    },
+    {
+      "path": "docs/lab1-2.md",
+      "sha256": "6530e0633020ecdd2e1ee48af9f31688f68fb625455ec2feefd0435223cf8949"
+    },
+    {
+      "path": "docs/lab2-1-appendix.md",
+      "sha256": "ee93cdc99bd63b1d7c426b34cf9797b18ee10ea7d0351632d9b11662dffa9788"
+    },
+    {
+      "path": "docs/lab2-1.md",
+      "sha256": "a5ca8c218084e363bf734a5dfda2e86588d31a485be8c7ad94126a2df294d361"
+    },
+    {
+      "path": "docs/lab3-1-appendix.md",
+      "sha256": "5b42434a8e6a24b317dac1dd16cc1d1c97c646d780e005b00cd504224f08b952"
+    },
+    {
+      "path": "docs/lab3-1.md",
+      "sha256": "a0b84d0f9800b495356eeb7617900c898ec839bcef31dc833b92c80e48bc8f18"
+    },
+    {
+      "path": "docs/lab3-2.md",
+      "sha256": "e18131336f4090beb56b617fac710597638f26b8f09b1773e6aafa7c4de52570"
+    },
+    {
+      "path": "docs/lab3-3-appendix.md",
+      "sha256": "4312e37eb56c43a478f9da2495ba96eb3217d33d138d87aba1c5a92493d938e8"
+    },
+    {
+      "path": "docs/lab3-3.md",
+      "sha256": "0d96a689faf5ca549d60c965670173ff336a9dace4b60fbdff58e377dfd1b54f"
+    },
+    {
+      "path": "docs/lab4-1-appendix.md",
+      "sha256": "806e021a99633fcef9d48618ad337ee349f0808894f2c0161de28596c9e10de9"
+    },
+    {
+      "path": "docs/lab4-1.md",
+      "sha256": "4ab24db1fd5bce897f60307321438c6a7bc06758936d3d15f60b6cfcec5bb28d"
+    },
+    {
+      "path": "docs/lab4-2.md",
+      "sha256": "be0e53dff0ffdb40ae6159fd1da97bcf1add47da8593b3d7311eb01cf6111b8f"
+    },
+    {
+      "path": "docs/lab5-1.md",
+      "sha256": "dd5d87673aea7c78d94ebf5b3c54e8ac9911238a22b2a460ed5f6e4e38c28ad4"
+    },
+    {
+      "path": "docs/lab5-2.md",
+      "sha256": "b675787df821753df6dc885bb6d0aff5a1e0cda15df0303ea6b27102f614bd7a"
+    },
+    {
+      "path": "docs/project-1.md",
+      "sha256": "8ed480d40a1138c497a3dafa6a193a0a57de9851fcafacf90c5d7c246d2e8f9d"
+    },
+    {
+      "path": "docs/project-2-appendix.md",
+      "sha256": "350aab3415b22e708b3ea8173738227b2fcd5599fd40bcdd0e9275254fb618a4"
+    },
+    {
+      "path": "docs/project-2.md",
+      "sha256": "16774017a5750b85488a6ce34f933431eb4471f9e78e478193c4573204248a29"
+    },
+    {
+      "path": "docs/project-bonus.md",
+      "sha256": "fce5641489e85274b2b274390a972ea3ad1ce200fe832f4d258944281fe235b7"
+    },
+    {
+      "path": "docs/pull.md",
+      "sha256": "da52c87dd61b6e241ba22a6c78c70d8b787f9a0e6c108b1227839dbb9a13e3d8"
+    },
+    {
+      "path": "docs/setup-mac.md",
+      "sha256": "e0d668944ea0257ffc0bd946a69d65e5f8fb34aa32f6079e1ff0344e662067f5"
+    },
+    {
+      "path": "docs/setup.md",
+      "sha256": "ebd311633c4e94e92b81a7f32e59e71202524645a7674261693c2cb0bf34d12e"
+    }
+  ],
+  "diagrams": {
+    "origin": "Original SVG diagrams drawn for these notes; not extracted from slides.",
+    "files": [
+      "rtl-boundary.svg",
+      "valid-ready.svg",
+      "async-fifo.svg"
+    ]
+  }
+}
