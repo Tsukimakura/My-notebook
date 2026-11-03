@@ -3,10 +3,11 @@ title: "计算机系统 II（Computer Systems II）"
 status: draft
 tags: [cs, computer-systems, architecture, course]
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-11-03
 sources:
   - "课程资料：lec01-2026-chang.pdf、lec02(2).pdf、lec03-2026.pdf"
   - "授课识别文本：first-5-lessons/*/course_content.md"
+  - "个人计算机系统 I 期末复习手稿：两页照片"
 ---
 
 # 计算机系统 II（Computer Systems II）
@@ -19,6 +20,11 @@ sources:
 
 | 章节 | 阅读内容 |
 | --- | --- |
+| 系统 I 前置复习 | [复习目录与阅读约定](theory/00-prerequisites/index.md) |
+| 系统 I 前置复习 | [指令、编码与汇编翻译](theory/00-prerequisites/01-instructions-and-encoding.md) |
+| 系统 I 前置复习 | [常量构造、函数调用与栈](theory/00-prerequisites/02-constants-and-calls.md) |
+| 系统 I 前置复习 | [数据通路修改与性能分析](theory/00-prerequisites/03-datapath-and-performance.md) |
+| 系统 I 前置复习 | [布尔代数与浮点表示](theory/00-prerequisites/04-logic-and-floating-point.md) |
 | 体系结构与 ISA | [系统 I 衔接与 CPU 设计](theory/10-architecture-and-isa/01-system-and-cpu-review.md) |
 | 体系结构与 ISA | [ISA 分类、设计原则与寻址](theory/10-architecture-and-isa/02-isa-design-and-addressing.md) |
 | 体系结构与 ISA | [RISC-V 指令与程序翻译](theory/10-architecture-and-isa/03-risc-v-instructions.md) |

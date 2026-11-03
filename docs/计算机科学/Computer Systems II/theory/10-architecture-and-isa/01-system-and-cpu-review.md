@@ -3,7 +3,7 @@ title: "系统 I 衔接与 CPU 设计"
 status: draft
 tags: [cs, computer-systems, architecture]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-03
 sources:
   - "lec01-2026-chang.pdf，第 9–33 页"
   - "course_86797_sub_2036231/course_content.md，19:33–60:15"
@@ -12,6 +12,8 @@ sources:
 # 系统 I 衔接与 CPU 设计
 
 [课程目录](../../index.md) · 下一章：[ISA 分类与寻址](02-isa-design-and-addressing.md)
+
+进入本章前，可先查阅[系统 I 前置复习](../00-prerequisites/index.md)，回顾指令编码、64 位常量、调用约定、数据通路修改和基础性能公式。
 
 ## 1. 从体系结构到电路
 
