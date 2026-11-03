@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="540" viewBox="0 0 1120 540" role="img" aria-labelledby="title desc"><title id="title">Load-use hazard: one stall despite forwarding</title><desc id="desc">Load advances to MEM while the dependent instruction waits in ID. A bubble enters EX, and load data is forwarded in the next cycle.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#334155"/></marker></defs>
+<rect width="1120" height="540" fill="#ffffff"/>
+<text x="32" y="38" font-family="DejaVu Sans,Arial,sans-serif" font-size="24" fill="#1e293b" text-anchor="start" font-weight="700">Load-use hazard: one stall despite forwarding</text>
+<text x="32" y="76" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" fill="#64748b" text-anchor="start" font-weight="400">Standard five-stage model: load data becomes available at the end of MEM.</text>
+<text x="295.0" y="116" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="400">C1</text>
+<text x="412.0" y="116" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="400">C2</text>
+<text x="529.0" y="116" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="400">C3</text>
+<text x="646.0" y="116" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="400">C4</text>
+<text x="763.0" y="116" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="400">C5</text>
+<text x="880.0" y="116" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="400">C6</text>
+<text x="997.0" y="116" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="400">C7</text>
+<text x="32" y="174" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="start" font-weight="400">ld x1, 0(x2)</text>
+<rect x="240" y="142" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="357" y="142" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="474" y="142" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="591" y="142" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="708" y="142" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="825" y="142" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="942" y="142" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="240" y="142" width="110" height="54" rx="6" fill="#dbeafe" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="295.0" y="176" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">IF</text>
+<rect x="357" y="142" width="110" height="54" rx="6" fill="#dcfce7" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="412.0" y="176" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">ID</text>
+<rect x="474" y="142" width="110" height="54" rx="6" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="529.0" y="176" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">EX</text>
+<rect x="591" y="142" width="110" height="54" rx="6" fill="#fce7f3" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="646.0" y="176" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">MEM</text>
+<rect x="708" y="142" width="110" height="54" rx="6" fill="#ede9fe" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="763.0" y="176" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">WB</text>
+<text x="32" y="274" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="start" font-weight="400">sub x4, x1, x5</text>
+<rect x="240" y="242" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="357" y="242" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="474" y="242" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="591" y="242" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="708" y="242" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="825" y="242" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="942" y="242" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="357" y="242" width="110" height="54" rx="6" fill="#dbeafe" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="412.0" y="276" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">IF</text>
+<rect x="474" y="242" width="110" height="54" rx="6" fill="#dcfce7" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="529.0" y="276" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">ID</text>
+<rect x="591" y="242" width="110" height="54" rx="6" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+<text x="646.0" y="276" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">ID / HOLD</text>
+<rect x="708" y="242" width="110" height="54" rx="6" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="763.0" y="276" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">EX</text>
+<rect x="825" y="242" width="110" height="54" rx="6" fill="#fce7f3" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="880.0" y="276" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">MEM</text>
+<rect x="942" y="242" width="110" height="54" rx="6" fill="#ede9fe" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="997.0" y="276" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">WB</text>
+<text x="32" y="374" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="start" font-weight="400">Inserted bubble</text>
+<rect x="240" y="342" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="357" y="342" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="474" y="342" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="591" y="342" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="708" y="342" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="825" y="342" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="942" y="342" width="110" height="54" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="591" y="342" width="110" height="54" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="646.0" y="376" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">EX</text>
+<rect x="708" y="342" width="110" height="54" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="763.0" y="376" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">MEM</text>
+<rect x="825" y="342" width="110" height="54" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="880.0" y="376" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#1e293b" text-anchor="middle" font-weight="700">WB</text>
+<line x1="698" y1="191" x2="714" y2="248" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="730" y="222" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#1e293b" text-anchor="start" font-weight="400">MEM/WB → EX</text>
+<text x="240" y="453" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="start" font-weight="400">C4: hold PC and IF/ID; inject a bubble into ID/EX.</text>
+<text x="240" y="487" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="start" font-weight="400">The load keeps moving. The consumer resumes EX in C5.</text>
+<text x="240" y="518" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#1e293b" text-anchor="start" font-weight="400">2 valid instructions + 4 fill/drain cycles + 1 stall = 7 cycles.</text>
+</svg>

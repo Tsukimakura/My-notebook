@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" role="img">
+<style>text{font-family:Arial,sans-serif;fill:#172b4d;font-size:16px}.title{font-size:20px;font-weight:bold}.box{fill:#eff6ff;stroke:#2563eb;stroke-width:2}line,path{stroke:#64748b;stroke-width:2;fill:none}</style>
+<rect width="100%" height="100%" fill="white"/>
+<text x="30" y="35" class="title">Forward: document → terms</text>
+<text x="475" y="35" class="title">Inverted: term → postings</text>
+<rect class="box" x="30" y="65" width="380" height="50" rx="6"/><text x="42" y="95.0" class="">D1: gold, silver, truck</text>
+<rect class="box" x="30" y="130" width="380" height="50" rx="6"/><text x="42" y="160.0" class="">D3: delivery, silver, …, silver, truck</text>
+<rect class="box" x="475" y="65" width="390" height="50" rx="6"/><text x="487" y="95.0" class="">gold → (D1;1), (D2;3), (D4;3)</text>
+<rect class="box" x="475" y="130" width="390" height="50" rx="6"/><text x="487" y="160.0" class="">silver → (D1;2), (D3;3,7)</text>
+<rect class="box" x="475" y="195" width="390" height="50" rx="6"/><text x="487" y="225.0" class="">truck → (D1;3), (D3;8), (D4;7)</text>
+<text x="30" y="280" class="">df(silver) = 2 documents; tf(silver,D3) = 2 occurrences</text>
+<text x="30" y="307" class="">Positions distinguish a phrase match from a Boolean AND match.</text>
+</svg>

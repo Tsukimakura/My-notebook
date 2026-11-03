@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" role="img">
+<style>text{font-family:Arial,sans-serif;fill:#172b4d;font-size:14px}.title{font-size:17px;font-weight:bold}line{stroke:#64748b;stroke-width:2}rect{stroke:#2563eb;stroke-width:2;fill:#eff6ff}</style>
+<rect width="100%" height="100%" fill="white" stroke="none"/>
+<text class="title" x="480.0" y="28" text-anchor="middle">Before deleting 9</text>
+<line x1="480.0" y1="78" x2="255.0" y2="148"/>
+<line x1="480.0" y1="78" x2="705.0" y2="148"/>
+<line x1="255.0" y1="148" x2="142.5" y2="218"/>
+<line x1="255.0" y1="148" x2="367.5" y2="218"/>
+<line x1="705.0" y1="148" x2="592.5" y2="218"/>
+<line x1="705.0" y1="148" x2="817.5" y2="218"/>
+<rect x="447.5" y="61" width="65" height="34" rx="5"/><text x="480.0" y="83" text-anchor="middle">6</text>
+<rect x="222.5" y="131" width="65" height="34" rx="5"/><text x="255.0" y="153" text-anchor="middle">4</text>
+<rect x="107.0" y="201" width="71" height="34" rx="5"/><text x="142.5" y="223" text-anchor="middle">1, 2, 3</text>
+<rect x="335.0" y="201" width="65" height="34" rx="5"/><text x="367.5" y="223" text-anchor="middle">4, 5</text>
+<rect x="672.5" y="131" width="65" height="34" rx="5"/><text x="705.0" y="153" text-anchor="middle">8</text>
+<rect x="560.0" y="201" width="65" height="34" rx="5"/><text x="592.5" y="223" text-anchor="middle">6, 7</text>
+<rect x="785.0" y="201" width="65" height="34" rx="5"/><text x="817.5" y="223" text-anchor="middle">8, 9</text>
+<text x="255.0" y="223" text-anchor="middle">→</text>
+<text x="480.0" y="223" text-anchor="middle">→</text>
+<text x="705.0" y="223" text-anchor="middle">→</text>
+<text class="title" x="480.0" y="293" text-anchor="middle">After borrow + merge: root contracts</text>
+<line x1="480.0" y1="343" x2="180.0" y2="413"/>
+<line x1="480.0" y1="343" x2="480.0" y2="413"/>
+<line x1="480.0" y1="343" x2="780.0" y2="413"/>
+<rect x="447.5" y="326" width="65" height="34" rx="5"/><text x="480.0" y="348" text-anchor="middle">4, 6</text>
+<rect x="144.5" y="396" width="71" height="34" rx="5"/><text x="180.0" y="418" text-anchor="middle">1, 2, 3</text>
+<rect x="447.5" y="396" width="65" height="34" rx="5"/><text x="480.0" y="418" text-anchor="middle">4, 5</text>
+<rect x="744.5" y="396" width="71" height="34" rx="5"/><text x="780.0" y="418" text-anchor="middle">6, 7, 8</text>
+<text x="330.0" y="418" text-anchor="middle">→</text>
+<text x="630.0" y="418" text-anchor="middle">→</text>
+</svg>

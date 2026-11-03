@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 405" role="img" aria-labelledby="title desc"><title id="title">异步 FIFO 的指针与数据路径</title><desc id="desc">数据经双端口存储传输，读写 Gray 指针分别经两级同步器传向对方时钟域。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#46627b"/></marker></defs><style>text{font-family:Arial,"Noto Sans CJK SC",sans-serif;fill:#20364d;font-size:19px}.small{font-size:16px}.box{fill:#edf5fc;stroke:#5980a1;stroke-width:2;rx:10}.line{fill:none;stroke:#46627b;stroke-width:2.5;marker-end:url(#arrow)}.dash{stroke-dasharray:7 5}.label{font-weight:bold}</style><rect width="960" height="405" fill="#fff"/>
+<text x="30" y="35" class="label">Async FIFO：两个时钟域各自维护本地状态</text>
+<rect x="25" y="55" width="260" height="285" rx="12" fill="#edf5fc"/><rect x="675" y="55" width="260" height="285" rx="12" fill="#edf8f0"/>
+<text x="62" y="89" class="label">写域 / wr_clk</text><text x="710" y="89" class="label">读域 / rd_clk</text>
+<rect class="box" x="340" y="107" width="280" height="70"/><text x="393" y="148">双端口数据存储</text>
+<text x="58" y="146">写入 / write</text><text x="710" y="146">读出 / read</text><path class="line" d="M225 141 H340"/><path class="line" d="M620 141 H705"/>
+<text x="55" y="207">写指针 → Gray</text><text x="718" y="207">2 FF → empty</text><path class="line dash" d="M238 199 H700"/>
+<text x="55" y="272">full ← 2 FF</text><text x="710" y="272">Gray ← 读指针</text><path class="line dash" d="M710 262 H230"/>
+<text x="55" y="316" class="small">用同步来的读指针判断满</text><text x="710" y="316" class="small">用同步来的写指针判断空</text>
+<text x="45" y="375" class="small">Gray 指针在源域寄存后跨域；同步延迟让满/空解除较保守。</text></svg>

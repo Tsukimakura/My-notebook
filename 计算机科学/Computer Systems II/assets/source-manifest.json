@@ -1,0 +1,94 @@
+[
+  {
+    "asset": "isa-storage-classes.webp",
+    "source": "lec01-2026-chang.pdf",
+    "pdf_page": 64,
+    "attribution": "用户提供的浙江大学 Computer Systems II 课程课件，封面署名 Li Lu；保留原图标记。",
+    "processing": "整页导出、WebP 编码；未改动内容。",
+    "license": "原始资料未注明开放许可；权利归原作者。"
+  },
+  {
+    "asset": "laundry-pipeline.webp",
+    "source": "lec02(2).pdf",
+    "pdf_page": 21,
+    "attribution": "用户提供的浙江大学 Computer Systems II 课程课件，封面署名 Li Lu；保留原图标记。",
+    "processing": "整页导出、WebP 编码；未改动内容。",
+    "license": "原始资料未注明开放许可；权利归原作者。"
+  },
+  {
+    "asset": "bottleneck-solutions.webp",
+    "source": "lec02(2).pdf",
+    "pdf_page": 78,
+    "attribution": "用户提供的浙江大学 Computer Systems II 课程课件，封面署名 Li Lu；保留原图标记。",
+    "processing": "整页导出、WebP 编码；未改动内容。",
+    "license": "原始资料未注明开放许可；权利归原作者。"
+  },
+  {
+    "asset": "static-dot-product.webp",
+    "source": "lec02(2).pdf",
+    "pdf_page": 85,
+    "attribution": "用户提供的浙江大学 Computer Systems II 课程课件，封面署名 Li Lu；保留原图标记。",
+    "processing": "整页导出、WebP 编码；未改动内容。",
+    "license": "原始资料未注明开放许可；权利归原作者。"
+  },
+  {
+    "asset": "corrected-pipelined-datapath.webp",
+    "source": "lec03-2026.pdf",
+    "pdf_page": 55,
+    "attribution": "用户提供的浙江大学 Computer Systems II 课程课件，封面署名 Li Lu；保留原图标记。",
+    "processing": "整页导出、WebP 编码；未改动内容。",
+    "license": "原始资料未注明开放许可；权利归原作者。"
+  },
+  {
+    "asset": "single-cycle-pipeline-view.webp",
+    "source": "lec03-2026.pdf",
+    "pdf_page": 62,
+    "attribution": "用户提供的浙江大学 Computer Systems II 课程课件，封面署名 Li Lu；保留原图标记。",
+    "processing": "整页导出、WebP 编码；未改动内容。",
+    "license": "原始资料未注明开放许可；权利归原作者。"
+  },
+  {
+    "asset": "control-signal-propagation.webp",
+    "source": "lec03-2026.pdf",
+    "pdf_page": 74,
+    "attribution": "用户提供的浙江大学 Computer Systems II 课程课件，封面署名 Li Lu；保留原图标记。",
+    "processing": "整页导出、WebP 编码；未改动内容。",
+    "license": "原始资料未注明开放许可；权利归原作者。"
+  },
+  {
+    "asset": "pipelined-control-datapath.webp",
+    "source": "lec03-2026.pdf",
+    "pdf_page": 75,
+    "attribution": "用户提供的浙江大学 Computer Systems II 课程课件，封面署名 Li Lu；保留原图标记。",
+    "processing": "整页导出、WebP 编码；未改动内容。",
+    "license": "原始资料未注明开放许可；权利归原作者。"
+  },
+  {
+    "asset": "risc-v-formats.svg",
+    "source": "自绘，根据配套课件与笔记模型",
+    "attribution": "本笔记自绘",
+    "description": "RISC-V 六种 32 位指令格式，字段按位宽绘制",
+    "processing": "原生 SVG，已渲染核对"
+  },
+  {
+    "asset": "stack-frames.svg",
+    "source": "自绘，根据配套课件与笔记模型",
+    "attribution": "本笔记自绘",
+    "description": "RV64 嵌套调用与栈帧示意",
+    "processing": "原生 SVG，已渲染核对"
+  },
+  {
+    "asset": "pipeline-timing.svg",
+    "source": "自绘，根据配套课件与笔记模型",
+    "attribution": "本笔记自绘",
+    "description": "四条独立指令的五级流水线时序",
+    "processing": "原生 SVG，已渲染核对"
+  },
+  {
+    "asset": "load-use-stall.svg",
+    "source": "自绘，根据配套课件与笔记模型",
+    "attribution": "本笔记自绘",
+    "description": "load-use 前端保持、气泡与前递时序",
+    "processing": "原生 SVG，已渲染核对"
+  }
+]

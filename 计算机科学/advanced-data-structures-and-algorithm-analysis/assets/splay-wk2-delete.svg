@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 385" role="img">
+<style>text{font-family:Arial,sans-serif} .title{font-size:16px;font-weight:bold;fill:#172b4d} line{stroke:#64748b;stroke-width:2}.key{font-size:15px;fill:white;font-weight:bold}</style>
+<rect width="100%" height="100%" fill="white"/>
+<text class="title" x="190.0" y="27" text-anchor="middle">Splay 3; then remove root</text>
+<line x1="80.0" y1="135" x2="43.33333333333333" y2="200"/>
+<line x1="116.66666666666667" y1="70" x2="80.0" y2="135"/>
+<line x1="116.66666666666667" y1="70" x2="263.33333333333337" y2="135"/>
+<line x1="190.0" y1="200" x2="153.33333333333334" y2="265"/>
+<line x1="190.0" y1="200" x2="226.66666666666666" y2="265"/>
+<line x1="263.33333333333337" y1="135" x2="190.0" y2="200"/>
+<line x1="263.33333333333337" y1="135" x2="336.6666666666667" y2="200"/>
+<line x1="336.6666666666667" y1="200" x2="300.0" y2="265"/>
+<circle cx="43.33333333333333" cy="200" r="21" fill="#1e293b"/><text class="key" x="43.33333333333333" y="205" text-anchor="middle">1</text>
+<circle cx="80.0" cy="135" r="21" fill="#1e293b"/><text class="key" x="80.0" y="140" text-anchor="middle">2</text>
+<circle cx="116.66666666666667" cy="70" r="21" fill="#1e293b"/><text class="key" x="116.66666666666667" y="75" text-anchor="middle">3</text>
+<circle cx="153.33333333333334" cy="265" r="21" fill="#1e293b"/><text class="key" x="153.33333333333334" y="270" text-anchor="middle">4</text>
+<circle cx="190.0" cy="200" r="21" fill="#1e293b"/><text class="key" x="190.0" y="205" text-anchor="middle">5</text>
+<circle cx="226.66666666666666" cy="265" r="21" fill="#1e293b"/><text class="key" x="226.66666666666666" y="270" text-anchor="middle">6</text>
+<circle cx="263.33333333333337" cy="135" r="21" fill="#1e293b"/><text class="key" x="263.33333333333337" y="140" text-anchor="middle">7</text>
+<circle cx="300.0" cy="265" r="21" fill="#1e293b"/><text class="key" x="300.0" y="270" text-anchor="middle">8</text>
+<circle cx="336.6666666666667" cy="200" r="21" fill="#1e293b"/><text class="key" x="336.6666666666667" y="205" text-anchor="middle">9</text>
+<text class="title" x="570.0" y="27" text-anchor="middle">Join via max(left): root 2</text>
+<line x1="466.875" y1="70" x2="425.625" y2="135"/>
+<line x1="466.875" y1="70" x2="631.875" y2="135"/>
+<line x1="549.375" y1="200" x2="508.125" y2="265"/>
+<line x1="549.375" y1="200" x2="590.625" y2="265"/>
+<line x1="631.875" y1="135" x2="549.375" y2="200"/>
+<line x1="631.875" y1="135" x2="714.375" y2="200"/>
+<line x1="714.375" y1="200" x2="673.125" y2="265"/>
+<circle cx="425.625" cy="135" r="21" fill="#1e293b"/><text class="key" x="425.625" y="140" text-anchor="middle">1</text>
+<circle cx="466.875" cy="70" r="21" fill="#1e293b"/><text class="key" x="466.875" y="75" text-anchor="middle">2</text>
+<circle cx="508.125" cy="265" r="21" fill="#1e293b"/><text class="key" x="508.125" y="270" text-anchor="middle">4</text>
+<circle cx="549.375" cy="200" r="21" fill="#1e293b"/><text class="key" x="549.375" y="205" text-anchor="middle">5</text>
+<circle cx="590.625" cy="265" r="21" fill="#1e293b"/><text class="key" x="590.625" y="270" text-anchor="middle">6</text>
+<circle cx="631.875" cy="135" r="21" fill="#1e293b"/><text class="key" x="631.875" y="140" text-anchor="middle">7</text>
+<circle cx="673.125" cy="265" r="21" fill="#1e293b"/><text class="key" x="673.125" y="270" text-anchor="middle">8</text>
+<circle cx="714.375" cy="200" r="21" fill="#1e293b"/><text class="key" x="714.375" y="205" text-anchor="middle">9</text>
+<text class="title" x="950.0" y="27" text-anchor="middle">Join via min(right): root 4</text>
+<line x1="846.875" y1="135" x2="805.625" y2="200"/>
+<line x1="888.125" y1="70" x2="846.875" y2="135"/>
+<line x1="888.125" y1="70" x2="929.375" y2="135"/>
+<line x1="929.375" y1="135" x2="1011.875" y2="200"/>
+<line x1="1011.875" y1="200" x2="970.625" y2="265"/>
+<line x1="1011.875" y1="200" x2="1094.375" y2="265"/>
+<line x1="1094.375" y1="265" x2="1053.125" y2="330"/>
+<circle cx="805.625" cy="200" r="21" fill="#1e293b"/><text class="key" x="805.625" y="205" text-anchor="middle">1</text>
+<circle cx="846.875" cy="135" r="21" fill="#1e293b"/><text class="key" x="846.875" y="140" text-anchor="middle">2</text>
+<circle cx="888.125" cy="70" r="21" fill="#1e293b"/><text class="key" x="888.125" y="75" text-anchor="middle">4</text>
+<circle cx="929.375" cy="135" r="21" fill="#1e293b"/><text class="key" x="929.375" y="140" text-anchor="middle">5</text>
+<circle cx="970.625" cy="265" r="21" fill="#1e293b"/><text class="key" x="970.625" y="270" text-anchor="middle">6</text>
+<circle cx="1011.875" cy="200" r="21" fill="#1e293b"/><text class="key" x="1011.875" y="205" text-anchor="middle">7</text>
+<circle cx="1053.125" cy="330" r="21" fill="#1e293b"/><text class="key" x="1053.125" y="335" text-anchor="middle">8</text>
+<circle cx="1094.375" cy="265" r="21" fill="#1e293b"/><text class="key" x="1094.375" y="270" text-anchor="middle">9</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" role="img">
+<style>text{font-family:Arial,sans-serif;fill:#172b4d;font-size:16px}.title{font-size:20px;font-weight:bold}.box{fill:#eff6ff;stroke:#2563eb;stroke-width:2}line,path{stroke:#64748b;stroke-width:2;fill:none}</style>
+<rect width="100%" height="100%" fill="white"/>
+<text x="30" y="35" class="title">DocIDs → gaps → restart blocks</text>
+<rect class="box" x="30" y="65" width="890" height="45" rx="6"/><text x="42" y="92.5" class="">DocIDs:    2, 15, 47, 58, 79, 90</text>
+<rect class="box" x="30" y="125" width="890" height="45" rx="6"/><text x="42" y="152.5" class="">Gaps:       2, 13, 32, 11, 21, 11</text>
+<rect class="box" x="30" y="190" width="405" height="55" rx="6"/><text x="42" y="222.5" class="">Block 1: absolute 2; gaps 13,32</text>
+<rect class="box" x="510" y="190" width="410" height="55" rx="6"/><text x="522" y="222.5" class="">Block 2: absolute 58; gaps 21,11</text>
+<text x="30" y="283" class="">To reach DocID 79: start at 58, add 21; no need to decode Block 1.</text>
+<text x="30" y="313" class="">Each block also needs an offset / length and a codec.</text>
+</svg>

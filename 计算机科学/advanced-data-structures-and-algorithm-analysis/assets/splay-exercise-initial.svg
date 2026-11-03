@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 460" role="img">
+<style>text{font-family:Arial,sans-serif;fill:#172b4d} .title{font-size:17px;font-weight:bold} .node{font-size:15px} line{stroke:#64748b;stroke-width:2} circle{fill:#eff6ff;stroke:#2563eb;stroke-width:2}</style>
+<rect width="100%" height="100%" fill="white"/>
+<text class="title" x="410.0" y="27" text-anchor="middle">Initial splay tree</text>
+<line x1="113.84615384615384" y1="210" x2="54.61538461538461" y2="280"/>
+<line x1="113.84615384615384" y1="210" x2="173.07692307692307" y2="280"/>
+<line x1="232.30769230769232" y1="140" x2="113.84615384615384" y2="210"/>
+<line x1="232.30769230769232" y1="140" x2="350.7692307692308" y2="210"/>
+<line x1="350.7692307692308" y1="210" x2="291.53846153846155" y2="280"/>
+<line x1="350.7692307692308" y1="210" x2="469.2307692307692" y2="280"/>
+<line x1="469.2307692307692" y1="280" x2="410.0" y2="350"/>
+<line x1="469.2307692307692" y1="280" x2="528.4615384615385" y2="350"/>
+<line x1="587.6923076923077" y1="70" x2="232.30769230769232" y2="140"/>
+<line x1="587.6923076923077" y1="70" x2="646.9230769230769" y2="140"/>
+<line x1="646.9230769230769" y1="140" x2="706.1538461538462" y2="210"/>
+<line x1="706.1538461538462" y1="210" x2="765.3846153846154" y2="280"/>
+<circle cx="54.61538461538461" cy="280" r="22"/>
+<text class="node" x="54.61538461538461" y="285" text-anchor="middle">1</text>
+<circle cx="113.84615384615384" cy="210" r="22"/>
+<text class="node" x="113.84615384615384" y="215" text-anchor="middle">2</text>
+<circle cx="173.07692307692307" cy="280" r="22"/>
+<text class="node" x="173.07692307692307" y="285" text-anchor="middle">3</text>
+<circle cx="232.30769230769232" cy="140" r="22"/>
+<text class="node" x="232.30769230769232" y="145" text-anchor="middle">4</text>
+<circle cx="291.53846153846155" cy="280" r="22"/>
+<text class="node" x="291.53846153846155" y="285" text-anchor="middle">5</text>
+<circle cx="350.7692307692308" cy="210" r="22"/>
+<text class="node" x="350.7692307692308" y="215" text-anchor="middle">6</text>
+<circle cx="410.0" cy="350" r="22"/>
+<text class="node" x="410.0" y="355" text-anchor="middle">7</text>
+<circle cx="469.2307692307692" cy="280" r="22"/>
+<text class="node" x="469.2307692307692" y="285" text-anchor="middle">8</text>
+<circle cx="528.4615384615385" cy="350" r="22"/>
+<text class="node" x="528.4615384615385" y="355" text-anchor="middle">9</text>
+<circle cx="587.6923076923077" cy="70" r="22"/>
+<text class="node" x="587.6923076923077" y="75" text-anchor="middle">10</text>
+<circle cx="646.9230769230769" cy="140" r="22"/>
+<text class="node" x="646.9230769230769" y="145" text-anchor="middle">11</text>
+<circle cx="706.1538461538462" cy="210" r="22"/>
+<text class="node" x="706.1538461538462" y="215" text-anchor="middle">12</text>
+<circle cx="765.3846153846154" cy="280" r="22"/>
+<text class="node" x="765.3846153846154" y="285" text-anchor="middle">13</text>
+</svg>
