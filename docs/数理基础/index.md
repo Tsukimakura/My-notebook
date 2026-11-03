@@ -3,7 +3,7 @@ title: "数理基础"
 status: draft
 tags: [math-physics]
 created: null
-updated: 2026-10-06
+updated: 2026-11-03
 sources: []
 ---
 
@@ -24,7 +24,7 @@ sources: []
 
 ## 其他基础课程
 
-- [概率论和数理统计](probability-and-mathematical-statistics/index.md)：概率基础、古典与几何概型、条件概率及贝叶斯公式。
+- [概率论和数理统计](probability-and-mathematical-statistics/index.md)：概率基础、随机变量、一维与二维分布，配套作业题与解析。
 - [线性代数 II](Linear%20Algebra%20II/线性代数II复习总纲.md)
 - [数学分析 II](Mathematical%20Analysis%20II/数学分析II复习总纲.md)
 - [离散数学](Theoretical%20Basis%20for%20Discrete%20Mathematics/01_Logic%20and%20Proofs/10_Propositional%20Language/00_Propositonal%20Languange.md)

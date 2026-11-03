@@ -1,6 +1,5 @@
 {
   "created": "2026-10-06",
-  "generator": "figure-source.py",
   "page_numbering": "PDF page sequence, 1-based",
   "figures": [
     {
@@ -11,7 +10,8 @@
       "additional_note": null,
       "license": "未单独声明开放许可；本笔记库配套自绘资源",
       "attribution": "Tsukimakura's notebook",
-      "sha256": "e33b566d54dac08394e19ab33f9dd857027b12976b5878f326fe0e827609d192"
+      "sha256": "e33b566d54dac08394e19ab33f9dd857027b12976b5878f326fe0e827609d192",
+      "generator": "figure-source.py"
     },
     {
       "asset": "frequency-stability.webp",
@@ -21,7 +21,8 @@
       "additional_note": "模拟数据，NumPy default_rng(20261006)，每组 5000 次",
       "license": "未单独声明开放许可；本笔记库配套自绘资源",
       "attribution": "Tsukimakura's notebook",
-      "sha256": "f36a8f27db2bfbcdb32c88c2d6ec9d5c7b36d8a06293781ae03d2a2cba2f23a2"
+      "sha256": "f36a8f27db2bfbcdb32c88c2d6ec9d5c7b36d8a06293781ae03d2a2cba2f23a2",
+      "generator": "figure-source.py"
     },
     {
       "asset": "birthday-probability.webp",
@@ -31,7 +32,8 @@
       "additional_note": null,
       "license": "未单独声明开放许可；本笔记库配套自绘资源",
       "attribution": "Tsukimakura's notebook",
-      "sha256": "4dfb5645dcb6fe5fb3915118fcdfdc2f225cad4b1879902d09eab524b81bd943"
+      "sha256": "4dfb5645dcb6fe5fb3915118fcdfdc2f225cad4b1879902d09eab524b81bd943",
+      "generator": "figure-source.py"
     },
     {
       "asset": "buffon-needle.webp",
@@ -41,7 +43,8 @@
       "additional_note": "第二节课 ppt_035.png–ppt_041.png，约 40:03–46:02",
       "license": "未单独声明开放许可；本笔记库配套自绘资源",
       "attribution": "Tsukimakura's notebook",
-      "sha256": "ddbeaee93949182ab2cfef828714c03649fe803ae05435146b49bef427c75fc1"
+      "sha256": "ddbeaee93949182ab2cfef828714c03649fe803ae05435146b49bef427c75fc1",
+      "generator": "figure-source.py"
     },
     {
       "asset": "total-probability-tree.webp",
@@ -51,7 +54,8 @@
       "additional_note": null,
       "license": "未单独声明开放许可；本笔记库配套自绘资源",
       "attribution": "Tsukimakura's notebook",
-      "sha256": "a1c927ed36416e9601836772f7640f35c649a740514a5ca03f6b9609a50ee007"
+      "sha256": "a1c927ed36416e9601836772f7640f35c649a740514a5ca03f6b9609a50ee007",
+      "generator": "figure-source.py"
     },
     {
       "asset": "monty-hall.webp",
@@ -61,7 +65,93 @@
       "additional_note": "第二节课约 127:42–141:38",
       "license": "未单独声明开放许可；本笔记库配套自绘资源",
       "attribution": "Tsukimakura's notebook",
-      "sha256": "1558af5a6f05c7a892da98b567dc0e6a93c7b39b4d686670c0b7da7277b78925"
+      "sha256": "1558af5a6f05c7a892da98b567dc0e6a93c7b39b4d686670c0b7da7277b78925",
+      "generator": "figure-source.py"
+    },
+    {
+      "asset": "pairwise-independence.webp",
+      "editable": "pairwise-independence.svg",
+      "type": "original-illustration",
+      "source": "PS ch1-2026.pdf，第 99 页",
+      "generator": "distribution-figures.py",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "c4d2c9793243fcb1599db5f6f82b723f1685e4d0d66d72e3ec8ee57053ef5867"
+    },
+    {
+      "asset": "discrete-models.webp",
+      "editable": "discrete-models.svg",
+      "type": "original-illustration",
+      "source": "PS ch2-2026(1).pdf，第 17–34 页",
+      "generator": "distribution-figures.py",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "6eb89a2f26e832a3c9ffec389abef4a984dc6812897113c8c96ff7475a174307"
+    },
+    {
+      "asset": "cdf-and-density.webp",
+      "editable": "cdf-and-density.svg",
+      "type": "original-illustration",
+      "source": "PS ch2-2026(1).pdf，第 39–52 页",
+      "generator": "distribution-figures.py",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "623a3a53c26c8c5ff23e926fd1d79f368580f9e50f087c63cc1e87d06905edde"
+    },
+    {
+      "asset": "normal-distribution.webp",
+      "editable": "normal-distribution.svg",
+      "type": "original-illustration",
+      "source": "PS ch2-2026(1).pdf，第 66–82 页",
+      "generator": "distribution-figures.py",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "ec79b372331b8b41c4db6d075ac88a597363f8d554949083e062d39dd2b5de14"
+    },
+    {
+      "asset": "transformation-branches.webp",
+      "editable": "transformation-branches.svg",
+      "type": "original-illustration",
+      "source": "PS ch2-2026(1).pdf，第 94–108 页；习题二 B33、B36",
+      "generator": "distribution-figures.py",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "3318c3b53a8bfc5f46803cf01831a437b567edbbf676884fcfed2c88783d7328"
+    },
+    {
+      "asset": "joint-support-and-marginals.webp",
+      "editable": "joint-support-and-marginals.svg",
+      "type": "original-illustration",
+      "source": "PS ch3-2026.pdf，第 43–48 页；习题三 B4",
+      "generator": "distribution-figures.py",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "74c37045df4d9def72e00afff19380407f4b81a61f05f246da13f9984eb8900d"
+    },
+    {
+      "asset": "conditional-regions.webp",
+      "editable": "conditional-regions.svg",
+      "type": "original-illustration",
+      "source": "教材习题三 A20、B4、B5",
+      "generator": "distribution-figures.py",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "f28e274b0d86fe9a14f7a9651ccabee933ee22dc9d180fb51f4cfa714f0de156"
+    },
+    {
+      "asset": "bivariate-normal.webp",
+      "editable": "bivariate-normal.svg",
+      "type": "original-illustration",
+      "source": "PS ch3-2026.pdf，第 63–69 页",
+      "generator": "distribution-figures.py",
+      "license": "未单独声明开放许可；本笔记库配套自绘资源",
+      "attribution": "Tsukimakura's notebook",
+      "sha256": "cd261dfc252a9cec17bee52b6fb3c18f3cf6040eae451713c677916c801386dd"
     }
+  ],
+  "updated": "2026-11-03",
+  "generators": [
+    "figure-source.py",
+    "distribution-figures.py"
   ]
 }

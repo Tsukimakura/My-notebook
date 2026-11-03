@@ -3,7 +3,7 @@ title: "Tsukimakura's notebook"
 status: draft
 tags: [knowledge-management]
 created: null
-updated: 2026-10-08
+updated: 2026-11-03
 sources: []
 ---
 
@@ -17,7 +17,7 @@ sources: []
 - [计算机科学](计算机科学/index.md)：C 程序设计、算法、数据结构与程序运行机制。
 - [数理基础](数理基础/index.md)：数学分析、线性代数、离散数学与普通物理。
 - [普通物理学 II](数理基础/general-physics-ii/index.md)：前六课的静电学、导体与镜像法、电流、电阻和电容，英文为主、中文辅助。
-- [概率论和数理统计](数理基础/probability-and-mathematical-statistics/index.md)：概率基础、古典与几何概型、条件概率及贝叶斯公式。
+- [概率论和数理统计](数理基础/probability-and-mathematical-statistics/index.md)：概率基础、随机变量、一维与二维分布，配套作业题与解析。
 - [信息安全](信息安全/index.md)：Web 安全、密码学、逆向与二进制安全。
 - [工具与写作](计算机科学/Tools/index.md)：Markdown、LaTeX、Obsidian 与 MkDocs。
 - [计算机系统 II](计算机科学/Computer%20Systems%20II/index.md)：体系结构、RISC-V 与指令流水线理论笔记。

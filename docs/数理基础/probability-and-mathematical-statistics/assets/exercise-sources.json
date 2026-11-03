@@ -1,0 +1,446 @@
+{
+  "updated": "2026-11-03",
+  "source": "用户提供的教材题图；外部 prob-exercises 文件夹",
+  "rights": "教材与题图权利归原权利人；不重新发布原始题图；题意转述与解析见笔记",
+  "shared_conversations": [
+    "https://chatgpt.com/share/6ae9da00-bc18-83e8-be00-afb910c16efc",
+    "https://chatgpt.com/share/6ae9da4b-d094-83e8-a534-11707da6ff54"
+  ],
+  "solution_cross_references": [
+    "ch01-homework.tex",
+    "ch02-homework.tex",
+    "ch03-homework.tex",
+    "ch04-homework.tex",
+    "ch05-homework.tex"
+  ],
+  "images": [
+    {
+      "file": "微信图片_20261012231325_63_42.jpg",
+      "sha256": "1258aa523f739e98b6df0a80291b0ff3b1adde67e963f94e9c4bd26021090e05"
+    },
+    {
+      "file": "微信图片_20261012231357_64_42.jpg",
+      "sha256": "70564e482d990bce11bc9d403b9b6a840816888818601356e53a02c7cdccd4b2"
+    },
+    {
+      "file": "微信图片_20261012231424_65_42.jpg",
+      "sha256": "e424d2f20a12b1f57f258372369f990024e4c42c47d13e1213de657991f07134"
+    },
+    {
+      "file": "微信图片_20261012231449_66_42.jpg",
+      "sha256": "77ce59432070f19c67c4967446cb4c4b215c931ab58c4a6ed25f54d0ab50b96b"
+    },
+    {
+      "file": "微信图片_20261012231534_67_42.jpg",
+      "sha256": "2bc1af0b82ab841f195fbb4eca91bf1446d4fe38013f38a5b8c757f68fded8ba"
+    },
+    {
+      "file": "微信图片_20261012231601_68_42.jpg",
+      "sha256": "9a7386715a88b040edffaa75c5085aafd29f65dadc48f6a9850331bfb6919712"
+    },
+    {
+      "file": "微信图片_20261012231627_69_42.jpg",
+      "sha256": "1e3861b3408311ceb93a89b5b39b4816bf5603656b027ef732c73a0197756b64"
+    },
+    {
+      "file": "微信图片_20261019233913_73_42.jpg",
+      "sha256": "81b289fe1e2cd594e5ae11aef91b38b928114a762b60c857935a5bf7bda440be"
+    },
+    {
+      "file": "微信图片_20261019233914_74_42.jpg",
+      "sha256": "024d641a3248a09b02c5297c292ada04faeadccda4cce9da4dadff5d693d434c"
+    },
+    {
+      "file": "微信图片_20261019233915_75_42.jpg",
+      "sha256": "71240beae4866d0884ac506eaa892385550ef8b1034d43049aecf41ee7740d9e"
+    },
+    {
+      "file": "微信图片_20261019233916_76_42.jpg",
+      "sha256": "4625f252766facdbd4d4cd29102eb16db33cc12f67c8fe5b640dbab172af8404"
+    },
+    {
+      "file": "微信图片_20261027000712_80_42.jpg",
+      "sha256": "3973aeb1d80158539b0bdb31fbcac28e7ca794d9f00d329374163522226cca6f"
+    },
+    {
+      "file": "微信图片_20261027000714_81_42.jpg",
+      "sha256": "a829b631be67f19cb3dcdaf98c4579e1df137b578e2abf3415b0da49da6280da"
+    },
+    {
+      "file": "微信图片_20261027000715_82_42.jpg",
+      "sha256": "1b1cdf187d02f0f9864196b4258cdbc38ee110ee102c323f73aaabe8f4fc03c9"
+    },
+    {
+      "file": "微信图片_20261027000715_83_42.jpg",
+      "sha256": "ecb7552233c80fc77981c8fbc13bed6963d915bb19943a897f7c9ec13c8d13f4"
+    },
+    {
+      "file": "微信图片_20261027000716_84_42.jpg",
+      "sha256": "e1fb0002fd19c0ed2b05632769fb109450403c569d5a47ed812cac44eecd61df"
+    },
+    {
+      "file": "微信图片_20261103003059_89_42.jpg",
+      "sha256": "6af1a042a699e412da0f3bf91e2159549966ab124c923b424bb65e8324b5f194"
+    },
+    {
+      "file": "微信图片_20261103003100_90_42.jpg",
+      "sha256": "0513a23cd871a189b3acef4061c83dafb75ee15757542fb404deb2930888c445"
+    },
+    {
+      "file": "微信图片_20261103003101_91_42.jpg",
+      "sha256": "a28362774bd548e20f556088142b7d729d888955507916b15aa25715b9bbe763"
+    },
+    {
+      "file": "微信图片_20261103003102_92_42.jpg",
+      "sha256": "8792a099e63697e55b49fdd42b68059bd14f8ffc20748210dbd497243949507c"
+    }
+  ],
+  "exercises": [
+    {
+      "exercise": "习题一 A4",
+      "title": "至少、最多与恰好",
+      "note": "ch01/01-sample-space-and-events.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 B1",
+      "title": "包含关系与互斥",
+      "note": "ch01/02-frequency-and-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 B2",
+      "title": "随机猜两张脸谱",
+      "note": "ch01/03-classical-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 A10",
+      "title": "两颗骰子与条件样本空间",
+      "note": "ch01/03-classical-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 A12",
+      "title": "两次抽球的三种事件",
+      "note": "ch01/03-classical-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 A14",
+      "title": "无序颜色组合与固定顺序",
+      "note": "ch01/03-classical-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 A15",
+      "title": "指定车辆的配对",
+      "note": "ch01/03-classical-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 A20",
+      "title": "选盒与转球",
+      "note": "ch01/05-conditional-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 A22",
+      "title": "优质品的来源",
+      "note": "ch01/05-conditional-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 B6",
+      "title": "第一次观察后更新组别",
+      "note": "ch01/05-conditional-probability.md",
+      "source_images": [],
+      "additional_source": "用户在本会话上传的原题图片"
+    },
+    {
+      "exercise": "习题一 B10",
+      "title": "搜索失败也是信息",
+      "note": "ch01/05-conditional-probability.md",
+      "source_images": [
+        "微信图片_20261012231325_63_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题一 B7",
+      "title": "四元件系统",
+      "note": "ch01/06-independence.md",
+      "source_images": [
+        "微信图片_20261012231325_63_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题一 B8",
+      "title": "雾霾与戴口罩",
+      "note": "ch01/06-independence.md",
+      "source_images": [
+        "微信图片_20261012231325_63_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 A2",
+      "title": "归一化与区间概率",
+      "note": "ch02/01-random-variables-and-discrete-distributions.md",
+      "source_images": [
+        "微信图片_20261012231424_65_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B12",
+      "title": "短信计数与条件概率",
+      "note": "ch02/01-random-variables-and-discrete-distributions.md",
+      "source_images": [
+        "微信图片_20261012231601_68_42.jpg",
+        "微信图片_20261012231627_69_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 A1",
+      "title": "四种随机变量",
+      "note": "ch02/01-random-variables-and-discrete-distributions.md",
+      "source_images": [
+        "微信图片_20261012231357_64_42.jpg",
+        "微信图片_20261012231424_65_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B2",
+      "title": "连续闯关的得分",
+      "note": "ch02/01-random-variables-and-discrete-distributions.md",
+      "source_images": [
+        "微信图片_20261012231449_66_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B7",
+      "title": "不同故障率与截断等待",
+      "note": "ch02/01-random-variables-and-discrete-distributions.md",
+      "source_images": [
+        "微信图片_20261012231534_67_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 A8",
+      "title": "阶梯函数及半开区间",
+      "note": "ch02/02-distribution-functions.md",
+      "source_images": [
+        "微信图片_20261019233913_73_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B16",
+      "title": "两个不相连区间",
+      "note": "ch02/02-distribution-functions.md",
+      "source_images": [
+        "微信图片_20261019233914_74_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B17",
+      "title": "归一化、积分与重复观察",
+      "note": "ch02/03-continuous-distributions.md",
+      "source_images": [
+        "微信图片_20261019233914_74_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B18",
+      "title": "由连续性确定参数",
+      "note": "ch02/03-continuous-distributions.md",
+      "source_images": [
+        "微信图片_20261019233914_74_42.jpg",
+        "微信图片_20261019233915_75_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 A12",
+      "title": "先解不等式",
+      "note": "ch02/03-continuous-distributions.md",
+      "source_images": [
+        "微信图片_20261019233913_73_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B29",
+      "title": "指数寿命的混合",
+      "note": "ch02/03-continuous-distributions.md",
+      "source_images": [
+        "微信图片_20261019233916_76_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B27",
+      "title": "识别正态密度",
+      "note": "ch02/03-continuous-distributions.md",
+      "source_images": [
+        "微信图片_20261019233916_76_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B24",
+      "title": "电压、故障与共享环境",
+      "note": "ch02/03-continuous-distributions.md",
+      "source_images": [
+        "微信图片_20261019233915_75_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B32",
+      "title": "由投球次数映射为得分",
+      "note": "ch02/04-functions-of-random-variables.md",
+      "source_images": [
+        "微信图片_20261027000712_80_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B33",
+      "title": "非对称支撑下的绝对值",
+      "note": "ch02/04-functions-of-random-variables.md",
+      "source_images": [
+        "微信图片_20261027000714_81_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B36",
+      "title": "余弦变换",
+      "note": "ch02/04-functions-of-random-variables.md",
+      "source_images": [
+        "微信图片_20261027000714_81_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题二 B39",
+      "title": "指数与对数变换",
+      "note": "ch02/04-functions-of-random-variables.md",
+      "source_images": [
+        "微信图片_20261027000714_81_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 A6",
+      "title": "由条件概率补全表格",
+      "note": "ch03/01-discrete-joint-distributions.md",
+      "source_images": [
+        "微信图片_20261027000715_82_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 A9",
+      "title": "第一次点数与最大点数",
+      "note": "ch03/01-discrete-joint-distributions.md",
+      "source_images": [
+        "微信图片_20261027000715_83_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 A10",
+      "title": "故障次数与损失",
+      "note": "ch03/01-discrete-joint-distributions.md",
+      "source_images": [
+        "微信图片_20261027000715_83_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 B2",
+      "title": "泊松计数的筛选（Poisson Thinning）",
+      "note": "ch03/01-discrete-joint-distributions.md",
+      "source_images": [
+        "微信图片_20261027000716_84_42.jpg",
+        "微信图片_20261103003102_92_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 A12",
+      "title": "边际 CDF 的跳跃与条件 CDF",
+      "note": "ch03/02-joint-distribution-functions.md",
+      "source_images": [
+        "微信图片_20261103003059_89_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 B3",
+      "title": "两个原子与一个均匀区域",
+      "note": "ch03/02-joint-distribution-functions.md",
+      "source_images": [
+        "微信图片_20261027000716_84_42.jpg",
+        "微信图片_20261103003102_92_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 B4",
+      "title": "三角区域上的归一化与概率",
+      "note": "ch03/03-continuous-joint-distributions.md",
+      "source_images": [
+        "微信图片_20261027000716_84_42.jpg",
+        "微信图片_20261103003102_92_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 A18",
+      "title": "矩形支撑上的条件密度",
+      "note": "ch03/03-continuous-joint-distributions.md",
+      "source_images": [
+        "微信图片_20261103003100_90_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 A20",
+      "title": "抛物线支撑与水平切片",
+      "note": "ch03/03-continuous-joint-distributions.md",
+      "source_images": [
+        "微信图片_20261103003101_91_42.jpg"
+      ],
+      "additional_source": null
+    },
+    {
+      "exercise": "习题三 B5",
+      "title": "已知接力工作总时间的条件密度",
+      "note": "ch03/03-continuous-joint-distributions.md",
+      "source_images": [
+        "微信图片_20261103003102_92_42.jpg"
+      ],
+      "additional_source": null
+    }
+  ]
+}
