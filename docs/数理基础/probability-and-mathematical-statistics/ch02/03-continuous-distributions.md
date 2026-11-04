@@ -219,18 +219,35 @@ $$
 
 **生存函数（survival function）**为 $S(t)=P(X>t)$。若用尺度参数 $\theta=1/\lambda$，密度为 $\theta^{-1}e^{-x/\theta}$；须区分速率与尺度。
 
-例如在泊松来电模型中，平均每分钟接到 2 通电话，则等待下一通电话的时间 $T\sim\operatorname{Exp}(2)$（单位：分钟），平均等待半分钟，等待超过 1 分钟的概率为 $e^{-2}$。
-
 ### 泊松计数与首次等待时间
 
-若首次事件前等待时间为 $T$，时间 $t$ 内计数 $N(t)\sim\operatorname{Pois}(\lambda t)$，则
+**泊松过程（Poisson process）**描述事件以恒定速率 $\lambda$ 随机发生：不相交时间段的计数独立，长度为 $t$ 的时间段内计数服从 $\operatorname{Pois}(\lambda t)$。记 $N(t)$ 为从时刻 0 到 $t$ 的事件数，$T$ 为首次事件的等待时间，则“等待超过 $t$”等价于“此前一次也没发生”：
 
 $$
 \{T>t\}=\{N(t)=0\}
-\implies P(T>t)=e^{-\lambda t}.
+\implies P(T>t)=P(N(t)=0)=e^{-\lambda t},\qquad t\ge0.
 $$
 
-因此 $T\sim\operatorname{Exp}(\lambda)$。泊松变量记录次数，指数变量记录等待时间。
+因此 $T\sim\operatorname{Exp}(\lambda)$。泊松过程中，各相邻事件之间的等待时间也相互独立，且都服从此指数分布；仅知道某一个时间段的计数服从泊松分布，不足以推出这些性质。
+
+例如每分钟平均接到 2 通电话的泊松过程中，3 分钟内来电数 $N(3)\sim\operatorname{Pois}(6)$；等待下一通电话的时间 $T\sim\operatorname{Exp}(2)$（单位：分钟），平均等待半分钟，$P(T>1)=e^{-2}$。计数参数 $\lambda t$ 是平均次数，等待时间参数 $\lambda$ 是发生速率。
+
+### 与几何分布的联系
+
+两者都描述首次发生前的等待，计算依据都是“尚未发生等价于此前次数为零”。
+
+| 事件模型 | 固定范围内的次数 | 首次发生的等待 |
+| --- | --- | --- |
+| 独立伯努利试验，成功率 $p$ | $n$ 次中的成功数服从 $B(n,p)$ | 试验次数 $G$ 服从几何分布，$P(G>n)=(1-p)^n$ |
+| 速率 $\lambda$ 的泊松过程 | $t$ 时间内计数服从 $\operatorname{Pois}(\lambda t)$ | 时间 $T\sim\operatorname{Exp}(\lambda)$，$P(T>t)=e^{-\lambda t}$ |
+
+指数分布是几何分布在连续时间中的对应形式。将泊松过程按长度 $\Delta t$ 分段，每段至少发生一次事件的概率为 $p=1-e^{-\lambda\Delta t}$，各段独立。首次有事件的段号 $G$ 服从几何分布，故
+
+$$
+P(G\Delta t>n\Delta t)=(1-p)^n=e^{-\lambda n\Delta t}.
+$$
+
+$G\Delta t$ 是将首次等待时间向上取整到段末的结果，误差小于 $\Delta t$；当 $\Delta t\to0$，便趋于指数等待时间 $T$。
 
 ### 无记忆性（Memorylessness）
 
@@ -240,7 +257,7 @@ P(X>s+t\mid X>s)
 =e^{-\lambda t}=P(X>t).
 $$
 
-已存活 $s$ 后，剩余寿命 $X-s$ 仍条件服从原指数分布；$s+t$ 是总寿命，$t$ 是额外等待。
+这里 $s,t\ge0$。已存活 $s$ 后，剩余寿命 $X-s$ 仍条件服从原指数分布；$s+t$ 是总寿命，$t$ 是额外等待。几何分布具有同样的无记忆性，只是等待按整数次试验计算。
 
 ### 作业｜习题二 B29：指数寿命的混合
 
