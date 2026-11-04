@@ -3,7 +3,7 @@ title: "§2.3 分布函数（Cumulative Distribution Function）"
 status: draft
 tags: [math-physics, probability, cdf]
 created: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-04
 sources:
   - "黄炜：PS ch2-2026(1).pdf，第 37–46 页"
   - "test1/course_87789_sub_1980975/course_content.md，约 10:00–44:00，及对应截图"
@@ -81,10 +81,6 @@ F(x)=
 \end{cases}
 $$
 
-![离散分布的阶梯 CDF 与连续密度及其积分 CDF 对照](../assets/cdf-and-density.webp)
-
-自绘。实心点表示跳点取值；连续密度的累积面积为 CDF。[来源与许可](../assets/README.md)。
-
 ### 作业｜习题二 A8：阶梯函数及半开区间
 
 **题目。**$P(X=0)=0.4,P(X=2)=0.5,P(X=3)=0.1$。求 $F(x)$ 和 $P(1\le X<3)$。
@@ -109,7 +105,7 @@ $$
 
 ## 连续累积与“无概率空档”
 
-CDF 平台表示区间内部无概率质量，对应密度为零，而非均匀取值。
+CDF 平台表示区间内部的概率为零；均匀取值对应的是线性上升段。
 
 ### 作业｜习题二 B16：两个不相连区间
 
@@ -147,15 +143,7 @@ F(x)=
 \end{cases}
 $$
 
-[连续分布](03-continuous-distributions.md)中，CDF 也可由密度积分得到：
-
-$$
-F(x)=\int_{-\infty}^x f(t)\,dt.
-$$
-
-## 易错点
-
-CDF 连续是存在密度的必要条件，并非充分条件；常见分段光滑连续 CDF 可求导得到密度。
+连续型随机变量的区间概率计算见[下一节](03-continuous-distributions.md)。
 
 ## 参考资料
 

@@ -3,7 +3,7 @@ title: "§2.1–2.2 随机变量与离散分布（Random Variables and Discrete 
 status: draft
 tags: [math-physics, probability, random-variable, discrete-distribution]
 created: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-04
 sources:
   - "黄炜：PS ch2-2026(1).pdf，第 4–36 页"
   - "test1/course_87789_sub_1976430/course_content.md，约 67:00–142:00，及对应截图"
@@ -41,7 +41,7 @@ $$
 p_k=P(X=x_k),\qquad k=1,2,\ldots.
 $$
 
-PMF 描述点概率，区别于连续型的概率密度函数（probability density function, PDF）。分布律须包含取值和概率，满足
+PMF 直接给出每个取值的概率。分布律须包含取值和概率，满足
 
 $$
 p_k\ge0,\qquad\sum_kp_k=1.
@@ -98,15 +98,17 @@ $$
 
 由二项式定理得归一性。二项分布固定试验数、数成功次数；几何和负二项分布数等待次数。
 
-### 泊松分布与时间单位
+### 泊松分布（Poisson Distribution）
 
-若 $X\sim\operatorname{Pois}(\lambda)$，则
+泊松分布描述**固定时间段或空间区域内，某类事件发生的次数**，如一小时收到的来电数、一米布料上的疵点数。次数没有预设上限，可为 0；这与固定 $n$ 次试验中数成功次数的二项分布不同。
+
+常用建模条件是：事件以稳定速率随机发生，不相交范围内的计数独立，足够小的范围内发生两次及以上的概率可忽略。若计数 $X$ 服从泊松分布，记为 $X\sim\operatorname{Pois}(\lambda)$，则
 
 $$
 P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},\qquad k=0,1,\ldots.
 $$
 
-$\lambda>0$ 对应**整个观察窗口**；速率为 $\nu$、时长为 $t$ 时，$\lambda=\nu t$。归一性由 $\sum_{k\ge0}\lambda^k/k!=e^\lambda$ 得到。
+$\lambda>0$ 是**整个观察窗口内的平均次数**。每单位时间平均发生 $\nu$ 次，观察时长为 $t$，则 $\lambda=\nu t$，单位须一致。例如平均每分钟 2 次，观察 3 分钟，计数服从 $\operatorname{Pois}(6)$。归一性由 $\sum_{k\ge0}\lambda^k/k!=e^\lambda$ 得到。
 
 “至少三次”适合用取补：
 

@@ -3,7 +3,7 @@ title: "§2.4 连续型随机变量与常用分布（Continuous Distributions）
 status: draft
 tags: [math-physics, probability, density, normal-distribution]
 created: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-04
 sources:
   - "黄炜：PS ch2-2026(1).pdf，第 47–85 页"
   - "test1/course_87789_sub_1980975/course_content.md，约 44:00–145:00；course_87789_sub_1984386 开头复习"
@@ -50,7 +50,11 @@ $$
 P(x<X\le x+\Delta x)\approx f_X(x)\Delta x.
 $$
 
-有限个点上改密度值不改变分布；CDF 在分段端点不可导不妨碍存在密度。
+有限个点上改密度值不改变分布；CDF 在分段端点不可导不妨碍存在密度。CDF 连续是存在密度的必要条件，并非充分条件；常见分段光滑连续 CDF 可逐段求导得到密度。
+
+![离散分布的阶梯 CDF 与连续密度及其积分 CDF 对照](../assets/cdf-and-density.webp)
+
+自绘。实心点表示跳点取值；连续密度的累积面积为 CDF。[来源与许可](../assets/README.md)。
 
 ### 例：不相连的支撑区域
 
@@ -190,7 +194,9 @@ $$
 
 ## 指数分布（Exponential Distribution）
 
-本文用**速率参数（rate parameter）** $\lambda>0$：
+指数分布描述**事件发生前的连续等待时间（waiting time）**，如稳定来电速率下等待下一通电话的时间；也用于故障速率恒定的寿命模型。等待时间非负，可以取任意长的值。
+
+本文用**速率参数（rate parameter）** $\lambda>0$，单位为时间的倒数。$\lambda$ 越大，等待通常越短，平均等待时间为 $1/\lambda$。记为
 
 $$
 X\sim\operatorname{Exp}(\lambda),\qquad
@@ -212,6 +218,8 @@ P(X>t)=e^{-\lambda t}\quad(t\ge0).
 $$
 
 **生存函数（survival function）**为 $S(t)=P(X>t)$。若用尺度参数 $\theta=1/\lambda$，密度为 $\theta^{-1}e^{-x/\theta}$；须区分速率与尺度。
+
+例如在泊松来电模型中，平均每分钟接到 2 通电话，则等待下一通电话的时间 $T\sim\operatorname{Exp}(2)$（单位：分钟），平均等待半分钟，等待超过 1 分钟的概率为 $e^{-2}$。
 
 ### 泊松计数与首次等待时间
 
