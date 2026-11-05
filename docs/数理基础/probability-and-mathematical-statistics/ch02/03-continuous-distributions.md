@@ -313,19 +313,49 @@ $$
 
 ### 标准化（Standardization）
 
+若 $X\sim N(\mu,\sigma^2)$，减去均值 $\mu$ 将中心移到 0，再除以标准差 $\sigma>0$，以“偏离均值几个标准差”表示取值，便得到**标准正态变量（standard normal variable）**：
+
 $$
-Z=\frac{X-\mu}{\sigma}\sim N(0,1),\qquad
+Z=\frac{X-\mu}{\sigma}\sim N(0,1).
+$$
+
+这样，任意正态分布的概率都能用同一张标准正态表计算。标准正态的密度与 CDF 分别记为
+
+$$
 \varphi(z)=\frac1{\sqrt{2\pi}}e^{-z^2/2},\quad
-\Phi(z)=\int_{-\infty}^z\varphi(t)\,dt.
+\Phi(z)=P(Z\le z)=\int_{-\infty}^z\varphi(t)\,dt.
 $$
 
+求区间概率时，两个端点都作相同变换；由于 $\sigma>0$，不等号方向不变：
+
 $$
-\Phi(-z)=1-\Phi(z),\qquad
-P(a<X<b)=\Phi\left(\frac{b-\mu}{\sigma}\right)
+\begin{aligned}
+P(a<X<b)
+&=P\left(\frac{a-\mu}{\sigma}<Z<\frac{b-\mu}{\sigma}\right)\\
+&=\Phi\left(\frac{b-\mu}{\sigma}\right)
 -\Phi\left(\frac{a-\mu}{\sigma}\right).
+\end{aligned}
 $$
 
-标准化除以 $\sigma$，不是 $\sigma^2$；查表先确认是左尾 $\Phi(z)$ 还是从 0 起算的面积。
+单侧概率及负数查表可用
+
+$$
+\begin{aligned}
+P(X\le b)&=\Phi\left(\frac{b-\mu}{\sigma}\right),\\
+P(X>b)&=1-\Phi\left(\frac{b-\mu}{\sigma}\right),
+\end{aligned}
+\qquad
+\Phi(-z)=1-\Phi(z).
+$$
+
+例如 $X\sim N(100,15^2)$，求 $P(85<X<130)$。两端标准化为 $-1$ 和 2，故
+
+$$
+P(85<X<130)=\Phi(2)-\Phi(-1)
+\approx0.9772-0.1587=0.8185.
+$$
+
+标准化除以 $\sigma$，不是 $\sigma^2$；查表先确认给的是左尾 $\Phi(z)$，还是 $P(0<Z<z)$（$z\ge0$），后者须加 $0.5$ 才得到 $\Phi(z)$。正态分布单点概率为零，端点开闭不影响结果。
 
 ![正态密度的位置与尺度变化，以及标准化后的尾部面积](../assets/normal-distribution.webp)
 
