@@ -22,6 +22,8 @@ sources:
 
 [第一次小测：重点题目与标准解答](materials/quiz-1-key-problems.md)
 
+[开卷资料：知识讲解（12 页）与重点题解（6 页）](materials/open-book.md)
+
 ## 第一章：概率论的基本概念（Introduction to Probability）
 
 | 主题 | 内容 |
