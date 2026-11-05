@@ -3,7 +3,7 @@ title: "概率论和数理统计（Probability and Mathematical Statistics）"
 status: draft
 tags: [math-physics, probability, statistics, course]
 created: 2026-10-06
-updated: 2026-11-03
+updated: 2026-11-05
 sources:
   - "黄炜：《概率论和数理统计》，2026–2027 秋冬，PS ch1-2026.pdf"
   - "课堂识别：course_87789_sub_1968593/course_content.md"
@@ -19,6 +19,8 @@ sources:
 # 概率论和数理统计（Probability and Mathematical Statistics）
 
 [第一次小测复习：知识主线与题型归纳](materials/quiz-1-review.md)
+
+[第一次小测：重点题目与标准解答](materials/quiz-1-key-problems.md)
 
 ## 第一章：概率论的基本概念（Introduction to Probability）
 
