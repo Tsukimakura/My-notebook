@@ -147,6 +147,99 @@ E[X]=\sum_{i=1}^{n} x_i p_i
   assert.match(output.textContent, /\[99\]/);
 });
 
+test('display matrices and determinants with standalone equals signs stay math instead of Setext headings', async t => {
+  const answer = String.raw`矩阵写法：
+
+\[
+\boldsymbol z=
+\begin{pmatrix}
+z_1\\z_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+\dfrac{x-\mu_1}{\sigma_1}\\[4pt]
+\dfrac{y-\mu_2}{\sigma_2}
+\end{pmatrix},
+\]
+
+行列式：
+
+\[
+\det\Sigma
+=
+\sigma_1^2\sigma_2^2(1-\rho^2).
+\]
+
+则笔记中的指数部分可写成 $-\frac{z_1^2-2\rho z_1z_2+z_2^2}{2(1-\rho^2)}$。`;
+  const {get, submit} = await setup(t, answerResponse(answer));
+  await submit();
+  const output = get('answer');
+  assert.equal(output.querySelector('h1, h2'), null);
+  assert.equal(output.querySelectorAll('.katex-display').length, 2);
+  assert.equal(output.querySelectorAll('.katex').length, 3);
+  assert.equal(output.querySelectorAll('.katex-error').length, 0);
+  const tex = [...output.querySelectorAll('annotation')].map(node => node.textContent);
+  assert.ok(tex[0].includes(String.raw`z_1\\z_2`));
+  assert.ok(tex[0].includes(String.raw`\\[4pt]`));
+  assert.ok(tex[1].includes(String.raw`\det\Sigma`));
+});
+
+test('math precedence preserves Markdown headings and code and works with dollar math in nested blocks', async t => {
+  const answer = String.raw`真正的一级标题
+===
+
+真正的二级标题
+---
+
+$$
+a
+=
+b
+$$
+
+> \[
+> x
+> =
+> y
+> \]
+
+- 推导：
+
+  \[
+  u
+  =
+  v
+  \]
+
+~~~latex
+\[
+code
+=
+literal
+\]
+~~~
+
+    $$
+    indented
+    =
+    code
+    $$`;
+  const {get, submit} = await setup(t, answerResponse(answer));
+  await submit();
+  const output = get('answer');
+  assert.equal(output.querySelectorAll('h1').length, 1);
+  assert.equal(output.querySelector('h1').textContent, '真正的一级标题');
+  assert.equal(output.querySelectorAll('h2').length, 1);
+  assert.equal(output.querySelector('h2').textContent, '真正的二级标题');
+  assert.equal(output.querySelectorAll('.katex-display').length, 3);
+  assert.equal(output.querySelectorAll('.katex-error').length, 0);
+  assert.ok(output.querySelector('blockquote .katex-display'));
+  assert.ok(output.querySelector('li .katex-display'));
+  assert.equal(output.querySelectorAll('pre').length, 2);
+  assert.equal(output.querySelector('pre .katex'), null);
+  assert.match(output.querySelector('pre').textContent, /code\n=\nliteral/);
+});
+
 test('rejects scripts, dangerous links, external images and trusted-TeX commands', async t => {
   const answer = String.raw`<script>window.compromised = true</script>
 <svg onload="alert(1)"></svg>

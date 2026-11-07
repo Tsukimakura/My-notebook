@@ -255,7 +255,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return true;
     });
     markdown.renderer.rules.notebook_math = mathPlaceholder;
-    markdown.block.ruler.before("paragraph", "notebook_math_block", (state, first, last, silent) => {
+    // Setext headings scan ahead for '='/'-' lines. Capture the whole formula
+    // before that rule can treat a standalone equation sign as a heading underline.
+    markdown.block.ruler.before("lheading", "notebook_math_block", (state, first, last, silent) => {
       if (state.sCount[first] - state.blkIndent >= 4) return false;
       const line = state.src.slice(state.bMarks[first] + state.tShift[first], state.eMarks[first]);
       const open = line.startsWith("$$") ? "$$" : line.startsWith("\\[") ? "\\[" : null;
