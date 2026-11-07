@@ -10,6 +10,9 @@ notes.example.com {
         reverse_proxy notebook-app:8000 {
             transport http {
                 response_header_timeout 180s
+                # Uvicorn closes idle connections after 5s. Never reuse a stale
+                # upstream connection for a paid, non-idempotent model POST.
+                keepalive off
             }
         }
     }
