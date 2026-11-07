@@ -2,6 +2,6 @@
   "private": true,
   "devDependencies": {
     "jsdom": "29.1.1",
-    "katex": "0.18.4"
+    "katex": "0.19.1"
   }
 }
