@@ -5,8 +5,8 @@ tags: [math-physics, physics, electrostatics, conductors, image-charges]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/lecture05(1).pdf, PDF pp. 2–31"
-  - "~/GP-docs/course_87159_sub_1973619/course_content.md, 02:00–92:04; ppt_001–ppt_027"
+  - "课程资料/普通物理学-II/lecture05(1).pdf, PDF pp. 2–31"
+  - "课程资料/普通物理学-II/lecture-record-13/course_content.md, 02:00–92:04; ppt_001–ppt_027"
   - "https://www.feynmanlectures.caltech.edu/II_06.html"
 ---
 

@@ -6,8 +6,8 @@ created: 2026-10-06
 updated: 2026-10-06
 sources:
   - "lec01-2026-chang.pdf，第 34–84、118–121 页"
-  - "course_86797_sub_2036231/course_content.md，60:32–98:00"
-  - "course_86797_sub_2036252/course_content.md，03:32–33:41、89:22–97:23"
+  - "lecture-record-04/course_content.md，60:32–98:00"
+  - "lecture-record-05/course_content.md，03:32–33:41、89:22–97:23"
 ---
 
 # ISA 分类、设计原则与寻址

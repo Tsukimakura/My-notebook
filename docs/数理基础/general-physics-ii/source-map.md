@@ -5,14 +5,14 @@ tags: [math-physics, physics, course, sources]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/: six lecture PDFs, six classroom transcript/screenshot directories, and demo1.zip"
+  - "课程资料/普通物理学-II/: six lecture PDFs, six classroom transcript/screenshot directories, and demo1.zip"
 ---
 
 # General Physics II · Source Map and Scope
 
 [Course index](index.md)
 
-This page records the inputs used to prepare the first-six-class notes. Local source names are provenance identifiers; the original PDFs and transcripts remain in `~/GP-docs/` and are not duplicated into the published website. **Page numbers below refer to the one-based PDF page index**, which can differ from the printed slide counter.
+This page records the inputs used to prepare the first-six-class notes. Local source names are provenance identifiers; the original PDFs and transcripts remain in `课程资料/普通物理学-II/` and are not duplicated into the published website. **Page numbers below refer to the one-based PDF page index**, which can differ from the printed slide counter.
 
 ## 1. Source inventory and class mapping
 
@@ -20,12 +20,12 @@ The classroom sequence is established from the opening recaps and lesson content
 
 | Class | PDF and page count | Transcript directory | Screenshots | Principal teaching interval / topic |
 | --- | --- | --- | --- | --- |
-| 1 | `lecture01(1).pdf` — 45 pp. | `course_87159_sub_1967533` | 52 | Approximately 19:09–98:39: charge, Coulomb's law, field visualization, dipole field, torque, and energy. Earlier minutes introduce the course. |
-| 2 | `lecture02(1).pdf` — 41 pp. | `course_87159_sub_1968597` | 33 | Approximately 03:19–16:36: dipole/material/multipole recap; 17:12–95:16: continuous charge, rings/disks, flux, Gauss's law, and symmetry. |
-| 3 | `lecture03(1).pdf` — 39 pp. | `course_87159_sub_1970155` | 51 | Approximately 13:09–96:44: conservative fields, work/energy, potential, equipotentials, charge-system energy, rods/disks, and potential derivatives. |
-| 4 | `lecture04(2).pdf` — 33 pp. | `course_87159_sub_1971496` | 33 | Approximately 00:13–93:00: gradient, uniform-ball potential, curl, divergence, Poisson's equation, and spherical divergence. |
-| 5 | `lecture05(1).pdf` — 32 pp. | `course_87159_sub_1973619` | 29 | Approximately 02:00–92:04: conductor equilibrium, shielding, image plane, uniform-field sphere, and spherical images. |
-| 6 | `lecture06(1).pdf` — 38 pp. | `course_87159_sub_1974844` | 44 | Approximately 04:20–99:09: current and Drude transport, thermal links, continuity, capacitance, combinations, and material appendices. |
+| 1 | `lecture01(1).pdf` — 45 pp. | `lecture-record-09` | 52 | Approximately 19:09–98:39: charge, Coulomb's law, field visualization, dipole field, torque, and energy. Earlier minutes introduce the course. |
+| 2 | `lecture02(1).pdf` — 41 pp. | `lecture-record-10` | 33 | Approximately 03:19–16:36: dipole/material/multipole recap; 17:12–95:16: continuous charge, rings/disks, flux, Gauss's law, and symmetry. |
+| 3 | `lecture03(1).pdf` — 39 pp. | `lecture-record-11` | 51 | Approximately 13:09–96:44: conservative fields, work/energy, potential, equipotentials, charge-system energy, rods/disks, and potential derivatives. |
+| 4 | `lecture04(2).pdf` — 33 pp. | `lecture-record-12` | 33 | Approximately 00:13–93:00: gradient, uniform-ball potential, curl, divergence, Poisson's equation, and spherical divergence. |
+| 5 | `lecture05(1).pdf` — 32 pp. | `lecture-record-13` | 29 | Approximately 02:00–92:04: conductor equilibrium, shielding, image plane, uniform-field sphere, and spherical images. |
+| 6 | `lecture06(1).pdf` — 38 pp. | `lecture-record-14` | 44 | Approximately 04:20–99:09: current and Drude transport, thermal links, continuity, capacitance, combinations, and material appendices. |
 
 Each directory contains `course_content.md` and files named `ppt_NNN.png`. The images were inspected as source context and topic/progress checks. Published figures are newly drawn diagrams and calculated plots, not copied screenshots.
 

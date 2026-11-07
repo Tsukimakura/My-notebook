@@ -6,7 +6,7 @@ created: 2026-11-03
 updated: 2026-11-04
 sources:
   - "黄炜：PS ch2-2026(1).pdf，第 4–36 页"
-  - "test1/course_87789_sub_1976430/course_content.md，约 67:00–142:00，及对应截图"
+  - "test1/lecture-record-21/course_content.md，约 67:00–142:00，及对应截图"
   - "原始课件：第2章 随机变量及其概率分布.pdf，随机变量与离散分布部分"
   - "教材习题二 A1、A2、B2、B7、B12；桌面 prob-exercises 原题照片与 ch02-homework.tex"
 ---
@@ -281,4 +281,4 @@ $$
 
 ## 参考资料
 
-主课件第 4–36 页；课堂识别 course_87789_sub_1976430；教材习题二 A1、A2、B2、B7、B12。
+主课件第 4–36 页；课堂识别 lecture-record-21；教材习题二 A1、A2、B2、B7、B12。

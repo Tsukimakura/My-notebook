@@ -6,7 +6,7 @@ created: 2026-10-06
 updated: 2026-10-06
 sources:
   - "lec03-2026.pdf，第 76–85 页（§3.4）"
-  - "course_86797_sub_2036297/course_content.md，86:47–96:31"
+  - "lecture-record-08/course_content.md，86:47–96:31"
   - "Cornell CS 3410，2019 Spring pipeline notes，load-use stall"
 ---
 

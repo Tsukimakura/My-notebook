@@ -1,0 +1,10 @@
+# Container Caddy: attach that container to this dedicated external network too.
+services:
+  notebook:
+    networks:
+      notebook-edge:
+        aliases: [notebook-app]
+networks:
+  notebook-edge:
+    external: true
+    name: notebook-edge

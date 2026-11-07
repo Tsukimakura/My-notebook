@@ -6,7 +6,7 @@ created: 2026-10-06
 updated: 2026-11-03
 sources:
   - "PS ch1-2026.pdf"
-  - "第二节课 course_87789_sub_1973627/course_content.md 与补充截图"
+  - "第二节课 lecture-record-20/course_content.md 与补充截图"
   - "test1/PS ch2-2026(1).pdf、PS ch3-2026.pdf 与课堂识别材料"
   - "用户提供的教材习题图片与桌面 prob-exercises"
 ---

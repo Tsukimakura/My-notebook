@@ -5,10 +5,10 @@ tags: [math-physics, physics, vector-calculus, mathematical-methods]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/lecture01(1).pdf, PDF pp. 39–45"
-  - "~/GP-docs/lecture02(1).pdf, PDF pp. 33–41"
-  - "~/GP-docs/lecture03(1).pdf, PDF pp. 37–39"
-  - "~/GP-docs/lecture04(2).pdf, PDF pp. 29–33"
+  - "课程资料/普通物理学-II/lecture01(1).pdf, PDF pp. 39–45"
+  - "课程资料/普通物理学-II/lecture02(1).pdf, PDF pp. 33–41"
+  - "课程资料/普通物理学-II/lecture03(1).pdf, PDF pp. 37–39"
+  - "课程资料/普通物理学-II/lecture04(2).pdf, PDF pp. 29–33"
   - "Classroom explanations of expansions, gradients, line/surface integrals, and spherical divergence in classes 1–4"
 ---
 

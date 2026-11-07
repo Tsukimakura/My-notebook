@@ -6,7 +6,7 @@ created: 2026-10-06
 updated: 2026-10-06
 sources:
   - "lec02(2).pdf，第 2–66 页"
-  - "course_86797_sub_2036255/course_content.md，01:30–95:59"
+  - "lecture-record-06/course_content.md，01:30–95:59"
 ---
 
 # 流水线基本原理与分类

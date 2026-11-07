@@ -6,7 +6,7 @@ created: 2026-11-03
 updated: 2026-11-03
 sources:
   - "黄炜：PS ch3-2026.pdf，第 4–30 页"
-  - "test1/course_87789_sub_1984386/course_content.md，约 79:00–143:00，及对应截图"
+  - "test1/lecture-record-23/course_content.md，约 79:00–143:00，及对应截图"
   - "原始课件：第3章 多元随机变量及其分布.pdf，二维离散型部分"
   - "教材习题三 A6、A9、A10、B2；桌面 prob-exercises 原题照片"
 ---
@@ -275,4 +275,4 @@ $$
 
 ## 参考资料
 
-主课件第 4–30 页；课堂识别 course_87789_sub_1984386；教材习题三 A6、A9、A10、B2。
+主课件第 4–30 页；课堂识别 lecture-record-23；教材习题三 A6、A9、A10、B2。

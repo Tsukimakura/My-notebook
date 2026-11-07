@@ -5,10 +5,10 @@ tags: [math-physics, physics, electrostatics, electric-field, dipole]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/lecture01(1).pdf, PDF pp. 4–32; mathematical support pp. 39–45"
-  - "~/GP-docs/course_87159_sub_1967533/course_content.md, 19:09–98:39; ppt_017–ppt_047"
-  - "~/GP-docs/course_87159_sub_1968597/course_content.md, 03:19–16:36 (dipoles, materials, multipoles)"
-  - "~/GP-docs/demo1.zip: electric dipole and quadrupole visualization"
+  - "课程资料/普通物理学-II/lecture01(1).pdf, PDF pp. 4–32; mathematical support pp. 39–45"
+  - "课程资料/普通物理学-II/lecture-record-09/course_content.md, 19:09–98:39; ppt_017–ppt_047"
+  - "课程资料/普通物理学-II/lecture-record-10/course_content.md, 03:19–16:36 (dipoles, materials, multipoles)"
+  - "课程资料/普通物理学-II/demo1.zip: electric dipole and quadrupole visualization"
 ---
 
 # 1 · Charge, Coulomb's Law, and Electric Fields

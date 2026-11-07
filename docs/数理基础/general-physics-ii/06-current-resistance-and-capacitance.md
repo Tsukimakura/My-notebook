@@ -5,8 +5,8 @@ tags: [math-physics, physics, current, drude-model, resistance, capacitance]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/lecture06(1).pdf, PDF pp. 3–31 and 33–38"
-  - "~/GP-docs/course_87159_sub_1974844/course_content.md, 04:20–99:09; ppt_004–ppt_035"
+  - "课程资料/普通物理学-II/lecture06(1).pdf, PDF pp. 3–31 and 33–38"
+  - "课程资料/普通物理学-II/lecture-record-14/course_content.md, 04:20–99:09; ppt_004–ppt_035"
   - "MIT OCW 2.57, Nano-to-Macro Transport Processes, complete 2004 lecture notes (Wiedemann–Franz law)"
   - "https://openstax.org/books/university-physics-volume-3/pages/9-8-superconductivity"
 ---

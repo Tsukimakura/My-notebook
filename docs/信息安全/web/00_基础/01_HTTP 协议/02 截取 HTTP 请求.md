@@ -119,7 +119,9 @@ https://www.telerik.com/download/fiddler
 
 ## 2.2 Fiddler 功能简介
 
-![图示：Pasted image 20260202122300](../../../../assets/security/web/pasted-image-20260202122300.png)
+![HTTP 调试工具的会话列表、请求检查器与响应检查器示意图](../../../../assets/security/web/fiddler-layout.svg)
+
+*原创布局示意图，全部使用虚构请求，不包含个人抓包流量。*
 
 - 监控进程类型主要分为：所有类型、Web 浏览器、非浏览器。“Hide All”隐藏所有。对特定进程监控可以通过任务栏 “Any process" 选择指定的进程。
 

@@ -1,85 +1,82 @@
-name: Validate and publish documentation
+name: Validate and publish notebook image
 
 on:
   pull_request:
-    paths:
-      - "docs/**"
-      - "mkdocs.yml"
-      - "requirements.txt"
-      - "requirements.lock"
-      - "scripts/format_notes.py"
-      - "scripts/check_math.mjs"
-      - "scripts/check_attachments.mjs"
-      - "Makefile"
-      - "package.json"
-      - "package-lock.json"
-      - ".github/workflows/docs.yml"
   push:
     branches: [main]
-    paths:
-      - "docs/**"
-      - "mkdocs.yml"
-      - "requirements.txt"
-      - "requirements.lock"
-      - "scripts/format_notes.py"
-      - "scripts/check_math.mjs"
-      - "scripts/check_attachments.mjs"
-      - "Makefile"
-      - "package.json"
-      - "package-lock.json"
-      - ".github/workflows/docs.yml"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
-  group: documentation-${{ github.workflow }}-${{ github.ref }}
+  group: notebook-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   validate:
-    name: Strict MkDocs build
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: requirements.lock
-      - name: Install Python dependencies
-        run: python -m pip install -r requirements.txt
+          cache-dependency-path: |
+            requirements.lock
+            backend/requirements.txt
       - uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: package-lock.json
-      - name: Install JavaScript dependencies
-        run: npm ci --ignore-scripts
-      - name: Check Markdown formatting
-        run: python scripts/format_notes.py --check docs drafts
-      - name: Validate KaTeX formulas
-        run: node scripts/check_math.mjs docs drafts
-      - name: Validate local image attachments
-        run: node scripts/check_attachments.mjs docs
-      - name: Build documentation strictly
-        run: mkdocs build --strict
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.txt -r backend/requirements.txt
+          npm ci --ignore-scripts
+      - name: Validate notes and build public website
+        run: make check
+      - name: Check public files for private data
+        run: |
+          python scripts/check_privacy.py
+          python scripts/check_privacy.py site
+      - name: Build retrieval index
+        run: python scripts/build_retrieval_index.py
+      - name: Test backend and frontend syntax
+        run: |
+          python -m unittest discover -s tests -v
+          node --check docs/javascripts/notebook-ai.js
+          node tests/test_frontend.cjs
+          bash -n deploy/update.sh
 
-  deploy:
-    name: Deploy to gh-pages
+  publish:
     needs: validate
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements.lock
-      - name: Install Python dependencies
-        run: python -m pip install -r requirements.txt
-      - name: Publish generated site
-        run: mkdocs gh-deploy --force --no-history
+      - name: Build and smoke-test runtime image
+        run: |
+          image="ghcr.io/${GITHUB_REPOSITORY,,}"
+          docker build --pull --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" --label "org.opencontainers.image.revision=$GITHUB_SHA" -t "$image:$GITHUB_SHA" -t "$image:main" .
+          docker run -d --name notebook-smoke -e PUBLIC_ORIGIN=https://notes.example.com "$image:$GITHUB_SHA"
+          healthy=false
+          for attempt in {1..30}; do
+            if [ "$(docker inspect --format '{{.State.Health.Status}}' notebook-smoke)" = healthy ]; then
+              healthy=true
+              break
+            fi
+            sleep 2
+          done
+          docker rm -f notebook-smoke
+          test "$healthy" = true
+      - name: Publish image to GHCR
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          image="ghcr.io/${GITHUB_REPOSITORY,,}"
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push "$image:$GITHUB_SHA"
+          docker push "$image:main"

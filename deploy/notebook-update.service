@@ -1,0 +1,11 @@
+[Unit]
+Description=Pull and health-check the notebook container
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/notebook
+ExecStart=/usr/bin/bash /opt/notebook/update.sh
+UMask=0077
+TimeoutStartSec=10min

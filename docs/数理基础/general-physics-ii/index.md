@@ -5,9 +5,9 @@ tags: [math-physics, physics, electromagnetism, course]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/lecture01(1).pdf–lecture06(1).pdf"
-  - "~/GP-docs/course_87159_sub_1967533–course_87159_sub_1974844/course_content.md and classroom screenshots"
-  - "~/GP-docs/demo1.zip: demo1.ipynb and ElectricFieldLines.py"
+  - "课程资料/普通物理学-II/lecture01(1).pdf–lecture06(1).pdf"
+  - "课程资料/普通物理学-II/lecture-record-09–lecture-record-14/course_content.md and classroom screenshots"
+  - "课程资料/普通物理学-II/demo1.zip: demo1.ipynb and ElectricFieldLines.py"
 ---
 
 # General Physics II · 普通物理学 II

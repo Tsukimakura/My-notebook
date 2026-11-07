@@ -138,8 +138,8 @@ sources: []
 
 1. **连接仓库**
     ```bash
-    # 替换你的 Token 和仓库地址
-    git remote add origin https://用户名:Token@github.com/用户名/my-notebook.git
+    # 使用仓库地址；通过凭据管理器或 SSH 密钥完成认证
+    git remote add origin https://github.com/用户名/my-notebook.git
     git branch -M main
     git push -u origin main
     ```

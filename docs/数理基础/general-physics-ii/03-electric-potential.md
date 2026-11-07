@@ -5,9 +5,9 @@ tags: [math-physics, physics, electrostatics, potential, energy]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/lecture03(1).pdf, PDF pp. 3–35; line-integral appendix pp. 37–39"
-  - "~/GP-docs/course_87159_sub_1970155/course_content.md, 13:09–96:44; ppt_001–ppt_049"
-  - "~/GP-docs/course_87159_sub_1971496/course_content.md, 24:00–29:00 (uniform charged ball potential)"
+  - "课程资料/普通物理学-II/lecture03(1).pdf, PDF pp. 3–35; line-integral appendix pp. 37–39"
+  - "课程资料/普通物理学-II/lecture-record-11/course_content.md, 13:09–96:44; ppt_001–ppt_049"
+  - "课程资料/普通物理学-II/lecture-record-12/course_content.md, 24:00–29:00 (uniform charged ball potential)"
 ---
 
 # 3 · Electric Potential and Potential Energy

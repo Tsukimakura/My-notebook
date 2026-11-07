@@ -5,8 +5,8 @@ tags: [math-physics, probability, geometry, simulation]
 created: 2026-10-06
 updated: 2026-11-03
 sources:
-  - "第二节课 course_87789_sub_1973627/course_content.md，约 34:39–52:59"
-  - "第二节课课堂补充截图：course_87789_sub_1973627/ppt_030.png–ppt_043.png"
+  - "第二节课 lecture-record-20/course_content.md，约 34:39–52:59"
+  - "第二节课课堂补充截图：lecture-record-20/ppt_030.png–ppt_043.png"
   - "PS ch1-2026.pdf，PDF 第 48 页：零概率事件的区间例子"
 ---
 

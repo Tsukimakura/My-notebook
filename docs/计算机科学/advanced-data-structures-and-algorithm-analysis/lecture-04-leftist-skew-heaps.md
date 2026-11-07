@@ -332,7 +332,7 @@ Which is false? **A** 15 is right child of 8; **B** 14 is right child of 6; **C*
 
 [Complete C merge routines（左式／斜堆合并的完整 C 函数）](assets/meldable-heaps.c): the leftist routine matches HW4's three blanks; the skew routine uses the course tracing convention. The skew node type contains **no NPL field**. Compile as a reusable module with `cc -std=c11 -Wall -Wextra -Wpedantic -c meldable-heaps.c`.
 
-All supplied `~/ADS-docs/4` materials were inspected: MOOC merged/lesson transcripts and quizzes, manifest units **1320673551–1320673566** (14 exported units), **94** video frames and **7** checkpoint images, the **13-page** PDF, offline `course_87216_sub_1974577/course_content.md` and **88** captures, plus WK4/HW4 archives and their linked problem figures. Repeated exports share one explanation; ASR mistakes and inconsistent shorthand are corrected above.
+All supplied `~/ADS-docs/4` materials were inspected: MOOC merged/lesson transcripts and quizzes, manifest units **1320673551–1320673566** (14 exported units), **94** video frames and **7** checkpoint images, the **13-page** PDF, offline `lecture-record-18/course_content.md` and **88** captures, plus WK4/HW4 archives and their linked problem figures. Repeated exports share one explanation; ASR mistakes and inconsistent shorthand are corrected above.
 
 - **MOOC:** all **13** checkpoint/quiz questions appear by the relevant concept or in §5.
 - **WK4:** all **10** current-topic questions appear here, including the two drawing questions whose variants differ from MOOC/HW4.

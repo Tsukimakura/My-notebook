@@ -5,8 +5,8 @@ tags: [math-physics, physics, electrostatics, gauss-law]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/lecture02(1).pdf, PDF pp. 3–30; mathematical appendices pp. 33–41"
-  - "~/GP-docs/course_87159_sub_1968597/course_content.md, 17:12–95:16; ppt_004–ppt_028"
+  - "课程资料/普通物理学-II/lecture02(1).pdf, PDF pp. 3–30; mathematical appendices pp. 33–41"
+  - "课程资料/普通物理学-II/lecture-record-10/course_content.md, 17:12–95:16; ppt_004–ppt_028"
 ---
 
 # 2 · Continuous Charge and Gauss's Law

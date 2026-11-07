@@ -501,7 +501,7 @@ The blanks are **`R->left = T`** and **`maxh(Height(R->left), Height(R->right))`
 
 **复习重点：**最低失衡祖先；旋转后中序顺序与子树高度；Fibonacci 下标；zig-zig 顺序；删除时的 join；单次最坏界与摊还界；credit / potential 的非负条件；rank 引理和望远镜求和；缓冲区题的最终装满条件。
 
-These notes retain all 13 MOOC checkpoint/quiz questions and all six HW1 questions; duplicated questions share one solution. They also include the offline Treap, local-repair, implementation, and proof discussions. Sources: supplied lesson exports and merged indices (units 1320673500–1320673518), `course_87216_sub_1967598/course_content.md` and its 169 slide captures, and archived `ZJUADS_cy2026_HW1.md`. Course/project requirements are summarized on the [course page](index.md).
+These notes retain all 13 MOOC checkpoint/quiz questions and all six HW1 questions; duplicated questions share one solution. They also include the offline Treap, local-repair, implementation, and proof discussions. Sources: supplied lesson exports and merged indices (units 1320673500–1320673518), `lecture-record-15/course_content.md` and its 169 slide captures, and archived `ZJUADS_cy2026_HW1.md`. Course/project requirements are summarized on the [course page](index.md).
 
 - [ZJU MOOC](https://www.icourse163.org/course/ZJU1-1460402161), supplied term 1488053496.
 - Weiss, *Data Structures and Algorithm Analysis in C*, 2nd ed.: Chapter 4 pp. 106–128; Chapter 11 pp. 447–451. Figures 4.42–4.48 for code, 4.52–4.60 for larger splay examples.

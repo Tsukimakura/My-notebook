@@ -5,7 +5,7 @@ tags: [cs, ai]
 created: 2026-10-07
 updated: 2026-10-07
 sources:
-  - "~/aid-docs/"
+  - "课程资料/人工智能引论/"
 ---
 
 # 可计算性与形式系统

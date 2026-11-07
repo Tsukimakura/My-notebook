@@ -6,7 +6,7 @@ created: 2026-10-06
 updated: 2026-11-03
 sources:
   - "PS ch1-2026.pdf，PDF 第 67–92 页"
-  - "第二节课 course_87789_sub_1973627/course_content.md，约 55:20–144:16"
+  - "第二节课 lecture-record-20/course_content.md，约 55:20–144:16"
   - "第二节课截图：ppt_050.png–ppt_084.png，含三门问题课堂讲解"
   - "原始课件：第1章  概率论的基本概念.pdf，PDF 第 68–77、80–92 页"
   - "教材习题一；用户提供的原题照片与作业源码"

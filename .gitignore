@@ -1,5 +1,10 @@
 # MkDocs build output and local Python environment
 site/
+build/
+private/
+deploy/.state/
+deploy/local/
+deploy/compose.override.yml
 .venv/
 node_modules/
 
@@ -21,3 +26,4 @@ __pycache__/
 *.pfx
 credentials.json
 secrets.*
+*.local.env

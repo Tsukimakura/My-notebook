@@ -7,8 +7,8 @@ updated: 2026-10-06
 sources:
   - "lec02(2).pdf，第 62–65 页"
   - "lec03-2026.pdf，第 25–62 页"
-  - "course_86797_sub_2036270/course_content.md，16:13–29:33"
-  - "course_86797_sub_2036297/course_content.md，55:33–75:05"
+  - "lecture-record-07/course_content.md，16:13–29:33"
+  - "lecture-record-08/course_content.md，55:33–75:05"
 ---
 
 # 五级流水线数据通路

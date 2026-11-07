@@ -6,14 +6,12 @@ created: 2026-10-06
 updated: 2026-11-05
 sources:
   - "黄炜：《概率论和数理统计》，2026–2027 秋冬，PS ch1-2026.pdf"
-  - "课堂识别：course_87789_sub_1968593/course_content.md"
-  - "课堂识别：course_87789_sub_1973627/course_content.md 及同目录课堂截图"
+  - "课堂识别：lecture-record-19/course_content.md"
+  - "课堂识别：lecture-record-20/course_content.md 及同目录课堂截图"
   - "原始课件：概率论与数理统计(浙大高教版)pdf-2023/第1章  概率论的基本概念.pdf"
   - "黄炜：test1/PS ch2-2026(1).pdf、PS ch3-2026.pdf"
   - "test1 下四份 course_content.md 与对应课堂截图"
   - "教材习题一、二、三；用户提供的题图与桌面 prob-exercises"
-  - "https://chatgpt.com/share/6ae9da00-bc18-83e8-be00-afb910c16efc"
-  - "https://chatgpt.com/share/6ae9da4b-d094-83e8-a534-11707da6ff54"
 ---
 
 # 概率论和数理统计（Probability and Mathematical Statistics）

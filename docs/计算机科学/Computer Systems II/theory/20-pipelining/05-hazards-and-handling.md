@@ -7,8 +7,8 @@ updated: 2026-10-06
 sources:
   - "lec02(2).pdf，流水线冒险部分"
   - "lec03-2026.pdf，第 9–39 页"
-  - "course_86797_sub_2036270/course_content.md，79:25–92:27"
-  - "course_86797_sub_2036297/course_content.md，约 13:00–42:00"
+  - "lecture-record-07/course_content.md，79:25–92:27"
+  - "lecture-record-08/course_content.md，约 13:00–42:00"
 ---
 
 # 结构、数据与控制冒险

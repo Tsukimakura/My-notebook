@@ -447,7 +447,7 @@ Separators are **right-subtree minima（右子树最小值）**: equality must g
 
 ### 5.1 Sources and coverage（资料与题目覆盖）
 
-All supplied materials in `~/ADS-docs/2` were reviewed: merged/lesson MOOC transcripts and quizzes, manifest (units **1320673519–1320673533**), **124** video captures and three checkpoint images, the 13-page courseware PDF, offline `course_87216_sub_1969904/course_content.md` with 18 captures, and the WK2 quiz / HW2 archives. Repeated exports share one explanation; ASR mistakes and slide shorthand are normalized above.
+All supplied materials in `~/ADS-docs/2` were reviewed: merged/lesson MOOC transcripts and quizzes, manifest (units **1320673519–1320673533**), **124** video captures and three checkpoint images, the 13-page courseware PDF, offline `lecture-record-16/course_content.md` with 18 captures, and the WK2 quiz / HW2 archives. Repeated exports share one explanation; ASR mistakes and slide shorthand are normalized above.
 
 - **MOOC:** all **10** checkpoint/quiz questions appear in the related sections or §4.1.
 - **WK2:** all **10** true/false questions appear here.

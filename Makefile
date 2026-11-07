@@ -2,7 +2,7 @@ PYTHON ?= python3
 VENV ?= .venv
 MKDOCS := $(VENV)/bin/mkdocs
 
-.PHONY: bootstrap serve build format lint check clean
+.PHONY: bootstrap serve build format lint check clean ai-bootstrap ai-serve test
 
 bootstrap:
 	$(PYTHON) -m venv $(VENV)
@@ -26,6 +26,19 @@ lint:
 
 check: lint
 	$(MKDOCS) build --strict
+	$(VENV)/bin/python scripts/check_privacy.py
+	$(VENV)/bin/python scripts/check_privacy.py site
 
 clean:
 	$(MKDOCS) clean
+
+ai-bootstrap:
+	$(VENV)/bin/python -m pip install -r backend/requirements.txt
+
+ai-serve: build
+	$(VENV)/bin/python scripts/build_retrieval_index.py
+	PUBLIC_ORIGIN=http://127.0.0.1:8000 $(VENV)/bin/uvicorn backend.app:create_app --factory --host 127.0.0.1 --port 8000 --workers 1 --no-access-log --no-proxy-headers --no-server-header
+
+test:
+	$(VENV)/bin/python -m unittest discover -s tests -v
+	node tests/test_frontend.cjs

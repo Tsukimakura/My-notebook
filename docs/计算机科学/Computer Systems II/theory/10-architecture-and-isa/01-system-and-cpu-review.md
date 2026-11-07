@@ -6,7 +6,7 @@ created: 2026-10-06
 updated: 2026-11-03
 sources:
   - "lec01-2026-chang.pdf，第 9–33 页"
-  - "course_86797_sub_2036231/course_content.md，19:33–60:15"
+  - "lecture-record-04/course_content.md，19:33–60:15"
 ---
 
 # 系统 I 衔接与 CPU 设计

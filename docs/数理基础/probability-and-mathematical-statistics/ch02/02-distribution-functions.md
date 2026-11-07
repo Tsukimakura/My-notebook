@@ -6,7 +6,7 @@ created: 2026-11-03
 updated: 2026-11-04
 sources:
   - "黄炜：PS ch2-2026(1).pdf，第 37–46 页"
-  - "test1/course_87789_sub_1980975/course_content.md，约 10:00–44:00，及对应截图"
+  - "test1/lecture-record-22/course_content.md，约 10:00–44:00，及对应截图"
   - "教材习题二 A8、B16；桌面 prob-exercises 原题照片与 ch03-homework.tex"
 ---
 
@@ -147,4 +147,4 @@ $$
 
 ## 参考资料
 
-主课件第 37–46 页；课堂识别 course_87789_sub_1980975；教材习题二 A8、B16。
+主课件第 37–46 页；课堂识别 lecture-record-22；教材习题二 A8、B16。

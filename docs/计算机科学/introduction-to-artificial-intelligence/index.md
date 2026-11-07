@@ -5,7 +5,7 @@ tags: [cs, ai]
 created: 2026-10-07
 updated: 2026-10-08
 sources:
-  - "~/aid-docs/"
+  - "课程资料/人工智能引论/"
 ---
 
 # 人工智能引论

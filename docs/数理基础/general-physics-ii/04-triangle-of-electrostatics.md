@@ -5,8 +5,8 @@ tags: [math-physics, physics, electrostatics, vector-calculus, poisson-equation]
 created: 2026-10-06
 updated: 2026-10-06
 sources:
-  - "~/GP-docs/lecture04(2).pdf, PDF pp. 2–26 and 29–33"
-  - "~/GP-docs/course_87159_sub_1971496/course_content.md, 00:13–93:00; ppt_001–ppt_033"
+  - "课程资料/普通物理学-II/lecture04(2).pdf, PDF pp. 2–26 and 29–33"
+  - "课程资料/普通物理学-II/lecture-record-12/course_content.md, 00:13–93:00; ppt_001–ppt_033"
 ---
 
 # 4 · The Triangle of Electrostatics

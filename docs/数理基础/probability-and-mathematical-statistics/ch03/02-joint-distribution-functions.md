@@ -6,7 +6,7 @@ created: 2026-11-03
 updated: 2026-11-03
 sources:
   - "黄炜：PS ch3-2026.pdf，第 31–37 页"
-  - "test1/course_87789_sub_1984386/course_content.md 末段；course_87789_sub_1987877，约 00:00–38:00"
+  - "test1/lecture-record-23/course_content.md 末段；lecture-record-24，约 00:00–38:00"
   - "教材习题三 A12、B3；桌面 prob-exercises 原题照片"
 ---
 
@@ -195,4 +195,4 @@ $c(t)=\min(1,\max(0,t))$；**指示函数（indicator function）**在条件成�
 
 ## 参考资料
 
-主课件第 31–37 页；课堂识别 course_87789_sub_1987877（分母勘误：33:58–37:32）；教材习题三 A12、B3。
+主课件第 31–37 页；课堂识别 lecture-record-24（分母勘误：33:58–37:32）；教材习题三 A12、B3。

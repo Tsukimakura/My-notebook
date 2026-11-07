@@ -1,0 +1,17 @@
+.notebook-ai-launch { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 10; border: 0; border-radius: 2rem; padding: .7rem 1.1rem; background: var(--md-primary-fg-color, #333); color: white; box-shadow: 0 2px 12px #0004; cursor: pointer; font: inherit; }
+.notebook-ai { width: min(44rem, calc(100vw - 1.5rem)); max-height: 90dvh; padding: 1.2rem; border: 1px solid var(--md-default-fg-color--lightest, #bbb); border-radius: .6rem; color: var(--md-default-fg-color, #222); background: var(--md-default-bg-color, white); font: inherit; overflow-y: auto; }
+.notebook-ai::backdrop { background: #0008; }
+.notebook-ai-heading { display: flex; justify-content: space-between; align-items: center; }
+.notebook-ai-heading h2 { margin: 0; }
+.notebook-ai p, .notebook-ai details { font-size: .8rem; line-height: 1.65; }
+.notebook-ai form { display: grid; gap: .7rem; margin-top: 1rem; }
+.notebook-ai label { display: grid; gap: .25rem; font-size: .8rem; }
+.notebook-ai input, .notebook-ai select, .notebook-ai textarea { width: 100%; padding: .5rem; border: 1px solid #8888; border-radius: .2rem; font: inherit; color: inherit; background: transparent; }
+.notebook-ai select option { color: #222; background: white; }
+.notebook-ai button { padding: .45rem .8rem; border: 1px solid #8888; border-radius: .25rem; cursor: pointer; font: inherit; }
+.notebook-ai button:disabled { opacity: .5; cursor: wait; }
+.notebook-ai .notebook-ai-consent { display: flex; align-items: flex-start; gap: .5rem; }
+.notebook-ai-consent input { width: auto; margin-top: .25rem; }
+.notebook-ai-answer { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; font-size: .85rem; }
+.notebook-ai a { color: var(--md-typeset-a-color, #1565c0); text-decoration: underline; }
+.notebook-ai-sources { font-size: .8rem; line-height: 1.8; }

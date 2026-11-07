@@ -1,0 +1,19 @@
+# Add this site block to existing Caddy; join its container to notebook-edge.
+notes.example.com {
+    log_skip /api/*
+    encode zstd gzip
+    request_body {
+        max_size 20KB
+    }
+    handle /api/* {
+        header Cache-Control "no-store"
+        reverse_proxy notebook-app:8000 {
+            transport http {
+                response_header_timeout 180s
+            }
+        }
+    }
+    handle {
+        reverse_proxy notebook-app:8000
+    }
+}

@@ -6,7 +6,7 @@ created: 2026-10-06
 updated: 2026-10-06
 sources:
   - "lec03-2026.pdf，第 63–75 页"
-  - "course_86797_sub_2036297/course_content.md，75:05–86:47"
+  - "lecture-record-08/course_content.md，75:05–86:47"
 ---
 
 # 流水线控制信号

@@ -6,7 +6,7 @@ created: 2026-10-06
 updated: 2026-10-06
 sources:
   - "lec01-2026-chang.pdf，第 85–108 页"
-  - "course_86797_sub_2036252/course_content.md，33:41–74:34"
+  - "lecture-record-05/course_content.md，33:41–74:34"
   - https://docs.riscv.org/reference/isa/v20260120/unpriv/rv32.html
 ---
 

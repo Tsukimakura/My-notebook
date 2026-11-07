@@ -6,7 +6,7 @@ created: 2026-10-06
 updated: 2026-10-06
 sources:
   - "lec01-2026-chang.pdf，第 109–117、121 页"
-  - "course_86797_sub_2036252/course_content.md，74:34–89:13、96:12–97:23"
+  - "lecture-record-05/course_content.md，74:34–89:13、96:12–97:23"
   - https://riscv-non-isa.github.io/riscv-elf-psabi-doc/
 ---
 

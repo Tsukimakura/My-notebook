@@ -6,7 +6,7 @@ created: 2026-11-03
 updated: 2026-11-04
 sources:
   - "黄炜：PS ch2-2026(1).pdf，第 47–85 页"
-  - "test1/course_87789_sub_1980975/course_content.md，约 44:00–145:00；course_87789_sub_1984386 开头复习"
+  - "test1/lecture-record-22/course_content.md，约 44:00–145:00；lecture-record-23 开头复习"
   - "原始课件：第2章 随机变量及其概率分布.pdf，连续分布部分"
   - "教材习题二 A12、B17、B18、B24、B27、B29；桌面 prob-exercises 原题照片"
 ---
@@ -451,4 +451,4 @@ $Y$ 为混合型；光滑部分求导后积分仅为 $1-e^{-1.5}$，还须计入
 
 ## 参考资料
 
-主课件第 47–85 页；课堂识别 course_87789_sub_1980975、course_87789_sub_1984386；教材习题二 A12、B17、B18、B24、B27、B29。
+主课件第 47–85 页；课堂识别 lecture-record-22、lecture-record-23；教材习题二 A12、B17、B18、B24、B27、B29。

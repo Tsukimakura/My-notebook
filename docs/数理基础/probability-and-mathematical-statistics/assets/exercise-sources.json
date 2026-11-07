@@ -1,11 +1,7 @@
 {
   "updated": "2026-11-03",
-  "source": "用户提供的教材题图；外部 prob-exercises 文件夹",
+  "source": "用户提供的教材题图与作业资料",
   "rights": "教材与题图权利归原权利人；不重新发布原始题图；题意转述与解析见笔记",
-  "shared_conversations": [
-    "https://chatgpt.com/share/6ae9da00-bc18-83e8-be00-afb910c16efc",
-    "https://chatgpt.com/share/6ae9da4b-d094-83e8-a534-11707da6ff54"
-  ],
   "solution_cross_references": [
     "ch01-homework.tex",
     "ch02-homework.tex",
@@ -15,83 +11,83 @@
   ],
   "images": [
     {
-      "file": "微信图片_20261012231325_63_42.jpg",
+      "file": "exercise-source-01.jpg",
       "sha256": "1258aa523f739e98b6df0a80291b0ff3b1adde67e963f94e9c4bd26021090e05"
     },
     {
-      "file": "微信图片_20261012231357_64_42.jpg",
+      "file": "exercise-source-02.jpg",
       "sha256": "70564e482d990bce11bc9d403b9b6a840816888818601356e53a02c7cdccd4b2"
     },
     {
-      "file": "微信图片_20261012231424_65_42.jpg",
+      "file": "exercise-source-03.jpg",
       "sha256": "e424d2f20a12b1f57f258372369f990024e4c42c47d13e1213de657991f07134"
     },
     {
-      "file": "微信图片_20261012231449_66_42.jpg",
+      "file": "exercise-source-04.jpg",
       "sha256": "77ce59432070f19c67c4967446cb4c4b215c931ab58c4a6ed25f54d0ab50b96b"
     },
     {
-      "file": "微信图片_20261012231534_67_42.jpg",
+      "file": "exercise-source-05.jpg",
       "sha256": "2bc1af0b82ab841f195fbb4eca91bf1446d4fe38013f38a5b8c757f68fded8ba"
     },
     {
-      "file": "微信图片_20261012231601_68_42.jpg",
+      "file": "exercise-source-06.jpg",
       "sha256": "9a7386715a88b040edffaa75c5085aafd29f65dadc48f6a9850331bfb6919712"
     },
     {
-      "file": "微信图片_20261012231627_69_42.jpg",
+      "file": "exercise-source-07.jpg",
       "sha256": "1e3861b3408311ceb93a89b5b39b4816bf5603656b027ef732c73a0197756b64"
     },
     {
-      "file": "微信图片_20261019233913_73_42.jpg",
+      "file": "exercise-source-08.jpg",
       "sha256": "81b289fe1e2cd594e5ae11aef91b38b928114a762b60c857935a5bf7bda440be"
     },
     {
-      "file": "微信图片_20261019233914_74_42.jpg",
+      "file": "exercise-source-09.jpg",
       "sha256": "024d641a3248a09b02c5297c292ada04faeadccda4cce9da4dadff5d693d434c"
     },
     {
-      "file": "微信图片_20261019233915_75_42.jpg",
+      "file": "exercise-source-10.jpg",
       "sha256": "71240beae4866d0884ac506eaa892385550ef8b1034d43049aecf41ee7740d9e"
     },
     {
-      "file": "微信图片_20261019233916_76_42.jpg",
+      "file": "exercise-source-11.jpg",
       "sha256": "4625f252766facdbd4d4cd29102eb16db33cc12f67c8fe5b640dbab172af8404"
     },
     {
-      "file": "微信图片_20261027000712_80_42.jpg",
+      "file": "exercise-source-12.jpg",
       "sha256": "3973aeb1d80158539b0bdb31fbcac28e7ca794d9f00d329374163522226cca6f"
     },
     {
-      "file": "微信图片_20261027000714_81_42.jpg",
+      "file": "exercise-source-13.jpg",
       "sha256": "a829b631be67f19cb3dcdaf98c4579e1df137b578e2abf3415b0da49da6280da"
     },
     {
-      "file": "微信图片_20261027000715_82_42.jpg",
+      "file": "exercise-source-14.jpg",
       "sha256": "1b1cdf187d02f0f9864196b4258cdbc38ee110ee102c323f73aaabe8f4fc03c9"
     },
     {
-      "file": "微信图片_20261027000715_83_42.jpg",
+      "file": "exercise-source-15.jpg",
       "sha256": "ecb7552233c80fc77981c8fbc13bed6963d915bb19943a897f7c9ec13c8d13f4"
     },
     {
-      "file": "微信图片_20261027000716_84_42.jpg",
+      "file": "exercise-source-16.jpg",
       "sha256": "e1fb0002fd19c0ed2b05632769fb109450403c569d5a47ed812cac44eecd61df"
     },
     {
-      "file": "微信图片_20261103003059_89_42.jpg",
+      "file": "exercise-source-17.jpg",
       "sha256": "6af1a042a699e412da0f3bf91e2159549966ab124c923b424bb65e8324b5f194"
     },
     {
-      "file": "微信图片_20261103003100_90_42.jpg",
+      "file": "exercise-source-18.jpg",
       "sha256": "0513a23cd871a189b3acef4061c83dafb75ee15757542fb404deb2930888c445"
     },
     {
-      "file": "微信图片_20261103003101_91_42.jpg",
+      "file": "exercise-source-19.jpg",
       "sha256": "a28362774bd548e20f556088142b7d729d888955507916b15aa25715b9bbe763"
     },
     {
-      "file": "微信图片_20261103003102_92_42.jpg",
+      "file": "exercise-source-20.jpg",
       "sha256": "8792a099e63697e55b49fdd42b68059bd14f8ffc20748210dbd497243949507c"
     }
   ],
@@ -442,5 +438,6 @@
       ],
       "additional_source": null
     }
-  ]
+  ],
+  "conversation_notes": "原始讨论仅作本地校订线索；公开题意与解答已整理在对应笔记中。"
 }

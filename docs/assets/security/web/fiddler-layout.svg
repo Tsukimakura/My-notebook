@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="540" viewBox="0 0 1000 540" role="img" aria-labelledby="title desc">
+  <title id="title">HTTP debugging tool layout</title>
+  <desc id="desc">A schematic session list, request inspector and response inspector using fictional HTTP traffic. No captured user traffic is included.</desc>
+  <rect width="1000" height="540" fill="#f4f6f8"/>
+  <g fill="#fff" stroke="#94a3b8" stroke-width="2">
+    <rect x="20" y="65" width="290" height="405" rx="8"/>
+    <rect x="330" y="65" width="650" height="195" rx="8"/>
+    <rect x="330" y="275" width="650" height="195" rx="8"/>
+  </g>
+  <g font-family="sans-serif" fill="#0f172a">
+    <text x="25" y="38" font-size="24">HTTP debugger: session and inspector panels</text>
+    <text x="38" y="100" font-size="21">Session list</text>
+    <text x="350" y="100" font-size="21">Request inspector</text>
+    <text x="350" y="310" font-size="21">Response inspector</text>
+    <g font-family="monospace" font-size="18">
+      <text x="38" y="145">200 GET /example</text>
+      <text x="38" y="180">304 GET /style.css</text>
+      <text x="38" y="215">200 POST /demo</text>
+      <text x="350" y="145">GET /example HTTP/1.1</text>
+      <text x="350" y="180">Host: example.test</text>
+      <text x="350" y="215">Accept: text/plain</text>
+      <text x="350" y="355">HTTP/1.1 200 OK</text>
+      <text x="350" y="390">Content-Type: text/plain</text>
+      <text x="350" y="425">Example response body</text>
+    </g>
+    <text x="25" y="510" font-size="18">Schematic illustration with fictional data, not a captured session.</text>
+  </g>
+</svg>

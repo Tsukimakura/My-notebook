@@ -6,8 +6,8 @@ created: 2026-10-06
 updated: 2026-10-06
 sources:
   - "lec02(2).pdf，第 67–92 页"
-  - "course_86797_sub_2036270/course_content.md，29:46–76:12"
-  - "course_86797_sub_2036297/course_content.md，01:45–10:04"
+  - "lecture-record-07/course_content.md，29:46–76:12"
+  - "lecture-record-08/course_content.md，01:45–10:04"
 ---
 
 # 流水线性能分析与计算例题

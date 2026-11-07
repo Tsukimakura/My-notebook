@@ -6,6 +6,7 @@ repo_name: Tsukimakura/My-notebook
 edit_uri: edit/main/docs/
 theme:
   name: material
+  font: false
 
   icon:
     logo: material/github
@@ -58,8 +59,10 @@ extra_javascript:
   - assets/vendor/katex/katex.min.js
   - assets/vendor/katex/auto-render.min.js
   - javascripts/katex.js
+  - javascripts/notebook-ai.js
 
 extra_css:
   - assets/vendor/katex/katex.min.css
+  - stylesheets/notebook-ai.css
 
 copyright: Copyright © 2025 Tsukimakura

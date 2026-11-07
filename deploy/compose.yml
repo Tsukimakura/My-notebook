@@ -1,0 +1,21 @@
+name: notebook
+services:
+  notebook:
+    image: ${NOTEBOOK_IMAGE:?Use update.sh to select a digest}
+    restart: unless-stopped
+    environment:
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:?Set the public HTTPS origin}
+    read_only: true
+    user: "10001:10001"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 384m
+    cpus: 0.75
+    pids_limit: 80
+    tmpfs:
+      - /tmp:size=16m,noexec,nosuid,nodev
+    logging:
+      driver: local
+      options:
+        max-size: "5m"
+        max-file: "2"

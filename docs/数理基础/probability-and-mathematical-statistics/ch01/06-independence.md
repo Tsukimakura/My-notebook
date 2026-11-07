@@ -6,7 +6,7 @@ created: 2026-11-03
 updated: 2026-11-03
 sources:
   - "黄炜：PS ch1-2026.pdf，第 93–113 页"
-  - "test1/course_87789_sub_1976430/course_content.md，约 04:00–66:00，及对应课堂截图"
+  - "test1/lecture-record-21/course_content.md，约 04:00–66:00，及对应课堂截图"
   - "原始课件：第1章 概率论的基本概念.pdf，独立性部分"
   - "教材习题一 B7、B8；桌面 prob-exercises 原题照片与 ch02-homework.tex"
 ---
@@ -261,4 +261,4 @@ $$
 
 ## 参考资料
 
-主课件第 93–113 页；课堂识别 course_87789_sub_1976430；教材习题一 B7、B8。
+主课件第 93–113 页；课堂识别 lecture-record-21；教材习题一 B7、B8。

@@ -5,8 +5,8 @@ tags: [cs, ai, search]
 created: 2026-10-08
 updated: 2026-10-08
 sources:
-  - "~/aid-docs/4/人工智能搜索算法课程完整整理.docx"
-  - "~/aid-docs/4/计算机“101计划”《人工智能引论》教材课件-第三章 搜索探寻与问题求解.pptx"
+  - "课程资料/人工智能引论/第4课/人工智能搜索算法课程完整整理.docx"
+  - "课程资料/人工智能引论/第4课/计算机“101计划”《人工智能引论》教材课件-第三章 搜索探寻与问题求解.pptx"
   - https://aima.cs.berkeley.edu/~russell/classes/cs294/s11/readings/Auer%2Bal%3A2002.pdf
   - https://sites.ualberta.ca/~szepesva/papers/ecml06.pdf
 ---
