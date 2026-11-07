@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </select></label>
       <p>默认临时保存。7 天和 30 天会把 key 保存到此设备的浏览器中，同源脚本可以读取；请只在自己的设备上启用。到期不再使用，下次打开时清除。收起对话栏不会清除 key。</p>
       <details><summary>密钥、隐私与费用说明</summary>
-        <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不持久化 key、问题或回答，也不写入应用日志。</p>
+        <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不将 key、问题或回答写入磁盘或应用日志。任务生成最多持续 4 分钟，结果仅在内存中暂存，完成后 2 分钟过期并定期清除，便于网络恢复后查询。</p>
         <p>每次提问通常调用两次模型，回答生成预算上限为 8,192 tokens（推理模型可能将思考计入预算），详细回答可能花费更多时间和费用。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。</p>
         <p>对话只保留在当前页面内存中；刷新会清除对话，站内笔记跳转会保留。不要输入其他密码、服务器凭据或敏感个人信息。</p>
       </details>
@@ -389,47 +389,112 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const readAnswer = async response => {
     const type = response.headers.get("content-type") || "";
-    if (type.includes("application/json")) {
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "请求失败，请稍后重试。");
-      return data;
-    }
-    if (!response.ok || !type.includes("text/event-stream") || !response.body?.getReader) {
+    if (!type.includes("application/json")) {
       const ray = response.headers.get("cf-ray") || "";
       const reference = /^[a-f0-9]+-[A-Z0-9]+$/i.test(ray) ? `，追踪编号 ${ray}` : "";
-      throw new Error(`代理或服务器返回异常（HTTP ${response.status || "未知"}${reference}），请稍后重试。`);
+      const error = new Error(`代理或服务器返回异常（HTTP ${response.status || "未知"}${reference}），请稍后重试。`);
+      error.retryable = response.status >= 500;
+      throw error;
     }
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder("utf-8", {fatal: true});
-    let buffer = "";
-    let bytes = 0;
+    let data;
+    try { data = await response.json(); }
+    catch {
+      const error = new Error("任务查询响应未完整收到，请稍后重试。");
+      error.retryable = true;
+      throw error;
+    }
+    if (!response.ok) {
+      const error = new Error(data?.error || "请求失败，请稍后重试。");
+      error.retryable = response.status >= 500;
+      throw error;
+    }
+    return data;
+  };
+  const jobRequest = async (path, body, key, signal, id, timeout = 12000, keepalive = false) => {
+    const controller = new AbortController();
+    const abort = () => controller.abort();
+    if (signal.aborted) abort();
+    signal.addEventListener("abort", abort, {once: true});
+    const timer = setTimeout(abort, timeout);
     try {
+      const response = await fetch(path, {
+        method: "POST", credentials: "omit", cache: "no-store", redirect: "error", keepalive,
+        headers: {"Content-Type": "application/json", "Accept": "application/json",
+          "Cache-Control": "no-store, no-transform", "Authorization": `Bearer ${key}`,
+          "X-Notebook-Request-ID": id},
+        body, signal: controller.signal,
+      });
+      return await readAnswer(response);
+    } catch (error) {
+      if (error.name === "TypeError" || error.name === "NetworkError" || (error.name === "AbortError" && !signal.aborted)) {
+        error.retryable = true;
+      }
+      throw error;
+    } finally {
+      clearTimeout(timer);
+      signal.removeEventListener("abort", abort);
+    }
+  };
+  const pause = (milliseconds, signal) => new Promise((resolve, reject) => {
+    const abort = () => { clearTimeout(timer); reject(new DOMException("Aborted", "AbortError")); };
+    const timer = setTimeout(() => { signal.removeEventListener("abort", abort); resolve(); }, milliseconds);
+    if (signal.aborted) abort();
+    else signal.addEventListener("abort", abort, {once: true});
+  });
+  const runQuestion = async (body, key, signal, progress) => {
+    const id = Array.from(crypto.getRandomValues(new Uint8Array(16)), value => value.toString(16).padStart(2, "0")).join("");
+    const path = `/api/jobs/${id}`;
+    let finished = false;
+    let mayExist = false;
+    let confirmed = false;
+    try {
+      try {
+        mayExist = true;
+        const data = await jobRequest("/api/jobs", body, key, signal, id);
+        // Immediate results are accepted as well as the normal asynchronous job reply.
+        if (typeof data?.answer === "string") { finished = true; return data; }
+        if (data?.job_id !== id) throw new Error("任务响应格式异常，请刷新页面后重试。");
+        confirmed = true;
+      } catch (error) {
+        if (signal.aborted) throw new DOMException("Aborted", "AbortError");
+        if (!error.retryable) { mayExist = false; throw error; }
+        // The creation response may have been lost. Look up this ID; never submit again.
+        progress("reconnect");
+      }
+      let failures = 0;
       while (true) {
-        const {done, value} = await reader.read();
-        if (done) throw new Error("回答连接提前结束，尚未收到完整结果；已发出的调用仍可能产生费用。");
-        bytes += value.byteLength;
-        if (bytes > 1_000_000) throw new Error("回答数据超过大小限制。");
-        buffer = (buffer + decoder.decode(value, {stream: true})).replace(/\r\n/g, "\n");
-        let boundary;
-        while ((boundary = buffer.indexOf("\n\n")) >= 0) {
-          const lines = buffer.slice(0, boundary).split("\n");
-          buffer = buffer.slice(boundary + 2);
-          const name = lines.find(line => line.startsWith("event:"))?.slice(6).trim();
-          const payload = lines.filter(line => line.startsWith("data:")).map(line => line.slice(5).trimStart()).join("\n");
-          if (!payload) continue;
-          const data = JSON.parse(payload);
-          if (name === "error") throw new Error(data.error || "模型未能完成回答，请稍后重试。");
-          if (name === "complete") return data;
-          if (name === "progress") {
-            const stage = data.stage === "answer" ? "正在等待模型生成回答" : "正在扩展检索词并检索笔记";
-            const seconds = Number.isFinite(data.elapsed) && data.elapsed >= 0 ? Math.round(data.elapsed) : 0;
-            get("status").textContent = `${stage}，已等待 ${seconds} 秒。你可以继续浏览笔记……`;
+        if (signal.aborted) throw new DOMException("Aborted", "AbortError");
+        let data;
+        try {
+          data = await jobRequest(`${path}/result`, "{}", key, signal, id);
+          failures = 0;
+        } catch (error) {
+          if (signal.aborted) throw new DOMException("Aborted", "AbortError");
+          if (!error.retryable) {
+            if (!confirmed) throw new Error("未能确认任务是否已创建，没有自动重新调用模型。请稍后检查网络再试；已发出的调用仍可能产生费用。");
+            throw error;
           }
+          progress("reconnect");
+          if (++failures > 5) throw new Error("任务状态查询多次失败，没有自动重新提问；已发出的调用仍可能产生费用。");
+          await pause(2000, signal);
+          continue;
         }
+        if (data?.job_id !== id) throw new Error("任务查询响应格式异常，请稍后重试。");
+        confirmed = true;
+        if (data.state === "completed") { finished = true; return data.result; }
+        if (data.state === "failed" || data.state === "cancelled") {
+          finished = true;
+          throw new Error(data.error || "模型未能完成回答，请稍后重试。");
+        }
+        if (data.state !== "pending") throw new Error("任务状态异常，请稍后重试。");
+        progress(data.stage === "answer" ? "answer" : "retrieval");
+        await pause(2000, signal);
       }
     } finally {
-      try { await reader.cancel(); } catch { /* The connection may already be closed. */ }
-      reader.releaseLock();
+      if (!finished && mayExist) {
+        // Best effort, including pagehide. No new model calls are made by cancellation.
+        void jobRequest(`${path}/cancel`, "{}", key, new AbortController().signal, id, 3000, true).catch(() => {});
+      }
     }
   };
   const incompleteMessage = reason => reason === "max_tokens"
@@ -473,15 +538,24 @@ document.addEventListener("DOMContentLoaded", () => {
     pending = controller;
     const started = performance.now();
     const timer = setTimeout(() => controller.abort(), 265000);
+    let phase = "正在提交问题";
+    const drawProgress = () => {
+      const seconds = Math.floor((performance.now() - started) / 1000);
+      get("status").textContent = `${phase}，已等待 ${seconds} 秒。你可以继续浏览笔记……`;
+    };
+    const progress = stage => {
+      phase = stage === "answer" ? "正在等待模型生成回答"
+        : stage === "reconnect" ? "网络暂时不稳定，正在查询已有任务状态"
+        : "正在扩展检索词并检索笔记";
+      drawProgress();
+    };
+    // Elapsed time is a local monotonic clock, independent of server packets.
+    drawProgress();
+    const ticker = setInterval(drawProgress, 1000);
+    document.addEventListener("visibilitychange", drawProgress);
     try {
-      const response = await fetch("/api/ask", {
-        method: "POST", credentials: "omit", cache: "no-store", redirect: "error",
-        headers: {"Content-Type": "application/json", "Accept": "text/event-stream",
-          "Cache-Control": "no-store, no-transform", "Authorization": `Bearer ${credential.key}`},
-        body, signal: controller.signal,
-      });
-      const data = await readAnswer(response);
-      if (typeof data.answer !== "string" || !data.answer.trim() || !Array.isArray(data.sources)) {
+      const data = await runQuestion(body, credential.key, controller.signal, progress);
+      if (typeof data?.answer !== "string" || !data.answer.trim() || !Array.isArray(data.sources)) {
         throw new Error("回答格式异常，请稍后重试。");
       }
       const follow = nearBottom();
@@ -510,6 +584,8 @@ document.addEventListener("DOMContentLoaded", () => {
         : `${error.message}（等待 ${Math.round((performance.now() - started) / 1000)} 秒）`;
     } finally {
       clearTimeout(timer);
+      clearInterval(ticker);
+      document.removeEventListener("visibilitychange", drawProgress);
       pending = null;
       for (const name of ["submit", "new", "save", "continue"]) get(name).disabled = false;
       get("continue").hidden = !lastIncomplete;
@@ -522,7 +598,7 @@ document.addEventListener("DOMContentLoaded", () => {
       get("chat-form").requestSubmit();
     }
   });
-  // Instant navigation only replaces the notebook container, leaving this panel and fetch alive.
+  // Instant navigation only replaces the notebook container, leaving this panel and job polling alive.
   // Full reloads clear conversations; BFCache returns must recheck credential expiry.
   window.addEventListener("pageshow", () => {
     if (credential && credential.expiresAt <= Date.now()) forget(false);

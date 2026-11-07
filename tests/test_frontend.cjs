@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const {JSDOM} = require('jsdom');
 
-async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = true, retention = 'session', blockStorage = false} = {}) {
+async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = true, retention = 'session', blockStorage = false, beforeScript} = {}) {
   const dom = new JSDOM('<!doctype html><body></body>', {
     url: 'https://notes.example.com/a-note/', runScripts: 'outside-only',
   });
@@ -24,6 +24,7 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
       window.eval(fs.readFileSync('docs/assets/vendor/' + asset, 'utf8'));
     }
   }
+  if (beforeScript) beforeScript(window);
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
   window.document.querySelector('.notebook-ai-launch').click();
@@ -61,7 +62,7 @@ test('model HTML stays text, citations stay same-origin, key only enters opted s
   assert.equal(get('sources').querySelector('script'), null);
   assert.equal(get('answer').querySelectorAll('a').length, 1);
   assert.equal(get('answer').querySelector('a').href, 'https://notes.example.com/probability/#conditional');
-  assert.equal(request.url, '/api/ask');
+  assert.equal(request.url, '/api/jobs');
   assert.equal(request.headers.Authorization, 'Bearer test-not-a-real-key');
   assert.ok(!request.body.includes('test-not-a-real-key'));
   assert.ok(!JSON.stringify(window.localStorage).includes('test-not-a-real-key'));
@@ -487,16 +488,6 @@ test('stop waiting aborts the browser request, unlocks retry, and states possibl
   assert.equal(get('question').value, '条件概率是什么？');
 });
 
-function sseResponse(text, chunkSize = 7) {
-  const bytes = new TextEncoder().encode(text);
-  return new Response(new ReadableStream({start(controller) {
-    for (let start = 0; start < bytes.length; start += chunkSize) controller.enqueue(bytes.slice(start, start + chunkSize));
-    controller.close();
-  }}), {headers: {'Content-Type': 'text/event-stream'}});
-}
-
-const sseEvent = (name, data) => `event: ${name}\ndata: ${JSON.stringify(data)}\n\n`;
-
 test('partial answer stays marked, and preparing continuation does not create a paid request', async t => {
   const requests = [];
   const tail = 'UNFINISHED_FORMULA_TAIL';
@@ -526,69 +517,175 @@ test('partial answer stays marked, and preparing continuation does not create a 
   assert.equal(get('messages').querySelectorAll('.notebook-ai-warning').length, 1);
 });
 
-test('SSE parser handles UTF-8 and event boundaries split across network chunks', async t => {
-  const wire = ': keep-alive\r\n\r\n' + sseEvent('progress', {stage: 'answer', elapsed: 8})
-    + sseEvent('complete', {answer: '中文回答 $x_1$ [1]', sources: [{id: 1, title: '笔记', url: '/note/#section'}], truncated: false});
-  let headers;
-  const {get, submit} = await setup(t, async (url, options) => {
-    headers = options.headers;
-    return sseResponse(wire, 1);
+
+const jsonResponse = (data, status = 200) => ({ok: status >= 200 && status < 300, status,
+  headers: new Headers({'Content-Type': 'application/json'}), json: async () => data});
+const answerData = {answer: '完整回答 $x_1$', sources: [], truncated: false};
+
+test('elapsed time advances locally without receiving a server message and stops after completion', async t => {
+  let finish;
+  let now = 0;
+  let tick;
+  let cleared = false;
+  const {window, get, submit} = await setup(t, async () => new Promise(resolve => { finish = () => resolve(jsonResponse(answerData)); }), {
+    beforeScript(window) {
+      window.performance.now = () => now;
+      window.setInterval = callback => { tick = callback; return 123; };
+      window.clearInterval = id => { if (id === 123) cleared = true; };
+    },
   });
   await submit();
-  assert.equal(headers.Accept, 'text/event-stream');
-  assert.match(headers['Cache-Control'], /no-transform/);
-  assert.match(get('answer').textContent, /中文回答/);
-  assert.equal(get('answer').querySelectorAll('.katex').length, 1);
-  assert.equal(get('answer').querySelector('a').pathname, '/note/');
-  assert.match(get('status').textContent, /回答完成/);
-});
-
-test('SSE progress appears before completion and does not block reading', async t => {
-  let finish;
-  const response = new Response(new ReadableStream({start(controller) {
-    const encoder = new TextEncoder();
-    controller.enqueue(encoder.encode(sseEvent('progress', {stage: 'answer', elapsed: 16})));
-    finish = () => { controller.enqueue(encoder.encode(sseEvent('complete', {answer: 'later', sources: [], truncated: false}))); controller.close(); };
-  }}), {headers: {'Content-Type': 'text/event-stream'}});
-  const {get, submit} = await setup(t, async () => response);
-  await submit();
-  assert.match(get('status').textContent, /已等待 16 秒/);
-  assert.equal(get('answer'), null);
-  assert.equal(get('close').disabled, false);
-  get('close').click();
+  assert.match(get('status').textContent, /已等待 0 秒/);
+  now = 1000; tick();
+  assert.match(get('status').textContent, /已等待 1 秒/);
+  now = 4200; tick();
+  assert.match(get('status').textContent, /已等待 4 秒/);
+  now = 133000;
+  window.document.dispatchEvent(new window.Event('visibilitychange'));
+  assert.match(get('status').textContent, /已等待 133 秒/);
   finish();
   await new Promise(setImmediate);
-  assert.match(get('answer').textContent, /later/);
+  assert.equal(cleared, true);
+  const status = get('status').textContent;
+  now = 200000;
+  window.document.dispatchEvent(new window.Event('visibilitychange'));
+  assert.equal(get('status').textContent, status);
 });
 
-test('an SSE error or missing final event is not accepted as an answer and permits retry', async t => {
-  for (const wire of [sseEvent('progress', {stage: 'retrieval', elapsed: 0}), sseEvent('error', {error: '等待模型超时', status: 504})]) {
-    let calls = 0;
-    let retry;
+test('polling obtains a completed job with exactly one creation and keeps key out of IDs and bodies', async t => {
+  const calls = [];
+  const {get, submit} = await setup(t, async (url, options) => {
+    calls.push({url, ...options});
+    const id = options.headers['X-Notebook-Request-ID'];
+    if (url === '/api/jobs') return jsonResponse({job_id: id, state: 'pending'}, 202);
+    return jsonResponse({job_id: id, state: 'completed', result: answerData});
+  });
+  await submit();
+  assert.equal(calls.filter(call => call.url === '/api/jobs').length, 1);
+  assert.equal(calls.length, 2);
+  assert.match(calls[0].headers['X-Notebook-Request-ID'], /^[a-f0-9]{32}$/);
+  for (const call of calls) {
+    assert.equal(call.headers.Authorization, 'Bearer test-not-a-real-key');
+    assert.ok(!call.url.includes('test-not-a-real-key'));
+    assert.ok(!call.body.includes('test-not-a-real-key'));
+  }
+  assert.match(get('answer').textContent, /完整回答/);
+});
+
+test('losing a creation response recovers by querying the same ID without resubmitting', async t => {
+  const calls = [];
+  const {get, submit} = await setup(t, async (url, options) => {
+    calls.push(url);
+    if (url === '/api/jobs') throw new TypeError('network error');
+    return jsonResponse({job_id: options.headers['X-Notebook-Request-ID'], state: 'completed', result: answerData});
+  });
+  await submit();
+  assert.equal(calls.filter(url => url === '/api/jobs').length, 1);
+  assert.equal(calls.filter(url => url.endsWith('/result')).length, 1);
+  assert.match(get('answer').textContent, /完整回答/);
+});
+
+test('a temporary polling failure retries only the status query', async t => {
+  const calls = [];
+  let queries = 0;
+  const {get, submit} = await setup(t, async (url, options) => {
+    calls.push(url);
+    const id = options.headers['X-Notebook-Request-ID'];
+    if (url === '/api/jobs') return jsonResponse({job_id: id, state: 'pending'}, 202);
+    if (++queries === 1) return jsonResponse({error: 'temporary gateway error'}, 502);
+    return jsonResponse({job_id: id, state: 'completed', result: answerData});
+  }, {beforeScript(window) {
+    const original = window.setTimeout.bind(window);
+    window.setTimeout = (callback, delay) => original(callback, delay === 2000 ? 0 : delay);
+  }});
+  await submit();
+  await new Promise(resolve => setTimeout(resolve, 30));
+  assert.equal(calls.filter(url => url === '/api/jobs').length, 1);
+  assert.equal(queries, 2);
+  assert.match(get('answer').textContent, /完整回答/);
+});
+
+test('expired jobs and provider failures never start a new generation automatically', async t => {
+  for (const expired of [true, false]) {
+    let creations = 0;
     const {get, submit} = await setup(t, async (url, options) => {
-      if (++calls === 1) return sseResponse(wire);
-      retry = JSON.parse(options.body);
-      return answerResponse('retry answer')();
+      const id = options.headers['X-Notebook-Request-ID'];
+      if (url === '/api/jobs') { creations++; return jsonResponse({job_id: id, state: 'pending'}, 202); }
+      if (url.endsWith('/cancel')) return jsonResponse({job_id: id, state: 'cancelled'});
+      return expired ? jsonResponse({error: '任务不存在、已过期或服务已更新'}, 404)
+        : jsonResponse({job_id: id, state: 'failed', error: '模型已用尽输出预算', status: 502});
     });
     await submit();
+    assert.equal(creations, 1);
     assert.equal(get('answer'), null);
+    assert.match(get('status').textContent, /已过期|输出预算/);
     assert.equal(get('submit').disabled, false);
-    assert.equal(get('question').value, '条件概率是什么？');
-    assert.match(get('status').textContent, /提前结束|等待模型超时/);
-    await submit();
-    assert.deepEqual(retry.history, []);
   }
 });
 
-test('size-limited and otherwise incomplete responses are never labeled complete', async t => {
+test('stopping a pending job sends a cancellation without another creation', async t => {
+  const calls = [];
+  const {get, submit} = await setup(t, async (url, options) => {
+    calls.push(url);
+    const id = options.headers['X-Notebook-Request-ID'];
+    return jsonResponse({job_id: id, state: url.endsWith('/cancel') ? 'cancelled' : 'pending', stage: 'answer'}, url === '/api/jobs' ? 202 : 200);
+  });
+  await submit();
+  assert.match(get('status').textContent, /等待模型/);
+  get('stop').click();
+  await new Promise(setImmediate);
+  assert.match(get('status').textContent, /已停止等待/);
+  assert.equal(calls.filter(url => url === '/api/jobs').length, 1);
+  assert.equal(calls.filter(url => url.endsWith('/cancel')).length, 1);
+  assert.equal(get('submit').disabled, false);
+});
+
+test('unknown outcome of creation never causes an automatic second model request', async t => {
+  const calls = [];
+  const {get, submit} = await setup(t, async (url, options) => {
+    calls.push(url);
+    if (url === '/api/jobs') throw new TypeError('network error');
+    return jsonResponse({error: 'unknown request'}, 404);
+  });
+  await submit();
+  assert.equal(calls.filter(url => url === '/api/jobs').length, 1);
+  assert.equal(get('answer'), null);
+  assert.match(get('status').textContent, /未能确认任务是否已创建/);
+});
+
+test('size-limited and otherwise incomplete job results remain marked and allow manual continuation', async t => {
   for (const reason of ['size_limit', 'incomplete']) {
-    const {get, submit} = await setup(t, async () => sseResponse(sseEvent('complete', {
-      answer: 'partial', sources: [], truncated: true, finish_reason: reason,
-    })));
+    const {get, submit} = await setup(t, async (url, options) => {
+      const id = options.headers['X-Notebook-Request-ID'];
+      return jsonResponse(url === '/api/jobs' ? {job_id: id, state: 'pending'}
+        : {job_id: id, state: 'completed', result: {answer: 'partial', sources: [], truncated: true, finish_reason: reason}});
+    });
     await submit();
     assert.match(get('status').textContent, /长度上限|可能不完整/);
     assert.doesNotMatch(get('status').textContent, /回答完成/);
     get('new').click();
     assert.equal(get('continue').hidden, true);
   }
+});
+
+test('a stalled short query times out and recovers by querying without recreating the job', async t => {
+  let creates = 0;
+  let polls = 0;
+  const {window, get, submit} = await setup(t, async (url, options) => {
+    const id = options.headers['X-Notebook-Request-ID'];
+    if (url === '/api/jobs') { creates++; return jsonResponse({job_id: id, state: 'pending'}, 202); }
+    if (url.endsWith('/cancel')) return jsonResponse({job_id: id, state: 'cancelled'});
+    if (++polls === 1) return new Promise((resolve, reject) => {
+      options.signal.addEventListener('abort', () => reject(new window.DOMException('timeout', 'AbortError')));
+    });
+    return jsonResponse({job_id: id, state: 'completed', result: answerData});
+  }, {beforeScript(window) {
+    const original = window.setTimeout.bind(window);
+    window.setTimeout = (callback, delay) => original(callback, delay === 12000 || delay === 2000 ? 0 : delay);
+  }});
+  await submit();
+  await new Promise(resolve => setTimeout(resolve, 40));
+  assert.equal(creates, 1);
+  assert.equal(polls, 2);
+  assert.match(get('answer').textContent, /完整回答/);
 });

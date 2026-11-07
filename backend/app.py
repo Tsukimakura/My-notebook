@@ -21,6 +21,7 @@ from starlette.staticfiles import StaticFiles
 
 from backend.providers import complete, ProviderError
 from backend.retrieval import Index
+from backend.jobs import Job, JobStore, MAX_JOBS
 
 ROOT = Path(__file__).resolve().parent.parent
 HEARTBEAT_SECONDS = 8
@@ -104,11 +105,22 @@ def create_app(site_dir=None, index_path=None, origin=None):
         raise ValueError("Set PUBLIC_ORIGIN to the site's HTTPS origin (localhost HTTP is allowed for development)")
     limits = Limits()
     hash_salt = secrets.token_bytes(32)
+    jobs = JobStore()
 
     @asynccontextmanager
     async def lifespan(app):
         app.state.index = Index(index_path)
-        yield
+        async def cleanup():
+            while True:
+                await asyncio.sleep(5)
+                jobs.prune()
+        reaper = asyncio.create_task(cleanup())
+        try:
+            yield
+        finally:
+            reaper.cancel()
+            await asyncio.gather(reaper, return_exceptions=True)
+            await jobs.close()
 
     async def health(request):
         return JSONResponse({"status": "ok"})
@@ -180,6 +192,107 @@ def create_app(site_dir=None, index_path=None, origin=None):
                 limits.active -= 1
                 key = ""
 
+    def job_credentials(request):
+        if request.headers.get("origin") != origin or request.headers.get("sec-fetch-site") not in (None, "same-origin"):
+            return error("仅允许本站页面调用。", 403)
+        if request.headers.get("content-type", "").split(";")[0].strip() != "application/json":
+            return error("请求必须使用 JSON。", 415)
+        auth = request.headers.get("authorization", "")
+        key = auth.removeprefix("Bearer ")
+        if not auth.startswith("Bearer ") or not re.fullmatch(r"[!-~]{8,512}", key):
+            return error("请输入有效的供应商 API key。", 401)
+        return key, hashlib.sha256(hash_salt + key.encode()).hexdigest()
+
+    async def run_job(job, index, provider, model, question, history, key):
+        try:
+            job.result = await answer_question(index, provider, model, question, history, key,
+                lambda value: setattr(job, "stage", value), STREAM_TIMEOUT_SECONDS)
+            job.state = "completed"
+        except ProviderError as exc:
+            job.state, job.error, job.status = "failed", str(exc), exc.status
+        except TimeoutError:
+            job.state, job.error, job.status = "failed", "等待回答超时；已发出的调用仍可能产生费用，请缩小问题范围后重试。", 504
+        except Exception:
+            job.state, job.error, job.status = "failed", "请求暂时无法完成，请稍后重试。", 503
+        finally:
+            key = ""
+
+    def job_done(job, task):
+        # A callback also runs if a task was cancelled before its coroutine started.
+        limits.active -= 1
+        job.finished_at = time.monotonic()
+        if task.cancelled():
+            job.state, job.error, job.status = "cancelled", "已停止本站任务；供应商调用仍可能产生费用。", 409
+            job.result = None
+        elif task.exception() is not None:
+            job.state, job.error, job.status = "failed", "请求暂时无法完成，请稍后重试。", 503
+            job.result = None
+
+    async def create_job(request):
+        auth = job_credentials(request)
+        if isinstance(auth, JSONResponse):
+            return auth
+        key, owner = auth
+        job_id = request.headers.get("x-notebook-request-id", "")
+        if not re.fullmatch(r"[a-f0-9]{32}", job_id):
+            return error("请求编号无效，请刷新页面后重试。")
+        try:
+            async with asyncio.timeout(12):
+                body = bytearray()
+                async for chunk in request.stream():
+                    body.extend(chunk)
+                    if len(body) > 20000:
+                        return error("请求过大。", 413)
+            provider, model, question, history = checked_input(json.loads(body))
+        except (ValueError, TypeError):
+            return error("请检查供应商、模型 ID 和问题（最多 4000 字）。")
+        except TimeoutError:
+            return error("接收问题超时，请稍后重试。", 408)
+        fingerprint = hashlib.sha256(hash_salt + bytes(body)).hexdigest()
+        jobs.prune()
+        existing = jobs.records.get(job_id)
+        if existing is not None:
+            if jobs.find(job_id, owner) is None or not secrets.compare_digest(existing.fingerprint, fingerprint):
+                return error("请求编号已被使用，请重新发送问题。", 409)
+            return JSONResponse({"job_id": job_id, "state": existing.state}, status_code=202)
+        if limits.active >= 4 or len(jobs.records) >= MAX_JOBS:
+            return error("服务繁忙，请稍后重试。", 429)
+        if not limits.allow(owner):
+            return error("请求过于频繁，请稍后重试。", 429)
+        job = Job(job_id, owner, fingerprint)
+        jobs.records[job_id] = job
+        limits.active += 1
+        job.task = asyncio.create_task(run_job(job, request.app.state.index, provider, model, question, history, key))
+        job.task.add_done_callback(lambda task: job_done(job, task))
+        key = ""
+        return JSONResponse({"job_id": job_id, "state": "pending"}, status_code=202)
+
+    async def job_result(request):
+        auth = job_credentials(request)
+        if isinstance(auth, JSONResponse):
+            return auth
+        _, owner = auth
+        job = jobs.find(request.path_params["job_id"], owner)
+        if job is None:
+            return error("任务不存在、已过期或服务已更新，请重新提问。", 404)
+        return JSONResponse(job.snapshot())
+
+    async def cancel_job(request):
+        auth = job_credentials(request)
+        if isinstance(auth, JSONResponse):
+            return auth
+        _, owner = auth
+        job = jobs.find(request.path_params["job_id"], owner)
+        if job is None:
+            return error("任务不存在、已过期或服务已更新。", 404)
+        job.state, job.error, job.status = "cancelled", "已停止本站任务；供应商调用仍可能产生费用。", 409
+        job.result = None
+        if job.finished_at is None:
+            job.finished_at = time.monotonic()
+        if job.task is not None:
+            job.task.cancel()
+        return JSONResponse({"job_id": job.id, "state": "cancelled"})
+
     async def ask(request: Request):
         if request.headers.get("origin") != origin or request.headers.get("sec-fetch-site") not in (None, "same-origin"):
             return error("仅允许本站页面调用。", 403)
@@ -231,7 +344,11 @@ def create_app(site_dir=None, index_path=None, origin=None):
             key = ""
 
     app = Starlette(lifespan=lifespan, routes=[Route("/api/health", health),
-        Route("/api/ask", ask, methods=["POST"]), Mount("/", StaticFiles(directory=site_dir, html=True))])
+        Route("/api/ask", ask, methods=["POST"]),
+        Route("/api/jobs", create_job, methods=["POST"]),
+        Route("/api/jobs/{job_id}/result", job_result, methods=["POST"]),
+        Route("/api/jobs/{job_id}/cancel", cancel_job, methods=["POST"]),
+        Mount("/", StaticFiles(directory=site_dir, html=True))])
 
     async def security_headers(request, call_next):
         if request.url.path.startswith("/api/") and request.url.path != "/api/health":
