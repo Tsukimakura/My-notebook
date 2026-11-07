@@ -64,10 +64,10 @@ extra_javascript:
   - javascripts/katex.js
   - assets/vendor/markdown-it/markdown-it.min.js
   - assets/vendor/dompurify/purify.min.js
-  - javascripts/notebook-ai.js?v=3
+  - javascripts/notebook-ai.js?v=4
 
 extra_css:
   - assets/vendor/katex/katex.min.css
-  - stylesheets/notebook-ai.css?v=3
+  - stylesheets/notebook-ai.css?v=4
 
 copyright: Copyright © 2025 Tsukimakura

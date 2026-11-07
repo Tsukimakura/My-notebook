@@ -6,7 +6,7 @@ notes.example.com {
         max_size 20KB
     }
     handle /api/* {
-        header Cache-Control "no-store"
+        header Cache-Control "no-store, no-transform"
         reverse_proxy notebook-app:8000 {
             transport http {
                 response_header_timeout 180s

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <p>默认临时保存。7 天和 30 天会把 key 保存到此设备的浏览器中，同源脚本可以读取；请只在自己的设备上启用。到期不再使用，下次打开时清除。收起对话栏不会清除 key。</p>
       <details><summary>密钥、隐私与费用说明</summary>
         <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不持久化 key、问题或回答，也不写入应用日志。</p>
-        <p>每次提问通常调用两次模型。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，费用由你承担，供应商的数据处理政策仍然适用。</p>
+        <p>每次提问通常调用两次模型，回答生成预算上限为 8,192 tokens（推理模型可能将思考计入预算），详细回答可能花费更多时间和费用。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。</p>
         <p>对话只保留在当前页面内存中；刷新会清除对话，站内笔记跳转会保留。不要输入其他密码、服务器凭据或敏感个人信息。</p>
       </details>
       <label class="notebook-ai-consent"><input type="checkbox" data-consent required>我了解密钥保存与转发、对话发送和费用说明</label>
@@ -48,12 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
     <p data-status role="status" aria-live="polite"></p>
     <form data-chat-form autocomplete="off">
       <label>你的问题<textarea data-question required maxlength="4000" rows="3" placeholder="例如：条件概率和事件独立有什么区别？"></textarea></label>
-      <div class="notebook-ai-actions"><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button></div>
+      <div class="notebook-ai-actions"><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden>准备续写</button></div>
     </form></section>`;
   document.body.append(launch, panel);
   const get = name => panel.querySelector(`[data-${name}]`);
   let pending = null;
   let turns = [];
+  let lastIncomplete = false;
   let credential = null;
   let expiryTimer = null;
   const credentialName = "notebook-ai.credentials.v1";
@@ -140,6 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
   get("new").addEventListener("click", () => {
     if (pending) return;
     turns = [];
+    lastIncomplete = false;
+    get("continue").hidden = true;
     get("messages").replaceChildren();
     get("question").value = "";
     get("status").textContent = "已开始新对话。";
@@ -178,7 +181,12 @@ document.addEventListener("DOMContentLoaded", () => {
     summary();
     get("settings-status").textContent = stored ? "设置已保存。" : "浏览器禁止存储，key 仅在本页暂存，刷新后需重新填写。";
     // Never silently send a previous provider's conversation to a new one.
-    if (changed) { turns = []; get("messages").replaceChildren(); }
+    if (changed) {
+      turns = [];
+      lastIncomplete = false;
+      get("continue").hidden = true;
+      get("messages").replaceChildren();
+    }
     showSettings(false);
     get("status").textContent = stored ? "设置已保存，可以开始提问。" : get("settings-status").textContent;
     get("question").focus();
@@ -363,9 +371,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return box.scrollHeight - box.scrollTop - box.clientHeight < 100;
   };
   const requestBody = question => {
+    const historyAnswer = text => text.length <= 4000 ? text
+      : text.slice(0, 600) + "\n[历史回答中段已省略，以下为末尾]\n" + text.slice(-3300);
     const history = turns.slice(-3).flatMap(turn => [
-      {role: "user", content: turn.question.slice(0, 4000)},
-      {role: "assistant", content: turn.answer.slice(0, 4000)},
+      {role: "user", content: turn.question.slice(0, 1000)},
+      {role: "assistant", content: historyAnswer(turn.answer)},
     ]);
     const payload = {provider: preferences.provider, model: preferences.models[preferences.provider], question, history};
     // Stay below the existing 20 KB proxy/body cap, including UTF-8 and JSON escaping.
@@ -375,8 +385,64 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return bytes(payload) <= 18000 ? JSON.stringify(payload) : null;
   };
+  const readAnswer = async response => {
+    const type = response.headers.get("content-type") || "";
+    if (type.includes("application/json")) {
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "请求失败，请稍后重试。");
+      return data;
+    }
+    if (!response.ok || !type.includes("text/event-stream") || !response.body?.getReader) {
+      const ray = response.headers.get("cf-ray") || "";
+      const reference = /^[a-f0-9]+-[A-Z0-9]+$/i.test(ray) ? `，追踪编号 ${ray}` : "";
+      throw new Error(`代理或服务器返回异常（HTTP ${response.status || "未知"}${reference}），请稍后重试。`);
+    }
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder("utf-8", {fatal: true});
+    let buffer = "";
+    let bytes = 0;
+    try {
+      while (true) {
+        const {done, value} = await reader.read();
+        if (done) throw new Error("回答连接提前结束，尚未收到完整结果；已发出的调用仍可能产生费用。");
+        bytes += value.byteLength;
+        if (bytes > 1_000_000) throw new Error("回答数据超过大小限制。");
+        buffer = (buffer + decoder.decode(value, {stream: true})).replace(/\r\n/g, "\n");
+        let boundary;
+        while ((boundary = buffer.indexOf("\n\n")) >= 0) {
+          const lines = buffer.slice(0, boundary).split("\n");
+          buffer = buffer.slice(boundary + 2);
+          const name = lines.find(line => line.startsWith("event:"))?.slice(6).trim();
+          const payload = lines.filter(line => line.startsWith("data:")).map(line => line.slice(5).trimStart()).join("\n");
+          if (!payload) continue;
+          const data = JSON.parse(payload);
+          if (name === "error") throw new Error(data.error || "模型未能完成回答，请稍后重试。");
+          if (name === "complete") return data;
+          if (name === "progress") {
+            const stage = data.stage === "answer" ? "正在等待模型生成回答" : "正在扩展检索词并检索笔记";
+            const seconds = Number.isFinite(data.elapsed) && data.elapsed >= 0 ? Math.round(data.elapsed) : 0;
+            get("status").textContent = `${stage}，已等待 ${seconds} 秒。你可以继续浏览笔记……`;
+          }
+        }
+      }
+    } finally {
+      try { await reader.cancel(); } catch { /* The connection may already be closed. */ }
+      reader.releaseLock();
+    }
+  };
+  const incompleteMessage = reason => reason === "max_tokens"
+    ? "回答达到模型输出上限，尚未完成。可准备续写，或把问题拆成几个部分。"
+    : reason === "size_limit"
+    ? "回答达到本站单条长度上限，后续内容未展示。可分部分继续提问。"
+    : "供应商未正常完成这条回答，内容可能不完整。可准备续写或稍后重试。";
   let stopped = false;
   get("stop").addEventListener("click", () => { stopped = true; pending?.abort(); });
+  get("continue").addEventListener("click", () => {
+    if (pending || !lastIncomplete) return;
+    get("question").value = "请继续上一条未完成的回答，从断点接着讲解；若最后一个公式或代码块未写完，请将它完整重写，再继续后续内容。";
+    get("question").focus();
+    get("status").textContent = "已准备续写问题。点击发送后才会调用模型并按实际用量计费。";
+  });
   get("chat-form").addEventListener("submit", async event => {
     event.preventDefault();
     if (pending) return;
@@ -397,48 +463,54 @@ document.addEventListener("DOMContentLoaded", () => {
     const userMessage = addMessage("user", question);
     get("question").value = "";
     get("status").textContent = "正在检索笔记并等待模型回答，你可以继续浏览左侧笔记……";
-    for (const name of ["submit", "new", "save"]) get(name).disabled = true;
+    for (const name of ["submit", "new", "save", "continue"]) get(name).disabled = true;
     get("stop").hidden = false;
     scrollMessages();
     stopped = false;
     const controller = new AbortController();
     pending = controller;
-    const timer = setTimeout(() => controller.abort(), 115000);
+    const started = performance.now();
+    const timer = setTimeout(() => controller.abort(), 265000);
     try {
       const response = await fetch("/api/ask", {
         method: "POST", credentials: "omit", cache: "no-store", redirect: "error",
-        headers: {"Content-Type": "application/json", "Authorization": `Bearer ${credential.key}`},
+        headers: {"Content-Type": "application/json", "Accept": "text/event-stream",
+          "Cache-Control": "no-store, no-transform", "Authorization": `Bearer ${credential.key}`},
         body, signal: controller.signal,
       });
-      if (!response.headers.get("content-type")?.includes("application/json")) {
-        throw new Error(`代理或服务器返回异常（HTTP ${response.status || "未知"}），请稍后重试。`);
-      }
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "请求失败，请稍后重试。");
+      const data = await readAnswer(response);
       if (typeof data.answer !== "string" || !data.answer.trim() || !Array.isArray(data.sources)) {
         throw new Error("回答格式异常，请稍后重试。");
       }
       const follow = nearBottom();
       const output = addMessage("assistant", "");
       const formatted = render(data.answer, data.sources, output.content, output.sources);
+      lastIncomplete = data.truncated === true;
+      if (lastIncomplete) {
+        const warning = document.createElement("p");
+        warning.className = "notebook-ai-warning";
+        warning.textContent = incompleteMessage(data.finish_reason);
+        output.message.insertBefore(warning, output.content);
+      }
       turns.push({question, answer: data.answer});
       turns = turns.slice(-3);
       if (follow) scrollMessages();
-      get("status").textContent = !formatted
-        ? "回答已收到，排版资源未加载，暂以纯文本显示。刷新页面会清除对话。"
-        : data.expansion_failed
-        ? "检索词扩展失败，已使用原问题检索。可以继续追问，请核对笔记来源。"
-        : "回答完成，可以继续追问。引用不代表结论已经核验。";
+      const notices = [];
+      if (lastIncomplete) notices.push(incompleteMessage(data.finish_reason));
+      if (!formatted) notices.push("排版资源未加载，暂以纯文本显示。刷新页面会清除对话。");
+      if (data.expansion_failed) notices.push("检索词扩展失败，已使用原问题检索，请核对笔记来源。");
+      get("status").textContent = notices.join(" ") || "回答完成，可以继续追问。引用不代表结论已经核验。";
     } catch (error) {
       userMessage.message.classList.add("notebook-ai-failed");
       if (!get("question").value) get("question").value = question;
       get("status").textContent = error.name === "AbortError"
         ? `${stopped ? "已停止等待" : "请求超时"}。已发出的供应商调用仍可能产生费用。`
-        : error.message;
+        : `${error.message}（等待 ${Math.round((performance.now() - started) / 1000)} 秒）`;
     } finally {
       clearTimeout(timer);
       pending = null;
-      for (const name of ["submit", "new", "save"]) get(name).disabled = false;
+      for (const name of ["submit", "new", "save", "continue"]) get(name).disabled = false;
+      get("continue").hidden = !lastIncomplete;
       get("stop").hidden = true;
     }
   });

@@ -32,6 +32,7 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 .notebook-ai-question { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; line-height: 1.7; }
 .notebook-ai-user { background: var(--md-code-bg-color, #eee); border-radius: .4rem; padding: .6rem; }
 .notebook-ai-failed { opacity: .65; }
+.notebook-ai .notebook-ai-warning { padding: .5rem; margin: .4rem 0; border-left: 3px solid var(--md-accent-fg-color, #1565c0); background: var(--md-code-bg-color, #eee); font-weight: 600; }
 .notebook-ai-chat > form, .notebook-ai-chat > [data-status] { flex-shrink: 0; }
 .notebook-ai-open .md-sidebar--secondary { display: none; }
 @media (min-width: 1220px) {
