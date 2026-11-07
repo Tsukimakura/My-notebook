@@ -1,6 +1,6 @@
 # Tsukimakura's notebook
 
-支持个人服务器部署与站内 AI 问答；迁移期间旧站：<https://Tsukimakura.github.io/My-notebook/>。
+支持个人服务器部署与站内 AI 问答；访问：<https://notes.tsukimakura.com/>。
 
 一个以计算机科学、信息安全与基础学科为主的学习知识库。已发布内容位于 `docs/`；`drafts/` 仅用于暂存尚未归类的材料，不会随网站发布。
 
