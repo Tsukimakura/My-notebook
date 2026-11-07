@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+const renderNotebookMath = () => {
   const mathBlocks = document.querySelectorAll(".arithmatex");
 
   mathBlocks.forEach((mathBlock) => renderMathInElement(mathBlock, {
@@ -12,4 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
     strict: "warn",
     trust: false
   }));
-});
+};
+// Material emits document$ again after each instant page navigation.
+if (typeof document$ !== "undefined") {
+  document$.subscribe(renderNotebookMath);
+} else {
+  document.addEventListener("DOMContentLoaded", renderNotebookMath);
+}

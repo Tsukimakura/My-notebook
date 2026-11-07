@@ -39,6 +39,7 @@ clean:
 ai-bootstrap:
 	$(VENV)/bin/python -m pip install -r backend/requirements.txt
 
+ai-serve: export PUBLIC_ORIGIN := http://127.0.0.1:$(PORT)
 ai-serve: build
 	$(VENV)/bin/python scripts/build_retrieval_index.py
 	PUBLIC_ORIGIN=http://127.0.0.1:$(PORT) $(VENV)/bin/uvicorn backend.app:create_app --factory --host 127.0.0.1 --port $(PORT) --workers 1 --no-access-log --no-proxy-headers --no-server-header

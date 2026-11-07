@@ -3,20 +3,20 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const {JSDOM} = require('jsdom');
 
-async function setup(t, fetch, {rendering = true} = {}) {
+async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = true, retention = 'session', blockStorage = false} = {}) {
   const dom = new JSDOM('<!doctype html><body></body>', {
     url: 'https://notes.example.com/a-note/', runScripts: 'outside-only',
   });
   t.after(() => dom.window.close());
   const {window} = dom;
+  window.TextEncoder = TextEncoder;
+  for (const area of ['localStorage', 'sessionStorage']) {
+    for (const [key, value] of Object.entries(storageState[area] || {})) window[area].setItem(key, value);
+  }
+  if (blockStorage) window.Storage.prototype.setItem = () => { throw new Error('blocked'); };
   if (window.document.readyState === 'loading') {
     await new Promise(resolve => window.document.addEventListener('DOMContentLoaded', resolve, {once: true}));
   }
-  window.HTMLDialogElement.prototype.showModal = function () { this.open = true; };
-  window.HTMLDialogElement.prototype.close = function () {
-    this.open = false;
-    this.dispatchEvent(new window.Event('close'));
-  };
   window.fetch = fetch;
   if (rendering) {
     for (const asset of ['markdown-it/markdown-it.min.js', 'dompurify/purify.min.js', 'katex/katex.min.js']) {
@@ -26,20 +26,25 @@ async function setup(t, fetch, {rendering = true} = {}) {
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
   window.document.querySelector('.notebook-ai-launch').click();
-  const panel = window.document.querySelector('dialog');
+  const panel = window.document.querySelector('.notebook-ai');
   const get = name => panel.querySelector(`[data-${name}]`);
-  get('key').value = 'test-not-a-real-key';
-  get('model').value = 'test-model';
+  const save = () => get('settings-form').dispatchEvent(new window.Event('submit', {bubbles: true, cancelable: true}));
+  if (autoSave) {
+    get('key').value = 'test-not-a-real-key';
+    get('model').value = 'test-model';
+    get('retention').value = retention;
+    get('consent').checked = true;
+    save();
+  }
   get('question').value = '条件概率是什么？';
-  get('consent').checked = true;
   const submit = async () => {
-    panel.querySelector('form').dispatchEvent(new window.Event('submit', {bubbles: true, cancelable: true}));
+    get('chat-form').dispatchEvent(new window.Event('submit', {bubbles: true, cancelable: true}));
     await new Promise(setImmediate);
   };
-  return {window, panel, get, submit};
+  return {window, panel, get, submit, save};
 }
 
-test('model HTML stays text, citations stay same-origin, keys stay out of storage and body', async t => {
+test('model HTML stays text, citations stay same-origin, key only enters opted storage and auth header', async t => {
   let request;
   const {window, get, submit} = await setup(t, async (url, options) => {
     request = {url, ...options};
@@ -58,30 +63,36 @@ test('model HTML stays text, citations stay same-origin, keys stay out of storag
   assert.equal(request.url, '/api/ask');
   assert.equal(request.headers.Authorization, 'Bearer test-not-a-real-key');
   assert.ok(!request.body.includes('test-not-a-real-key'));
-  assert.equal(window.localStorage.length, 0);
-  assert.equal(window.sessionStorage.length, 0);
+  assert.ok(!JSON.stringify(window.localStorage).includes('test-not-a-real-key'));
+  assert.match(window.sessionStorage.getItem('notebook-ai.credentials.v1'), /test-not-a-real-key/);
   assert.equal(window.document.cookie, '');
 });
 
-test('closing clears key, question, answer and consent; changing provider clears credentials', async t => {
-  const {window, panel, get} = await setup(t, async () => { throw new Error('unused'); });
+test('collapsing preserves the conversation and settings; clear key removes both storage copies', async t => {
+  const {window, panel, get, submit} = await setup(t, answerResponse('old answer'));
+  await submit();
   get('provider').value = 'anthropic';
   get('provider').dispatchEvent(new window.Event('change'));
   assert.equal(get('key').value, '');
   assert.equal(get('model').value, '');
   get('key').value = 'test-secret';
-  get('answer').textContent = 'old answer';
-  panel.close();
+  get('close').click();
+  assert.equal(panel.hidden, true);
+  assert.equal(get('key').value, 'test-secret');
+  assert.equal(get('answer').textContent.trim(), 'old answer');
+  window.document.querySelector('.notebook-ai-launch').click();
+  get('clear').click();
   assert.equal(get('key').value, '');
-  assert.equal(get('question').value, '');
-  assert.equal(get('answer').textContent, '');
+  assert.equal(get('answer').textContent.trim(), 'old answer');
   assert.equal(get('consent').checked, false);
+  assert.equal(window.sessionStorage.getItem('notebook-ai.credentials.v1'), null);
+  assert.equal(window.localStorage.getItem('notebook-ai.credentials.v1'), null);
 });
 
 test('HTML proxy errors produce a useful message and allow retry', async t => {
   const {get, submit} = await setup(t, async () => ({ok: false, headers: new Headers({'Content-Type': 'text/html'})}));
   await submit();
-  assert.match(get('status').textContent, /后端尚未接入/);
+  assert.match(get('status').textContent, /代理或服务器返回异常/);
   assert.equal(get('submit').disabled, false);
 });
 
@@ -187,4 +198,197 @@ test('math works in lists and quotes; escaped delimiters and code remain literal
   assert.match(output.textContent, /\$literal\$/);
   assert.match(output.textContent, /未闭合 \$x/);
   assert.ok(output.querySelector('a .katex'));
+});
+
+const credentialName = 'notebook-ai.credentials.v1';
+const preferenceName = 'notebook-ai.preferences.v1';
+const snapshot = window => Object.fromEntries(['localStorage', 'sessionStorage'].map(area => [area,
+  Object.fromEntries(Object.keys(window[area]).map(key => [key, window[area].getItem(key)])),
+]));
+
+test('temporary keys restore after refresh without extending their expiry; transcript does not persist', async t => {
+  const first = await setup(t, answerResponse('temporary answer'));
+  await first.submit();
+  const before = JSON.parse(first.window.sessionStorage.getItem(credentialName));
+  const next = await setup(t, async () => { throw new Error('unexpected'); }, {storageState: snapshot(first.window), autoSave: false});
+  assert.equal(next.get('key').value, 'test-not-a-real-key');
+  assert.equal(JSON.parse(next.window.sessionStorage.getItem(credentialName)).expiresAt, before.expiresAt);
+  assert.equal(next.get('answer'), null);
+  assert.ok(!JSON.stringify(snapshot(first.window)).includes('temporary answer'));
+  assert.equal(before.expiresAt > Date.now() + 119 * 60000, true);
+});
+
+test('7 and 30 day persistence is opt-in, has a fixed expiry, and can be explicitly removed', async t => {
+  for (const days of [7, 30]) {
+    const first = await setup(t, answerResponse('ok'), {retention: String(days)});
+    const stored = JSON.parse(first.window.localStorage.getItem(credentialName));
+    assert.ok(Math.abs(stored.expiresAt - Date.now() - days * 86400000) < 3000);
+    assert.equal(first.window.sessionStorage.getItem(credentialName), null);
+    const next = await setup(t, answerResponse('ok'), {autoSave: false, storageState: {localStorage: snapshot(first.window).localStorage}});
+    assert.equal(next.get('key').value, stored.key);
+    await next.submit();
+    assert.equal(JSON.parse(next.window.localStorage.getItem(credentialName)).expiresAt, stored.expiresAt);
+    next.get('clear').click();
+    assert.equal(next.window.localStorage.getItem(credentialName), null);
+    assert.ok(!next.get('summary').textContent.includes(stored.key));
+  }
+});
+
+test('expired and malformed saved credentials are removed and never sent', async t => {
+  for (const value of ['{bad json', JSON.stringify({key: 'test-not-a-real-key', provider: 'openai', consent: true, expiresAt: Date.now() - 100})]) {
+    let requests = 0;
+    const {window, get, submit} = await setup(t, async () => { requests++; }, {
+      autoSave: false, storageState: {localStorage: {[credentialName]: value}},
+    });
+    assert.equal(window.localStorage.getItem(credentialName), null);
+    assert.equal(get('key').value, '');
+    await submit();
+    assert.equal(requests, 0);
+    assert.match(get('settings-status').textContent, /先保存设置/);
+  }
+});
+
+test('expiry is rechecked before sending even if the browser throttled timers', async t => {
+  let calls = 0;
+  const {window, get, submit} = await setup(t, async () => { calls++; });
+  window.Date.now = () => Date.now() + 3 * 3600000;
+  await submit();
+  assert.equal(calls, 0);
+  assert.equal(get('key').value, '');
+  assert.equal(window.sessionStorage.getItem(credentialName), null);
+});
+
+test('follow-ups include bounded successful turns; each answer keeps its own sources and new chat clears context', async t => {
+  const requests = [];
+  const {get, submit} = await setup(t, async (url, options) => {
+    requests.push(JSON.parse(options.body));
+    return {ok: true, headers: new Headers({'Content-Type': 'application/json'}), json: async () => ({
+      answer: `回答 ${requests.length} [1]`, sources: [{id: 1, title: `笔记 ${requests.length}`, url: `/note-${requests.length}/`}],
+    })};
+  });
+  await submit();
+  get('question').value = '再举一个例子';
+  await submit();
+  assert.deepEqual(requests[1].history, [{role: 'user', content: '条件概率是什么？'}, {role: 'assistant', content: '回答 1 [1]'}]);
+  assert.equal(get('messages').querySelectorAll('[data-answer]').length, 2);
+  assert.equal(get('messages').querySelectorAll('[data-answer] a')[0].pathname, '/note-1/');
+  assert.equal(get('messages').querySelectorAll('[data-answer] a')[1].pathname, '/note-2/');
+  get('new').click();
+  get('question').value = '新问题';
+  await submit();
+  assert.deepEqual(requests[2].history, []);
+});
+
+test('UTF-8 history is pruned as full pairs under the proxy limit', async t => {
+  const requests = [];
+  const {get, submit} = await setup(t, async (url, options) => {
+    requests.push(options.body);
+    return answerResponse('长'.repeat(4000))();
+  });
+  for (let i = 0; i < 5; i++) {
+    get('question').value = '问'.repeat(2000);
+    await submit();
+  }
+  for (const body of requests) {
+    assert.ok(Buffer.byteLength(body, 'utf8') <= 18000);
+    const history = JSON.parse(body).history;
+    assert.equal(history.length % 2, 0);
+    assert.ok(history.length <= 6);
+  }
+});
+
+test('reading and collapsing while pending do not abort; failed rounds do not enter history', async t => {
+  let resolve;
+  let signal;
+  const {window, panel, get, submit} = await setup(t, async (url, options) => {
+    signal = options.signal;
+    return new Promise(r => { resolve = r; });
+  });
+  await submit();
+  assert.equal(get('close').disabled, false);
+  assert.equal(get('settings').disabled, false);
+  assert.equal(get('new').disabled, true);
+  get('close').click();
+  assert.equal(signal.aborted, false);
+  // Material replaces only its container, not the body-mounted chat panel.
+  const container = window.document.createElement('main');
+  container.setAttribute('data-md-component', 'container');
+  window.document.body.prepend(container);
+  container.replaceWith(window.document.createElement('main'));
+  resolve(await answerResponse('background answer')());
+  await new Promise(setImmediate);
+  assert.match(get('answer').textContent, /background answer/);
+  assert.equal(panel.hidden, true);
+  window.document.querySelector('.notebook-ai-launch').click();
+  assert.equal(panel.hidden, false);
+  assert.equal(window.document.querySelectorAll('.notebook-ai').length, 1);
+});
+
+test('changing provider and saving starts a new conversation; remembered models are per provider', async t => {
+  let last;
+  const {window, get, save, submit} = await setup(t, async (url, options) => {
+    last = JSON.parse(options.body);
+    return answerResponse('old provider answer')();
+  });
+  await submit();
+  get('provider').value = 'deepseek';
+  get('provider').dispatchEvent(new window.Event('change'));
+  assert.equal(get('key').value, '');
+  get('key').value = 'test-deepseek-key';
+  get('model').value = 'my-available-model';
+  get('consent').checked = true;
+  save();
+  get('question').value = '新供应商问题';
+  await submit();
+  assert.deepEqual(last.history, []);
+  assert.equal(last.provider, 'deepseek');
+  get('provider').value = 'openai';
+  get('provider').dispatchEvent(new window.Event('change'));
+  assert.equal(get('model').value, 'test-model');
+});
+
+test('failed requests restore the question, allow retry, and are not replayed as history', async t => {
+  let calls = 0;
+  let retried;
+  const {get, submit} = await setup(t, async (url, options) => {
+    if (++calls === 1) return {ok: false, headers: new Headers({'Content-Type': 'application/json'}), json: async () => ({error: '模型暂不可用'})};
+    retried = JSON.parse(options.body);
+    return answerResponse('retry works')();
+  });
+  await submit();
+  assert.equal(get('question').value, '条件概率是什么？');
+  assert.equal(get('submit').disabled, false);
+  await submit();
+  assert.deepEqual(retried.history, []);
+});
+
+test('blocked browser storage falls back to page memory with a clear notice', async t => {
+  const {window, get, submit} = await setup(t, answerResponse('memory works'), {blockStorage: true, retention: '30'});
+  assert.match(get('status').textContent, /浏览器禁止存储/);
+  assert.equal(window.localStorage.getItem(credentialName), null);
+  assert.equal(window.sessionStorage.getItem(credentialName), null);
+  await submit();
+  assert.match(get('answer').textContent, /memory works/);
+});
+
+test('explicit clearing in another tab invalidates a persistent key in memory', async t => {
+  let calls = 0;
+  const {window, get, submit} = await setup(t, async () => { calls++; }, {retention: '7'});
+  window.localStorage.removeItem(credentialName);
+  window.dispatchEvent(new window.StorageEvent('storage', {key: credentialName, newValue: null}));
+  assert.equal(get('key').value, '');
+  await submit();
+  assert.equal(calls, 0);
+});
+
+test('stop waiting aborts the browser request, unlocks retry, and states possible charges', async t => {
+  const {window, get, submit} = await setup(t, async (url, options) => new Promise((resolve, reject) => {
+    options.signal.addEventListener('abort', () => reject(new window.DOMException('Aborted', 'AbortError')));
+  }));
+  await submit();
+  get('stop').click();
+  await new Promise(setImmediate);
+  assert.match(get('status').textContent, /已停止等待.*仍可能产生费用/);
+  assert.equal(get('submit').disabled, false);
+  assert.equal(get('question').value, '条件概率是什么？');
 });

@@ -1,51 +1,198 @@
-/* BYOK credentials live only in this input; no storage, cookies, URL, or analytics. */
+/* BYOK credentials are saved only by explicit settings, with a fixed expiry. */
 document.addEventListener("DOMContentLoaded", () => {
+  if (document.querySelector(".notebook-ai")) return;
   const launch = document.createElement("button");
   launch.className = "notebook-ai-launch";
   launch.textContent = "问笔记";
   launch.type = "button";
-  const panel = document.createElement("dialog");
+  launch.setAttribute("aria-expanded", "false");
+  launch.setAttribute("aria-controls", "notebook-ai");
+  const panel = document.createElement("aside");
+  panel.id = "notebook-ai";
+  panel.hidden = true;
   panel.className = "notebook-ai";
   panel.setAttribute("aria-label", "笔记 AI 助手");
-  // Fixed markup only; model Markdown is separately parsed and sanitized below.
+  // Fixed markup only; model Markdown is parsed and sanitized separately.
   panel.innerHTML = `
-    <div class="notebook-ai-heading"><h2>问笔记</h2><button type="button" data-close aria-label="关闭">×</button></div>
-    <p>先检索本站笔记，再结合模型知识回答。补充内容会单独标注，请核对来源。</p>
-    <details><summary>密钥、隐私与费用说明</summary>
-      <p>使用你自己的 API key，调用费用由你承担。每次提问通常调用两次模型：扩展检索词和生成回答。</p>
-      <p>key 仅保存在当前页面内存中，关闭面板或刷新后清除；经 HTTPS、Cloudflare 和本站后端转发给所选供应商。本站后端不持久化 key、问题或回答，也不写入应用日志。</p>
-      <p>问题及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。不要输入其他密码、服务器凭据或敏感个人信息。</p>
-    </details>
-    <form autocomplete="off">
+    <div class="notebook-ai-heading"><h2>问笔记</h2><div>
+      <button type="button" data-settings aria-expanded="false">设置</button>
+      <button type="button" data-new>新对话</button>
+      <button type="button" data-close aria-label="收起对话栏">×</button>
+    </div></div>
+    <p data-summary class="notebook-ai-summary"></p>
+    <section data-settings-view hidden aria-label="AI 设置">
+    <form data-settings-form autocomplete="off">
       <label>供应商<select data-provider><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="anthropic">Anthropic</option></select></label>
-      <label>模型 ID<input data-model required maxlength="100" placeholder="填写该供应商账户可用的模型 ID" autocomplete="off" spellcheck="false"></label>
+      <label>模型 ID<input data-model required maxlength="100" placeholder="填写账户可用的模型 ID，只需设置一次" autocomplete="off" spellcheck="false"></label>
       <label>API key<input data-key type="password" required maxlength="512" autocomplete="off" spellcheck="false"></label>
-      <button type="button" data-clear>清除 key 和回答</button>
-      <label>你的问题<textarea data-question required maxlength="4000" rows="4" placeholder="例如：条件概率和事件独立有什么区别？"></textarea></label>
-      <label class="notebook-ai-consent"><input type="checkbox" data-consent required>我了解密钥转发、数据发送和费用说明</label>
-      <button type="submit" data-submit>检索并回答</button>
+      <label>密钥保存时间<select data-retention>
+        <option value="session">临时：当前标签页，最多 2 小时</option>
+        <option value="7">在此浏览器记住 7 天</option>
+        <option value="30">在此浏览器记住 30 天</option>
+      </select></label>
+      <p>默认临时保存。7 天和 30 天会把 key 保存到此设备的浏览器中，同源脚本可以读取；请只在自己的设备上启用。到期不再使用，下次打开时清除。收起对话栏不会清除 key。</p>
+      <details><summary>密钥、隐私与费用说明</summary>
+        <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不持久化 key、问题或回答，也不写入应用日志。</p>
+        <p>每次提问通常调用两次模型。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，费用由你承担，供应商的数据处理政策仍然适用。</p>
+        <p>对话只保留在当前页面内存中；刷新会清除对话，站内笔记跳转会保留。不要输入其他密码、服务器凭据或敏感个人信息。</p>
+      </details>
+      <label class="notebook-ai-consent"><input type="checkbox" data-consent required>我了解密钥保存与转发、对话发送和费用说明</label>
+      <div class="notebook-ai-actions"><button type="submit" data-save>保存设置</button><button type="button" data-clear>清除已保存 key</button></div>
     </form>
+    <p data-settings-status role="status"></p>
+    </section>
+    <section data-chat-view class="notebook-ai-chat" aria-label="笔记对话">
+    <div data-messages class="notebook-ai-messages" aria-label="对话记录">
+      <p>根据笔记提问，也可以继续追问。回答中的笔记链接会在左侧打开。</p>
+    </div>
     <p data-status role="status" aria-live="polite"></p>
-    <div data-answer class="notebook-ai-answer"></div>
-    <ol data-sources class="notebook-ai-sources" aria-label="本次检索来源"></ol>`;
+    <form data-chat-form autocomplete="off">
+      <label>你的问题<textarea data-question required maxlength="4000" rows="3" placeholder="例如：条件概率和事件独立有什么区别？"></textarea></label>
+      <div class="notebook-ai-actions"><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button></div>
+    </form></section>`;
   document.body.append(launch, panel);
-  const get = (name) => panel.querySelector(`[data-${name}]`);
+  const get = name => panel.querySelector(`[data-${name}]`);
   let pending = null;
-  const clear = () => {
-    get("key").value = "";
-    get("question").value = "";
-    get("answer").replaceChildren();
-    get("sources").replaceChildren();
-    get("status").textContent = "";
-    get("consent").checked = false;
+  let turns = [];
+  let credential = null;
+  let expiryTimer = null;
+  const credentialName = "notebook-ai.credentials.v1";
+  const preferenceName = "notebook-ai.preferences.v1";
+  const providers = ["openai", "deepseek", "anthropic"];
+  const storage = (area, action, name, value) => {
+    try { return window[area][action](name, value); } catch { return null; }
   };
-  launch.addEventListener("click", () => panel.showModal());
-  get("close").addEventListener("click", () => panel.close());
-  panel.addEventListener("close", () => { pending?.abort(); clear(); });
-  get("clear").addEventListener("click", clear);
-  get("provider").addEventListener("change", () => {
+  const read = (area, name) => {
+    try { return JSON.parse(storage(area, "getItem", name)); } catch { return null; }
+  };
+  const saved = read("localStorage", preferenceName);
+  const preferences = {provider: providers.includes(saved?.provider) ? saved.provider : "openai",
+    models: {}, retention: ["session", "7", "30"].includes(saved?.retention) ? saved.retention : "session"};
+  for (const provider of providers) {
+    if (typeof saved?.models?.[provider] === "string" && /^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,99}$/.test(saved.models[provider])) {
+      preferences.models[provider] = saved.models[provider];
+    }
+  }
+  const summary = () => {
+    get("summary").textContent = `${preferences.provider} · ${preferences.models[preferences.provider] || "请设置模型"} · ${credential ? "key 已就绪" : "请在设置中填写 key"}`;
+  };
+  const forget = (all = true) => {
+    const previous = credential;
+    credential = null;
+    clearTimeout(expiryTimer);
+    for (const area of ["sessionStorage", "localStorage"]) {
+      const stored = read(area, credentialName);
+      if (all || (area === previous?.area && stored?.expiresAt === previous.expiresAt && stored?.key === previous.key)) {
+        storage(area, "removeItem", credentialName);
+      }
+    }
     get("key").value = "";
-    get("model").value = "";
+    get("consent").checked = false;
+    summary();
+  };
+  const scheduleExpiry = () => {
+    clearTimeout(expiryTimer);
+    if (credential) expiryTimer = setTimeout(() => {
+      // Browser timers are capped at ~24.8 days; recheck before expiring 30-day keys.
+      if (credential && credential.expiresAt > Date.now()) { scheduleExpiry(); return; }
+      forget(false);
+      get("settings-status").textContent = "已保存的 key 到期，请重新填写。";
+    }, Math.min(credential.expiresAt - Date.now(), 2147483647));
+  };
+  for (const area of ["sessionStorage", "localStorage"]) {
+    const value = read(area, credentialName);
+    if (value && providers.includes(value.provider) && typeof value.key === "string"
+        && /^[!-~]{8,512}$/.test(value.key) && value.consent === true
+        && Number.isFinite(value.expiresAt) && value.expiresAt > Date.now()
+        && value.expiresAt <= Date.now() + 30 * 86400000) {
+      if (value.provider === preferences.provider) credential = {...value, area};
+    } else storage(area, "removeItem", credentialName);
+  }
+  get("provider").value = preferences.provider;
+  get("model").value = preferences.models[preferences.provider] || "";
+  get("retention").value = preferences.retention;
+  get("key").value = credential?.key || "";
+  get("consent").checked = Boolean(credential);
+  summary();
+  scheduleExpiry();
+  const showSettings = show => {
+    get("settings-view").hidden = !show;
+    get("chat-view").hidden = show;
+    get("settings").setAttribute("aria-expanded", String(show));
+    get("settings").textContent = show ? "返回对话" : "设置";
+  };
+  const showPanel = show => {
+    panel.hidden = !show;
+    document.body.classList.toggle("notebook-ai-open", show);
+    launch.hidden = show;
+    launch.setAttribute("aria-expanded", String(show));
+  };
+  launch.addEventListener("click", () => {
+    showPanel(true);
+    if (!credential || !preferences.models[preferences.provider]) showSettings(true);
+  });
+  get("close").addEventListener("click", () => { showPanel(false); launch.focus(); });
+  get("settings").addEventListener("click", () => showSettings(get("settings-view").hidden));
+  get("clear").addEventListener("click", () => {
+    forget();
+    get("settings-status").textContent = "已清除浏览器和当前页面保存的 key。";
+  });
+  get("new").addEventListener("click", () => {
+    if (pending) return;
+    turns = [];
+    get("messages").replaceChildren();
+    get("question").value = "";
+    get("status").textContent = "已开始新对话。";
+  });
+  get("provider").addEventListener("change", () => {
+    get("key").value = get("provider").value === credential?.provider ? credential.key : "";
+    get("model").value = preferences.models[get("provider").value] || "";
+    get("consent").checked = false;
+  });
+  get("settings-form").addEventListener("submit", event => {
+    event.preventDefault();
+    if (pending) return;
+    const provider = get("provider").value;
+    const model = get("model").value.trim();
+    const key = get("key").value.trim();
+    if (!providers.includes(provider) || !/^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,99}$/.test(model)
+        || !/^[!-~]{8,512}$/.test(key) || !get("consent").checked) {
+      get("settings-status").textContent = "请填写有效的模型 ID 和 key，并确认隐私与费用说明。";
+      return;
+    }
+    const changed = provider !== preferences.provider || model !== preferences.models[preferences.provider];
+    forget();
+    preferences.provider = provider;
+    preferences.models[provider] = model;
+    preferences.retention = ["7", "30"].includes(get("retention").value) ? get("retention").value : "session";
+    storage("localStorage", "setItem", preferenceName, JSON.stringify(preferences));
+    const duration = preferences.retention === "session" ? 2 * 3600000 : Number(preferences.retention) * 86400000;
+    const area = preferences.retention === "session" ? "sessionStorage" : "localStorage";
+    credential = {provider, key, consent: true, expiresAt: Date.now() + duration, area};
+    const value = JSON.stringify(credential);
+    storage(area, "setItem", credentialName, value);
+    const stored = storage(area, "getItem", credentialName) === value;
+    get("key").value = key;
+    get("consent").checked = true;
+    scheduleExpiry();
+    summary();
+    get("settings-status").textContent = stored ? "设置已保存。" : "浏览器禁止存储，key 仅在本页暂存，刷新后需重新填写。";
+    // Never silently send a previous provider's conversation to a new one.
+    if (changed) { turns = []; get("messages").replaceChildren(); }
+    showSettings(false);
+    get("status").textContent = stored ? "设置已保存，可以开始提问。" : get("settings-status").textContent;
+    get("question").focus();
+  });
+  window.addEventListener("storage", event => {
+    if ((event.key === credentialName || event.key === null) && credential?.area === "localStorage") {
+      // Do not remove a new value just written by another tab (no storage-event loop).
+      credential = null;
+      clearTimeout(expiryTimer);
+      get("key").value = "";
+      get("consent").checked = false;
+      summary();
+      get("settings-status").textContent = "其他标签页更改了密钥，请刷新或重新设置。";
+    }
   });
   const safeURL = (value) => {
     if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) return null;
@@ -148,8 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return url ? `<a href="${escape(url)}" title="${escape(source.title)}">[${id}]</a>` : `[${id}]`;
     };
   }
-  const render = (answer, sources) => {
-    const target = get("answer");
+  const render = (answer, sources, target, sourceList) => {
     target.replaceChildren();
     const formatted = markdown && window.DOMPurify?.isSupported && window.katex;
     if (formatted) {
@@ -174,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       target.textContent = answer;
     }
-    get("sources").replaceChildren();
+    sourceList.replaceChildren();
     for (const source of sources) {
       const url = safeURL(source.url);
       if (!url) continue;
@@ -183,52 +329,133 @@ document.addEventListener("DOMContentLoaded", () => {
       link.href = url;
       link.textContent = source.title;
       item.append(link);
-      get("sources").append(item);
+      sourceList.append(item);
     }
     return Boolean(formatted);
   };
-  panel.querySelector("form").addEventListener("submit", async (event) => {
+  const addMessage = (role, text) => {
+    const message = document.createElement("article");
+    message.className = `notebook-ai-message notebook-ai-${role}`;
+    message.setAttribute("aria-label", role === "user" ? "你的问题" : "模型回答");
+    const label = document.createElement("strong");
+    label.className = "notebook-ai-role";
+    label.textContent = role === "user" ? "你" : "笔记助手";
+    const content = document.createElement("div");
+    content.className = role === "user" ? "notebook-ai-question" : "notebook-ai-answer";
+    content.setAttribute(role === "user" ? "data-user" : "data-answer", "");
+    content.textContent = text;
+    message.append(label, content);
+    const sources = document.createElement("ol");
+    if (role === "assistant") {
+      sources.className = "notebook-ai-sources";
+      sources.setAttribute("data-sources", "");
+      sources.setAttribute("aria-label", "本轮检索来源");
+      message.append(sources);
+    }
+    get("messages").append(message);
+    // Bound DOM/memory growth during long study sessions.
+    while (get("messages").children.length > 40) get("messages").firstElementChild.remove();
+    return {message, content, sources};
+  };
+  const scrollMessages = () => { get("messages").scrollTop = get("messages").scrollHeight; };
+  const nearBottom = () => {
+    const box = get("messages");
+    return box.scrollHeight - box.scrollTop - box.clientHeight < 100;
+  };
+  const requestBody = question => {
+    const history = turns.slice(-3).flatMap(turn => [
+      {role: "user", content: turn.question.slice(0, 4000)},
+      {role: "assistant", content: turn.answer.slice(0, 4000)},
+    ]);
+    const payload = {provider: preferences.provider, model: preferences.models[preferences.provider], question, history};
+    // Stay below the existing 20 KB proxy/body cap, including UTF-8 and JSON escaping.
+    const bytes = value => new TextEncoder().encode(JSON.stringify(value)).length;
+    while (history.length && (history.reduce((n, item) => n + item.content.length, 0) > 8000 || bytes(payload) > 18000)) {
+      history.splice(0, 2);
+    }
+    return bytes(payload) <= 18000 ? JSON.stringify(payload) : null;
+  };
+  let stopped = false;
+  get("stop").addEventListener("click", () => { stopped = true; pending?.abort(); });
+  get("chat-form").addEventListener("submit", async event => {
     event.preventDefault();
     if (pending) return;
-    get("answer").replaceChildren();
-    get("sources").replaceChildren();
-    get("status").textContent = "正在扩展检索词、检索笔记并生成回答，请稍候……";
-    get("submit").disabled = true;
-    get("clear").disabled = true;
-    get("close").disabled = true;
-    // Keep the key in the input rather than copying it into long-lived state.
-    pending = new AbortController();
-    const timer = setTimeout(() => pending?.abort(), 115000);
+    if (credential && credential.expiresAt <= Date.now()) forget(false);
+    if (!credential) {
+      showSettings(true);
+      get("settings-status").textContent = "请先保存设置；key 可能已到期或被清除。";
+      return;
+    }
+    const question = get("question").value.trim();
+    if (!question || question.length > 4000) return;
+    const body = requestBody(question);
+    if (!body) {
+      get("status").textContent = "问题编码后过长，请缩短问题。";
+      return;
+    }
+    if (!turns.length && !get("messages").querySelector("article")) get("messages").replaceChildren();
+    const userMessage = addMessage("user", question);
+    get("question").value = "";
+    get("status").textContent = "正在检索笔记并等待模型回答，你可以继续浏览左侧笔记……";
+    for (const name of ["submit", "new", "save"]) get(name).disabled = true;
+    get("stop").hidden = false;
+    scrollMessages();
+    stopped = false;
+    const controller = new AbortController();
+    pending = controller;
+    const timer = setTimeout(() => controller.abort(), 115000);
     try {
       const response = await fetch("/api/ask", {
         method: "POST", credentials: "omit", cache: "no-store", redirect: "error",
-        headers: {"Content-Type": "application/json", "Authorization": `Bearer ${get("key").value.trim()}`},
-        body: JSON.stringify({provider: get("provider").value, model: get("model").value.trim(), question: get("question").value.trim()}),
-        signal: pending.signal,
+        headers: {"Content-Type": "application/json", "Authorization": `Bearer ${credential.key}`},
+        body, signal: controller.signal,
       });
       if (!response.headers.get("content-type")?.includes("application/json")) {
-        throw new Error("AI 后端尚未接入，或代理返回异常。请稍后重试。");
+        throw new Error(`代理或服务器返回异常（HTTP ${response.status || "未知"}），请稍后重试。`);
       }
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "请求失败，请稍后重试。");
-      if (panel.open) {
-        const formatted = render(data.answer, data.sources);
-        get("status").textContent = !formatted
-          ? "回答已收到，排版资源未加载，暂以纯文本显示。请刷新页面后重试。"
-          : data.expansion_failed
-          ? "检索词扩展失败，本次已使用原问题检索。以下链接是检索来源，引用不代表结论已经核验。"
-          : "回答完成。以下链接是检索来源，引用不代表结论已经核验。";
+      if (typeof data.answer !== "string" || !data.answer.trim() || !Array.isArray(data.sources)) {
+        throw new Error("回答格式异常，请稍后重试。");
       }
+      const follow = nearBottom();
+      const output = addMessage("assistant", "");
+      const formatted = render(data.answer, data.sources, output.content, output.sources);
+      turns.push({question, answer: data.answer});
+      turns = turns.slice(-3);
+      if (follow) scrollMessages();
+      get("status").textContent = !formatted
+        ? "回答已收到，排版资源未加载，暂以纯文本显示。刷新页面会清除对话。"
+        : data.expansion_failed
+        ? "检索词扩展失败，已使用原问题检索。可以继续追问，请核对笔记来源。"
+        : "回答完成，可以继续追问。引用不代表结论已经核验。";
     } catch (error) {
-      if (panel.open) get("status").textContent = error.name === "AbortError"
-        ? "请求超时。已发出的供应商调用仍可能产生费用。" : error.message;
+      userMessage.message.classList.add("notebook-ai-failed");
+      if (!get("question").value) get("question").value = question;
+      get("status").textContent = error.name === "AbortError"
+        ? `${stopped ? "已停止等待" : "请求超时"}。已发出的供应商调用仍可能产生费用。`
+        : error.message;
     } finally {
       clearTimeout(timer);
       pending = null;
-      get("submit").disabled = false;
-      get("clear").disabled = false;
-      get("close").disabled = false;
+      for (const name of ["submit", "new", "save"]) get(name).disabled = false;
+      get("stop").hidden = true;
     }
   });
-  window.addEventListener("pagehide", clear);
+  get("question").addEventListener("keydown", event => {
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey) && !event.isComposing) {
+      event.preventDefault();
+      get("chat-form").requestSubmit();
+    }
+  });
+  // Instant navigation only replaces the notebook container, leaving this panel and fetch alive.
+  // Full reloads clear conversations; BFCache returns must recheck credential expiry.
+  window.addEventListener("pageshow", () => {
+    if (credential && credential.expiresAt <= Date.now()) forget(false);
+    scheduleExpiry();
+  });
+  window.addEventListener("pagehide", () => {
+    clearTimeout(expiryTimer);
+    pending?.abort();
+  });
 });

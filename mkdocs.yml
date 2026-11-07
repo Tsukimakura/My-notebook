@@ -1,5 +1,6 @@
 site_name: Tsukimakura's notebook
 site_description: 计算机科学、信息安全与基础学科的学习笔记
+site_url: !ENV [PUBLIC_ORIGIN, 'https://notes.tsukimakura.com/']
 strict: true
 repo_url: https://github.com/Tsukimakura/My-notebook
 repo_name: Tsukimakura/My-notebook
@@ -25,6 +26,8 @@ theme:
       name: Switch to light mode
 
   features:
+      - navigation.instant # 切换笔记时保留对话和正在进行的请求
+      - navigation.instant.progress
       - navigation.top # 返回顶部按钮
       - navigation.tabs # 顶部分类标签
       - navigation.sections
@@ -61,10 +64,10 @@ extra_javascript:
   - javascripts/katex.js
   - assets/vendor/markdown-it/markdown-it.min.js
   - assets/vendor/dompurify/purify.min.js
-  - javascripts/notebook-ai.js?v=2
+  - javascripts/notebook-ai.js?v=3
 
 extra_css:
   - assets/vendor/katex/katex.min.css
-  - stylesheets/notebook-ai.css?v=2
+  - stylesheets/notebook-ai.css?v=3
 
 copyright: Copyright © 2025 Tsukimakura
