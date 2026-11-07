@@ -1,6 +1,9 @@
 PYTHON ?= python3
 VENV ?= .venv
+PORT ?= 8000
 MKDOCS := $(VENV)/bin/mkdocs
+# This project pins MkDocs 1.x. Suppress only Material's 2.0 migration notice.
+export NO_MKDOCS_2_WARNING := 1
 
 .PHONY: bootstrap serve build format lint check clean ai-bootstrap ai-serve test
 
@@ -11,7 +14,7 @@ bootstrap:
 	npm ci --ignore-scripts
 
 serve:
-	$(MKDOCS) serve
+	$(MKDOCS) serve --dev-addr 127.0.0.1:$(PORT)
 
 build:
 	$(MKDOCS) build
@@ -37,7 +40,7 @@ ai-bootstrap:
 
 ai-serve: build
 	$(VENV)/bin/python scripts/build_retrieval_index.py
-	PUBLIC_ORIGIN=http://127.0.0.1:8000 $(VENV)/bin/uvicorn backend.app:create_app --factory --host 127.0.0.1 --port 8000 --workers 1 --no-access-log --no-proxy-headers --no-server-header
+	PUBLIC_ORIGIN=http://127.0.0.1:$(PORT) $(VENV)/bin/uvicorn backend.app:create_app --factory --host 127.0.0.1 --port $(PORT) --workers 1 --no-access-log --no-proxy-headers --no-server-header
 
 test:
 	$(VENV)/bin/python -m unittest discover -s tests -v

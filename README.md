@@ -36,3 +36,5 @@ make check      # 严格构建与链接检查
 访客自带 OpenAI、DeepSeek 或 Anthropic API key，通过后端扩展检索词、检索公开笔记并回答。key 仅在当前页面暂存，关闭面板后清除；后端不持久化，不写入应用日志。正常每次提问调用两次模型，费用由访客承担。
 
 运行 `make ai-bootstrap` 安装后端依赖，使用 `make ai-serve` 预览完整功能。通用运行模板位于 `deploy/`；真实配置、凭据和运维记录不提交仓库。
+
+默认访问 `http://127.0.0.1:8000`。端口占用时可运行 `make ai-serve PORT=8001`，并访问对应端口；`make serve` 仅提供静态预览。

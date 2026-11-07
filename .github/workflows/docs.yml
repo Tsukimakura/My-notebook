@@ -34,7 +34,7 @@ jobs:
           python -m pip install -r requirements.txt -r backend/requirements.txt
           npm ci --ignore-scripts
       - name: Validate notes and build public website
-        run: make check
+        run: make check VENV="$(python -c 'import sys; print(sys.prefix)')"
       - name: Check public files for private data
         run: |
           python scripts/check_privacy.py
