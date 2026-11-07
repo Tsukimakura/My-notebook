@@ -59,10 +59,12 @@ extra_javascript:
   - assets/vendor/katex/katex.min.js
   - assets/vendor/katex/auto-render.min.js
   - javascripts/katex.js
-  - javascripts/notebook-ai.js
+  - assets/vendor/markdown-it/markdown-it.min.js
+  - assets/vendor/dompurify/purify.min.js
+  - javascripts/notebook-ai.js?v=2
 
 extra_css:
   - assets/vendor/katex/katex.min.css
-  - stylesheets/notebook-ai.css
+  - stylesheets/notebook-ai.css?v=2
 
 copyright: Copyright © 2025 Tsukimakura

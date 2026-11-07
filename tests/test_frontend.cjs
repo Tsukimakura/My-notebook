@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const {JSDOM} = require('jsdom');
 
-async function setup(t, fetch) {
+async function setup(t, fetch, {rendering = true} = {}) {
   const dom = new JSDOM('<!doctype html><body></body>', {
     url: 'https://notes.example.com/a-note/', runScripts: 'outside-only',
   });
@@ -18,6 +18,11 @@ async function setup(t, fetch) {
     this.dispatchEvent(new window.Event('close'));
   };
   window.fetch = fetch;
+  if (rendering) {
+    for (const asset of ['markdown-it/markdown-it.min.js', 'dompurify/purify.min.js', 'katex/katex.min.js']) {
+      window.eval(fs.readFileSync('docs/assets/vendor/' + asset, 'utf8'));
+    }
+  }
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
   window.document.querySelector('.notebook-ai-launch').click();
@@ -78,4 +83,108 @@ test('HTML proxy errors produce a useful message and allow retry', async t => {
   await submit();
   assert.match(get('status').textContent, /后端尚未接入/);
   assert.equal(get('submit').disabled, false);
+});
+
+function answerResponse(answer) {
+  return async () => ({ok: true, headers: new Headers({'Content-Type': 'application/json'}), json: async () => ({
+    answer, sources: [{id: 1, title: '概率笔记', url: '/probability/#conditional'}], expansion_failed: false,
+  })});
+}
+
+test('renders headings, emphasis, lists, tables and fenced code', async t => {
+  const answer = '## 笔记依据\n\n**条件概率**与*独立性*。[1]\n\n- 事件 A\n- 事件 B\n\n'
+    + '| 名称 | 含义 |\n| --- | --- |\n| 条件概率 | 限定样本空间 |\n\n'
+    + '```python\nvalues[99] = "<script>"\nformula = "$x_1$"\n```\n\n`$x$ [1]`';
+  const {get, submit} = await setup(t, answerResponse(answer));
+  await submit();
+  const output = get('answer');
+  assert.equal(output.querySelector('h2').textContent, '笔记依据');
+  assert.equal(output.querySelector('strong').textContent, '条件概率');
+  assert.equal(output.querySelectorAll('ul li').length, 2);
+  assert.equal(output.querySelector('tbody td').textContent, '条件概率');
+  assert.match(output.querySelector('pre code').textContent, /values\[99\]/);
+  assert.match(output.querySelector('pre code').textContent, /\$x_1\$/);
+  assert.equal(output.querySelector('pre .katex'), null);
+  assert.equal(output.querySelector('pre a'), null);
+  assert.equal(output.querySelector('script'), null);
+  assert.equal(output.querySelectorAll('a').length, 1);
+});
+
+test('renders dollar and backslash math without losing LaTeX escapes or creating citations in math', async t => {
+  const answer = String.raw`行内 $P(A\mid B)=\frac{P(A\cap B)}{P(B)}$，另一个 \(x_1^2\)。[1]
+
+$$
+\begin{pmatrix}1&2\\3&4\end{pmatrix}
+$$
+
+\[
+E[X]=\sum_{i=1}^{n} x_i p_i
+\]
+
+公式内 $a[1]+\sqrt{x}$，未知引用 [99]。`;
+  const {get, submit} = await setup(t, answerResponse(answer));
+  await submit();
+  const output = get('answer');
+  assert.equal(output.querySelectorAll('.katex').length, 5);
+  assert.equal(output.querySelectorAll('.katex-display').length, 2);
+  assert.equal(output.querySelectorAll('.katex-error').length, 0);
+  assert.equal(output.querySelectorAll('annotation[encoding="application/x-tex"]').length, 5);
+  assert.match(output.querySelector('annotation').textContent, /\\frac/);
+  assert.equal(output.querySelectorAll('a').length, 1);
+  assert.equal(output.querySelector('.notebook-ai-math a'), null);
+  assert.match(output.textContent, /\[99\]/);
+});
+
+test('rejects scripts, dangerous links, external images and trusted-TeX commands', async t => {
+  const answer = String.raw`<script>window.compromised = true</script>
+<svg onload="alert(1)"></svg>
+<iframe src="https://evil.example/"></iframe>
+[bad](javascript:alert%281%29) [outside](https://evil.example/) ![pixel](https://evil.example/pixel)
+<span class="notebook-ai-math" data-math-index="0">forged</span>
+$\href{javascript:alert(1)}{click}$
+$\includegraphics{https://evil.example/pixel}$
+$\htmlClass{evil}{payload}$
+[1]`;
+  const {window, get, submit} = await setup(t, answerResponse(answer));
+  await submit();
+  const output = get('answer');
+  assert.equal(window.compromised, undefined);
+  assert.equal(output.querySelector('script, iframe, img, [onload], [onerror], .evil'), null);
+  assert.equal(output.querySelectorAll('a').length, 1);
+  assert.equal(output.querySelector('a').origin, window.location.origin);
+  assert.equal(output.querySelectorAll('.notebook-ai-math').length, 3);
+});
+
+test('falls back to plain text when rendering dependencies are missing', async t => {
+  const {get, submit} = await setup(t, answerResponse('**Answer** <img src=x onerror=alert(1)>'), {rendering: false});
+  await submit();
+  assert.match(get('answer').textContent, /\*\*Answer\*\*/);
+  assert.equal(get('answer').querySelector('img'), null);
+  assert.match(get('status').textContent, /排版资源未加载/);
+});
+
+test('math works in lists and quotes; escaped delimiters and code remain literal', async t => {
+  const answer = String.raw`> $$x^2$$
+
+- 行内 $x_1$。
+- \(y_2\)
+
+\$literal\$ and \$5
+
+    $$code[1]$$
+
+未闭合 $x 和 \(y。
+
+[$z$](/probability/#conditional)`;
+  const {get, submit} = await setup(t, answerResponse(answer));
+  await submit();
+  const output = get('answer');
+  assert.equal(output.querySelectorAll('.katex').length, 4);
+  assert.equal(output.querySelectorAll('.katex-error').length, 0);
+  assert.ok(output.querySelector('blockquote .katex-display'));
+  assert.equal(output.querySelectorAll('li .katex').length, 2);
+  assert.match(output.querySelector('pre code').textContent, /\$\$code\[1\]\$\$/);
+  assert.match(output.textContent, /\$literal\$/);
+  assert.match(output.textContent, /未闭合 \$x/);
+  assert.ok(output.querySelector('a .katex'));
 });

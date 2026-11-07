@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const panel = document.createElement("dialog");
   panel.className = "notebook-ai";
   panel.setAttribute("aria-label", "笔记 AI 助手");
-  // Fixed markup only. All user/model text is rendered using text nodes below.
+  // Fixed markup only; model Markdown is separately parsed and sanitized below.
   panel.innerHTML = `
     <div class="notebook-ai-heading"><h2>问笔记</h2><button type="button" data-close aria-label="关闭">×</button></div>
     <p>先检索本站笔记，再结合模型知识回答。补充内容会单独标注，请核对来源。</p>
@@ -52,25 +52,128 @@ document.addEventListener("DOMContentLoaded", () => {
     const url = new URL(value, location.origin);
     return url.origin === location.origin ? url.href : null;
   };
+  const markdown = typeof window.markdownit === "function" ? window.markdownit({
+    html: false, linkify: false, breaks: true, maxNesting: 20,
+  }).disable("image") : null;
+  if (markdown) {
+    // Answer links stay on this site. References use URLs from our source index.
+    markdown.validateLink = (value) => {
+      try {
+        const url = new URL(value, location.origin);
+        return url.origin === location.origin && !url.username && !url.password
+          && ["http:", "https:"].includes(url.protocol);
+      } catch { return false; }
+    };
+    const closingAt = (text, delimiter, from) => {
+      let end = text.indexOf(delimiter, from);
+      while (end >= 0) {
+        let slashes = 0;
+        for (let i = end - 1; i >= 0 && text[i] === "\\"; i--) slashes++;
+        if (slashes % 2 === 0) return end;
+        end = text.indexOf(delimiter, end + delimiter.length);
+      }
+      return -1;
+    };
+    const mathPlaceholder = (tokens, index, options, env) => {
+      const token = tokens[index];
+      const id = env.math.push({source: token.content, display: token.meta.display}) - 1;
+      const tag = token.block ? "div" : "span";
+      return `<${tag} class="notebook-ai-math" data-math-index="${id}"></${tag}>`;
+    };
+    // Parse math before Markdown can consume its backslashes or underscores.
+    markdown.inline.ruler.before("escape", "notebook_math", (state, silent) => {
+      const rest = state.src.slice(state.pos);
+      const open = ["\\(", "\\[", "$$", "$"].find(marker => rest.startsWith(marker));
+      if (!open) return false;
+      const close = open === "\\(" ? "\\)" : open === "\\[" ? "\\]" : open;
+      const start = state.pos + open.length;
+      const end = closingAt(state.src, close, start);
+      if (end < 0 || end === start || end + close.length > state.posMax) return false;
+      const source = state.src.slice(start, end);
+      if (open === "$" && (/^\s|\s$/.test(source) || source.includes("\n"))) return false;
+      if (!silent) {
+        const token = state.push("notebook_math", "", 0);
+        token.content = source;
+        token.meta = {display: open === "$$" || open === "\\["};
+      }
+      state.pos = end + close.length;
+      return true;
+    });
+    markdown.renderer.rules.notebook_math = mathPlaceholder;
+    markdown.block.ruler.before("paragraph", "notebook_math_block", (state, first, last, silent) => {
+      if (state.sCount[first] - state.blkIndent >= 4) return false;
+      const line = state.src.slice(state.bMarks[first] + state.tShift[first], state.eMarks[first]);
+      const open = line.startsWith("$$") ? "$$" : line.startsWith("\\[") ? "\\[" : null;
+      if (!open) return false;
+      const close = open === "$$" ? "$$" : "\\]";
+      const parts = [];
+      for (let next = first; next < last; next++) {
+        if (next > first && state.sCount[next] < state.blkIndent && !state.isEmpty(next)) break;
+        const part = next === first ? line.slice(open.length)
+          : state.src.slice(state.bMarks[next] + state.tShift[next], state.eMarks[next]);
+        const end = closingAt(part, close, 0);
+        if (end >= 0) {
+          if (part.slice(end + close.length).trim()) return false;
+          if (silent) return true;
+          parts.push(part.slice(0, end));
+          const token = state.push("notebook_math_block", "", 0);
+          token.block = true;
+          token.content = parts.join("\n").trim();
+          token.meta = {display: true};
+          token.map = [first, next + 1];
+          state.line = next + 1;
+          return true;
+        }
+        parts.push(part);
+      }
+      return false;
+    }, {alt: ["paragraph", "blockquote", "list"]});
+    markdown.renderer.rules.notebook_math_block = mathPlaceholder;
+    markdown.inline.ruler.before("link", "notebook_citation", (state, silent) => {
+      if (state.linkLevel > 0) return false;
+      const match = /^\[(\d{1,3})\](?![\[(])/.exec(state.src.slice(state.pos));
+      if (!match || !state.env.sources.has(Number(match[1]))) return false;
+      if (!silent) {
+        const token = state.push("notebook_citation", "", 0);
+        token.content = match[1];
+      }
+      state.pos += match[0].length;
+      return true;
+    });
+    markdown.renderer.rules.notebook_citation = (tokens, index, options, env) => {
+      const id = tokens[index].content;
+      const source = env.sources.get(Number(id));
+      const url = safeURL(source.url);
+      const escape = markdown.utils.escapeHtml;
+      return url ? `<a href="${escape(url)}" title="${escape(source.title)}">[${id}]</a>` : `[${id}]`;
+    };
+  }
   const render = (answer, sources) => {
     const target = get("answer");
     target.replaceChildren();
-    const byId = new Map(sources.map((s) => [s.id, s]));
-    let end = 0;
-    for (const match of answer.matchAll(/\[(\d+)\]/g)) {
-      target.append(document.createTextNode(answer.slice(end, match.index)));
-      const source = byId.get(Number(match[1]));
-      const url = source && safeURL(source.url);
-      if (url) {
-        const link = document.createElement("a");
-        link.href = url;
-        link.textContent = match[0];
-        link.title = source.title;
-        target.append(link);
-      } else target.append(document.createTextNode(match[0]));
-      end = match.index + match[0].length;
+    const formatted = markdown && window.DOMPurify?.isSupported && window.katex;
+    if (formatted) {
+      const env = {sources: new Map(sources.map(s => [s.id, s])), math: []};
+      const fragment = window.DOMPurify.sanitize(markdown.render(answer, env), {
+        ALLOWED_TAGS: ["p", "br", "hr", "h1", "h2", "h3", "h4", "h5", "h6", "strong", "em", "s", "blockquote",
+          "ul", "ol", "li", "pre", "code", "table", "thead", "tbody", "tr", "th", "td", "a", "span", "div"],
+        ALLOWED_ATTR: ["class", "href", "title", "start", "data-math-index"],
+        ALLOW_DATA_ATTR: false, ALLOW_ARIA_ATTR: false, RETURN_DOM_FRAGMENT: true,
+      });
+      target.append(fragment);
+      // Only our math tokens reach KaTeX; raw model HTML was escaped and sanitized.
+      for (const node of target.querySelectorAll(".notebook-ai-math[data-math-index]")) {
+        const math = env.math[Number(node.getAttribute("data-math-index"))];
+        if (!math) continue;
+        try {
+          window.katex.render(math.source, node, {displayMode: math.display,
+            output: "htmlAndMathml", trust: false, throwOnError: false,
+            strict: "ignore", maxExpand: 200, maxSize: 20});
+        } catch { node.textContent = math.source; }
+      }
+    } else {
+      target.textContent = answer;
     }
-    target.append(document.createTextNode(answer.slice(end)));
     get("sources").replaceChildren();
     for (const source of sources) {
       const url = safeURL(source.url);
@@ -82,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
       item.append(link);
       get("sources").append(item);
     }
+    return Boolean(formatted);
   };
   panel.querySelector("form").addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -108,8 +212,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "请求失败，请稍后重试。");
       if (panel.open) {
-        render(data.answer, data.sources);
-        get("status").textContent = data.expansion_failed
+        const formatted = render(data.answer, data.sources);
+        get("status").textContent = !formatted
+          ? "回答已收到，排版资源未加载，暂以纯文本显示。请刷新页面后重试。"
+          : data.expansion_failed
           ? "检索词扩展失败，本次已使用原问题检索。以下链接是检索来源，引用不代表结论已经核验。"
           : "回答完成。以下链接是检索来源，引用不代表结论已经核验。";
       }

@@ -12,6 +12,20 @@
 .notebook-ai button:disabled { opacity: .5; cursor: wait; }
 .notebook-ai .notebook-ai-consent { display: flex; align-items: flex-start; gap: .5rem; }
 .notebook-ai-consent input { width: auto; margin-top: .25rem; }
-.notebook-ai-answer { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; font-size: .85rem; }
+.notebook-ai-answer { white-space: normal; overflow-wrap: anywhere; line-height: 1.8; font-size: .85rem; }
+.notebook-ai-answer p { font-size: inherit; margin: .7em 0; }
+.notebook-ai-answer :is(h1, h2, h3, h4, h5, h6) { margin: 1em 0 .5em; line-height: 1.4; font-weight: 700; }
+.notebook-ai-answer :is(h1, h2) { font-size: 1.25em; }
+.notebook-ai-answer :is(h3, h4, h5, h6) { font-size: 1.1em; }
+.notebook-ai-answer :is(ul, ol) { padding-left: 1.5em; margin: .6em 0; }
+.notebook-ai-answer blockquote { margin: .7em 0; padding-left: .8em; border-left: 3px solid #8888; }
+.notebook-ai-answer code { padding: .1em .3em; border-radius: .2em; background: var(--md-code-bg-color, #eee); font-family: monospace; }
+.notebook-ai-answer pre { overflow-x: auto; padding: .7em; background: var(--md-code-bg-color, #eee); border-radius: .25em; }
+.notebook-ai-answer pre code { padding: 0; white-space: pre; overflow-wrap: normal; }
+.notebook-ai-answer table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: .8em 0; }
+.notebook-ai-answer :is(th, td) { padding: .4em .6em; border: 1px solid #8888; }
+.notebook-ai-answer th { background: var(--md-code-bg-color, #eee); }
+.notebook-ai-answer .katex { font-size: 1.1em; }
+.notebook-ai-answer .katex-display { overflow-x: auto; overflow-y: hidden; padding: .25em 0; }
 .notebook-ai a { color: var(--md-typeset-a-color, #1565c0); text-decoration: underline; }
 .notebook-ai-sources { font-size: .8rem; line-height: 1.8; }

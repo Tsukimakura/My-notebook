@@ -23,6 +23,7 @@ format:
 	$(PYTHON) scripts/format_notes.py docs drafts
 
 lint:
+	npm run vendor:check
 	$(PYTHON) scripts/format_notes.py --check docs drafts
 	node scripts/check_math.mjs docs drafts
 	node scripts/check_attachments.mjs docs

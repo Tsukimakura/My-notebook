@@ -40,13 +40,14 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(index.search("balancing tree")[0]["title"], "AVL Tree")
         self.assertEqual(index.search("zzzzunknownword"), [])
 
-    def test_ask_expands_then_answers_and_checks_citations(self):
-        mock = AsyncMock(side_effect=["conditional probability 贝叶斯", "笔记依据：[1]。模型补充：[99]。"])
+    def test_ask_preserves_code_math_and_returns_valid_sources(self):
+        answer = "笔记依据：[1]。模型补充：[99]。代码：`values[99]`；公式：$a[9]$。"
+        mock = AsyncMock(side_effect=["conditional probability 贝叶斯", answer])
         with self.client() as client, patch("backend.app.complete", mock):
             result = client.post("/api/ask", headers=self.headers, json=self.body)
         self.assertEqual(result.status_code, 200)
         data = result.json()
-        self.assertIn("[引用无效]", data["answer"])
+        self.assertEqual(answer, data["answer"])
         self.assertEqual(data["sources"][0]["url"], "/probability/#conditional")
         self.assertEqual(mock.await_count, 2)
         self.assertNotIn("test-not-a-real-key", mock.call_args.args[4])
