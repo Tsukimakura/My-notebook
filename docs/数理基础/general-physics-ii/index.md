@@ -14,7 +14,7 @@ sources:
 
 # General Physics II · 普通物理学 II
 
-**Classes 1–15: electrostatics → circuits → magnetism → induction → electromagnetic waves → introductory optics.** English notes with Chinese terminology and conceptual hints, based on the supplied slides and classroom explanations. Instructor: Xin Lu; slide credits: Xin Lu / Gentaro Watanabe.
+**Electrostatics, circuits, magnetism, induction, waves, and introductory optics.** Instructor: Xin Lu; slide credits: Xin Lu / Gentaro Watanabe.
 
 ## Learning route（学习路线）
 
@@ -70,6 +70,6 @@ Distinguish magnetic moment $\boldsymbol\mu$ from permeability $\mu$, mutual ind
 
 ## Assumptions and scope
 
-Specify the physical region, source model, boundary/initial conditions, signs, and approximation before using a formula. Infinite-source, long-coil, lumped-circuit, linear-material, and geometric-optics formulas each have limits stated in their chapters.
+Source, material, boundary, and approximation conditions are stated with the relevant formulas.
 
-Coverage follows actual class progress, including cross-class continuations. Fresnel amplitudes, a full polarization theory, diffraction/interference, and quantum-mechanical derivations are not yet developed. Source records and transcription corrections are collected in the [source map](source-map.md).
+Coverage ends at reflection/refraction. Fresnel amplitudes, full polarization theory, diffraction/interference, and quantum-mechanical derivations are outside the current notes. Cross-class continuations and corrections are recorded in the [source map](source-map.md).

@@ -3,13 +3,13 @@ title: "知识地图"
 status: draft
 tags: [knowledge-management]
 created: null
-updated: 2026-11-03
+updated: 2026-11-08
 sources: []
 ---
 
 # 知识地图
 
-本笔记库以可复用的知识领域组织；课程复习材料、例题和阶段性总结则作为这些领域的辅助入口。
+按主题查找笔记；课程页包含讲义、作业与复习资料。
 
 ## 数理基础
 

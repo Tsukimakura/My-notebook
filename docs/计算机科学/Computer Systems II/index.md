@@ -3,7 +3,7 @@ title: "计算机系统 II（Computer Systems II）"
 status: draft
 tags: [cs, computer-systems, architecture, course]
 created: 2026-10-06
-updated: 2026-11-03
+updated: 2026-11-08
 sources:
   - "课程资料：lec01-2026-chang.pdf、lec02(2).pdf、lec03-2026.pdf"
   - "授课识别文本：first-5-lessons/*/course_content.md"
@@ -12,11 +12,9 @@ sources:
 
 # 计算机系统 II（Computer Systems II）
 
-本课程接续计算机系统 I 的数字逻辑、RISC-V 指令集和 CPU 设计，按主题整理计算机体系结构与系统知识。正文以中文解释，专业概念保留英文，便于阅读英文教材与考试作答。
+RISC-V 指令集、CPU 数据通路与指令流水线；包含系统 I 前置复习和硬件实验笔记。
 
 ## 理论笔记（Theory）
-
-沿用系统 I 的“课程目录 → `theory/` → 主题章节”结构，按知识主题组织，随课程进度持续更新。
 
 | 章节 | 阅读内容 |
 | --- | --- |
@@ -40,7 +38,7 @@ sources:
 
 ## 实验笔记（Laboratory）
 
-[实验目录](lab/index.md)按语法和设计主题持续整理：
+[实验目录](lab/index.md)：
 
 - [Verilog / SystemVerilog：硬件描述与模块](lab/verilog/01-hardware-and-modules.md)
 - [组合与时序逻辑](lab/verilog/03-combinational-and-sequential.md)、[状态机与运算电路](lab/verilog/05-fsm-and-arithmetic.md)

@@ -13,9 +13,9 @@ sources:
 
 [Course notes](../index.md) · [Formula sheet](../quick-reference.md) · [Source map](../source-map.md#homework-sources)
 
-**Seven assignments, 40 problems, with every assigned subpart covered.** Each problem includes its conditions, the relevant lecture method, and a worked solution. English is primary; Chinese notes clarify signs, assumptions, and common mistakes.
+**Seven assignments, 40 problems.** Each solution links to its lecture method.
 
-题意根据所给章末习题完整转述，保留数值、限制条件与各小问；电路图按原连接和极性重绘。解答依据课堂方法推导并核算；资料中未附教师答案册，因此这里是整理后的参考解答，不冒称官方答案。
+题意与电路按课件整理，解答按课堂方法推导；资料未附官方答案册。
 
 ## Assignments and problem links
 
@@ -31,7 +31,6 @@ sources:
 
 ## Reading conventions
 
-- **Problem** preserves the original task; **Method** links to the lecture sections used; **Solution** states the derivation and all requested conclusions.
 - Directions use right-handed coordinates. Current, emf, flux, capacitor charge, and terminal voltage are defined before signs are used. A boxed magnitude is distinguished from a signed component.
-- Unless stated otherwise, space is vacuum, $k=1/(4\pi\epsilon_0)$, and idealizations are those of the exercise. Long-wire, far-field, thin-wire, negligible-edge, and negligible-self-inductance approximations are stated where used.
+- Unless stated otherwise, space is vacuum and $k=1/(4\pi\epsilon_0)$; other approximations are stated in each problem.
 - PDF page numbers and printed page numbers appear in each page's source metadata. [Figure records](assets/README.md) identify each redraw and original computed plot.
