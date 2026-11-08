@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <p data-settings-status role="status"></p>
     </section>
     <section data-chat-view class="notebook-ai-chat" aria-label="笔记对话">
+    <div data-note-scope></div>
     <div data-messages class="notebook-ai-messages" aria-label="对话记录">
       <p>根据笔记提问，也可以继续追问。回答中的笔记链接会在左侧打开。</p>
     </div>
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </form></section>`;
   document.body.append(launch, panel);
   const get = name => panel.querySelector(`[data-${name}]`);
+  const noteScope = window.NotebookScope?.(get("note-scope"));
   let pending = null;
   let turns = [];
   let lastIncomplete = false;
@@ -378,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const item = document.createElement("li");
       const link = document.createElement("a");
       link.href = url;
-      link.textContent = source.title;
+      link.textContent = source.title + (source.outside_scope ? "（补充）" : "");
       item.append(link);
       sourceList.append(item);
     }
@@ -421,6 +423,7 @@ document.addEventListener("DOMContentLoaded", () => {
       {role: "assistant", content: historyAnswer(turn.answer)},
     ]);
     const payload = {provider: preferences.provider, model: preferences.models[preferences.provider], question, history};
+    if (noteScope?.value().ids.length) payload.scope = noteScope.value();
     // Stay below the existing 20 KB proxy/body cap, including UTF-8 and JSON escaping.
     const bytes = value => new TextEncoder().encode(JSON.stringify(value)).length;
     while (history.length && (history.reduce((n, item) => n + item.content.length, 0) > 8000 || bytes(payload) > 18000)) {
@@ -615,6 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const notices = [];
       if (lastIncomplete) notices.push(incompleteMessage(data.finish_reason));
       if (!formatted) notices.push("排版资源未加载，暂以纯文本显示。刷新页面会清除对话。");
+      if (data.coverage?.overview && data.coverage.scope_pages > data.coverage.pages) notices.push(`本轮参考了 ${data.coverage.pages}/${data.coverage.scope_pages} 篇笔记。`);
       if (data.expansion_failed) notices.push("检索词扩展失败，已使用原问题检索，请核对笔记来源。");
       get("status").textContent = notices.join(" ") || "回答完成，可以继续追问。引用不代表结论已经核验。";
     } catch (error) {

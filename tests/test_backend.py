@@ -35,6 +35,25 @@ class BackendTests(unittest.TestCase):
     def client(self):
         return TestClient(self.app, base_url="https://notes.example.com")
 
+    def test_public_catalog_and_scope_validation(self):
+        with self.client() as client:
+            catalog = client.get("/api/notes").json()
+            page = next(p for p in catalog["pages"] if p["path"] == "/probability/")
+            sections = client.get("/api/notes/" + page["id"]).json()
+            self.assertTrue(sections)
+            self.assertEqual(client.get("/api/notes/unknown").status_code, 404)
+            mock = AsyncMock(side_effect=[Completion("AVL"), Completion("answer")])
+            with patch("backend.app.complete", mock):
+                response = client.post("/api/ask", headers=self.headers, json={**self.body,
+                    "scope": {"ids": [page["id"]], "mode": "strict"}})
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(all(s["url"].startswith("/probability/") for s in response.json()["sources"]))
+            with patch("backend.app.complete", AsyncMock()) as mock:
+                for scope in [{"ids": ["/etc/passwd"]}, {"ids": ["https://example.com"]}, {"mode": "invalid"}, None]:
+                    result = client.post("/api/ask", headers=self.headers, json={**self.body, "scope": scope})
+                    self.assertEqual(result.status_code, 400)
+                mock.assert_not_called()
+
     def test_retrieval_bilingual(self):
         index = Index(self.index_path)
         self.assertEqual(index.search("条件概率")[0]["title"], "条件概率")

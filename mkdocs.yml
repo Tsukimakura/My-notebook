@@ -65,10 +65,11 @@ extra_javascript:
   - assets/vendor/markdown-it/markdown-it.min.js
   - assets/vendor/dompurify/purify.min.js
   - javascripts/notebook-ai-models.js?v=1
-  - javascripts/notebook-ai.js?v=7
+  - javascripts/notebook-ai-scope.js?v=1
+  - javascripts/notebook-ai.js?v=8
 
 extra_css:
   - assets/vendor/katex/katex.min.css
-  - stylesheets/notebook-ai.css?v=4
+  - stylesheets/notebook-ai.css?v=5
 
 copyright: Copyright © 2025 Tsukimakura

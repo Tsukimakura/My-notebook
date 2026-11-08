@@ -25,6 +25,7 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
     }
   }
   if (beforeScript) beforeScript(window);
+  window.eval(fs.readFileSync('docs/javascripts/notebook-ai-scope.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-models.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
@@ -756,4 +757,24 @@ test('a stalled short query times out and recovers by querying without recreatin
   assert.equal(creates, 1);
   assert.equal(polls, 2);
   assert.match(get('answer').textContent, /完整回答/);
+});
+
+test('manual scope selection sends public IDs and clears back to all notes', async t => {
+  let request;
+  const fetch = async (url, options) => {
+    if (url === '/api/notes') return {ok: true, json: async () => ({folders: [], pages: [{id: 'a'.repeat(24), title: 'Current note', path: '/a-note/'}]})};
+    request = JSON.parse(options.body);
+    return answerResponse('answer')();
+  };
+  const {get, window, submit} = await setup(t, fetch);
+  get('current-note').click();
+  await new Promise(setImmediate);
+  assert.match(get('scope-label').textContent, /1/);
+  await submit();
+  assert.deepEqual(request.scope, {ids: ['a'.repeat(24)], mode: 'strict'});
+  get('scope-clear').click();
+  get('question').value = 'next';
+  await submit();
+  assert.equal(request.scope, undefined);
+  assert.equal(get('scope-label').textContent, '全部笔记');
 });

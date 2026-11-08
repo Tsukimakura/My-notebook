@@ -64,3 +64,9 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 .notebook-ai-answer .katex-display { overflow-x: auto; overflow-y: hidden; padding: .25em 0; }
 .notebook-ai a { color: var(--md-typeset-a-color, #1565c0); text-decoration: underline; }
 .notebook-ai-sources { font-size: .8rem; line-height: 1.8; }
+
+.notebook-ai-note-tree { max-height: 28dvh; overflow: auto; margin-top: .4rem; }
+.notebook-ai-note-tree details { margin-left: .5rem; }
+.notebook-ai .notebook-ai-note-choice { display: flex; align-items: start; gap: .35rem; margin: .3rem 0; }
+.notebook-ai-note-choice input { width: auto; flex-shrink: 0; }
+.notebook-ai [data-note-scope] { flex-shrink: 0; font-size: .7rem; }
