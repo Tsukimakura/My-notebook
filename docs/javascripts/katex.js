@@ -12,6 +12,7 @@ const renderNotebookMath = () => {
     strict: "warn",
     trust: false
   }));
+  document.dispatchEvent(new Event("notebook:math-ready"));
 };
 // Material emits document$ again after each instant page navigation.
 if (typeof document$ !== "undefined") {

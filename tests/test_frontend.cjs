@@ -952,3 +952,49 @@ test('welcome suggestions fill the question without calling a model and referenc
   assert.equal(panel.querySelector('.notebook-ai-references').open, false);
   assert.match(panel.querySelector('.notebook-ai-references summary').textContent, /参考笔记 · 1/);
 });
+
+
+test('selected notebook text carries its source into the draft and preferred scope without paid calls', async t => {
+  let generations = 0, sent;
+  const {window, panel, get, submit} = await setup(t, async (url, options) => {
+    if (url === '/api/notes') return {ok: true, json: async () => ({folders: [], pages: [{id: 'c'.repeat(24), title: 'A note', path: '/a-note/'}]})};
+    generations++; sent = JSON.parse(options.body); return answerResponse('answer')();
+  });
+  window.document.dispatchEvent(new window.CustomEvent('notebook:ask-selection', {detail: {
+    text: '正态分布的标准化', title: '概率笔记', url: '/a-note/#normal',
+  }}));
+  await new Promise(setImmediate);
+  assert.equal(panel.hidden, false);
+  assert.match(get('question').value, /> 正态分布的标准化/);
+  assert.match(get('question').value, /出处：《概率笔记》/);
+  assert.equal(generations, 0);
+  await submit();
+  assert.equal(generations, 1);
+  assert.deepEqual(sent.scope, {ids: ['c'.repeat(24)], mode: 'prefer'});
+});
+
+test('Escape closes tools before collapsing the assistant and never sends a request', async t => {
+  let calls = 0;
+  const {window, panel, get} = await setup(t, async () => { calls++; });
+  get('memory-view').open = true;
+  panel.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
+  assert.equal(get('memory-view').open, false);
+  assert.equal(panel.hidden, false);
+  panel.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
+  assert.equal(panel.hidden, true);
+  assert.equal(calls, 0);
+});
+
+
+test('multiline selections stay within the question limit and are marked as excerpts', async t => {
+  const {window, get} = await setup(t, async () => ({ok: true, json: async () => ({pages: [], folders: []})}));
+  window.document.dispatchEvent(new window.CustomEvent('notebook:ask-selection', {detail: {
+    text: 'a\n'.repeat(900), title: 'A'.repeat(100), url: '/a-note/' + 'x'.repeat(750),
+  }}));
+  await new Promise(setImmediate);
+  assert.ok(get('question').value.length <= 4000);
+  assert.match(get('question').value, /（节选）/);
+  assert.match(get('question').value, /出处/);
+});
+
+require('./test_theme.cjs');

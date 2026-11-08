@@ -100,6 +100,15 @@ window.NotebookScope = (host, changed = () => {}) => {
   });
   return {
     value: () => ({ids: [...ids], mode}),
+    forPage: async path => {
+      if (typeof path !== 'string' || !path.startsWith('/') || path.startsWith('//')) return null;
+      const url = new URL(path, location.origin);
+      if (url.origin !== location.origin || !await load()) return null;
+      let pathname;
+      try { pathname = decodeURI(url.pathname); } catch { return null; }
+      const page = catalog.pages.find(page => page.path.replace(/\/$/, '') === pathname.replace(/\/$/, ''));
+      return page ? {ids: [page.id], mode: 'prefer'} : null;
+    },
     restore: value => {
       ids = Array.isArray(value?.ids) ? value.ids.filter(id => typeof id === 'string').slice(0, 100) : [];
       mode = value?.mode === 'prefer' ? 'prefer' : 'strict';

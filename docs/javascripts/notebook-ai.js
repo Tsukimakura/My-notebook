@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     </div>
     <p data-status role="status" aria-live="polite"></p>
     <form data-chat-form autocomplete="off">
-      <label class="notebook-ai-composer-label">你的问题<textarea data-question required maxlength="4000" rows="3" placeholder="问一个问题，继续梳理思路…"></textarea></label>
+      <label class="notebook-ai-composer-label">你的问题<textarea data-question required maxlength="4000" rows="3" placeholder="问一个问题，或选中正文中的一段文字…"></textarea></label>
       <div class="notebook-ai-actions"><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden>准备续写</button></div>
     </form></section>`;
   document.body.append(launch, panel);
@@ -718,6 +718,35 @@ document.addEventListener("DOMContentLoaded", async () => {
       : "请总结普通物理学 II 课程目前已有的知识体系。";
     if (prompt === "current") get("current-note")?.click();
     get("question").focus();
+  });
+  document.addEventListener("notebook:ask-selection", async event => {
+    const detail = event.detail;
+    if (!current || !detail || typeof detail.text !== "string" || !detail.text.trim() || detail.text.length > 2000
+        || typeof detail.url !== "string" || !detail.url.startsWith("/") || detail.url.startsWith("//")) return;
+    const url = new URL(detail.url, location.origin);
+    if (url.origin !== location.origin) return;
+    const session = current;
+    const title = typeof detail.title === "string" ? detail.title.slice(0, 100) : "当前笔记";
+    const source = detail.url.length <= 800 ? `\n${detail.url}` : "";
+    const rawQuote = detail.text.trim().replace(/\n/g, "\n> ");
+    const quote = rawQuote.length > 2800 ? rawQuote.slice(0, 2800) + "\n> （节选）" : rawQuote;
+    const question = `请结合笔记解释这段内容：\n\n> ${quote}\n\n出处：《${title}》${source}`;
+    if (question.length > 4000) return;
+    showPanel(true); showSettings(false);
+    get("question").value = question; session.draft = question; void persist(session);
+    get("question").focus();
+    const selected = await noteScope?.forPage(detail.url);
+    if (selected && conversations.has(session.id)) {
+      session.scope = selected;
+      if (current === session) noteScope.restore(selected);
+      void persist(session);
+    }
+  });
+  panel.addEventListener("keydown", event => {
+    if (event.key !== "Escape" || event.isComposing || event.defaultPrevented) return;
+    const open = [...panel.querySelectorAll("details[open]")].at(-1);
+    if (open) open.open = false; else get("close").click();
+    event.preventDefault();
   });
   get("question").addEventListener("keydown", event => {
     if (event.key === "Enter" && (event.ctrlKey || event.metaKey) && !event.isComposing) {
