@@ -188,6 +188,8 @@ Ideal inductors and capacitors exchange energy with the circuit but absorb zero 
 - [Ch. 13, Ex. 4 · Coupled RLC normal modes](homework/06-inductance-and-ac-circuits.md#ch13-ex04).
 - [Ch. 13, Ex. 5 · LC switching and peak voltage](homework/06-inductance-and-ac-circuits.md#ch13-ex05).
 
+- [Midterm transfer practice 9](midterm/transfer-practice.md#check-9): drive frequency, impedance, phase, and average power.
+
 ## Sources and checks
 
 Lecture 13 pp. 3–14: LC dynamics and analogy; pp. 15–20: complex form and damping; pp. 21–28: AC impedance and resonance. Class 14's first approximately ten minutes supplies quality factor/selectivity. Keep $\omega_0$, $\omega_d$, and $\Omega$ distinct; check phase conventions and distinguish amplitude decay, energy decay, and half-power width.

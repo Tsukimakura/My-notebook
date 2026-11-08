@@ -311,6 +311,8 @@ For an isolated shell with this cavity, adding the shell's constant $V_c$ change
 - [Ch. 5, Ex. 8 · Connected spheres and field enhancement](homework/03-conductors-and-circuits.md#ch05-ex08).
 - [Ch. 6, Ex. 5 · Wire–plane image and capacitance](homework/03-conductors-and-circuits.md#ch06-ex05).
 
+- [2023 midterm Q1](midterm/solutions-2023.md#solution-1): isolated versus grounded sphere, center potential, image construction.
+
 ## References
 
 Lecture 5 pp. 5–30, plus classroom uniform-field/spherical-image examples. Their timestamps and ambiguities are recorded in the [source map](source-map.md).

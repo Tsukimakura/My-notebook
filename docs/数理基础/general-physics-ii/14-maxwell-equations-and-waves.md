@@ -177,6 +177,8 @@ Radio, microwave, infrared, visible, ultraviolet, X-ray, and gamma radiation bel
 - [Ch. 14, Ex. 3 · Poynting energy flow into a wire](homework/07-maxwell-equations-and-energy.md#ch14-ex03).
 - [Ch. 14, Ex. 4 · Angular impulse from an induced field](homework/07-maxwell-equations-and-energy.md#ch14-ex04).
 
+- [Midterm transfer practice 10–12](midterm/transfer-practice.md#check-10): traveling-wave fields and displacement-current cancellation.
+
 ## Sources and checks
 
 Lecture 14 pp. 3–13: Maxwell correction and equations; pp. 14–24: wave equation and plane-wave constraints; pp. 25–29: generation and energy transport; p. 33: Poynting vector. Radiation-pressure appendix pp. 34–37 is treated with the class-15 discussion. Check surface independence, vacuum/source-free assumptions, $E$ versus $E_m$, and amplitude versus intensity decay.

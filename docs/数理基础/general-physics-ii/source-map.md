@@ -157,3 +157,9 @@ The [homework collection](homework/index.md) adds the user's seven assigned sets
 Each problem links to the relevant lecture section, and lectures 1–14 link back to their applications. The added Poynting-theorem paragraph in lecture 14 supplies the local energy-balance statement required by Ch. 14, Ex. 3. The [eight homework figures](homework/assets/README.md) have a separate source/license inventory and a reproduction script, `scripts/generate_gp2_homework_figures.py`.
 
 Specific conventions retained from the handouts include the isolated sphere's fixed charge $Q_0$ (Ch. 5, Ex. 3), the right-positive source in the bridge (Ch. 7, Ex. 3), the AC source's **peak** value $\mathcal E_m=150\ \mathrm V$ (Ch. 13, Ex. 2), the $0.50\ \mu\mathrm F$ capacitor (Ch. 13, Ex. 5), and the insulating fixed-charge shells (Ch. 14, Ex. 4). Solutions retain all subparts; no unassigned exercises are reconstructed as assigned work.
+
+## 8. Midterm requirements and the 2023 paper
+
+The current instructor announcement covers electrostatics through Chapter 14, provides formulas, and states no topic weights. The [midterm collection](midterm/index.md) includes the five supplied 2023 images: formula sheet p. 2 and questions pp. 3, 5, 7, 9. Four 25-point questions have 13 subparts; the solutions are new derivations rather than an official key.
+
+[Exam source records](midterm/assets/README.md) document the magnetic-energy typo, the nonuniform charge required in Q1(d), and assumptions needed for leakage and disk braking. The four figures are redrawn with a separate reproduction script. The revision plan covers the full announced scope, including circuits, oscillations, and waves absent from the old questions; its twelve transfer problems are original practice material.

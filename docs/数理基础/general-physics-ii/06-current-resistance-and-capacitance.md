@@ -359,6 +359,8 @@ The John Bardeen slide connects the transistor and BCS theory to electronic mate
 - [Ch. 6, Ex. 7 · Charge at a conductivity interface](homework/03-conductors-and-circuits.md#ch06-ex07).
 - [Ch. 6, Ex. 8 · Earth-electrode resistance and step voltage](homework/03-conductors-and-circuits.md#ch06-ex08).
 
+- [2023 midterm Q2](midterm/solutions-2023.md#solution-2): spherical capacitance, leakage resistance, and charge relaxation.
+
 ## References
 
 Lecture 6 pp. 3–28, 33–38; classroom supplements include Fermi motion and thermal transport. Continue with [DC circuits, RC response, and dielectric energy](07-dc-circuits-and-dielectrics.md).

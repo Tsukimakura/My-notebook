@@ -153,6 +153,8 @@ For changing charge distributions, $\nabla\times\mathbf B=\mu_0\mathbf J$ is inc
 - [Ch. 9, Ex. 7 · Ampère paths with winding numbers](homework/04-magnetic-force-and-fields.md#ch09-ex07).
 - [Ch. 9, Ex. 9 · Force across a toroid](homework/04-magnetic-force-and-fields.md#ch09-ex09).
 
+- [2023 midterm Q3](midterm/solutions-2023.md#solution-3): charge-to-current conversion and latitude-ring field integration.
+
 ## Sources and checks
 
 Lecture 9 pp. 3–18: Biot–Savart, wires, circulation, and sheet; pp. 19–25: solenoid/toroid; pp. 26–30: local equations; pp. 34–38: curl and Stokes's theorem. Check current-normal signs, enclosed rather than total current, and the steady-source assumption.

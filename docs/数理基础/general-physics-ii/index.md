@@ -9,6 +9,7 @@ sources:
   - "课程资料/普通物理学-II/lecture-record-09–lecture-record-14/course_content.md and classroom screenshots"
   - "课程资料/普通物理学-II/demo1.zip: demo1.ipynb and ElectricFieldLines.py"
   - "课程资料/普通物理学-II/07–15/: lecture PDFs, classroom transcripts and screenshots; 15/chap15.pdf"
+  - "Instructor's midterm requirements and 2023 paper images supplied by the user"
 ---
 
 # General Physics II · 普通物理学 II
@@ -35,6 +36,7 @@ sources:
 | 14 | [Maxwell equations and waves](14-maxwell-equations-and-waves.md) | Displacement current, wave equation, transverse fields, intensity. |
 | 15 | [Light, reflection, refraction](15-light-reflection-and-refraction.md) | Radiation pressure, rays, Fermat, Huygens, phase matching. |
 
+- [Midterm preparation（期中复习）](midterm/index.md): Chapters 1–14, the 2023 paper and solutions, formula annotations, and a timed revision plan.
 - [Mathematical toolkit](mathematical-toolkit.md): vectors, calculus, coordinate systems, distributions, and complex notation.
 - [Homework and worked solutions](homework/index.md): seven assignments, all 40 assigned problems, with lecture links and sourced figures.
 - [Formula sheet and conceptual checks](quick-reference.md): formulas with their conditions, units, and common mistakes.

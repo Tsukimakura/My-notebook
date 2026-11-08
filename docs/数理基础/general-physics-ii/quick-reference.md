@@ -10,7 +10,7 @@ sources:
 
 # General Physics II · Formula Sheet and Conceptual Checks
 
-[Course index](index.md) · [Mathematical toolkit](mathematical-toolkit.md)
+[Course index](index.md) · [Mathematical toolkit](mathematical-toolkit.md) · [Midterm revision](midterm/index.md) · [2023 formula-sheet corrections](midterm/formula-sheet-2023.md)
 
 Use this sheet after reading the derivations. Unless otherwise specified, formulas assume vacuum and the geometric idealizations stated in the corresponding chapters.
 

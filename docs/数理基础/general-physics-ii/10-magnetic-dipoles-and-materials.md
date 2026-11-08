@@ -162,6 +162,8 @@ Class 11 completes the phase-transition discussion: an ordered state selects a m
 - [Ch. 9, Ex. 2 · Ring superposition for a spherical shell](homework/04-magnetic-force-and-fields.md#ch09-ex02).
 - [Ch. 10, Ex. 1 · Far-field dipole derivation and interaction energy](homework/05-dipoles-and-induction.md#ch10-ex01).
 
+- [2023 midterm Q3](midterm/solutions-2023.md#solution-3): magnetic moment of a rotating spherical surface.
+
 ## Sources and checks
 
 Lecture 10 pp. 5–15: moments and coil fields; pp. 16–27: material response; p. 29 and the opening approximately 22 minutes of class 11: anomalous Hall and ordering. The finite-solenoid integration and microscopic angular-momentum discussion come from class 10. Check field uniformity, far-field limits, the chosen moment model, and whether a response is induced or spontaneous.

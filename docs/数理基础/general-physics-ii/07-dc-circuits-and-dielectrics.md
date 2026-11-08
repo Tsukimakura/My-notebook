@@ -210,6 +210,8 @@ In a linear nondispersive medium, the combined reversible electric/material ener
 - [Ch. 7, Ex. 5 · Three-resistor RC transient](homework/03-conductors-and-circuits.md#ch07-ex05).
 - [Ch. 7, Ex. 9 · Capacitor force including battery work](homework/03-conductors-and-circuits.md#ch07-ex09).
 
+- [2023 midterm Q2](midterm/solutions-2023.md#solution-2): free discharge, time constant, and Joule-energy accounting.
+
 ## Sources and checks
 
 Lecture 7 pp. 3–24: circuits and RC response; pp. 25–32, 43–46: energy and dielectric mechanisms; pp. 36–42: network combinations. Polarization formulas come from the first approximately 30 minutes of class 8. Check meter loading, loop signs, $q$-versus-$v$ constraints, and the distinction between free and total charge.

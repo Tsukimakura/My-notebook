@@ -160,6 +160,8 @@ The same induction experiment can therefore have different electric/magnetic for
 - [Ch. 11, Ex. 7 · Faraday disk and moving flux path](homework/05-dipoles-and-induction.md#ch11-ex07).
 - [Ch. 14, Ex. 4 · Induction torque on charged shells](homework/07-maxwell-equations-and-energy.md#ch14-ex04).
 
+- [2023 midterm Q4](midterm/solutions-2023.md#solution-4): Faraday disk, terminal voltage, braking torque, and rotational decay.
+
 ## Sources and checks
 
 Lecture 11 pp. 5–20: flux induction and energy transfer; pp. 21–26: induced field and potential limitation; pp. 29–38 and the classroom's latter half: inertial frames and field transformations. Check whether the contour moves, distinguish emf from current, and oppose the flux **change** rather than automatically opposing the field.
