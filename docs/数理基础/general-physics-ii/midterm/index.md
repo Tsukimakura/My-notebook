@@ -3,7 +3,7 @@ title: "General Physics II · Midterm Preparation"
 status: draft
 tags: [math-physics, physics, midterm, revision]
 created: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-09
 sources:
   - "Instructor's midterm requirements supplied by the user: electrostatics through Chapter 14; formulas provided"
   - "2023 midterm images supplied by the user: formula sheet p. 2, questions pp. 3, 5, 7, 9"
@@ -30,7 +30,7 @@ sources:
 | [2023 worked solutions](solutions-2023.md) | All 13 subparts, methods, sign conventions, and source corrections |
 | [2023 formula sheet, annotated](formula-sheet-2023.md) | All supplied relations, their conditions, and the magnetic-energy correction |
 | [学习安排](revision-plan.md) | 20 hours of guided study, 2 hours of short breaks, and 2 hours of flexible time |
-| [中文精要](essential-notes.md) | Symbols, minimum mathematics, physical concepts, worked examples, and one-change practice |
+| [中文精要](essential-notes.md) | Physical definitions and units, laws and conditions, and worked examples |
 | [Transfer practice（迁移练习）](transfer-practice.md#study-order) | A suggested starting order and twelve expandable answers, including optional extensions |
 
 The question text is transcribed from the five supplied images; the diagrams are redrawn. Solutions are derived from the course notes, not an official marking scheme. [Source and figure records](assets/README.md) identify the original page numbers and corrections.

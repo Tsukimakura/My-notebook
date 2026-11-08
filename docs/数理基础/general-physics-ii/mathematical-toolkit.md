@@ -3,7 +3,7 @@ title: "General Physics II · Mathematical Toolkit"
 status: draft
 tags: [math-physics, physics, vector-calculus, mathematical-methods]
 created: 2026-10-06
-updated: 2026-11-08
+updated: 2026-11-09
 sources:
   - "课程资料/普通物理学-II/lecture01(1).pdf, PDF pp. 39–45"
   - "课程资料/普通物理学-II/lecture02(1).pdf, PDF pp. 33–41"
@@ -17,7 +17,7 @@ sources:
 
 [Course index](index.md) · [Formula sheet](quick-reference.md)
 
-For a first pass, use the [minimum mathematics and examples](midterm/essential-notes.md#basics). This page contains the fuller tools and appendices for classes 1–15.
+Physical symbols and units: [期中精要](midterm/essential-notes.md#basics). This page contains the mathematical tools and appendices for classes 1–15.
 
 ## 1. Vectors, components, and projections
 

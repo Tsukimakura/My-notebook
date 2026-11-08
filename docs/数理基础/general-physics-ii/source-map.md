@@ -3,7 +3,7 @@ title: "General Physics II · Source Map and Scope"
 status: draft
 tags: [math-physics, physics, course, sources]
 created: 2026-10-06
-updated: 2026-11-08
+updated: 2026-11-09
 sources:
   - "课程资料/普通物理学-II/: lectures 1–15, classroom transcripts/screenshots, demo1.zip, and 15/chap15.pdf"
 ---
@@ -164,4 +164,4 @@ The current instructor announcement covers electrostatics through Chapter 14, pr
 
 [Exam source records](midterm/assets/README.md) document the magnetic-energy typo, the nonuniform charge required in Q1(d), and assumptions needed for leakage and disk braking. The four figures are redrawn with a separate reproduction script. The revision plan covers the full announced scope, including circuits, oscillations, and waves absent from the old questions; its twelve transfer problems are original practice material.
 
-The [current study plan](midterm/revision-plan.md) starts with [introductory concepts and worked examples](midterm/essential-notes.md), including a minimum mathematics section. Its total budget is 24 hours: 20 for learning and practice, 2 for short breaks, and 2 flexible. Initial tasks are guided examples and one-change questions; advanced transfer calculations are optional. The full lecture derivations and exercise solutions remain available for reference.
+The [current study plan](midterm/revision-plan.md) starts with [introductory concepts and worked examples](midterm/essential-notes.md), with physical quantities, units, and laws defined before the corresponding calculations. Its total budget is 24 hours: 20 for learning and practice, 2 for short breaks, and 2 flexible. Basic calculus is assumed. The first study block covers physical conventions, and electrostatics receives additional time for charge densities, flux, and Gauss's law. Advanced transfer calculations are optional. The full lecture derivations and exercise solutions remain available for reference.

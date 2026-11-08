@@ -3,7 +3,7 @@ title: "2023 Midterm · Worked Solutions"
 status: draft
 tags: [math-physics, physics, midterm, solutions]
 created: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-09
 sources:
   - "2023 midterm question images supplied by the user, printed pp. 3, 5, 7, 9"
   - "General Physics II lectures 5–12 and associated homework; linked in each solution"
@@ -11,7 +11,7 @@ sources:
 
 # 2023 Midterm · Worked Solutions
 
-[Question paper](paper-2023.md) · [Revision plan](revision-plan.md) · [Transfer practice](transfer-practice.md)
+[Question paper](paper-2023.md) · [物理定义与单位](essential-notes.md) · [Revision plan](revision-plan.md) · [Transfer practice](transfer-practice.md)
 
 Use $k=1/(4\pi\epsilon_0)$ and $V(\infty)=0$. These are worked reference solutions; the supplied images contain no official answer key.
 
