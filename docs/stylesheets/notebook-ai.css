@@ -1,5 +1,5 @@
 /* The assistant is a second reading surface, using the notebook's theme tokens. */
-:root { --notebook-ai-width: clamp(340px, 32vw, 480px); --notebook-ai-height: 55dvh; }
+:root { --notebook-ai-width: clamp(340px, 32vw, 480px); --notebook-ai-height: 60dvh; }
 .notebook-ai[hidden], .notebook-ai [hidden], .notebook-ai-launch[hidden] { display: none !important; }
 body { transition: padding-right 220ms ease; }
 body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
@@ -142,4 +142,14 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
   .notebook-ai [data-question] { min-height: 2.2rem; max-height: 12dvh; }
   .notebook-ai textarea { max-height: 15dvh; }
   .notebook-ai-user { margin-left: .75rem; }
+}
+
+.notebook-ai .notebook-ai-session-bar select { font-size: .65rem; }
+.notebook-ai-resize:focus-visible { outline: none; }
+.notebook-ai-resize:focus-visible > span { outline: 2px solid var(--notebook-accent); outline-offset: 3px; }
+@media (max-width: 900px) {
+  .notebook-ai [data-question] { height: 2.5rem; }
+  .notebook-ai-user { padding: .5rem .6rem; margin-top: .4rem; margin-bottom: .5rem; }
+  .notebook-ai-user .notebook-ai-role { display: none; }
+  .notebook-ai-session-bar > label select { font-size: .6rem; }
 }

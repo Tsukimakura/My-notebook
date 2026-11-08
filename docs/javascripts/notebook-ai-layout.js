@@ -9,12 +9,12 @@ window.NotebookPanelLayout = panel => {
   const preferred = {};
   for (const key of ['width', 'height']) if (Number.isFinite(saved[key]) && saved[key] > 0) preferred[key] = saved[key];
   const limits = () => mobile.matches
-    ? {key: 'height', min: Math.min(300, innerHeight * .85), max: innerHeight * .85, initial: innerHeight * .55}
+    ? {key: 'height', min: Math.min(300, innerHeight * .85), max: innerHeight * .85, initial: innerHeight * .60}
     : {key: 'width', min: 340, max: Math.max(340, Math.min(760, innerWidth - 520)), initial: Math.min(480, innerWidth * .32)};
   const clamp = (value, bounds) => Math.round(Math.max(bounds.min, Math.min(bounds.max, value)));
   const apply = () => {
     const width = clamp(preferred.width || Math.min(480, innerWidth * .32), {min: 340, max: Math.max(340, Math.min(760, innerWidth - 520))});
-    const height = clamp(preferred.height || innerHeight * .55, {min: Math.min(300, innerHeight * .85), max: innerHeight * .85});
+    const height = clamp(preferred.height || innerHeight * .60, {min: Math.min(300, innerHeight * .85), max: innerHeight * .85});
     document.documentElement.style.setProperty('--notebook-ai-width', `${width}px`);
     document.documentElement.style.setProperty('--notebook-ai-height', `${height}px`);
     const bounds = limits(), value = bounds.key === 'height' ? height : width;
