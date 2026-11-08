@@ -81,3 +81,16 @@ test('a deleted conversation cannot be resurrected by an old tab', async t => {
   await assert.rejects(first.save(original), /其他标签页/);
   assert.equal((await second.list()).length, 0);
 });
+
+test('request snapshots and answer versions strip credentials and keep the selected version', async t => {
+  const database = await store(t), value = record(database);
+  value.messages[0].request = {provider: 'deepseek', model: 'test-model', question: 'question', history: [], key: 'fake-secret', headers: {Authorization: 'fake-secret'}};
+  value.messages[1].versions = [{content: 'version 1', key: 'fake-secret'}, {content: 'version 2', sources: []}];
+  value.messages[1].version = 0;
+  await database.save(value);
+  const restored = (await database.list())[0];
+  assert.equal(restored.messages[1].content, 'version 1');
+  assert.equal(restored.messages[1].versions.length, 2);
+  assert.ok(!JSON.stringify(restored).includes('fake-secret'));
+  assert.equal(restored.messages[0].request.question, 'question');
+});

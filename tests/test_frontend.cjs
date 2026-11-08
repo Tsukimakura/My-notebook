@@ -583,7 +583,7 @@ test('partial answer stays marked, and preparing continuation does not create a 
   get('continue').click();
   assert.equal(requests.length, 1);
   assert.match(get('question').value, /请继续上一条/);
-  assert.match(get('status').textContent, /点击发送后才会调用/);
+  assert.match(get('status').textContent, /已填入续写问题/);
   await submit();
   assert.equal(requests.length, 2);
   assert.ok(requests[1].history[1].content.endsWith(tail));
@@ -1031,3 +1031,105 @@ test('quote preview renders math and links, persists on reload, and never relaxe
 });
 
 require('./test_selection.cjs');
+
+test('copy Markdown preserves raw TeX and appends source links, not rendered math', async t => {
+  let copied;
+  const markdown = String.raw`## 正态
+
+$z=\frac{x-\mu}{\sigma}$ [1]`;
+  const {window, panel, submit} = await setup(t, answerResponse(markdown));
+  Object.defineProperty(window.navigator, 'clipboard', {value: {writeText: async value => { copied = value; }}});
+  await submit(); panel.querySelector('[data-copy-markdown]').click(); await new Promise(setImmediate);
+  assert.ok(copied.startsWith(markdown));
+  assert.match(copied, /https:\/\/notes\.example\.com\/probability\/#conditional/);
+  assert.ok(!copied.includes('katex-html'));
+  assert.equal(panel.querySelector('[data-copy-markdown]').textContent, '已复制');
+});
+
+test('clipboard denial exposes selectable Markdown without losing the answer', async t => {
+  const {panel, get, submit} = await setup(t, answerResponse('**raw** $x$'));
+  await submit(); panel.querySelector('[data-copy-markdown]').click(); await new Promise(setImmediate);
+  assert.match(panel.querySelector('.notebook-ai-raw').value, /\*\*raw\*\* \$x\$/);
+  assert.match(get('answer').textContent, /raw/);
+});
+
+test('regeneration uses original context, keeps answer versions, and restores them after reload', async t => {
+  const indexedDB = new IDBFactory(), requests = [];
+  const fetch = async (url, options) => { requests.push(JSON.parse(options.body)); return answerResponse(`answer ${requests.length}`)(); };
+  const first = await setup(t, fetch, {indexedDB});
+  first.get('learning-notes').value = 'original preference'; first.get('learning-notes').dispatchEvent(new first.window.Event('change'));
+  await first.submit();
+  first.get('learning-notes').value = 'changed later'; first.get('learning-notes').dispatchEvent(new first.window.Event('change'));
+  first.get('question').value = 'unsent draft';
+  first.panel.querySelector('[data-regenerate]').click();
+  await new Promise(resolve => setTimeout(resolve, 25)); await first.window.NotebookAIFlush();
+  assert.equal(requests.length, 2);
+  assert.deepEqual(requests[1], requests[0]);
+  assert.equal(first.get('messages').querySelectorAll('[data-user]').length, 1);
+  assert.match(first.get('answer').textContent, /answer 2/);
+  assert.match(first.panel.querySelector('.notebook-ai-versions').textContent, /2 \/ 2/);
+  assert.equal(first.get('question').value, 'unsent draft');
+  first.panel.querySelector('[data-previous-version]').click(); await first.window.NotebookAIFlush();
+  assert.match(first.get('answer').textContent, /answer 1/);
+  const next = await setup(t, fetch, {indexedDB});
+  assert.match(next.get('answer').textContent, /answer 1/);
+  next.panel.querySelector('[data-next-version]').click();
+  assert.match(next.get('answer').textContent, /answer 2/);
+  assert.equal(requests.length, 2);
+});
+
+test('failed regeneration keeps the old answer, references and draft intact', async t => {
+  let calls = 0;
+  const {panel, get, submit, window} = await setup(t, async (url, options) => {
+    if (++calls === 1) return answerResponse('original answer')();
+    const id = options.headers['X-Notebook-Request-ID'];
+    return jsonResponse(url === '/api/jobs' ? {job_id: id, state: 'pending'}
+      : {job_id: id, state: 'failed', status: 502, error: 'temporary failure'}, url === '/api/jobs' ? 202 : 200);
+  });
+  await submit(); get('question').value = 'keep this draft';
+  panel.querySelector('[data-regenerate]').click();
+  await new Promise(resolve => setTimeout(resolve, 20)); await window.NotebookAIFlush();
+  assert.match(get('answer').textContent, /original answer/);
+  assert.equal(get('question').value, 'keep this draft');
+  assert.equal(get('messages').querySelectorAll('[data-user]').length, 1);
+  assert.equal(panel.querySelector('.notebook-ai-versions'), null);
+  assert.equal(panel.querySelector('[data-regenerate]').disabled, false);
+});
+
+test('regenerating an earlier turn forks before later messages without future context', async t => {
+  const requests = [];
+  const {window, get, panel, submit} = await setup(t, async (url, options) => {
+    requests.push(JSON.parse(options.body)); return answerResponse(`answer ${requests.length}`)();
+  });
+  get('question').value = 'first question'; await submit();
+  get('question').value = 'future question'; await submit();
+  const originalID = get('session').value;
+  panel.querySelector('[data-regenerate]').click();
+  await new Promise(resolve => setTimeout(resolve, 25)); await window.NotebookAIFlush();
+  assert.notEqual(get('session').value, originalID);
+  assert.equal(requests.length, 3);
+  assert.equal(requests[2].question, 'first question');
+  assert.deepEqual(requests[2].history, []);
+  assert.ok(!get('messages').textContent.includes('future question'));
+  get('session').value = originalID; get('session').dispatchEvent(new window.Event('change'));
+  assert.match(get('messages').textContent, /future question/);
+  assert.match(get('messages').textContent, /answer 2/);
+  assert.ok(!get('messages').textContent.includes('answer 3'));
+});
+
+test('stopping regeneration leaves the original answer readable and usable', async t => {
+  let calls = 0;
+  const {window, panel, get, submit} = await setup(t, async (url, options) => {
+    if (url.endsWith('/cancel')) return jsonResponse({state: 'cancelled'});
+    if (++calls === 1) return answerResponse('original answer')();
+    return new Promise((resolve, reject) => options.signal.addEventListener('abort', () => reject(new window.DOMException('Aborted', 'AbortError')), {once: true}));
+  });
+  await submit(); panel.querySelector('[data-regenerate]').click(); await new Promise(setImmediate);
+  assert.equal(panel.querySelector('[data-regenerate]').disabled, true);
+  assert.equal(panel.querySelector('[data-copy-markdown]').disabled, false);
+  get('stop').click(); await new Promise(resolve => setTimeout(resolve, 20)); await window.NotebookAIFlush();
+  assert.match(get('answer').textContent, /original answer/);
+  assert.equal(get('messages').querySelectorAll('[data-user]').length, 1);
+  assert.equal(panel.querySelector('[data-regenerate]').disabled, false);
+  assert.match(get('status').textContent, /已停止等待/);
+});

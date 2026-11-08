@@ -13,6 +13,25 @@ window.NotebookConversations = (() => {
     } catch { /* Keep the excerpt even if its old source URL is no longer valid. */ }
     return {markdown: value.markdown, title: text(value.title, 100), url};
   };
+  const sources = value => (Array.isArray(value) ? value : []).slice(0, 24).filter(source =>
+    Number.isInteger(source?.id) && typeof source.url === 'string' && source.url.startsWith('/') && !source.url.startsWith('//'))
+    .map(source => ({id: source.id, title: text(source.title, 500), url: text(source.url, 2000), outside_scope: source.outside_scope === true}));
+  const response = value => ({content: text(value.content, 64000), sources: sources(value.sources),
+    truncated: value.truncated === true, finish_reason: text(value.finish_reason, 30)});
+  const request = value => {
+    if (!value || !['openai', 'deepseek', 'anthropic'].includes(value.provider)
+        || typeof value.model !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,99}$/.test(value.model)
+        || typeof value.question !== 'string' || !value.question.trim() || value.question.length > 4000) return null;
+    const history = value.history || [];
+    if (!Array.isArray(history) || history.length > 6 || history.length % 2 || history.some((item, i) =>
+        item?.role !== (i % 2 ? 'assistant' : 'user') || typeof item.content !== 'string' || !item.content || item.content.length > 4000)
+        || history.reduce((size, item) => size + item.content.length, 0) > 8000) return null;
+    const result = {provider: value.provider, model: value.model, question: value.question,
+      history: history.map(item => ({role: item.role, content: item.content}))};
+    if (value.scope) result.scope = cleanScope(value.scope);
+    if (value.memory) result.memory = {summary: text(value.memory.summary, 2000), notes: text(value.memory.notes, 2000)};
+    return result;
+  };
   const clean = value => {
     if (!value || !/^[a-f0-9]{32}$/.test(value.id) || !Array.isArray(value.messages)
         || value.messages.length > 2000 || !['openai', 'deepseek', 'anthropic'].includes(value.provider)) throw new Error('会话格式不正确。');
@@ -26,12 +45,19 @@ window.NotebookConversations = (() => {
       messages: value.messages.map(message => {
         if (!message || !['user', 'assistant'].includes(message.role) || typeof message.content !== 'string'
             || message.content.length > 64000) throw new Error('消息格式不正确。');
-        return {role: message.role, content: message.content, failed: message.failed === true,
+        const result = {role: message.role, content: message.content, failed: message.failed === true,
           pending: message.pending === true, quote: quote(message.quote), truncated: message.truncated === true,
-          finish_reason: text(message.finish_reason, 30), scope: cleanScope(message.scope),
-          sources: (Array.isArray(message.sources) ? message.sources : []).slice(0, 24).filter(source =>
-            Number.isInteger(source?.id) && typeof source.url === 'string' && source.url.startsWith('/') && !source.url.startsWith('//'))
-            .map(source => ({id: source.id, title: text(source.title, 500), url: text(source.url, 2000), outside_scope: source.outside_scope === true}))};
+          finish_reason: text(message.finish_reason, 30), scope: cleanScope(message.scope), sources: sources(message.sources)};
+        if (message.role === 'user') result.request = request(message.request);
+        if (message.role === 'assistant' && Array.isArray(message.versions)) {
+          const versions = message.versions.filter(version => typeof version?.content === 'string' && version.content.length <= 64000).slice(0, 10).map(response);
+          if (versions.length) {
+            result.versions = versions;
+            result.version = Math.max(0, Math.min(versions.length - 1, Number.isInteger(message.version) ? message.version : versions.length - 1));
+            Object.assign(result, versions[result.version]);
+          }
+        }
+        return result;
       })};
   };
   const preferencesRecord = value => ({id: 'preferences', keepDays: [30, 90].includes(value?.keepDays) ? value.keepDays : 0,
@@ -129,5 +155,5 @@ window.NotebookConversations = (() => {
       },
     };
   };
-  return {open, uid, clean, quote};
+  return {open, uid, clean, quote, request};
 })();

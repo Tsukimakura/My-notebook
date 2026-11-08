@@ -648,10 +648,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (pending || !lastIncomplete) return;
     get("question").value = "请继续上一条未完成的回答，从断点接着讲解；若最后一个公式或代码块未写完，请将它完整重写，再继续后续内容。";
     get("question").focus();
-    get("status").textContent = "已准备续写问题。点击发送后才会调用模型并按实际用量计费。";
+    get("status").textContent = "已填入续写问题。";
   });
-  get("chat-form").addEventListener("submit", async event => {
-    event.preventDefault();
+  const generate = async (replacement = null, previousUser = null, replay = null) => {
     if (pending) return;
     if (credential && credential.expiresAt <= Date.now()) forget(false);
     if (!credential || credential.provider !== current.provider) {
@@ -659,24 +658,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       get("settings-status").textContent = "请先保存设置；key 可能已到期或被清除。";
       return;
     }
-    if (current.messages.length >= 1998) { get("status").textContent = "这段对话已很长，请新建对话。"; return; }
+    if (!replacement && current.messages.length >= 1998) { get("status").textContent = "这段对话已很长，请新建对话。"; return; }
     const session = current;
-    const question = get("question").value.trim();
+    const question = replacement ? previousUser.content : get("question").value.trim();
     if (!question || question.length > 4000) return;
-    const body = requestBody(question);
-    if (!body) {
+    const body = replay ? JSON.stringify(replay) : requestBody(question);
+    if (!body || new TextEncoder().encode(body).length > 18000) {
       get("status").textContent = "问题和记忆过长，请缩短后再发送。";
       return;
     }
     if (!turns.length && !get("messages").querySelector("article")) get("messages").replaceChildren();
-    const userRecord = {role: "user", content: question, pending: true, scope: noteScope?.value(), quote: current.draftQuote ? {...current.draftQuote} : null};
-    session.messages.push(userRecord);
-    session.draft = ""; session.draftQuote = null; refreshDraftQuote(); session.updatedAt = Date.now();
-    if (session.title === "新对话") session.title = question.slice(0, 32);
-    void persist(session); refreshSessions();
-    showUserQuote(userRecord, addMessage("user", question));
-    get("question").value = "";
-    get("status").textContent = "正在检索笔记并等待模型回答，你可以继续浏览左侧笔记……";
+    const userRecord = replacement ? previousUser : {role: "user", content: question, pending: true,
+      scope: noteScope?.value(), quote: current.draftQuote ? {...current.draftQuote} : null, request: JSON.parse(body)};
+    if (!replacement) {
+      session.messages.push(userRecord);
+      session.draft = ""; session.draftQuote = null; refreshDraftQuote();
+      if (session.title === "新对话") session.title = question.slice(0, 32);
+      showUserQuote(userRecord, addMessage("user", question));
+      get("question").value = "";
+    }
+    session.updatedAt = Date.now(); void persist(session); refreshSessions();
+    get("status").textContent = "正在查找笔记";
     for (const name of ["submit", "save", "continue"]) get(name).disabled = true;
     get("stop").hidden = false;
     scrollMessages();
@@ -685,7 +687,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("status").setAttribute("aria-live", "off");
     panel.dataset.busy = "true";
     const job = {controller, stopped: false, status: "正在提交问题"};
-    running.set(session.id, job); refreshSessions(); updateMemory();
+    running.set(session.id, job); refreshSessions(); renderSession(); updateMemory();
     const started = performance.now();
     let completed = false;
     const timer = setTimeout(() => controller.abort(), 265000);
@@ -696,9 +698,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (current === session) get("status").textContent = job.status;
     };
     const progress = stage => {
-      phase = stage === "answer" ? "正在等待模型生成回答"
-        : stage === "reconnect" ? "网络暂时不稳定，正在查询已有任务状态"
-        : "正在扩展检索词并检索笔记";
+      phase = stage === "answer" ? "等待模型回答"
+        : stage === "reconnect" ? "网络不稳定，正在重连"
+        : "正在查找笔记";
       drawProgress();
     };
     // Elapsed time is a local monotonic clock, independent of server packets.
@@ -712,8 +714,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       completed = true;
       userRecord.pending = false;
-      session.messages.push({role: "assistant", content: data.answer, sources: data.sources,
-        truncated: data.truncated === true, finish_reason: data.finish_reason, scope: userRecord.scope});
+      const answer = {content: data.answer, sources: data.sources, truncated: data.truncated === true, finish_reason: data.finish_reason};
+      if (replacement) {
+        replacement.versions ||= [responseSnapshot(replacement)];
+        replacement.versions.push(answer); replacement.version = replacement.versions.length - 1;
+        Object.assign(replacement, answer);
+      } else session.messages.push({role: "assistant", ...answer, scope: userRecord.scope});
       session.updatedAt = Date.now();
       session.status = data.expansion_failed ? "已按原问题检索。" : "";
       if (data.coverage?.overview && data.coverage.scope_pages > data.coverage.pages) {
@@ -727,10 +733,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (follow) scrollMessages(); else get("messages").scrollTop = top;
       }
     } catch (error) {
-      userRecord.pending = false; userRecord.failed = true;
-      const draft = current === session ? get("question").value : session.draft;
-      if (!draft) { session.draft = question; session.draftQuote ||= userRecord.quote ? {...userRecord.quote} : null; }
-      else session.draft = draft;
+      if (!replacement) {
+        userRecord.pending = false; userRecord.failed = true;
+        const draft = current === session ? get("question").value : session.draft;
+        if (!draft) { session.draft = question; session.draftQuote ||= userRecord.quote ? {...userRecord.quote} : null; }
+        else session.draft = draft;
+      }
       session.status = error.name === "AbortError"
         ? `${job.stopped ? "已停止等待" : "请求超时"}。已发出的供应商调用仍可能产生费用。`
         : `${error.message}（等待 ${Math.round((performance.now() - started) / 1000)} 秒）`;
@@ -738,7 +746,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       job.finished = true;
       if (current === session) {
         renderSession();
-        if (!get("question").value) get("question").value = question;
+        if (!replacement && !get("question").value) get("question").value = question;
         refreshDraftQuote();
         get("status").textContent = session.status;
       }
@@ -754,11 +762,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         for (const name of ["submit", "save", "continue"]) get(name).disabled = false;
         get("continue").hidden = !lastIncomplete;
         get("stop").hidden = true;
+        const top = get("messages").scrollTop; renderSession(); get("messages").scrollTop = top;
         updateMemory();
       }
-      if (completed && sessionPreferences.autoSummary && conversations.has(session.id)) void summarizeSession(session, true);
+      if (completed && !replacement && sessionPreferences.autoSummary && conversations.has(session.id)) void summarizeSession(session, true);
     }
-  });
+  };
+  get("chat-form").addEventListener("submit", event => { event.preventDefault(); void generate(); });
   panel.addEventListener("click", event => {
     const prompt = event.target.closest("[data-prompt]")?.dataset.prompt;
     if (!prompt) return;
@@ -841,7 +851,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const formatted = render(record.content, record.sources || [], output.content, output.sources);
         if (!formatted && !current.status) current.status = "排版资源未加载，暂以纯文本显示。";
         const remember = document.createElement("button");
-        remember.type = "button"; remember.textContent = "记住这条";
+        remember.type = "button"; remember.textContent = "记住";
         remember.addEventListener("click", () => {
           const selection = window.getSelection();
           const selected = selection?.rangeCount && output.content.contains(selection.getRangeAt(0).commonAncestorContainer)
@@ -852,7 +862,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           current.summary = combined; get("session-memory").value = combined;
           get("memory-view").open = true; void persist(current); updateMemory();
         });
-        output.message.append(remember);
+        const actions = replyActions(current, record, output);
+        actions.append(remember);
         if (record.truncated) {
           const warning = document.createElement("p"); warning.className = "notebook-ai-warning";
           warning.textContent = incompleteMessage(record.finish_reason);
@@ -950,6 +961,88 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) { get("session-status").textContent = error.name === "Error" ? error.message : "文件内容不正确，请选择本站导出的 JSON 文件。"; }
     get("import-file").value = "";
   });
+  const responseSnapshot = record => ({content: record.content, sources: structuredClone(record.sources || []),
+    truncated: record.truncated === true, finish_reason: record.finish_reason});
+  const originalRequest = (session, index) => {
+    const user = session.messages[index - 1];
+    const saved = window.NotebookConversations.request(user?.request);
+    if (saved) return {...saved, provider: session.provider, model: session.model};
+    const earlier = historyTurns({...session, messages: session.messages.slice(0, index - 1)});
+    const history = earlier.slice(-3).flatMap(turn => [{role: "user", content: turn.question.slice(0, 1000)},
+      {role: "assistant", content: turn.answer.slice(0, 3000)}]);
+    while (history.reduce((size, item) => size + item.content.length, 0) > 8000) history.splice(0, 2);
+    return {provider: session.provider, model: session.model, question: composeQuestion(user.content, user.quote), history,
+      scope: user.scope || {ids: [], mode: "strict"}};
+  };
+  const forkAt = (session, index, request) => {
+    const branch = newSession();
+    Object.assign(branch, {title: session.title.slice(0, 90) + "（重答）", provider: session.provider, model: session.model,
+      messages: structuredClone(session.messages.slice(0, index + 1)), scope: structuredClone(request.scope || {ids: [], mode: "strict"}),
+      summary: request.memory?.summary || "", summaryThrough: Math.max(0, historyTurns({...session, messages: session.messages.slice(0, index - 1)}).length - 3)});
+    activate(branch); void persist(branch); return branch;
+  };
+  const regenerate = (session, record) => {
+    if (running.has(session.id)) return;
+    const index = session.messages.indexOf(record), user = session.messages[index - 1];
+    if (!user || user.role !== "user" || (record.versions?.length || 1) >= 10) return;
+    if (!credential || credential.expiresAt <= Date.now() || credential.provider !== session.provider) {
+      showSettings(true); get("settings-status").textContent = "请先填写这个供应商的 key。"; return;
+    }
+    const request = originalRequest(session, index);
+    if (index !== session.messages.length - 1) session = forkAt(session, index, request);
+    if (current !== session) activate(session);
+    void generate(session.messages[index], session.messages[index - 1], request);
+  };
+  const replyActions = (session, record, output) => {
+    const actions = document.createElement("div"); actions.className = "notebook-ai-reply-actions";
+    const copy = document.createElement("button"); copy.type = "button"; copy.textContent = "复制 Markdown"; copy.dataset.copyMarkdown = "";
+    copy.addEventListener("click", async () => {
+      const escape = value => String(value || "笔记").replace(/\s+/g, " ").replace(/[\\\[\]<>*_`~]/g, char => "\\" + char);
+      const references = (record.sources || []).flatMap(source => {
+        const url = safeURL(source.url);
+        return url ? [`${source.id}. [${escape(source.title)}](${url.replace(/\(/g, "%28").replace(/\)/g, "%29")})`] : [];
+      });
+      const value = record.content + (references.length ? "\n\n参考笔记\n\n" + references.join("\n") : "");
+      try {
+        if (!navigator.clipboard?.writeText) throw new Error();
+        await navigator.clipboard.writeText(value); copy.textContent = "已复制";
+        setTimeout(() => { copy.textContent = "复制 Markdown"; }, 1800);
+      } catch {
+        let raw = output.message.querySelector(".notebook-ai-raw");
+        if (!raw) { raw = document.createElement("textarea"); raw.className = "notebook-ai-raw"; raw.readOnly = true; raw.setAttribute("aria-label", "Markdown 原文"); output.message.append(raw); }
+        raw.value = value; raw.focus(); raw.select();
+        get("status").textContent = "剪贴板不可用，已选中原文，可手动复制。";
+      }
+    });
+    const redo = document.createElement("button"); redo.type = "button"; redo.dataset.regenerate = "";
+    const old = session.messages.indexOf(record) < session.messages.length - 1;
+    redo.textContent = old ? "从这里重答" : "重新回答";
+    redo.title = (record.versions?.length || 1) >= 10 ? "这条回答已保存 10 个版本" : old ? "在新会话中重新回答，保留原会话的后续消息" : "按原问题和原检索范围重新回答";
+    redo.disabled = running.has(session.id) || (record.versions?.length || 1) >= 10;
+    redo.addEventListener("click", () => regenerate(session, record));
+    actions.append(copy, redo);
+    if (record.versions?.length > 1) {
+      const version = document.createElement("span"); version.className = "notebook-ai-versions";
+      const previous = document.createElement("button"), next = document.createElement("button"), count = document.createElement("span");
+      previous.type = next.type = "button"; previous.textContent = "‹"; next.textContent = "›";
+      previous.setAttribute("aria-label", "上一版回答"); next.setAttribute("aria-label", "下一版回答");
+      previous.dataset.previousVersion = ""; next.dataset.nextVersion = "";
+      previous.disabled = running.has(session.id) || record.version === 0;
+      next.disabled = running.has(session.id) || record.version === record.versions.length - 1;
+      count.textContent = `${record.version + 1} / ${record.versions.length}`;
+      const select = delta => {
+        let owner = session, index = session.messages.indexOf(record);
+        if (running.has(owner.id)) return;
+        if (index < owner.messages.length - 1) owner = forkAt(owner, index, originalRequest(owner, index));
+        const reply = owner.messages[index]; reply.version += delta;
+        Object.assign(reply, structuredClone(reply.versions[reply.version]));
+        void persist(owner); if (current === owner) renderSession();
+      };
+      previous.addEventListener("click", () => select(-1)); next.addEventListener("click", () => select(1));
+      version.append(previous, count, next); actions.append(version);
+    }
+    output.message.append(actions); return actions;
+  };
   const updateMemory = () => {
     if (!current) return;
     const older = Math.max(0, historyTurns(current).length - 3);
