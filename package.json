@@ -6,6 +6,7 @@
   },
   "devDependencies": {
     "dompurify": "3.4.17",
+    "fake-indexeddb": "6.2.7",
     "jsdom": "29.1.1",
     "katex": "0.18.4",
     "markdown-it": "15.0.3"

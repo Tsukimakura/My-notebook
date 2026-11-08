@@ -1,0 +1,119 @@
+/* Conversation records only. Credentials are deliberately outside this database. */
+window.NotebookConversations = (() => {
+  const text = (value, max) => typeof value === 'string' ? value.slice(0, max) : '';
+  const cleanScope = value => ({ids: Array.isArray(value?.ids) ? value.ids.filter(id => /^[a-f0-9]{24}$/.test(id)).slice(0, 100) : [],
+    mode: value?.mode === 'prefer' ? 'prefer' : 'strict'});
+  const clean = value => {
+    if (!value || !/^[a-f0-9]{32}$/.test(value.id) || !Array.isArray(value.messages)
+        || value.messages.length > 2000 || !['openai', 'deepseek', 'anthropic'].includes(value.provider)) throw new Error('会话格式不正确。');
+    const now = Date.now();
+    return {id: value.id, title: text(value.title, 100) || '新对话', provider: value.provider,
+      model: text(value.model, 100), scope: cleanScope(value.scope), draft: text(value.draft, 4000),
+      createdAt: Number.isFinite(value.createdAt) ? Math.min(now, value.createdAt) : now,
+      updatedAt: Number.isFinite(value.updatedAt) ? Math.min(now, value.updatedAt) : now,
+      revision: Number.isSafeInteger(value.revision) && value.revision >= 0 ? value.revision : 0,
+      summary: text(value.summary, 2000), summaryThrough: Number.isSafeInteger(value.summaryThrough) ? Math.max(0, value.summaryThrough) : 0,
+      messages: value.messages.map(message => {
+        if (!message || !['user', 'assistant'].includes(message.role) || typeof message.content !== 'string'
+            || message.content.length > 64000) throw new Error('消息格式不正确。');
+        return {role: message.role, content: message.content, failed: message.failed === true,
+          pending: message.pending === true, truncated: message.truncated === true,
+          finish_reason: text(message.finish_reason, 30), scope: cleanScope(message.scope),
+          sources: (Array.isArray(message.sources) ? message.sources : []).slice(0, 24).filter(source =>
+            Number.isInteger(source?.id) && typeof source.url === 'string' && source.url.startsWith('/') && !source.url.startsWith('//'))
+            .map(source => ({id: source.id, title: text(source.title, 500), url: text(source.url, 2000), outside_scope: source.outside_scope === true}))};
+      })};
+  };
+  const uid = () => [...crypto.getRandomValues(new Uint8Array(16))].map(b => b.toString(16).padStart(2, '0')).join('');
+  const open = async () => {
+    let db = null;
+    try {
+      db = await new Promise((resolve, reject) => {
+        const request = indexedDB.open('notebook-ai-conversations', 1);
+        request.onupgradeneeded = () => {
+          request.result.createObjectStore('sessions', {keyPath: 'id'});
+          request.result.createObjectStore('settings', {keyPath: 'id'});
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = request.onblocked = () => reject(new Error('浏览器未允许保存对话。'));
+      });
+      db.onversionchange = () => db.close();
+    } catch { /* Private or restricted browsers can still use page memory. */ }
+    const ram = new Map(), meta = new Map();
+    const transaction = (store, mode, action) => new Promise((resolve, reject) => {
+      if (!db) {
+        try { resolve(action(null, store === 'sessions' ? ram : meta)); } catch (error) { reject(error); }
+        return;
+      }
+      const tx = db.transaction(store, mode);
+      let value;
+      tx.oncomplete = () => resolve(value);
+      tx.onerror = tx.onabort = () => reject(tx.notebookError || tx.error || new Error('对话保存失败。'));
+      action(tx.objectStore(store), null, result => { value = result; }, tx);
+    });
+    const getAll = () => transaction('sessions', 'readonly', (store, memory, done) => {
+      if (memory) return [...memory.values()].map(value => structuredClone(value));
+      store.getAll().onsuccess = event => done(event.target.result);
+    });
+    const settings = async value => {
+      if (value !== undefined) {
+        const record = {id: 'preferences', keepDays: [30, 90].includes(value.keepDays) ? value.keepDays : 0,
+          notes: text(value.notes, 2000), autoSummary: value.autoSummary === true};
+        await transaction('settings', 'readwrite', (store, memory) => memory ? memory.set(record.id, record) : store.put(record));
+        return record;
+      }
+      return await transaction('settings', 'readonly', (store, memory, done) => {
+        if (memory) return memory.get('preferences');
+        store.get('preferences').onsuccess = event => done(event.target.result);
+      }) || {keepDays: 0, notes: '', autoSummary: false};
+    };
+    return {
+      get persistent() { return Boolean(db); }, fallback: () => { db?.close(); db = null; }, close: () => db?.close(), uid, clean, settings,
+      list: async () => {
+        const preferences = await settings();
+        const records = await getAll();
+        const visible = [];
+        for (const record of records) {
+          if (preferences.keepDays && Date.now() - record.updatedAt >= preferences.keepDays * 86400000) {
+            await transaction('sessions', 'readwrite', (store, memory) => memory ? memory.delete(record.id) : store.delete(record.id));
+          } else {
+            try { visible.push(clean(record)); } catch { /* Ignore malformed imported or obsolete records. */ }
+          }
+        }
+        return visible.sort((a, b) => b.updatedAt - a.updatedAt);
+      },
+      save: async value => {
+        const record = clean(value);
+        return transaction('sessions', 'readwrite', (store, memory, done, tx) => {
+          const put = previous => {
+            if ((previous && previous.revision !== record.revision) || (!previous && record.revision !== 0)) {
+              if (tx) { tx.notebookError = new Error('此对话已在其他标签页更新，请刷新后再继续。'); tx.abort(); }
+              else throw new Error('此对话已在其他标签页更新，请刷新后再继续。');
+              return;
+            }
+            const updated = {...record, revision: record.revision + 1};
+            if (memory) { memory.set(record.id, structuredClone(updated)); return updated; }
+            store.put(updated); done(updated);
+          };
+          if (memory) return put(memory.get(record.id));
+          store.get(record.id).onsuccess = event => put(event.target.result);
+        });
+      },
+      remove: id => transaction('sessions', 'readwrite', (store, memory) => memory ? memory.delete(id) : store.delete(id)),
+      clear: () => transaction('sessions', 'readwrite', (store, memory) => memory ? memory.clear() : store.clear()),
+      import: async data => {
+        if (data?.version !== 1 || !Array.isArray(data.sessions) || data.sessions.length > 100) throw new Error('请选择本站导出的会话文件（每次最多 100 个会话）。');
+        // Validate everything before writing anything; imported IDs never overwrite live sessions.
+        const records = data.sessions.map(value => clean({...value, id: uid(), revision: 0}));
+        await transaction('sessions', 'readwrite', (store, memory) => {
+          for (const record of records) {
+            record.revision = 1;
+            if (memory) memory.set(record.id, structuredClone(record)); else store.put(record);
+          }
+        });
+        return records;
+      },
+    };
+  };
+  return {open, uid, clean};
+})();

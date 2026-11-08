@@ -2,13 +2,16 @@ const {test} = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const {JSDOM} = require('jsdom');
+const {IDBFactory} = require('fake-indexeddb');
 
-async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = true, retention = 'session', blockStorage = false, beforeScript} = {}) {
+async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = true, retention = 'session', blockStorage = false, beforeScript, indexedDB} = {}) {
   const dom = new JSDOM('<!doctype html><body></body>', {
     url: 'https://notes.example.com/a-note/', runScripts: 'outside-only',
   });
   t.after(() => dom.window.close());
   const {window} = dom;
+  window.indexedDB = indexedDB || new IDBFactory();
+  window.structuredClone = structuredClone;
   window.TextEncoder = TextEncoder;
   window.TextDecoder = TextDecoder;
   for (const area of ['localStorage', 'sessionStorage']) {
@@ -25,10 +28,12 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
     }
   }
   if (beforeScript) beforeScript(window);
+  window.eval(fs.readFileSync('docs/javascripts/notebook-ai-store.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-scope.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-models.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
+  await window.NotebookAIReady;
   window.document.querySelector('.notebook-ai-launch').click();
   const panel = window.document.querySelector('.notebook-ai');
   const get = name => panel.querySelector(`[data-${name}]`);
@@ -43,7 +48,8 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
   get('question').value = '条件概率是什么？';
   const submit = async () => {
     get('chat-form').dispatchEvent(new window.Event('submit', {bubbles: true, cancelable: true}));
-    await new Promise(setImmediate);
+    await new Promise(resolve => setTimeout(resolve, 10));
+    await window.NotebookAIFlush();
   };
   return {window, panel, get, submit, save};
 }
@@ -471,7 +477,7 @@ test('reading and collapsing while pending do not abort; failed rounds do not en
   await submit();
   assert.equal(get('close').disabled, false);
   assert.equal(get('settings').disabled, false);
-  assert.equal(get('new').disabled, true);
+  assert.equal(get('new').disabled, false);
   get('close').click();
   assert.equal(signal.aborted, false);
   // Material replaces only its container, not the body-mounted chat panel.
@@ -778,3 +784,39 @@ test('manual scope selection sends public IDs and clears back to all notes', asy
   assert.equal(request.scope, undefined);
   assert.equal(get('scope-label').textContent, '全部笔记');
 });
+
+test('conversation switching keeps simultaneous answers in their original conversations', async t => {
+  let resolveFirst;
+  const fetch = async (url, options) => {
+    const body = JSON.parse(options.body);
+    if (body.question === 'first question') return new Promise(resolve => { resolveFirst = resolve; });
+    return answerResponse('second answer')();
+  };
+  const {window, get, submit} = await setup(t, fetch);
+  get('question').value = 'first question'; await submit();
+  const firstID = get('session').value;
+  get('new').click();
+  assert.notEqual(get('session').value, firstID);
+  get('question').value = 'second question'; await submit();
+  assert.match(get('messages').textContent, /second answer/);
+  resolveFirst(await answerResponse('first answer')());
+  await new Promise(resolve => setTimeout(resolve, 15)); await window.NotebookAIFlush();
+  assert.ok(!get('messages').textContent.includes('first answer'));
+  get('session').value = firstID; get('session').dispatchEvent(new window.Event('change'));
+  assert.match(get('messages').textContent, /first answer/);
+  assert.ok(!get('messages').textContent.includes('second answer'));
+  assert.equal(get('submit').disabled, false);
+});
+
+test('refresh restores conversation text, model, and citations from IndexedDB', async t => {
+  const indexedDB = new IDBFactory();
+  const first = await setup(t, answerResponse('saved answer'), {indexedDB});
+  await first.submit(); await first.window.NotebookAIFlush();
+  const next = await setup(t, answerResponse('next answer'), {indexedDB, autoSave: false});
+  assert.match(next.get('messages').textContent, /saved answer/);
+  assert.equal(next.get('model').value, 'test-model');
+  assert.equal(next.get('sources').querySelector('a').pathname, '/probability/');
+  assert.equal(next.get('session').options.length, 1);
+});
+
+require('./test_conversations.cjs');

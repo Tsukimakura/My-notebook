@@ -1,10 +1,13 @@
 /* BYOK credentials are saved only by explicit settings, with a fixed expiry. */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   if (document.querySelector(".notebook-ai")) return;
+  let ready;
+  window.NotebookAIReady = new Promise(resolve => { ready = resolve; });
   const launch = document.createElement("button");
   launch.className = "notebook-ai-launch";
   launch.textContent = "问笔记";
   launch.type = "button";
+  launch.disabled = true;
   launch.setAttribute("aria-expanded", "false");
   launch.setAttribute("aria-controls", "notebook-ai");
   const panel = document.createElement("aside");
@@ -19,6 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
       <button type="button" data-new>新对话</button>
       <button type="button" data-close aria-label="收起对话栏">×</button>
     </div></div>
+    <div class="notebook-ai-session-bar"><label>对话<select data-session aria-label="切换对话"></select></label>
+      <details><summary>管理</summary>
+        <label>名称<input data-session-title maxlength="100"></label>
+        <label>记录保存<select data-history-days><option value="0">一直保留</option><option value="30">30 天未使用后删除</option><option value="90">90 天未使用后删除</option></select></label>
+        <div class="notebook-ai-actions"><button type="button" data-delete-session>删除此对话</button><button type="button" data-export>导出全部</button><button type="button" data-import>导入</button><button type="button" data-clear-sessions>清空全部</button></div>
+        <input type="file" data-import-file accept="application/json,.json" hidden>
+        <p>记录保存在此浏览器，清除网站数据会删除记录。导出文件不含 API key。</p>
+      </details></div>
+    <p data-session-status role="status"></p>
     <p data-summary class="notebook-ai-summary"></p>
     <section data-settings-view hidden aria-label="AI 设置">
     <form data-settings-form autocomplete="off">
@@ -41,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <details><summary>密钥、隐私与费用说明</summary>
         <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不将 key、问题或回答写入磁盘或应用日志。任务生成最多持续 4 分钟，结果仅在内存中暂存，完成后 2 分钟过期并定期清除，便于网络恢复后查询。</p>
         <p>每次提问通常调用两次模型，回答生成预算上限为 8,192 tokens（推理模型可能将思考计入预算），详细回答可能花费更多时间和费用。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。</p>
-        <p>对话只保留在当前页面内存中；刷新会清除对话，站内笔记跳转会保留。不要输入其他密码、服务器凭据或敏感个人信息。</p>
+        <p>聊天记录保存在此浏览器，不自动同步到其他设备。不要输入其他密码、服务器凭据或敏感个人信息。</p>
       </details>
       <label class="notebook-ai-consent"><input type="checkbox" data-consent required>我了解密钥保存与转发、对话发送和费用说明</label>
       <div class="notebook-ai-actions"><button type="submit" data-save>保存设置</button><button type="button" data-clear>清除已保存 key</button></div>
@@ -50,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </section>
     <section data-chat-view class="notebook-ai-chat" aria-label="笔记对话">
     <div data-note-scope></div>
+    <button type="button" data-earlier hidden>查看更早的消息</button>
     <div data-messages class="notebook-ai-messages" aria-label="对话记录">
       <p>根据笔记提问，也可以继续追问。回答中的笔记链接会在左侧打开。</p>
     </div>
@@ -60,7 +73,35 @@ document.addEventListener("DOMContentLoaded", () => {
     </form></section>`;
   document.body.append(launch, panel);
   const get = name => panel.querySelector(`[data-${name}]`);
-  const noteScope = window.NotebookScope?.(get("note-scope"));
+  let current = null, database = null, visibleCount = 40, restoring = false;
+  let sessionPreferences = {keepDays: 0, notes: '', autoSummary: false};
+  const conversations = new Map(), running = new Map();
+  let writes = Promise.resolve();
+  const noteScope = window.NotebookScope?.(get("note-scope"), value => {
+    if (current && !restoring) { current.scope = value; void persist(current); }
+  });
+  const persist = session => {
+    if (!database || !conversations.has(session.id)) return writes;
+    // Serialize writes, reading the latest revision when each queued write starts.
+    writes = writes.then(async () => {
+      if (!conversations.has(session.id)) return;
+      const saved = await database.save(session);
+      session.revision = saved.revision;
+    }).catch(error => {
+      get("session-status").textContent = error.name === "QuotaExceededError" ? "浏览器空间不足，请先导出对话。"
+        : error.name === "Error" ? error.message : "保存失败，请导出对话后再刷新。";
+    });
+    return writes;
+  };
+  window.NotebookAIFlush = () => writes;
+  const historyTurns = session => {
+    const result = [];
+    for (let i = 1; i < session.messages.length; i++) {
+      const user = session.messages[i - 1], answer = session.messages[i];
+      if (user.role === "user" && !user.failed && answer.role === "assistant") result.push({question: user.content, answer: answer.content});
+    }
+    return result;
+  };
   let pending = null;
   let turns = [];
   let lastIncomplete = false;
@@ -116,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   const summary = () => {
-    get("summary").textContent = `${preferences.provider} · ${preferences.models[preferences.provider] || "请设置模型"} · ${credential ? "key 已就绪" : "请在设置中填写 key"}`;
+    get("summary").textContent = `${preferences.provider} · ${preferences.models[preferences.provider] || "请设置模型"} · ${credential?.provider === preferences.provider ? "key 已就绪" : "请在设置中填写 key"}`;
   };
   const forget = (all = true) => {
     const previous = credential;
@@ -180,15 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     forget();
     get("settings-status").textContent = "已清除浏览器和当前页面保存的 key。";
   });
-  get("new").addEventListener("click", () => {
-    if (pending) return;
-    turns = [];
-    lastIncomplete = false;
-    get("continue").hidden = true;
-    get("messages").replaceChildren();
-    get("question").value = "";
-    get("status").textContent = "已开始新对话。";
-  });
+  get("new").addEventListener("click", () => { activate(newSession()); });
   get("provider").addEventListener("change", () => {
     get("key").value = get("provider").value === credential?.provider ? credential.key : "";
     get("model").value = preferences.models[get("provider").value] || "";
@@ -223,12 +256,10 @@ document.addEventListener("DOMContentLoaded", () => {
     scheduleExpiry();
     summary();
     get("settings-status").textContent = stored ? "设置已保存。" : "浏览器禁止存储，key 仅在本页暂存，刷新后需重新填写。";
-    // Never silently send a previous provider's conversation to a new one.
-    if (changed) {
-      turns = [];
-      lastIncomplete = false;
-      get("continue").hidden = true;
-      get("messages").replaceChildren();
+    if (changed && current.messages.length) activate(newSession());
+    else {
+      current.provider = provider; current.model = model;
+      void persist(current); refreshSessions();
     }
     showSettings(false);
     get("status").textContent = stored ? "设置已保存，可以开始提问。" : get("settings-status").textContent;
@@ -407,7 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     get("messages").append(message);
     // Bound DOM/memory growth during long study sessions.
-    while (get("messages").children.length > 40) get("messages").firstElementChild.remove();
+    while (get("messages").children.length > visibleCount) get("messages").firstElementChild.remove();
     return {message, content, sources};
   };
   const scrollMessages = () => { get("messages").scrollTop = get("messages").scrollHeight; };
@@ -422,7 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
       {role: "user", content: turn.question.slice(0, 1000)},
       {role: "assistant", content: historyAnswer(turn.answer)},
     ]);
-    const payload = {provider: preferences.provider, model: preferences.models[preferences.provider], question, history};
+    const payload = {provider: current.provider, model: current.model, question, history};
     if (noteScope?.value().ids.length) payload.scope = noteScope.value();
     // Stay below the existing 20 KB proxy/body cap, including UTF-8 and JSON escaping.
     const bytes = value => new TextEncoder().encode(JSON.stringify(value)).length;
@@ -546,8 +577,11 @@ document.addEventListener("DOMContentLoaded", () => {
     : reason === "size_limit"
     ? "回答达到本站单条长度上限，后续内容未展示。可分部分继续提问。"
     : "供应商未正常完成这条回答，内容可能不完整。可准备续写或稍后重试。";
-  let stopped = false;
-  get("stop").addEventListener("click", () => { stopped = true; pending?.abort(); });
+
+  get("stop").addEventListener("click", () => {
+    const job = running.get(current.id);
+    if (job) { job.stopped = true; job.controller.abort(); }
+  });
   get("continue").addEventListener("click", () => {
     if (pending || !lastIncomplete) return;
     get("question").value = "请继续上一条未完成的回答，从断点接着讲解；若最后一个公式或代码块未写完，请将它完整重写，再继续后续内容。";
@@ -558,11 +592,13 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     if (pending) return;
     if (credential && credential.expiresAt <= Date.now()) forget(false);
-    if (!credential) {
+    if (!credential || credential.provider !== current.provider) {
       showSettings(true);
       get("settings-status").textContent = "请先保存设置；key 可能已到期或被清除。";
       return;
     }
+    if (current.messages.length >= 1998) { get("status").textContent = "这段对话已很长，请新建对话。"; return; }
+    const session = current;
     const question = get("question").value.trim();
     if (!question || question.length > 4000) return;
     const body = requestBody(question);
@@ -571,21 +607,28 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     if (!turns.length && !get("messages").querySelector("article")) get("messages").replaceChildren();
+    const userRecord = {role: "user", content: question, pending: true, scope: noteScope?.value()};
+    session.messages.push(userRecord);
+    session.draft = ""; session.updatedAt = Date.now();
+    if (session.title === "新对话") session.title = question.slice(0, 32);
+    void persist(session); refreshSessions();
     const userMessage = addMessage("user", question);
     get("question").value = "";
     get("status").textContent = "正在检索笔记并等待模型回答，你可以继续浏览左侧笔记……";
-    for (const name of ["submit", "new", "save", "continue"]) get(name).disabled = true;
+    for (const name of ["submit", "save", "continue"]) get(name).disabled = true;
     get("stop").hidden = false;
     scrollMessages();
-    stopped = false;
     const controller = new AbortController();
     pending = controller;
+    const job = {controller, stopped: false, status: "正在提交问题"};
+    running.set(session.id, job); refreshSessions();
     const started = performance.now();
     const timer = setTimeout(() => controller.abort(), 265000);
     let phase = "正在提交问题";
     const drawProgress = () => {
       const seconds = Math.floor((performance.now() - started) / 1000);
-      get("status").textContent = `${phase}，已等待 ${seconds} 秒。你可以继续浏览笔记……`;
+      job.status = `${phase}，已等待 ${seconds} 秒`;
+      if (current === session) get("status").textContent = job.status;
     };
     const progress = stage => {
       phase = stage === "answer" ? "正在等待模型生成回答"
@@ -602,39 +645,40 @@ document.addEventListener("DOMContentLoaded", () => {
       if (typeof data?.answer !== "string" || !data.answer.trim() || !Array.isArray(data.sources)) {
         throw new Error("回答格式异常，请稍后重试。");
       }
-      const follow = nearBottom();
-      const output = addMessage("assistant", "");
-      const formatted = render(data.answer, data.sources, output.content, output.sources);
-      lastIncomplete = data.truncated === true;
-      if (lastIncomplete) {
-        const warning = document.createElement("p");
-        warning.className = "notebook-ai-warning";
-        warning.textContent = incompleteMessage(data.finish_reason);
-        output.message.insertBefore(warning, output.content);
+      userRecord.pending = false;
+      session.messages.push({role: "assistant", content: data.answer, sources: data.sources,
+        truncated: data.truncated === true, finish_reason: data.finish_reason, scope: userRecord.scope});
+      session.updatedAt = Date.now();
+      session.status = data.expansion_failed ? "已按原问题检索。" : "";
+      if (data.coverage?.overview && data.coverage.scope_pages > data.coverage.pages) {
+        session.status = `本轮参考了 ${data.coverage.pages}/${data.coverage.scope_pages} 篇笔记。`;
       }
-      turns.push({question, answer: data.answer});
-      turns = turns.slice(-3);
-      if (follow) scrollMessages();
-      const notices = [];
-      if (lastIncomplete) notices.push(incompleteMessage(data.finish_reason));
-      if (!formatted) notices.push("排版资源未加载，暂以纯文本显示。刷新页面会清除对话。");
-      if (data.coverage?.overview && data.coverage.scope_pages > data.coverage.pages) notices.push(`本轮参考了 ${data.coverage.pages}/${data.coverage.scope_pages} 篇笔记。`);
-      if (data.expansion_failed) notices.push("检索词扩展失败，已使用原问题检索，请核对笔记来源。");
-      get("status").textContent = notices.join(" ") || "回答完成，可以继续追问。引用不代表结论已经核验。";
+      void persist(session);
+      job.finished = true;
+      if (current === session) { renderSession(); scrollMessages(); }
     } catch (error) {
-      userMessage.message.classList.add("notebook-ai-failed");
-      if (!get("question").value) get("question").value = question;
-      get("status").textContent = error.name === "AbortError"
-        ? `${stopped ? "已停止等待" : "请求超时"}。已发出的供应商调用仍可能产生费用。`
+      userRecord.pending = false; userRecord.failed = true;
+      session.draft = question;
+      session.status = error.name === "AbortError"
+        ? `${job.stopped ? "已停止等待" : "请求超时"}。已发出的供应商调用仍可能产生费用。`
         : `${error.message}（等待 ${Math.round((performance.now() - started) / 1000)} 秒）`;
+      void persist(session);
+      if (current === session) {
+        userMessage.message.classList.add("notebook-ai-failed");
+        if (!get("question").value) get("question").value = question;
+        get("status").textContent = session.status;
+      }
     } finally {
       clearTimeout(timer);
       clearInterval(ticker);
       document.removeEventListener("visibilitychange", drawProgress);
-      pending = null;
-      for (const name of ["submit", "new", "save", "continue"]) get(name).disabled = false;
-      get("continue").hidden = !lastIncomplete;
-      get("stop").hidden = true;
+      running.delete(session.id); refreshSessions();
+      if (current === session) {
+        pending = null;
+        for (const name of ["submit", "save", "continue"]) get(name).disabled = false;
+        get("continue").hidden = !lastIncomplete;
+        get("stop").hidden = true;
+      }
     }
   });
   get("question").addEventListener("keydown", event => {
@@ -644,13 +688,126 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   // Instant navigation only replaces the notebook container, leaving this panel and job polling alive.
-  // Full reloads clear conversations; BFCache returns must recheck credential expiry.
+  // BFCache returns must recheck credential expiry.
   window.addEventListener("pageshow", () => {
     if (credential && credential.expiresAt <= Date.now()) forget(false);
     scheduleExpiry();
   });
   window.addEventListener("pagehide", () => {
     clearTimeout(expiryTimer);
-    pending?.abort();
+    for (const job of running.values()) job.controller.abort();
   });
+
+  const refreshSessions = () => {
+    get("session").replaceChildren();
+    for (const session of [...conversations.values()].sort((a, b) => b.updatedAt - a.updatedAt)) {
+      get("session").add(new Option(session.title + (running.has(session.id) ? " · 生成中" : ""), session.id));
+    }
+    if (current) { get("session").value = current.id; get("session-title").value = current.title; }
+  };
+  const renderSession = () => {
+    turns = historyTurns(current);
+    const last = current.messages.at(-1);
+    lastIncomplete = last?.role === "assistant" && last.truncated === true;
+    get("messages").replaceChildren();
+    for (const record of current.messages.slice(-visibleCount)) {
+      const output = addMessage(record.role, record.content);
+      if (record.failed) output.message.classList.add("notebook-ai-failed");
+      if (record.role === "assistant") {
+        const formatted = render(record.content, record.sources || [], output.content, output.sources);
+        if (!formatted && !current.status) current.status = "排版资源未加载，暂以纯文本显示。";
+        if (record.truncated) {
+          const warning = document.createElement("p"); warning.className = "notebook-ai-warning";
+          warning.textContent = incompleteMessage(record.finish_reason);
+          output.message.insertBefore(warning, output.content);
+        }
+      }
+    }
+    get("earlier").hidden = current.messages.length <= visibleCount;
+    const job = running.get(current.id);
+    pending = job?.controller || null;
+    for (const name of ["submit", "save", "continue"]) get(name).disabled = Boolean(pending);
+    get("stop").hidden = !pending;
+    get("continue").hidden = !lastIncomplete;
+    get("status").textContent = (job && !job.finished ? job.status : "") || (lastIncomplete ? incompleteMessage(last.finish_reason) : current.status || "");
+  };
+  const activate = session => {
+    if (current) { current.draft = get("question").value; void persist(current); }
+    current = session; visibleCount = 40;
+    preferences.provider = session.provider;
+    if (session.model) preferences.models[session.provider] = session.model;
+    get("provider").value = session.provider; get("model").value = session.model;
+    showModels(session.provider);
+    get("key").value = credential?.provider === session.provider ? credential.key : "";
+    get("consent").checked = credential?.provider === session.provider;
+    restoring = true; noteScope?.restore(session.scope); restoring = false;
+    get("question").value = session.draft || "";
+    get("session-title").value = session.title;
+    storage("sessionStorage", "setItem", "notebook-ai.active-session", session.id);
+    refreshSessions(); renderSession(); summary();
+  };
+  const newSession = () => {
+    const now = Date.now();
+    const session = {id: window.NotebookConversations.uid(), title: "新对话", provider: preferences.provider,
+      model: preferences.models[preferences.provider] || "", scope: {ids: [], mode: "strict"}, messages: [], draft: "",
+      createdAt: now, updatedAt: now, revision: 0, summary: "", summaryThrough: 0};
+    conversations.set(session.id, session); void persist(session); return session;
+  };
+  get("session").addEventListener("change", () => { const session = conversations.get(get("session").value); if (session) activate(session); });
+  get("session-title").addEventListener("change", () => {
+    current.title = get("session-title").value.trim().slice(0, 100) || "新对话";
+    get("session-title").value = current.title; void persist(current); refreshSessions();
+  });
+  get("question").addEventListener("change", () => { current.draft = get("question").value; void persist(current); });
+  get("earlier").addEventListener("click", () => { visibleCount += 40; renderSession(); });
+  get("history-days").addEventListener("change", async () => {
+    sessionPreferences.keepDays = Number(get("history-days").value);
+    try { await database.settings(sessionPreferences); }
+    catch { get("session-status").textContent = "保存失败，请导出对话后再刷新。"; }
+  });
+  const deleteSessions = async all => {
+    if (!confirm(all ? "清空此浏览器的全部对话？" : running.has(current.id) ? "停止生成并删除这段对话？" : "删除这段对话？")) return;
+    const ids = all ? [...conversations.keys()] : [current.id];
+    for (const id of ids) { running.get(id)?.controller.abort(); conversations.delete(id); }
+    await writes;
+    try {
+      for (const id of ids) await database.remove(id);
+      current = null; activate(conversations.values().next().value || newSession());
+    } catch { get("session-status").textContent = "删除失败，请重试。"; }
+  };
+  get("delete-session").addEventListener("click", () => { void deleteSessions(false); });
+  get("clear-sessions").addEventListener("click", () => { void deleteSessions(true); });
+  get("export").addEventListener("click", async () => {
+    await writes;
+    const records = [...conversations.values()].map(window.NotebookConversations.clean);
+    const blob = new Blob([JSON.stringify({version: 1, sessions: records}, null, 2)], {type: "application/json"});
+    const link = document.createElement("a"), url = URL.createObjectURL(blob);
+    link.href = url; link.download = "notebook-conversations.json"; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  get("import").addEventListener("click", () => get("import-file").click());
+  get("import-file").addEventListener("change", async () => {
+    const file = get("import-file").files[0]; if (!file) return;
+    try {
+      if (file.size > 20 * 1024 * 1024) throw new Error("请选择小于 20 MB 的会话文件。");
+      await writes;
+      const imported = await database.import(JSON.parse(await file.text()));
+      for (const session of imported) conversations.set(session.id, session);
+      if (imported.length) activate(imported[0]);
+    } catch (error) { get("session-status").textContent = error.name === "Error" ? error.message : "文件内容不正确，请选择本站导出的 JSON 文件。"; }
+    get("import-file").value = "";
+  });
+  database = await window.NotebookConversations.open();
+  let records;
+  try { sessionPreferences = await database.settings(); records = await database.list(); }
+  catch { database.fallback(); sessionPreferences = await database.settings(); records = []; }
+  get("history-days").value = String(sessionPreferences.keepDays);
+  for (const session of records) {
+    // A page reload cannot safely recreate an upstream request that may already be billed.
+    for (const message of session.messages) if (message.pending) { message.pending = false; message.failed = true; }
+    conversations.set(session.id, session);
+  }
+  const active = storage("sessionStorage", "getItem", "notebook-ai.active-session");
+  activate(conversations.get(active) || conversations.values().next().value || newSession());
+  if (!database.persistent) get("session-status").textContent = "浏览器未允许保存对话，记录仅保留在当前页面。";
+  await writes; launch.disabled = false; ready();
 });
