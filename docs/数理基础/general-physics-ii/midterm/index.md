@@ -13,6 +13,8 @@ sources:
 
 [Course notes](../index.md) · [Homework](../homework/index.md)
 
+**Start here:** [24 小时以内的学习安排](revision-plan.md) → [中文精要：概念与基础例题](essential-notes.md)。先跟例题，再做小改题；总预算包含短休息与机动时间。
+
 ## Exam scope（考试范围）
 
 - **Chapters 1–14:** electrostatics, conductors, circuits, magnetic fields, induction, oscillations, and electromagnetic waves. 理论内容均在范围内，老师未公布各部分比例。
@@ -27,7 +29,8 @@ sources:
 | [2023 paper · 4 questions, 100 points](paper-2023.md) | Question text and redrawn diagrams, without solutions |
 | [2023 worked solutions](solutions-2023.md) | All 13 subparts, methods, sign conventions, and source corrections |
 | [2023 formula sheet, annotated](formula-sheet-2023.md) | All supplied relations, their conditions, and the magnetic-energy correction |
-| [Revision plan（复习安排）](revision-plan.md) | A 13-hour sequence, exercises, completion criteria, and exam workflow |
-| [Transfer practice（迁移练习）](transfer-practice.md) | Twelve short problems with expandable answers, including circuits and waves absent from the old paper |
+| [学习安排](revision-plan.md) | 20 hours of guided study, 2 hours of short breaks, and 2 hours of flexible time |
+| [中文精要](essential-notes.md) | Symbols, minimum mathematics, physical concepts, worked examples, and one-change practice |
+| [Transfer practice（迁移练习）](transfer-practice.md#study-order) | A suggested starting order and twelve expandable answers, including optional extensions |
 
 The question text is transcribed from the five supplied images; the diagrams are redrawn. Solutions are derived from the course notes, not an official marking scheme. [Source and figure records](assets/README.md) identify the original page numbers and corrections.

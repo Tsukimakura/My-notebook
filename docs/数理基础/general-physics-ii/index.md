@@ -36,7 +36,8 @@ sources:
 | 14 | [Maxwell equations and waves](14-maxwell-equations-and-waves.md) | Displacement current, wave equation, transverse fields, intensity. |
 | 15 | [Light, reflection, refraction](15-light-reflection-and-refraction.md) | Radiation pressure, rays, Fermat, Huygens, phase matching. |
 
-- [Midterm preparation（期中复习）](midterm/index.md): Chapters 1–14, the 2023 paper and solutions, formula annotations, and a timed revision plan.
+- [期中学习安排：总预算 24 小时](midterm/revision-plan.md) → [中文精要：概念与基础例题](midterm/essential-notes.md)。按顺序读、跟例题、改一个条件重做。
+- [Midterm materials](midterm/index.md): Chapters 1–14, the 2023 paper and solutions, and formula annotations.
 - [Mathematical toolkit](mathematical-toolkit.md): vectors, calculus, coordinate systems, distributions, and complex notation.
 - [Homework and worked solutions](homework/index.md): seven assignments, all 40 assigned problems, with lecture links and sourced figures.
 - [Formula sheet and conceptual checks](quick-reference.md): formulas with their conditions, units, and common mistakes.

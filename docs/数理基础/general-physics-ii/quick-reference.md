@@ -12,7 +12,7 @@ sources:
 
 [Course index](index.md) · [Mathematical toolkit](mathematical-toolkit.md) · [Midterm revision](midterm/index.md) · [2023 formula-sheet corrections](midterm/formula-sheet-2023.md)
 
-Use this sheet after reading the derivations. Unless otherwise specified, formulas assume vacuum and the geometric idealizations stated in the corresponding chapters.
+Start with [中文精要：概念与基础例题](midterm/essential-notes.md) to learn the symbols and follow worked examples. Use this page to look up formulas and conditions. Unless stated otherwise, formulas assume vacuum and the indicated geometric idealizations.
 
 ## 1. Charge, fields, and potentials
 
@@ -103,18 +103,20 @@ $$
 
 ## 6. Conceptual checks（自测）
 
-1. **Can $V=0$ where $\mathbf E\ne0$?** Yes: the perpendicular bisector plane of a dipole is an example.
-2. **Can $\mathbf E=0$ where $V\ne0$?** Yes: the interior of a charged conducting sphere with zero at infinity.
-3. **Does zero enclosed charge imply zero field?** No; it only implies zero net closed-surface flux.
-4. **Can an equilibrium conductor's charged cavity have a field?** Yes. Zero field applies to the metal material; an empty closed cavity is a separate uniqueness result.
-5. **Does grounding make a conductor neutral?** No. It fixes potential while permitting charge exchange.
-6. **Is zero dipole torque necessarily stable?** No. Anti-alignment also has zero torque but is unstable.
-7. **Is the field radial everywhere outside a sphere in a uniform external field?** No. It is normal at the surface, with a generally nonzero exterior angular component.
-8. **Does a current-carrying resistive wire have zero internal field?** No. Its steady current needs an internal field.
-9. **Are slow electron drift and fast circuit response contradictory?** No; drift, microscopic motion, and signal propagation are different quantities.
-10. **Does impurity scattering always exchange energy?** No. Static impurity scattering can be elastic and still relax momentum.
-11. **Does geometry change leave a capacitor's charge fixed?** Only if the electrical connection imposes that condition; a voltage source instead fixes voltage.
-12. **Can every conductor problem use one image charge?** No. The construction must satisfy all source, boundary, and total-charge conditions.
+| Case | Correct distinction |
+| --- | --- |
+| $V=0$, $\mathbf E\ne0$ | Possible: dipole's perpendicular-bisector plane. |
+| $\mathbf E=0$, $V\ne0$ | Possible: charged sphere's interior, with $V(\infty)=0$. |
+| $Q_{\rm enc}=0$ | Zero closed-surface flux; field can remain nonzero. |
+| Charged cavity | Metal is field-free; cavity need not be. Empty closed cavities use uniqueness. |
+| Grounding | Fixes potential, allows charge exchange; does not impose neutrality. |
+| Zero dipole torque | Parallel alignment is stable; anti-alignment is unstable. |
+| Sphere in external uniform field | Field is normal at the surface, generally nonradial farther away. |
+| Resistive wire carrying current | Requires nonzero internal electric field. |
+| Electron speeds | Drift, microscopic motion, and signal propagation are different. |
+| Impurity scattering | Can relax momentum elastically, without energy exchange. |
+| Capacitor geometry change | Isolation fixes charge; an ideal battery fixes voltage. |
+| Image construction | Match boundaries and total-charge constraints; one image may not suffice. |
 
 ## 7. Circuit transients and material response
 
@@ -208,14 +210,16 @@ $$
 
 ## 12. Further conceptual checks
 
-1. **Does induced current always oppose the external field?** It opposes the flux change, so it can reinforce a decreasing external field.
-2. **Does every induced emf require changing $B$ at a fixed point?** No; motion can change enclosed flux.
-3. **Can a scalar potential alone describe induced $\mathbf E$?** Generally no; nonzero circulation requires a nonconservative contribution.
-4. **Do all sinusoidal circuit frequencies equal $1/\sqrt{LC}$?** No; free damped and driven responses have different relevant frequencies.
-5. **Do half-amplitude points define a half-power width?** No; power is proportional to amplitude squared.
-6. **Does a traveling plane wave exchange $u_E$ and $u_B$ alternately like an LC circuit?** No; they are equal and in phase in that wave.
-7. **Does total internal reflection require zero field outside?** No; an evanescent field can remain.
-8. **Is every Fermat path a global time minimum?** The general statement is stationarity.
+| Case | Correct distinction |
+| --- | --- |
+| Lenz's law | Opposes flux change; can reinforce a decreasing external field. |
+| Induced emf | Can come from changing fields or moving conductors. |
+| Induced electric field | Nonzero circulation prevents a scalar potential alone from describing it. |
+| Oscillation frequency | Natural, damped, and driven frequencies need not coincide. |
+| Half-power width | Amplitude is $1/\sqrt2$ of its peak, not $1/2$. |
+| Traveling vacuum plane wave | $u_E=u_B$ in phase; LC energy exchange alternates. |
+| Total internal reflection · Ch. 15 | An exterior evanescent field can remain. |
+| Fermat · Ch. 15 | Stationary optical time, not always a global minimum. |
 
 ## 13. Calculation checklist
 
@@ -223,4 +227,4 @@ Specify region, source, boundary/initial data, signs and approximations. Disting
 
 ## References
 
-The six main chapters contain derivations and source attributions. [Source map](source-map.md) gives the original files and progress boundaries; [figure notes](assets/README.md) explains visualization conventions.
+Derivations are in the lecture chapters. Original files and scope: [source map](source-map.md); diagrams: [figure records](assets/README.md).

@@ -12,7 +12,21 @@ sources:
 
 [Revision plan](revision-plan.md) · [2023 paper](paper-2023.md) · [Formula sheet](formula-sheet-2023.md)
 
-Use the formula sheet, then write a governing equation and its conditions before opening each answer. These are new practice questions, not additional 2023 exam questions or predictions of this year's paper.
+These are original practice questions with expandable answers. Use the formula sheet and the [中文精要](essential-notes.md) alongside them.
+
+## 从基础部分开始 {#study-order}
+
+按学习安排读完对应主题后，再做下列片段。允许先展开答案跟算一次，再遮住重做；这些任务放在计划的两小时机动中。
+
+| 顺序 | 先完成的部分 | 对应精要 |
+| --- | --- | --- |
+| 1 | [题 5](#check-5)：只判断电子刚释放时的受力方向 | [磁力](essential-notes.md#magnetism) |
+| 2 | [题 7](#check-7)：先找穿过磁场的面积，再判断电动势正负 | [感应](essential-notes.md#induction) |
+| 3 | [题 10](#check-10)：先求波长、磁场振幅和方向，再核对强度 | [电磁波](essential-notes.md#waves) |
+| 4 | [题 4](#check-4)：先看 $t=0^+$ 与长期稳态，完整 $V_C(t)$ 留作下一步 | [RC](essential-notes.md#circuits) |
+| 5 | [题 11](#check-11)：逐小问解释固定量和材料响应 | [材料](essential-notes.md#materials) |
+
+有余量再做题 1、3、9；题 2、6、8、12 的完整计算留作进阶查阅。题号不是难度顺序，十二题不需要在第一轮全部完成。它们不是原卷附加题或今年的命题预测。
 
 ## 1. Zero divergence is not enough {#check-1}
 

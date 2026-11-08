@@ -49,4 +49,4 @@ Authoring dependencies are Python, NumPy, Matplotlib, and Pillow. From the repos
 MPLCONFIGDIR=/tmp/gp2-matplotlib python3 scripts/generate_gp2_midterm_figures.py
 ```
 
-The site uses the optimized WebP assets; these packages are not additional build requirements. The revision plan and twelve transfer problems are new teaching material derived from the course notes; they are not part of the original exam.
+The site uses the optimized WebP assets; these packages are not additional build requirements. The introductory notes, study plan, and twelve transfer problems are new teaching material derived from the course notes, not part of the original exam. The current plan allocates 20 hours of guided learning, 2 hours of short breaks, and 2 hours of flexible time; advanced exercises are optional within that budget.

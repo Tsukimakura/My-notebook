@@ -17,7 +17,7 @@ sources:
 
 [Course index](index.md) · [Formula sheet](quick-reference.md)
 
-Mathematical tools for classes 1–15, including the supplied appendices. Their use in a physics derivation is shown in the linked lesson chapters.
+For a first pass, use the [minimum mathematics and examples](midterm/essential-notes.md#basics). This page contains the fuller tools and appendices for classes 1–15.
 
 ## 1. Vectors, components, and projections
 
