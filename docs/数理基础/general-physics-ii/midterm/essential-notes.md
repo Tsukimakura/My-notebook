@@ -46,33 +46,66 @@ $$
 
 交换顺序变号，同方向叉乘为零。例如 $\hat{\mathbf x}\times\hat{\mathbf z}=-\hat{\mathbf y}$；若运动电荷为负，磁力方向再反转。
 
-### 本次计算够用的微积分
+### 导数和积分：先跟一个数值例子
 
-导数描述“变化有多快”；积分把小贡献相加。下面几条先照着算：
+导数是“变化率”，不是函数本身。以 $f(x)=x^2$ 为例，$x$ 从 $2$ 增加到 $2.01$，$f$ 从 $4$ 增加到 $4.0401$；两者变化量的比是 $4.01$。让增加的量再小一些，比值就更接近 $4$，也就是此处的导数 $f'(2)=2\times2$。
 
-$$
-\frac{d(r^n)}{dr}=nr^{n-1},\qquad
-\int_a^b\frac{dr}{r^2}=\left[-\frac1r\right]_a^b=\frac1a-\frac1b,
-\qquad\int_0^a r\,dr=\frac{a^2}{2}.
-$$
+计算时可以直接用规则 $d(x^n)/dx=nx^{n-1}$，所以 $d(x^2)/dx=2x$。积分可先理解为找一个原函数，再用终点值减起点值。例如 $-1/r$ 的导数是 $1/r^2$，故
 
 $$
-\frac d{dt}e^{-t/\tau}=-\frac1\tau e^{-t/\tau},\qquad
-\frac d{dt}\sin\omega t=\omega\cos\omega t,\qquad
-\frac d{dt}\cos\omega t=-\omega\sin\omega t.
+\int_a^b\frac{dr}{r^2}=\left[-\frac1r\right]_a^b
+=-\frac1b-\left(-\frac1a\right)=\frac1a-\frac1b,
+\qquad \int_0^a r\,dr=\frac{a^2}{2}.
 $$
 
-偏导数 $\partial/\partial x$ 就是只让 $x$ 变，把其余坐标当常数。三个场算符先记住用途：
+### 偏导数：一次只改一个变量
 
-| 算符 | 做什么 | 一个可直接跟算的例子 |
+设 $f(x,y)=x^2+3y$。这个函数同时受位置 $x,y$ 影响：
+
+- **对 $x$ 求偏导：**固定 $y$，例如令 $y=2$，函数变为 $x^2+6$。常数的导数为零，所以 $\partial f/\partial x=2x$。
+- **对 $y$ 求偏导：**固定 $x$，例如令 $x=2$，函数变为 $4+3y$，所以 $\partial f/\partial y=3$。
+
+$\partial$ 提醒你“这次只对指定变量求导”；方法仍是普通求导。**现在能跟着做出这两个结果即可。**
+
+### 梯度、散度、旋度：先认识名字
+
+这三个符号把不同方向的偏导数组合起来，用来描述场。此刻先认用途，具体计算在[读完电场、电势后回看](#field-operators)。
+
+| 符号 | 以后用来回答什么 |
+| --- | --- |
+| 梯度 $\nabla V$ | 电势沿哪个方向变化、变化多快？据此求电场 |
+| 散度 $\nabla\cdot\mathbf E$ | 场在一点附近的净流出怎样？据此联系当地电荷密度 |
+| 旋度 $\nabla\times\mathbf E$ | 场在一点附近有没有环流？静电场的这个量为零 |
+
+“净流出”“环流”描述的是场的空间分布，不表示真有物质在沿电场线流动。**第一遍不要求你计算散度、旋度或由场求电荷密度。**到需要用它们时，再按后面的例子算。
+
+### 指数衰减：先会代入时间
+
+在 $X(t)=X_0e^{-t/\tau}$ 中：$X(t)$ 是随时间变化的量，$X_0=X(0)$ 是初始值，$\tau>0$ 是时间常数，和 $t$ 用相同的时间单位。这里 $e\approx2.718$ 是数学常数。
+
+| 代入的时间 | $X(t)$ | 剩下的比例 |
 | --- | --- | --- |
-| 梯度 $\nabla V$ | 给出电势在各坐标方向的变化率 | $V=Ax^2$，则 $\mathbf E=-\nabla V=-2Ax\hat{\mathbf x}$ |
-| 散度 $\nabla\cdot\mathbf E$ | 局部净流出，联系电荷密度 | 上例为 $-2A$，故 $\rho_q=-2\epsilon_0A$ |
-| 旋度 $\nabla\times\mathbf E$ | 局部环流；静电场必须为零 | 上例各交叉偏导为零，旋度为零 |
+| $t=0$ | $X_0e^0=X_0$ | 100% |
+| $t=\tau$ | $X_0e^{-1}$ | 约 37% |
+| $t=2\tau$ | $X_0e^{-2}$ | 约 14% |
 
-反复出现的一阶方程 $\dot X=-X/\tau$ 的解是 $X=X_0e^{-t/\tau}$：初始为 $X_0$，过一个 $\tau$ 剩约 $0.37X_0$，最终趋近零。先用求导验证这个解，暂时不必从头求解微分方程。
+例如同样过了 $1\ \mathrm s$：$\tau=1\ \mathrm s$ 时剩 37%，$\tau=2\ \mathrm s$ 时剩约 61%。所以**时间常数越大，衰减越慢**。
 
-**小改题：**把 $V=Ax^2$ 改为 $V=Ay^2$，则 $\mathbf E=-2Ay\hat{\mathbf y}$，$\rho_q$ 仍为 $-2\epsilon_0A$。把 $\tau$ 加倍，同一时刻的衰减会更慢。
+$\dot X$ 就是 $dX/dt$，表示 $X$ 随时间变化的快慢。方程 $\dot X=-X/\tau$ 的意思是：在 $X>0$ 时，$X$ 正在减少，减少速度与当前的 $X$ 成正比。上面的指数函数满足它；第一遍先会代入时间和判断快慢即可，电路部分会再使用这个模板。
+
+??? note "回看时再展开：为什么指数函数满足这个方程？"
+
+    把 $X_0,\tau$ 当常数，指数的导数要再乘指数内部 $-t/\tau$ 的导数 $-1/\tau$：
+
+    $$
+    \frac{dX}{dt}=X_0e^{-t/\tau}\left(-\frac1\tau\right)
+    =-\frac1\tau\underbrace{X_0e^{-t/\tau}}_{X(t)}
+    =-\frac X\tau.
+    $$
+
+    再检查 $t=0$ 时 $X=X_0$，便验证了它同时满足方程和初始值。这里是在**验证给出的解**，还不要求独立求解一般微分方程。
+
+**这一段的过关线：**能照例子求 $f(x,y)=x^2+3y$ 的两个偏导；能把 $t=0,t=\tau$ 代入指数式；能解释“$\tau$ 大意味着衰减慢”。做到这些即可继续第 1 节。
 
 ## 1. 电场、电势与高斯定律 · Ch. 1–4 {#electrostatics}
 
@@ -107,6 +140,52 @@ $$
 电偶极子是近邻的 $+q,-q$，$\mathbf p=q\mathbf d$ 指向正电荷。在均匀外场中净力为零，但有力矩 $\boldsymbol\tau=\mathbf p\times\mathbf E$ 和能量 $U=-\mathbf p\cdot\mathbf E$；同向能量最低。远处偶极场按 $1/r^3$ 衰减。
 
 **小改题：**把正球壳改成负球壳，场的箭头反向，电势变负。$Q_{\rm enc}=0$ 只说明闭面净通量为零；无对称性时仍可有非零场。详细算符公式查[第 4 章](../04-triangle-of-electrostatics.md)。
+
+### 回看：场算符的最简计算 {#field-operators}
+
+做“给电势求电场”的题时先用梯度；散度、旋度的计算可在第二遍结合第 4 章回看。
+
+??? note "展开跟算：从 V = A x² 到电场，再到电荷密度"
+
+    设在某个区域 $V(x,y,z)=Ax^2$，$A$ 是常数。以下需要用两条物理关系：$\mathbf E=-\nabla V$，以及真空中的高斯定律 $\rho_q=\epsilon_0\nabla\cdot\mathbf E$。
+
+    **1. 梯度：把三个方向的变化率放在一起。**因为 $V$ 只含 $x$，
+
+    $$
+    \frac{\partial V}{\partial x}=2Ax,\qquad
+    \frac{\partial V}{\partial y}=0,\qquad
+    \frac{\partial V}{\partial z}=0.
+    $$
+
+    因而 $\nabla V=2Ax\hat{\mathbf x}$，再按电场与电势的关系添负号：
+
+    $$
+    \mathbf E=-\nabla V=-2Ax\hat{\mathbf x}.
+    $$
+
+    $\hat{\mathbf x}$ 只表示方向。例如 $A>0,x>0$ 时，系数为负，场朝 $-x$；它不是额外的乘方。
+
+    **2. 散度：对每个分量沿自己的方向求导，再相加。**上面的场有 $E_x=-2Ax,E_y=E_z=0$，所以
+
+    $$
+    \nabla\cdot\mathbf E
+    =\frac{\partial E_x}{\partial x}+\frac{\partial E_y}{\partial y}
+    +\frac{\partial E_z}{\partial z}=-2A+0+0.
+    $$
+
+    $\rho_q$ 是单位体积中的净电荷量，$\epsilon_0$ 是真空介电常数。再用高斯定律才得到 $\rho_q=-2\epsilon_0A$；若 $A>0$，表示该区域净电荷密度为负。**这一步额外用了物理定律，并不是“求导”的定义。**
+
+    **3. 旋度：组合不同方向之间的交叉变化。**例如它的 $z$ 分量是
+
+    $$
+    (\nabla\times\mathbf E)_z
+    =\frac{\partial E_y}{\partial x}-\frac{\partial E_x}{\partial y}
+    =0-0=0.
+    $$
+
+    因为 $E_y=E_z=0$，$E_x$ 又不随 $y,z$ 变化，另外两个旋度分量也为零。这与静电场要求的 $\nabla\times\mathbf E=0$ 一致。
+
+    **小改题：**把 $V=Ax^2$ 改为 $Ay^2$，非零的电场分量改为 $E_y=-2Ay$；散度仍为 $-2A$，所以 $\rho_q$ 不变。第一遍先跟到求出电场，后两步可以稍后再做。
 
 ## 2. 导体、镜像与电容 · Ch. 5–6 {#conductors}
 
@@ -271,6 +350,8 @@ U=\frac{q^2}{2C}+\frac12Li^2,\qquad
 $$
 
 若电流定义为流入所标极板，则 $i=\dot q$；若定义的是另一支路电流，先用节点规则判断正负。电荷最大时电流为零；电流最大时电荷为零。
+
+这里再用到两条求导规则：$d(\cos\omega t)/dt=-\omega\sin\omega t$，$d(\sin\omega t)/dt=\omega\cos\omega t$；对括号内的 $\omega t$ 求导会多出系数 $\omega$。
 
 **跟算初值：**若 $q(0)=q_0$、$i(0)=0$，取 $q=q_0\cos\omega_0t$，求导得到 $i=-\omega_0q_0\sin\omega_0t$。若已知电感有电流而电容未充电，不能仍把 $q(0)$ 设成振幅。
 
