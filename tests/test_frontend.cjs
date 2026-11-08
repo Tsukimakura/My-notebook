@@ -28,6 +28,7 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
     }
   }
   if (beforeScript) beforeScript(window);
+  window.eval(fs.readFileSync('docs/javascripts/notebook-ai-layout.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-store.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-scope.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-models.js', 'utf8'));
@@ -908,4 +909,46 @@ test('each conversation restores its own selected-note scope', async t => {
   assert.match(get('scope-label').textContent, /1/);
   get('question').value = 'use selected note'; await submit();
   assert.deepEqual(requests[0].scope.ids, ['b'.repeat(24)]);
+});
+
+
+test('panel width resizes with keyboard, clamps to reading space, and restores numeric preferences', async t => {
+  const {window, get} = await setup(t, answerResponse('answer'));
+  const handle = get('resize');
+  assert.equal(handle.getAttribute('aria-orientation'), 'vertical');
+  const initial = Number(handle.getAttribute('aria-valuenow'));
+  handle.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'ArrowLeft', bubbles: true}));
+  assert.equal(Number(handle.getAttribute('aria-valuenow')), initial + 16);
+  handle.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'End', bubbles: true}));
+  assert.equal(handle.getAttribute('aria-valuenow'), handle.getAttribute('aria-valuemax'));
+  const saved = window.localStorage.getItem('notebook-ai.layout.v1');
+  const next = await setup(t, answerResponse('answer'), {storageState: {localStorage: {'notebook-ai.layout.v1': saved}}});
+  assert.equal(next.get('resize').getAttribute('aria-valuenow'), handle.getAttribute('aria-valuenow'));
+  assert.ok(!saved.includes('test-not-a-real-key'));
+});
+
+test('mobile separator changes panel height without consuming the entire notebook viewport', async t => {
+  const {window, get} = await setup(t, answerResponse('answer'), {beforeScript: window => {
+    window.innerWidth = 390; window.innerHeight = 844;
+    window.matchMedia = () => ({matches: true, addEventListener() {}});
+  }});
+  const handle = get('resize');
+  assert.equal(handle.getAttribute('aria-orientation'), 'horizontal');
+  handle.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'End', bubbles: true}));
+  assert.ok(Number(handle.getAttribute('aria-valuenow')) <= 844 * .85);
+  handle.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'Home', bubbles: true}));
+  assert.equal(handle.getAttribute('aria-valuenow'), '300');
+});
+
+test('welcome suggestions fill the question without calling a model and references start folded', async t => {
+  let calls = 0;
+  const {window, get, panel, submit} = await setup(t, async () => { calls++; return answerResponse('answer [1]')(); });
+  panel.querySelector('[data-prompt="normal"]').click();
+  assert.match(get('question').value, /一维正态分布/);
+  assert.equal(window.document.activeElement, get('question'));
+  assert.equal(calls, 0);
+  await submit();
+  assert.equal(calls, 1);
+  assert.equal(panel.querySelector('.notebook-ai-references').open, false);
+  assert.match(panel.querySelector('.notebook-ai-references summary').textContent, /参考笔记 · 1/);
 });

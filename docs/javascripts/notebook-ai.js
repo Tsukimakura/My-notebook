@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   panel.setAttribute("aria-label", "笔记 AI 助手");
   // Fixed markup only; model Markdown is parsed and sanitized separately.
   panel.innerHTML = `
-    <div class="notebook-ai-heading"><h2>问笔记</h2><div>
+    <div data-resize class="notebook-ai-resize" role="separator" tabindex="0" aria-controls="notebook-ai" aria-orientation="vertical" aria-label="调整问答栏宽度"><span></span></div>
+    <div class="notebook-ai-heading"><h2><span aria-hidden="true">✧</span> 问笔记</h2><div>
       <button type="button" data-settings aria-expanded="false">设置</button>
       <button type="button" data-new>新对话</button>
       <button type="button" data-close aria-label="收起对话栏">×</button>
@@ -49,8 +50,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         <option value="7">在此浏览器记住 7 天</option>
         <option value="30">在此浏览器记住 30 天</option>
       </select></label>
-      <p>默认临时保存。7 天和 30 天会把 key 保存到此设备的浏览器中，同源脚本可以读取；请只在自己的设备上启用。到期不再使用，下次打开时清除。收起对话栏不会清除 key。</p>
       <details><summary>密钥、隐私与费用说明</summary>
+        <p>默认只保留在当前标签页，最多 2 小时。7 天和 30 天会把 key 保存在此浏览器，同源脚本可以读取；请只在自己的设备上启用。到期后停止使用，可随时清除。</p>
         <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不将 key、问题或回答写入磁盘或应用日志。任务生成最多持续 4 分钟，结果仅在内存中暂存，完成后 2 分钟过期并定期清除，便于网络恢复后查询。</p>
         <p>每次提问通常调用两次模型，回答生成预算上限为 8,192 tokens（推理模型可能将思考计入预算），详细回答可能花费更多时间和费用。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。</p>
         <p>聊天记录保存在此浏览器，不自动同步到其他设备。不要输入其他密码、服务器凭据或敏感个人信息。</p>
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <div class="notebook-ai-actions"><button type="button" data-summarize>整理旧对话</button><button type="button" data-clear-memory>清除这段记忆</button></div>
       <label>所有对话使用的学习偏好<textarea data-learning-notes maxlength="2000" rows="2" placeholder="例如：先讲直觉，再给出推导"></textarea></label>
       <label class="notebook-ai-consent"><input type="checkbox" data-auto-summary>自动整理旧对话（会额外调用模型）</label>
-      <p>记忆和学习偏好会随问题发送给所选供应商。整理只处理旧对话，近期问答仍直接保留。</p>
+      <p>记忆和学习偏好会随问题发送给所选供应商。最近 3 轮直接保留，更早的对话可以整理成记忆。</p>
     </details></div>
     <button type="button" data-earlier hidden>查看更早的消息</button>
     <div data-messages class="notebook-ai-messages" aria-label="对话记录">
@@ -76,10 +77,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     </div>
     <p data-status role="status" aria-live="polite"></p>
     <form data-chat-form autocomplete="off">
-      <label>你的问题<textarea data-question required maxlength="4000" rows="3" placeholder="例如：条件概率和事件独立有什么区别？"></textarea></label>
+      <label class="notebook-ai-composer-label">你的问题<textarea data-question required maxlength="4000" rows="3" placeholder="问一个问题，继续梳理思路…"></textarea></label>
       <div class="notebook-ai-actions"><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden>准备续写</button></div>
     </form></section>`;
   document.body.append(launch, panel);
+  window.NotebookPanelLayout?.(panel);
   const get = name => panel.querySelector(`[data-${name}]`);
   let current = null, database = null, visibleCount = 40, restoring = false;
   let sessionPreferences = {keepDays: 0, notes: '', autoSummary: false};
@@ -221,7 +223,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
   launch.addEventListener("click", () => {
     showPanel(true);
-    if (!credential || !preferences.models[preferences.provider]) showSettings(true);
+
   });
   get("close").addEventListener("click", () => { showPanel(false); launch.focus(); });
   get("settings").addEventListener("click", () => showSettings(get("settings-view").hidden));
@@ -423,6 +425,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       item.append(link);
       sourceList.append(item);
     }
+    const heading = sourceList.parentElement?.querySelector("summary");
+    if (heading) heading.textContent = `参考笔记 · ${sourceList.children.length}`;
+    if (sourceList.parentElement?.classList.contains("notebook-ai-references")) sourceList.parentElement.hidden = !sourceList.children.length;
     return Boolean(formatted);
   };
   const addMessage = (role, text) => {
@@ -442,7 +447,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       sources.className = "notebook-ai-sources";
       sources.setAttribute("data-sources", "");
       sources.setAttribute("aria-label", "本轮检索来源");
-      message.append(sources);
+      const references = document.createElement("details"); references.className = "notebook-ai-references";
+      const summary = document.createElement("summary"); summary.textContent = "参考笔记";
+      references.append(summary, sources); message.append(references);
     }
     get("messages").append(message);
     // Bound DOM/memory growth during long study sessions.
@@ -629,6 +636,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     scrollMessages();
     const controller = new AbortController();
     pending = controller;
+    get("status").setAttribute("aria-live", "off");
+    panel.dataset.busy = "true";
     const job = {controller, stopped: false, status: "正在提交问题"};
     running.set(session.id, job); refreshSessions(); updateMemory();
     const started = performance.now();
@@ -691,6 +700,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       running.delete(session.id); refreshSessions();
       if (current === session) {
         pending = null;
+        get("status").setAttribute("aria-live", "polite");
+        delete panel.dataset.busy;
         for (const name of ["submit", "save", "continue"]) get(name).disabled = false;
         get("continue").hidden = !lastIncomplete;
         get("stop").hidden = true;
@@ -698,6 +709,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       if (completed && sessionPreferences.autoSummary && conversations.has(session.id)) void summarizeSession(session, true);
     }
+  });
+  panel.addEventListener("click", event => {
+    const prompt = event.target.closest("[data-prompt]")?.dataset.prompt;
+    if (!prompt) return;
+    get("question").value = prompt === "current" ? "请梳理当前笔记的核心概念，以及它们之间的联系。"
+      : prompt === "normal" ? "请结合一维正态分布，详细讲解二维正态分布。"
+      : "请总结普通物理学 II 课程目前已有的知识体系。";
+    if (prompt === "current") get("current-note")?.click();
+    get("question").focus();
   });
   get("question").addEventListener("keydown", event => {
     if (event.key === "Enter" && (event.ctrlKey || event.metaKey) && !event.isComposing) {
@@ -728,6 +748,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     const last = current.messages.at(-1);
     lastIncomplete = last?.role === "assistant" && last.truncated === true;
     get("messages").replaceChildren();
+    if (!current.messages.length) {
+      const empty = document.createElement("div"); empty.className = "notebook-ai-empty";
+      empty.innerHTML = `<span class="notebook-ai-empty-mark" aria-hidden="true">✧</span><h3>从一个问题开始</h3>
+        <p>解释概念，串联章节，回到笔记里找答案。</p>
+        <button type="button" data-prompt="current">梳理当前笔记 <span aria-hidden="true">↗</span></button>
+        <button type="button" data-prompt="normal">一维和二维正态有什么联系？ <span aria-hidden="true">↗</span></button>
+        <button type="button" data-prompt="course">总结普通物理学 II 的知识体系 <span aria-hidden="true">↗</span></button>`;
+      get("messages").append(empty);
+    }
     for (const record of current.messages.slice(-visibleCount)) {
       const output = addMessage(record.role, record.content);
       if (record.failed) {
@@ -766,6 +795,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateMemory();
     const job = running.get(current.id);
     pending = job?.controller || null;
+    get("status").setAttribute("aria-live", pending ? "off" : "polite");
+    if (pending) panel.dataset.busy = "true"; else delete panel.dataset.busy;
     for (const name of ["submit", "save", "continue"]) get(name).disabled = Boolean(pending);
     get("stop").hidden = !pending;
     get("continue").hidden = !lastIncomplete;
