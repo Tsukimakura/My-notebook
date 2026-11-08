@@ -103,10 +103,12 @@ class Index:
         threshold = max(scores.values(), default=0) * .25
         return sorted((i for i in scores if scores[i] >= threshold), key=lambda i: (-scores[i], i))
 
-    def search(self, query, limit=12, *, expanded="", scope=None):
+    def search(self, query, limit=None, *, expanded="", scope=None):
         return self.retrieve(query, limit, expanded=expanded, scope=scope)[0]
 
-    def retrieve(self, query, limit=12, *, expanded="", scope=None):
+    def retrieve(self, query, limit=None, *, expanded="", scope=None):
+        default_limit = limit is None
+        limit = 12 if default_limit else limit
         scope = self.validate_scope(scope or {})
         selected = set().union(*(self.scopes[key] for key in scope["ids"])) if scope["ids"] else None
         overview = bool(re.search(r"总结|知识体系|知识框架|学习路线|概览|综述|overview|summari[sz]|syllabus", query, re.I))
@@ -150,27 +152,44 @@ class Index:
             return True
 
         if overview and allowed is not None:
-            # Cover each content page before taking extra excerpts from any one page.
+            # Reserve the course scope, then cover content pages before extra excerpts.
             pages = defaultdict(list)
             for i in sorted(allowed):
                 pages[self.docs[i]["page"]].append(i)
             def auxiliary(page):
-                return bool(re.search(r"/(?:assets|source-map|references)(?:/|$)", page))
+                return bool(re.search(r"/(?:assets|source-map|references)(?:/|$)", page)) or (
+                    not re.search(r"homework|assignment|exercise|作业|习题", query, re.I)
+                    and bool(re.search(r"/(?:homework|assignments|exercises)(?:/|$)", page)))
             if selected is None and any(not auxiliary(p) for p in pages):
                 pages = {p: ids for p, ids in pages.items() if not auxiliary(p)}
             ordered = sorted(pages, key=lambda p: (auxiliary(p), not any(self.docs[i].get("overview") for i in pages[p]), p))
+            # A growing course needs more than the normal topical-search limit.
+            # Explicit caller limits and the total character budget still apply.
+            if default_limit:
+                limit = min(32, max(12, len(ordered) + 2))
+            size = min(1500, 24000 // max(1, min(len(ordered) + 2, limit)))
+
+            def preferred(page):
+                return min(pages[page], key=lambda i: (
+                    not bool(re.search(r"Main results|核心结论|Learning route|知识体系|学习路线", self.docs[i].get("section", ""), re.I)),
+                    "#" not in self.docs[i]["url"], i))
+
+            landing_pages = [p for p in ordered if any(self.docs[i].get("overview") for i in pages[p])]
+            scope_pattern = r"Coverage boundary|Assumptions and scope|The central idea|适用|范围|边界"
+            for page in landing_pages:
+                add(preferred(page), size=size)
+                # Reserve scope before lesson excerpts can exhaust the result slots.
+                for i in pages[page]:
+                    if re.search(scope_pattern, self.docs[i].get("section", ""), re.I):
+                        add(i, size=min(1200, size))
+                        break
             for page in ordered:
-                indices = pages[page]
-                preferred = sorted(indices, key=lambda i: (
-                    not bool(re.search(r"Main results|核心结论|Learning route|Coverage boundary|知识体系|学习路线", self.docs[i].get("section", ""), re.I)),
-                    "#" in self.docs[i]["url"], i))
-                add(preferred[0], cap=2, size=1500)
+                add(preferred(page), size=size)
             for page in ordered:
-                boundaries_first = sorted(pages[page], key=lambda i: (
-                    not bool(re.search(r"Coverage boundary|范围", self.docs[i].get("section", ""), re.I)), i))
-                for i in boundaries_first:
-                    if re.search(r"Coverage boundary|The central idea|适用|范围", self.docs[i].get("section", ""), re.I):
-                        add(i, size=1200)
+                if page not in landing_pages:
+                    for i in pages[page]:
+                        if re.search(scope_pattern, self.docs[i].get("section", ""), re.I):
+                            add(i, size=min(1200, size))
         else:
             rankings = [self.rank(q, allowed, overview) for q in queries]
             # Reserve one result per subtopic before filling from the combined ranking.

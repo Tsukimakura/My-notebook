@@ -17,13 +17,21 @@ class RealNotebookTests(unittest.TestCase):
         self.assertTrue(any("ch02/03-continuous-distributions" in d["url"] and "正态分布" in d["title"] for d in docs))
         self.assertTrue(any("ch03/04-bivariate-normal" in d["url"] for d in docs))
 
-    def test_course_overview_covers_all_six_existing_classes(self):
+    def test_course_overview_covers_all_existing_classes_and_scope(self):
         docs = self.index.search("请总结普通物理学 II 课程目前已有的知识体系")
-        for chapter in range(1, 7):
-            self.assertTrue(any(f"/0{chapter}-" in d["url"] for d in docs), chapter)
+        course = Path("docs/数理基础/general-physics-ii")
+        lessons = sorted(p.stem for p in course.glob("[0-9][0-9]-*.md"))
+        self.assertTrue(lessons)
+        for lesson in lessons:
+            with self.subTest(lesson=lesson):
+                self.assertTrue(any(f"/{lesson}/" in d["url"] for d in docs))
+        index_text = (course / "index.md").read_text()
+        scope_heading = next(line[3:] for line in index_text.splitlines()
+                             if line.startswith("## ") and "scope" in line.casefold())
         self.assertTrue(all("general-physics-ii/" in d["url"] for d in docs))
-        self.assertTrue(any(d.get("section") == "Coverage boundary" for d in docs))
-        self.assertFalse(any("/assets/" in d["url"] or "/source-map/" in d["url"] for d in docs))
+        self.assertTrue(any(d.get("section") == scope_heading for d in docs))
+        self.assertFalse(any(any(f"/{folder}/" in d["url"] for folder in ("assets", "source-map", "homework")) for d in docs))
+        self.assertLessEqual(len(docs), 32)
         self.assertLessEqual(sum(len(d["text"]) for d in docs), 24000)
 
     def test_selecting_course_folder_includes_its_landing_page(self):
