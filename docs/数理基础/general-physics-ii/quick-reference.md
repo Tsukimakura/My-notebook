@@ -35,9 +35,9 @@ Start with [中文精要：概念与基础例题](midterm/essential-notes.md) to
 | --- | --- | --- |
 | Uniform ring, radius $R$ | $E_z=kQz/(R^2+z^2)^{3/2}$; $V=kQ/\sqrt{R^2+z^2}$ | On axis; finite ring, zero potential at infinity. |
 | Uniform disk, radius $R$ | $E_z=\sigma_s[1-z/\sqrt{z^2+R^2}]/(2\epsilon_0)$ | On positive axis $z>0$. |
-| Same disk potential | $V=\sigma_s(\sqrt{z^2+R^2}-|z|)/(2\epsilon_0)$ | On axis; both sides. |
-| Infinite sheet | $E=|\sigma_s|/(2\epsilon_0)$ | One prescribed sheet; field away from positive sheet. |
-| Two opposite infinite sheets | $E=|\sigma_s|/\epsilon_0$ between; zero outside | Equal and opposite sheet densities. |
+| Same disk potential | $V=\sigma_s(\sqrt{z^2+R^2}-\lvert z\rvert)/(2\epsilon_0)$ | On axis; both sides. |
+| Infinite sheet | $E=\lvert\sigma_s\rvert/(2\epsilon_0)$ | One prescribed sheet; field away from positive sheet. |
+| Two opposite infinite sheets | $E=\lvert\sigma_s\rvert/\epsilon_0$ between; zero outside | Equal and opposite sheet densities. |
 | Infinite line | $\mathbf E=\lambda\hat{\mathbf r}/(2\pi\epsilon_0r)$ | Cylindrical radial distance $r>0$. |
 | Infinite-line potential difference | $V(r)-V(r_0)=-\lambda\ln(r/r_0)/(2\pi\epsilon_0)$ | Finite reference radius; do not set zero at infinity. |
 | Uniform insulating ball, inside | $E_r=kQr/R^3$; $V=kQ(3-r^2/R^2)/(2R)$ | $r<R$; total $Q$ uniformly in volume. |
@@ -137,7 +137,7 @@ $$
 | Relation | Formula | Scope |
 | --- | --- | --- |
 | Lorentz force | $\mathbf F=q(\mathbf E+\mathbf v\times\mathbf B)$ | One common reference frame. |
-| Gyromotion | $r_L=mv_\perp/(|q|B)$; $\omega_c=|q|B/m$ | Nonrelativistic, uniform $\mathbf B$. |
+| Gyromotion | $r_L=mv_\perp/(\lvert q\rvert B)$; $\omega_c=\lvert q\rvert B/m$ | Nonrelativistic, uniform $\mathbf B$. |
 | Hall coefficient | $R_H=E_y/(J_xB_z)=1/(nq_c)$ | One-carrier model and stated axes. |
 | Wire force | $d\mathbf F=i\,d\boldsymbol\ell\times\mathbf B$ | Conventional-current element. |
 | Loop moment | $\boldsymbol\mu=NiA\hat{\mathbf n}$ | Planar winding. |
@@ -145,7 +145,7 @@ $$
 | Biot–Savart | $d\mathbf B=\mu_0i\,d\boldsymbol\ell'\times\hat{\mathbf R}/(4\pi R^2)$ | Steady source; source-to-observation separation. |
 | Infinite wire | $B=\mu_0i/(2\pi r)$ | Outside wire; inside uniform solid wire $B=\mu_0ir/(2\pi R^2)$. |
 | Circular coil axis | $B_z=\mu_0NiR^2/[2(R^2+z^2)^{3/2}]$ | Coil radius $R$. |
-| Current sheet | $B=\mu_0|K|/2$ on each side | Opposite directions on the two sides. |
+| Current sheet | $B=\mu_0\lvert K\rvert/2$ on each side | Opposite directions on the two sides. |
 | Long solenoid | $B\simeq\mu_0ni$ | Interior, far from ends. |
 | Ideal toroid | $B=\mu_0Ni/(2\pi r)$ | Inside windings; ideal leakage-free geometry. |
 

@@ -101,7 +101,7 @@ $$
 | 均匀球壳 / 静电平衡的孤立球导体 | 内部 $E=0$，外部像中心点电荷 |
 | 均匀体带电绝缘球 | 内部 $E_r=kQr/R^3$，随 $r$ 增大；外部仍为 $kQ/r^2$ |
 | 无限长直线电荷 | 用圆柱高斯面，$E_r=\lambda/(2\pi\epsilon_0r)$ |
-| 无限大规定面电荷 | 两侧各有 $E=|\sigma_s|/(2\epsilon_0)$，正面电荷向外 |
+| 无限大规定面电荷 | 两侧各有 $E=\lvert\sigma_s\rvert/(2\epsilon_0)$，正面电荷向外 |
 | 有限圆环、圆盘 | 一般需源积分；轴线上可利用对称性消去横向分量 |
 
 电偶极子是近邻的 $+q,-q$，$\mathbf p=q\mathbf d$ 指向正电荷。在均匀外场中净力为零，但有力矩 $\boldsymbol\tau=\mathbf p\times\mathbf E$ 和能量 $U=-\mathbf p\cdot\mathbf E$；同向能量最低。远处偶极场按 $1/r^3$ 衰减。
