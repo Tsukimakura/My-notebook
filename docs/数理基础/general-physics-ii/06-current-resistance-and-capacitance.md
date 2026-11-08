@@ -3,7 +3,7 @@ title: "6 · Current, Resistance, and Capacitance"
 status: draft
 tags: [math-physics, physics, current, drude-model, resistance, capacitance]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/lecture06(1).pdf, PDF pp. 3–31 and 33–38"
   - "课程资料/普通物理学-II/lecture-record-14/course_content.md, 04:20–99:09; ppt_004–ppt_035"
@@ -13,13 +13,11 @@ sources:
 
 # 6 · Current, Resistance, and Capacitance
 
-[Course index](index.md) · [Previous: conductors and images](05-conductors-and-image-charges.md) · [Formula sheet](quick-reference.md)
+[Course index](index.md) · [Previous: conductors and images](05-conductors-and-image-charges.md) · [Next: circuits and dielectrics](07-dc-circuits-and-dielectrics.md)
 
 ## Main results（核心结论）
 
-Current measures charge crossing a surface per unit time. Current density links it to carrier motion. Resistance depends on material and geometry; the Drude model connects material conductivity to carrier density and momentum relaxation. Charge conservation gives the continuity equation. Capacitance relates separated charge to potential difference and, for fixed linear media, is determined by geometry and the surrounding dielectric response.
-
-Prerequisites: electric field and potential difference, charge density, flux, divergence, and the microscopic meaning of an average.
+Current links charge motion to transport; the Drude model connects resistivity to scattering. Charge conservation gives continuity, while fixed linear geometry determines capacitance.
 
 ## 1. Electric current（电流）
 
@@ -30,7 +28,7 @@ i(t)=\frac{dq_{\mathrm{crossed}}}{dt},\qquad
 q_{\mathrm{crossed}}(t_2)-q_{\mathrm{crossed}}(t_1)=\int_{t_1}^{t_2}i(t)\,dt.
 $$
 
-Here $q_{\mathrm{crossed}}$ is cumulative charge crossing the section in the chosen positive direction, not necessarily charge stored in a fixed volume. Current has unit C/s = A. It is a signed scalar associated with an oriented cross section; current density is the spatial vector field.
+$q_{\mathrm{crossed}}$ is cumulative charge crossing an oriented section, not charge stored in a volume. Current is a signed scalar in A = C/s; current density is a vector.
 
 **Conventional current** follows positive-charge motion. In a metal, electrons drift in the opposite direction. A negative carrier moving toward $-x$ contributes positive current toward $+x$.
 
@@ -74,7 +72,7 @@ $$
 |v_d|\approx7.37\times10^{-5}\ \mathrm{m/s}.
 $$
 
-This small speed does not mean an electrical signal waits for one electron to traverse the whole wire. The electromagnetic response propagates through the circuit much faster; its propagation speed depends on the transmission environment.
+Drift speed is distinct from microscopic speed and electromagnetic signal speed; a signal does not wait for one electron to traverse the wire.
 
 ## 3. Resistance, resistivity, and conductivity
 
@@ -139,9 +137,9 @@ $$
 \rho_{\mathrm{res}}=\frac{m_e}{ne^2\tau}.}
 $$
 
-The direction reversal between electron charge and electron drift cancels, so conventional current is along $\mathbf E$. The factor is $\tau$, not $\tau/2$: $\tau$ is the relaxation time of the ensemble, not a stipulated identical flight interval for every particle.
+The electron’s negative charge reverses its drift contribution, so $\mathbf J$ follows $\mathbf E$. The relaxation-time result uses $\tau$, not a fixed-flight-time factor $\tau/2$.
 
-The model predicts Ohmic response when $n$ and $\tau$ are approximately independent of the applied field. Real solids may require effective masses, energy-dependent relaxation, multiple bands, and anisotropic conductivity. A perfect periodic lattice is not simply a collection of independent classical hard obstacles: phonons, impurities, and defects are important scattering mechanisms.
+Ohmic response requires approximately field-independent $n$ and $\tau$. Real solids can require effective masses, multiple bands, and anisotropic/energy-dependent relaxation. Phonons, impurities, and defects scatter carriers; a periodic lattice is not independent classical hard obstacles.
 
 ### Copper example: density and relaxation time
 
@@ -177,7 +175,7 @@ This is an RMS speed, not the drift speed or the Maxwell-distribution mean speed
 
 ### Classroom refinement: Fermi motion and low temperature
 
-The instructor then points out that conduction electrons in a metal are not a dilute classical gas. States are filled up to a Fermi energy, and electrons do not all come to rest as $T\to0$. Relevant microscopic transport speeds are of order the Fermi velocity; the Drude drift formula can remain useful while the classical thermal-speed estimate fails.
+Metal electrons form a degenerate Fermi system, not a dilute classical gas. They retain microscopic motion as $T\to0$; transport speeds are of order $v_F$. The drift formula can remain useful when classical thermal-speed estimates fail.
 
 For scale, a one-band free-electron estimate based on the same density gives
 
@@ -192,7 +190,7 @@ Cooling an ordinary metal typically reduces phonon scattering and increases $\ta
 
 ## 5. Classroom application: electrical and thermal transport
 
-Approximately 54–62 minutes of class 6 connects good electrical conduction with good thermal conduction. For ordinary metals in an appropriate regime, electrons transport both charge and heat. The electronic thermal conductivity $\kappa_e$ approximately satisfies the **Wiedemann–Franz law（维德曼–弗兰兹定律）**:
+For ordinary metals in a suitable regime, the electronic thermal and electrical conductivities obey the **Wiedemann–Franz law（维德曼–弗兰兹定律）**:
 
 $$
 \boxed{\frac{\kappa_e}{\sigma_{\mathrm{cond}}T}\simeq L_0,\qquad
@@ -209,7 +207,7 @@ The classroom uses two experimental design examples:
 
 Diamond illustrates why electrical and thermal conduction need not track: it can be electrically insulating while conducting heat well through lattice vibrations. These are qualitative applications, not universal engineering prescriptions.
 
-The teacher briefly mentions Peltier effects (coupled heat and charge transport) and Hall measurements (carrier-sign information in simple cases). Their quantitative theories require later material and are not developed here.
+Peltier effects couple heat and charge transport. Hall carrier-sign measurements are developed in [class 8](08-magnetic-force-and-motion.md); quantitative thermoelectric theory remains outside this sequence.
 
 ## 6. Continuity equation: local charge conservation
 
@@ -243,7 +241,7 @@ $$
 \nabla\cdot\left(\mathbf J+\epsilon_0\frac{\partial\mathbf E}{\partial t}\right)=0.
 $$
 
-The second term has units of current density and is the vacuum displacement-current term. The instructor introduces this as a consistency clue toward Maxwell's equations. This identity alone does not derive the entire magnetic-field equation, and displacement current is not literal charge conduction through empty space.
+The second term is vacuum displacement-current density, not charge conduction through vacuum. Its role in Maxwell’s equations is developed in [class 14](14-maxwell-equations-and-waves.md).
 
 ## 7. Capacitors and capacitance（电容器与电容）
 
@@ -257,9 +255,9 @@ $$
 
 The unit is C/V = F (farad). Common scales are $\mu\mathrm F=10^{-6}\ \mathrm F$ and $\mathrm{pF}=10^{-12}\ \mathrm F$.
 
-Why is $C$ independent of $q$ in this model? Multiplying every source charge by a factor multiplies the field and voltage difference by the same factor. Their ratio stays fixed. This assumes unchanged geometry and linear response; it is not a claim about all real devices at arbitrary voltages.
+For fixed geometry and linear response, scaling charge scales field and voltage equally, so $C=q/\Delta V$ is unchanged. Nonlinear response or changing geometry invalidates this argument.
 
-The calculation strategy in the slides is:
+To calculate capacitance:
 
 1. Assign $\pm q$ to the two conductors.
 2. Calculate the field between them, usually using Gauss's law.
@@ -280,7 +278,7 @@ $$
 
 Larger area stores more charge for the same voltage. Smaller separation requires less voltage for the same charge. Edges have nonuniform fringe fields, so the ideal formula is an approximation for finite plates.
 
-As discussed in class, if $A$ remains fixed and $d$ changes slightly, $\Delta C/C\simeq-\Delta d/d$. This motivates capacitive displacement sensing. Under a fixed voltage, $q$ changes with $C$; with isolated plates and fixed $q$, $\Delta V$ changes instead.
+At fixed area, $\Delta C/C\simeq-\Delta d/d$, enabling displacement sensing. Fixed voltage makes charge change; isolated fixed-charge plates instead change voltage.
 
 ### Coaxial cylindrical capacitor
 
@@ -309,7 +307,7 @@ Although a cylindrical wire's axial resistance and a coaxial capacitor's capacit
 
 ## 8. Series and parallel combinations: classroom extension
 
-Class 6, approximately 88–89 minutes, derives these combinations geometrically using parallel plates. They also follow from equal-voltage and charge-conservation constraints.
+Capacitor combinations follow from equal voltages or charge conservation:
 
 | Connection | Constraint | Equivalent capacitance |
 | --- | --- | --- |
@@ -322,7 +320,7 @@ For two identical capacitors $C$, parallel gives $2C$ and series gives $C/2$. Th
 
 ## 9. Materials supplement: semiconductors and superconductors
 
-The class finishes by discussing the supplied slide appendices rather than proceeding to full circuit dynamics.
+The material appendices distinguish carrier-density changes from ordinary metallic scattering.
 
 ### Semiconductors
 
@@ -338,7 +336,7 @@ where $\mu_e,\mu_h$ are positive mobilities of electrons and holes. This is a cl
 
 The main observation is zero DC resistivity below a critical temperature, within the allowed field and current range. A superconductor is not merely an ordinary metal with a very long Drude relaxation time. It is a distinct quantum phase; its Meissner response also distinguishes it from an ideal perfect conductor.
 
-The class introduces the qualitative BCS picture: in conventional superconductors, an effective attraction associated with the lattice permits Cooper pairing, and a coherent superconducting state supports dissipationless response. Individual scattering is not simply eliminated because electrons travel as classical collision-proof pairs. A microscopic derivation and superconducting magnetism lie beyond these lectures. These distinctions are supported by [OpenStax, University Physics, superconductivity](https://openstax.org/books/university-physics-volume-3/pages/9-8-superconductivity).
+In conventional BCS superconductors, lattice-mediated effective attraction permits Cooper pairing and a coherent superconducting state. This is not a cartoon of collision-proof classical pairs. See [OpenStax](https://openstax.org/books/university-physics-volume-3/pages/9-8-superconductivity) for the phase/pairing distinction.
 
 The John Bardeen slide connects the transistor and BCS theory to electronic materials. Historical anecdotes are background, not assumptions in the calculations above.
 
@@ -357,4 +355,4 @@ The John Bardeen slide connects the transistor and BCS theory to electronic mate
 
 ## References
 
-Lecture 6 PDF pp. 3–18 covers current, drift, resistance, and continuity; pp. 19–28 covers capacitance; pp. 33–38 provides the material appendices. Class 6, 35–64 minutes, supplies the copper-density, Fermi-motion, and thermal-transport extensions; approximately 68–70 minutes previews displacement current; approximately 88–99 minutes covers capacitor combinations and material supplements. Full circuit laws, RC transients, and capacitor energy are reserved for later notes.
+Lecture 6 pp. 3–28, 33–38; classroom supplements include Fermi motion and thermal transport. Continue with [DC circuits, RC response, and dielectric energy](07-dc-circuits-and-dielectrics.md).

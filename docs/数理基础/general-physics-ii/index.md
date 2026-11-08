@@ -3,46 +3,48 @@ title: "General Physics II · 普通物理学 II"
 status: draft
 tags: [math-physics, physics, electromagnetism, course]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/lecture01(1).pdf–lecture06(1).pdf"
   - "课程资料/普通物理学-II/lecture-record-09–lecture-record-14/course_content.md and classroom screenshots"
   - "课程资料/普通物理学-II/demo1.zip: demo1.ipynb and ElectricFieldLines.py"
+  - "课程资料/普通物理学-II/07–15/: lecture PDFs, classroom transcripts and screenshots; 15/chap15.pdf"
 ---
 
 # General Physics II · 普通物理学 II
 
-**First six classes: electrostatics, conductors, and the foundations of electric transport and capacitance.** These notes combine the supplied lecture slides with the classroom explanations, derivations, and examples. English is the main language; Chinese annotations clarify terminology and difficult distinctions.
-
-The semester introduction identifies **Xin Lu** as the instructor. The supplied slide decks credit Xin Lu / Gentaro Watanabe. The wider course includes magnetism, optics, and quantum physics; the notes below follow the actual progress of the first six classes.
+**Classes 1–15: electrostatics → circuits → magnetism → induction → electromagnetic waves → introductory optics.** English notes with Chinese terminology and conceptual hints, based on the supplied slides and classroom explanations. Instructor: Xin Lu; slide credits: Xin Lu / Gentaro Watanabe.
 
 ## Learning route（学习路线）
 
-| Class | Notes | Main questions |
+| Class | Notes | Core topics |
 | --- | --- | --- |
-| 1 | [Charge, Coulomb's law, and electric fields](01-charge-and-electric-field.md) | What is charge? How do we define and visualize a field? What is a dipole? |
-| 2 | [Continuous charge and Gauss's law](02-continuous-charge-and-gauss-law.md) | How does a sum become an integral? When does symmetry determine the field? |
-| 3 | [Electric potential and potential energy](03-electric-potential.md) | Why is electrostatic work path independent? How do scalar potentials simplify calculations? |
-| 4 | [The triangle of electrostatics](04-triangle-of-electrostatics.md) | How are charge density, field, and potential related locally? What do divergence and curl mean? |
-| 5 | [Conductors, shielding, and image charges](05-conductors-and-image-charges.md) | How do mobile charges reach equilibrium? How do boundary conditions replace unknown charge distributions? |
-| 6 | [Current, resistance, and capacitance](06-current-resistance-and-capacitance.md) | How does microscopic motion produce current and resistance? How does geometry determine capacitance? |
+| 1 | [Charge and electric fields](01-charge-and-electric-field.md) | Coulomb interaction, field lines, dipoles, torque. |
+| 2 | [Continuous charge and Gauss's law](02-continuous-charge-and-gauss-law.md) | Ring/disk integrals, flux, symmetry. |
+| 3 | [Electric potential](03-electric-potential.md) | Conservative work, energy, equipotentials, source potentials. |
+| 4 | [The triangle of electrostatics](04-triangle-of-electrostatics.md) | Gradient, curl, divergence, Poisson equation. |
+| 5 | [Conductors and image charges](05-conductors-and-image-charges.md) | Equilibrium, shielding, plane/sphere images. |
+| 6 | [Current, resistance, capacitance](06-current-resistance-and-capacitance.md) | Drift, Drude model, continuity, capacitor geometry. |
+| 7 | [DC circuits and dielectrics](07-dc-circuits-and-dielectrics.md) | Meters, emf, Kirchhoff rules, RC response, energy, polarization. |
+| 8 | [Magnetic force and motion](08-magnetic-force-and-motion.md) | Lorentz force, helical motion, Hall effect, loop torque. |
+| 9 | [Fields of currents](09-fields-of-currents.md) | Biot–Savart, Ampère law, wires, sheets, solenoids, toroids. |
+| 10 | [Magnetic dipoles and materials](10-magnetic-dipoles-and-materials.md) | Coil fields, magnetization, Curie law, collective order, hysteresis. |
+| 11 | [Electromagnetic induction](11-electromagnetic-induction.md) | Faraday/Lenz laws, motional emf, induced fields, frame transformations. |
+| 12 | [Inductance and RL circuits](12-inductance-and-rl-circuits.md) | Flux linkage, self/mutual induction, magnetic energy. |
+| 13 | [LC, RLC, and AC circuits](13-lc-rlc-and-ac-circuits.md) | Damping, phasors, impedance, resonance, quality factor. |
+| 14 | [Maxwell equations and waves](14-maxwell-equations-and-waves.md) | Displacement current, wave equation, transverse fields, intensity. |
+| 15 | [Light, reflection, refraction](15-light-reflection-and-refraction.md) | Radiation pressure, rays, Fermat, Huygens, phase matching. |
 
-- [Mathematical toolkit](mathematical-toolkit.md): vectors, Taylor expansion, line/surface integrals, spherical coordinates, and point-charge distributions.
+- [Mathematical toolkit](mathematical-toolkit.md): vectors, calculus, coordinate systems, distributions, and complex notation.
 - [Formula sheet and conceptual checks](quick-reference.md): formulas with their conditions, units, and common mistakes.
 - [Source map and scope](source-map.md): PDF page ranges, classroom timestamps, supplemental discussions, and editorial corrections.
-- [Figure provenance and reproduction](assets/README.md): all figures are original mathematical diagrams or plots.
-
-## The central idea
-
-We start with interactions between charges, then describe those interactions using fields and potentials. The same laws can be written as global integral statements or local differential equations. Conductors add boundary conditions; moving charges add conservation and transport laws.
+- [Figure sources and reproduction](assets/README.md): 23 original diagrams and computed plots.
 
 ![Triangle connecting charge density, electric field, and potential through Gauss's law, the gradient, and Poisson's equation](assets/electrostatics-triangle.webp)
 
-**中文提示：**前四课建立“电荷—电场—电势”的联系；第五课加入导体的边界条件；第六课开始研究电荷流动及元件的响应。公式之间的联系和适用条件，比孤立背诵更重要。
-
 ## Prerequisites and notation
 
-Prerequisites: Newtonian mechanics, work and energy, vector algebra, differentiation, elementary integration, and basic multivariable calculus. The mathematical toolkit supplies the conventions used here.
+Prerequisites: mechanics, work/energy, vector algebra, and elementary multivariable calculus. The [toolkit](mathematical-toolkit.md) supplies the conventions.
 
 | Symbol | Meaning | SI unit |
 | --- | --- | --- |
@@ -53,29 +55,18 @@ Prerequisites: Newtonian mechanics, work and energy, vector algebra, differentia
 | $i,\mathbf J$ | Signed current through an oriented surface; current density | A, A/m² |
 | $\rho_{\mathrm{res}},\sigma_{\mathrm{cond}}$ | Resistivity; conductivity | Ω·m, S/m |
 | $R,C$ | Resistance; capacitance | Ω, F |
+| $\mathbf B,\Phi_B$ | Magnetic field; magnetic flux | T, Wb |
+| $\boldsymbol\mu,\mathbf M,\mathbf H$ | Magnetic moment; magnetization; magnetic field strength | A·m², A/m, A/m |
+| $\mathbf P,\mathbf D$ | Polarization; electric displacement | C/m² |
+| $L,M,\Lambda$ | Self-inductance; mutual inductance; flux linkage | H, H, Wb |
+| $\mathbf S,I$ | Poynting vector; average wave intensity | W/m² |
 
 We distinguish $\rho_q$ from $\rho_{\mathrm{res}}$, and $\sigma_s$ from $\sigma_{\mathrm{cond}}$: the original slides reuse $\rho$ and $\sigma$ for different physical quantities. Position is $\mathbf r$, and $r=|\mathbf r|$. The constant $k=1/(4\pi\epsilon_0)\approx8.99\times10^9\ \mathrm{N\,m^2/C^2}$.
 
-Unless stated otherwise, field calculations use **vacuum**, prescribed stationary sources, and ideal conductors in electrostatic equilibrium. Infinite sheets and lines are idealizations of finite systems observed sufficiently far from their edges or ends. A linear capacitor assumes fixed geometry and a fixed linear dielectric response; the first six classes primarily use vacuum examples.
+Distinguish magnetic moment $\boldsymbol\mu$ from permeability $\mu$, mutual inductance $M$ from magnetization $\mathbf M$, and intensity $I$ from current $i$. The phasor convention in class 13 is $e^{j\Omega t}$, with $j^2=-1$.
 
-## How to work through a problem
+## Assumptions and scope
 
-1. Specify the source, observation point, physical region, and boundary/reference conditions.
-2. Use symmetry to determine permitted field components before integrating.
-3. Choose Coulomb integration, Gauss's law, a potential integral, or a boundary-value construction.
-4. Keep signed charges and oriented normals explicit.
-5. Check dimensions, limiting cases, continuity or jumps at boundaries, and total charge.
+Specify the physical region, source model, boundary/initial conditions, signs, and approximation before using a formula. Infinite-source, long-coil, lumped-circuit, linear-material, and geometric-optics formulas each have limits stated in their chapters.
 
-The course introduction emphasizes understanding and independent reasoning. These notes remain marked `draft`: transcription errors have been corrected where the slides, calculations, and supporting references resolve them, but this is not a claim of exhaustive textbook review.
-
-## Course introduction record（课程导论记录）
-
-The classroom introduction sketches electricity in weeks 1–4, magnetism in weeks 5–8, optics in weeks 9–12, and quantum physics in weeks 13–16. This is the introductory course outline, not a claim about the detailed schedule of future classes.
-
-The introduction slide records tentative assessment weights of homework 30%, quizzes and midterm 30%, and final examination 40%. It also records roughly twelve problem sets and paper submission during the first Tuesday class. Current assignment instructions and any changes should be taken from the course announcements rather than inferred from this historical slide record.
-
-The introductory reading list includes Halliday, Resnick, and Walker's *Fundamentals of Physics*, Feynman's *Lectures on Physics*, and the Berkeley electricity-and-magnetism text. Individual lecture PDFs additionally provide chapter references to Halliday, Resnick & Krane, and lecture 4 names Griffiths and Fleisch. The local slide decks remain the source of their particular edition/chapter conventions.
-
-## Coverage boundary
-
-Capacitor series/parallel combinations and the semiconductor/superconductor discussion are included because they occur in class 6. Peltier and Hall effects and displacement current receive only the brief conceptual preview given in that class. Full circuit analysis, RC transients, capacitor energy density, dielectric theory, magnetic fields, optics, and quantum mechanics await later classes.
+Coverage follows actual class progress, including cross-class continuations. Fresnel amplitudes, a full polarization theory, diffraction/interference, and quantum-mechanical derivations are not yet developed. Source records and transcription corrections are collected in the [source map](source-map.md).

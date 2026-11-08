@@ -3,7 +3,7 @@ title: "4 · The Triangle of Electrostatics"
 status: draft
 tags: [math-physics, physics, electrostatics, vector-calculus, poisson-equation]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/lecture04(2).pdf, PDF pp. 2–26 and 29–33"
   - "课程资料/普通物理学-II/lecture-record-12/course_content.md, 00:13–93:00; ppt_001–ppt_033"
@@ -15,7 +15,7 @@ sources:
 
 ## Main results（核心结论）
 
-Electrostatics can be expressed by three related quantities: charge density $\rho_q$, electric field $\mathbf E$, and potential $V$.
+Charge density, electric field, and potential are linked by:
 
 $$
 \boxed{\mathbf E=-\nabla V,\qquad
@@ -24,11 +24,9 @@ $$
 \nabla^2V=-\frac{\rho_q}{\epsilon_0}.}
 $$
 
-These statements encode direction of potential change, absence of circulation, and local electric sources. Boundary conditions are needed to select a physical solution.
+These equations encode local sources, circulation, and potential change; boundary conditions select a physical solution.
 
 ![Electrostatics triangle linking charge density, electric field, and potential, with the zero-curl constraint](assets/electrostatics-triangle.webp)
-
-Prerequisites: total differentials, partial derivatives, vector dot/cross products, and surface flux.
 
 ## 1. Gradient: local change of a scalar field（梯度）
 
@@ -54,9 +52,9 @@ $$
 \frac{dV}{ds}=\nabla V\cdot\hat{\mathbf u}=|\nabla V|\cos\theta.
 $$
 
-Thus $\nabla V$ points toward the steepest local increase; $-\nabla V$ points toward the steepest local decrease. Its magnitude is the maximum directional rate of change per unit distance. At a stationary point the gradient vanishes and does not supply a preferred direction.
+$\nabla V$ points toward steepest local increase, with magnitude the maximum change per unit distance; $-\nabla V$ gives steepest decrease. A zero gradient supplies no preferred direction.
 
-The classroom relates this to gradient methods in optimization. That analogy is local: following steepest descent need not give the globally shortest path or avoid every local minimum.
+Gradient optimization uses the same local direction; steepest descent need not give a globally shortest route or avoid local minima.
 
 For electrostatic potential, comparing $dV=-\mathbf E\cdot d\boldsymbol\ell$ gives $\mathbf E=-\nabla V$.
 
@@ -99,7 +97,7 @@ $$
 
 For example, the $x$ component is $\partial_y\partial_zV-\partial_z\partial_yV=0$. Therefore every smooth potential field $\mathbf E=-\nabla V$ has zero curl.
 
-Conversely, zero curl guarantees a global potential on a suitably simply connected region. In a region with holes or singularities, local zero curl alone is insufficient to conclude that every loop integral vanishes. The [toolkit](mathematical-toolkit.md) gives a concrete example.
+Zero curl guarantees a global potential on a suitably simply connected domain; holes or singularities require care. See the [toolkit counterexample](mathematical-toolkit.md).
 
 ### A field that fails the electrostatic test
 
@@ -109,7 +107,7 @@ $$
 \oint\mathbf A\cdot d\boldsymbol\ell=2\pi a^2\ne0.
 $$
 
-This illustrates circulation. It cannot be a static electric field in the region. Field lines that look bent are not by themselves proof of nonzero curl: electrostatic dipole lines are curved but the field is curl-free away from singular sources.
+This field has circulation and cannot be electrostatic. Curved field lines alone do not imply nonzero curl: dipole fields are curl-free away from their singular sources.
 
 ## 3. Deriving local Gauss's law from a small box
 
@@ -215,7 +213,7 @@ $$
 \rho_q(\mathbf r)=q\delta^{(3)}(\mathbf r-\mathbf r_0).
 $$
 
-This is a distributional identity, not a statement that an ordinary finite derivative exists at $r=0$. The full spherical-coordinate expression and delta normalization are in the [mathematical toolkit](mathematical-toolkit.md), based on the supplied appendices.
+This identity is distributional, not an ordinary derivative at $r=0$; see [delta functions and spherical coordinates](mathematical-toolkit.md).
 
 ## 7. Why boundary conditions matter
 
@@ -234,4 +232,4 @@ One must also prescribe appropriate conductor potentials, total conductor charge
 
 ## References
 
-Lecture 4 PDF pp. 4–13 develops gradient and curl; pp. 14–26 develops the electrostatics triangle, divergence, and Poisson's equation. Class 4 additionally derives the uniformly charged ball's potential and discusses sources/sinks and the spherical divergence formula. PDF pp. 29–33 supply the coordinate and delta-function support. The screened-potential exercise on PDF p. 27 is not treated as completed classroom material here.
+Lecture 4 pp. 4–26 and appendices pp. 29–33. The undeveloped screened-potential exercise is excluded; see [source map](source-map.md).

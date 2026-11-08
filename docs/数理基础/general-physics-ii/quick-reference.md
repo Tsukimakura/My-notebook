@@ -3,9 +3,9 @@ title: "General Physics II · Formula Sheet and Conceptual Checks"
 status: draft
 tags: [math-physics, physics, electrostatics, quick-reference]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
-  - "General Physics II, supplied lectures 1–6 and their classroom transcripts; see source-map.md"
+  - "General Physics II, supplied lectures 1–15 and classroom transcripts; see source-map.md"
 ---
 
 # General Physics II · Formula Sheet and Conceptual Checks
@@ -116,9 +116,110 @@ $$
 11. **Does geometry change leave a capacitor's charge fixed?** Only if the electrical connection imposes that condition; a voltage source instead fixes voltage.
 12. **Can every conductor problem use one image charge?** No. The construction must satisfy all source, boundary, and total-charge conditions.
 
-## 7. Final calculation checklist
+## 7. Circuit transients and material response
 
-Specify the region and references; draw signed sources and normals; use symmetry; keep dimensions consistent; verify source singularities; check total charge and boundary conditions; test limiting cases. For piecewise potentials, match the same additive reference across regions.
+| Relation | Formula | Condition |
+| --- | --- | --- |
+| Source emf | $\mathcal E=dW_{\mathrm{source}}/dq$ | Energy per charge, not force. |
+| Resistor power | $P_R=i^2R=v^2/R$ | Passive resistor. |
+| Capacitor energy | $U_C=q^2/(2C)=Cv^2/2$ | Constant linear capacitance. |
+| RC charging | $q=C\mathcal E(1-e^{-t/(RC)})$ | Initially uncharged, constant ideal source. |
+| RC discharge | $q=q_0e^{-t/(RC)}$ | Closed resistive source-free path. |
+| Polarization sources | $\rho_b=-\nabla\cdot\mathbf P$, $\sigma_b=\mathbf P\cdot\hat{\mathbf n}$ | Normal out of dielectric. |
+| Displacement | $\mathbf D=\epsilon_0\mathbf E+\mathbf P$; $\nabla\cdot\mathbf D=\rho_f$ | $\mathbf D=\epsilon\mathbf E$ additionally assumes linear isotropic response. |
+| Dipole response | $M=n\mu\tanh[\mu B/(k_BT)]$ | Independent two-state moments. |
+| Curie limit | $M\propto B/T$ | Weak field relative to thermal energy; coefficient depends on moment model. |
+
+## 8. Magnetic force and source fields
+
+| Relation | Formula | Scope |
+| --- | --- | --- |
+| Lorentz force | $\mathbf F=q(\mathbf E+\mathbf v\times\mathbf B)$ | One common reference frame. |
+| Gyromotion | $r_L=mv_\perp/(|q|B)$; $\omega_c=|q|B/m$ | Nonrelativistic, uniform $\mathbf B$. |
+| Hall coefficient | $R_H=E_y/(J_xB_z)=1/(nq_c)$ | One-carrier model and stated axes. |
+| Wire force | $d\mathbf F=i\,d\boldsymbol\ell\times\mathbf B$ | Conventional-current element. |
+| Loop moment | $\boldsymbol\mu=NiA\hat{\mathbf n}$ | Planar winding. |
+| Torque and energy | $\boldsymbol\tau=\boldsymbol\mu\times\mathbf B$; $U=-\boldsymbol\mu\cdot\mathbf B$ | Fixed moment in external field. |
+| Biot–Savart | $d\mathbf B=\mu_0i\,d\boldsymbol\ell'\times\hat{\mathbf R}/(4\pi R^2)$ | Steady source; source-to-observation separation. |
+| Infinite wire | $B=\mu_0i/(2\pi r)$ | Outside wire; inside uniform solid wire $B=\mu_0ir/(2\pi R^2)$. |
+| Circular coil axis | $B_z=\mu_0NiR^2/[2(R^2+z^2)^{3/2}]$ | Coil radius $R$. |
+| Current sheet | $B=\mu_0|K|/2$ on each side | Opposite directions on the two sides. |
+| Long solenoid | $B\simeq\mu_0ni$ | Interior, far from ends. |
+| Ideal toroid | $B=\mu_0Ni/(2\pi r)$ | Inside windings; ideal leakage-free geometry. |
+
+## 9. Induction and inductance
+
+$$
+\mathcal E=\oint_{C(t)}(\mathbf E+\mathbf u\times\mathbf B)\cdot d\boldsymbol\ell
+=-\frac{d\Phi_B}{dt},\qquad
+\Lambda=Li,\quad\mathcal E_L=-L\dot i,\quad v_L=L\dot i.
+$$
+
+| Relation | Formula | Condition |
+| --- | --- | --- |
+| Solenoid inductance | $L=\mu_0N^2A/\ell$ | Long air-core coil. |
+| RL switch-on | $i=(\mathcal E/R)(1-e^{-tR/L})$ | Initial zero current. |
+| Magnetic energy | $U_B=Li^2/2$ | Constant linear $L$. |
+| Vacuum field energy | $u=\epsilon_0E^2/2+B^2/(2\mu_0)$ | Matter needs its material-response energy treatment. |
+| Mutual emf | $\mathcal E_2=-M\dot i_1$ | Fixed reciprocal geometry, with winding signs specified. |
+
+## 10. Oscillations and AC
+
+$$
+\omega_0=\frac1{\sqrt{LC}},\quad
+\beta=\frac R{2L},\quad
+\omega_d=\sqrt{\omega_0^2-\beta^2}\quad(\beta<\omega_0).
+$$
+
+For $e^{j\Omega t}$ phasors,
+
+$$
+\widetilde Z_R=R,\qquad
+\widetilde Z_L=j\Omega L,\qquad
+\widetilde Z_C=\frac1{j\Omega C},\qquad
+\widetilde Z_{\mathrm{RLC}}=R+j\left(\Omega L-\frac1{\Omega C}\right).
+$$
+
+With $\phi=\arg\widetilde Z$ and voltage proportional to $\cos\Omega t$, current is $I_m\cos(\Omega t-\phi)$. Current resonance is at $\Omega=\omega_0$, with $I_{m,\max}=\mathcal E_m/R$ for $R>0$. Half-power width is $\Delta\Omega=R/L$, and $\mathcal Q=\omega_0L/R$. Average resistive power is $I_m^2R/2$.
+
+## 11. Maxwell equations, waves, and light
+
+$$
+\begin{aligned}
+\nabla\cdot\mathbf E&=\rho_q/\epsilon_0,&\nabla\cdot\mathbf B&=0,\\
+\nabla\times\mathbf E&=-\partial_t\mathbf B,&
+\nabla\times\mathbf B&=\mu_0\mathbf J+\mu_0\epsilon_0\partial_t\mathbf E.
+\end{aligned}
+$$
+
+| Relation | Formula | Condition |
+| --- | --- | --- |
+| Vacuum wave speed | $c=1/\sqrt{\mu_0\epsilon_0}$ | Source-free wave propagation. |
+| Traveling plane wave | $\mathbf B=\hat{\mathbf k}\times\mathbf E/c$ | Transverse, in-phase fields; $E=cB$. |
+| Poynting vector | $\mathbf S=\mathbf E\times\mathbf B/\mu_0$ | Vacuum energy flux. |
+| Sinusoidal intensity | $I=\epsilon_0cE_m^2/2$ | Peak field amplitude $E_m$. |
+| Isotropic spreading | $I=P/(4\pi r^2)$ | Lossless isotropic far field. |
+| Radiation pressure | $I/c$ absorbed; $2I/c$ reflected | Normal incidence, ideal surfaces in vacuum. |
+| Refractive index | $n=c/v_{\mathrm{ph}}=\sqrt{\epsilon_r\mu_r}$ | Appropriate frequency, homogeneous isotropic transparent medium. |
+| Wavelength in medium | $\lambda=\lambda_0/n$ | Frequency fixed at stationary boundary. |
+| Direction laws | $\theta_r=\theta_i$; $n_1\sin\theta_i=n_2\sin\theta_t$ | Angles to the normal. |
+| Critical angle | $\sin\theta_c=n_2/n_1$ | $n_1>n_2$; total reflection for larger angles. |
+| Boundary phase matching | $\omega_i=\omega_r=\omega_t$, $\mathbf k_{i,\parallel}=\mathbf k_{r,\parallel}=\mathbf k_{t,\parallel}$ | Stationary planar interface. |
+
+## 12. Further conceptual checks
+
+1. **Does induced current always oppose the external field?** It opposes the flux change, so it can reinforce a decreasing external field.
+2. **Does every induced emf require changing $B$ at a fixed point?** No; motion can change enclosed flux.
+3. **Can a scalar potential alone describe induced $\mathbf E$?** Generally no; nonzero circulation requires a nonconservative contribution.
+4. **Do all sinusoidal circuit frequencies equal $1/\sqrt{LC}$?** No; free damped and driven responses have different relevant frequencies.
+5. **Do half-amplitude points define a half-power width?** No; power is proportional to amplitude squared.
+6. **Does a traveling plane wave exchange $u_E$ and $u_B$ alternately like an LC circuit?** No; they are equal and in phase in that wave.
+7. **Does total internal reflection require zero field outside?** No; an evanescent field can remain.
+8. **Is every Fermat path a global time minimum?** The general statement is stationarity.
+
+## 13. Calculation checklist
+
+Specify region, source, boundary/initial data, signs and approximations. Distinguish total/free/bound charge, fixed/moving contours, and fixed charge/voltage. Check dimensions, limits, interfaces and conservation before interpreting a result.
 
 ## References
 

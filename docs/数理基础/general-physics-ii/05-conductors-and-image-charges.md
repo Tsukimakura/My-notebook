@@ -3,7 +3,7 @@ title: "5 · Conductors, Electrostatic Shielding, and Image Charges"
 status: draft
 tags: [math-physics, physics, electrostatics, conductors, image-charges]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/lecture05(1).pdf, PDF pp. 2–31"
   - "课程资料/普通物理学-II/lecture-record-13/course_content.md, 02:00–92:04; ppt_001–ppt_027"
@@ -16,9 +16,9 @@ sources:
 
 ## Main results（核心结论）
 
-An ideal conductor in electrostatic equilibrium has zero electric field in its material, constant potential throughout each connected conductor, and excess charge on its surfaces. Its external field is normal to the surface. Unknown induced charge can sometimes be replaced mathematically by image charges that reproduce the correct source equation and boundary conditions in the physical region.
+At electrostatic equilibrium a connected conductor is equipotential, with zero field in its material and normal field at its surface. Image charges reproduce physical-region fields through matching boundary conditions.
 
-**Every result in this chapter has a region:** conductor material, empty cavity, charged cavity, or exterior. These regions must not be interchanged.
+Always distinguish **metal, empty cavity, charged cavity, and exterior**.
 
 ## 1. Electrostatic equilibrium of a conductor
 
@@ -34,7 +34,7 @@ Here zero bulk charge density means no net macroscopic **excess** volume charge.
 
 A Gaussian surface entirely within the metal encloses zero net charge. This gives a powerful constraint on a cavity, but by itself only determines the **total** inner-wall charge, not its spatial distribution.
 
-The constant $V_c$ is not automatically zero. Grounding fixes the conductor's potential to the chosen reference and allows charge exchange with a reservoir. An isolated conductor instead has a specified conserved net charge and an initially unknown potential.
+Grounding fixes $V_c$ to the chosen reference and permits charge exchange. An isolated conductor instead has fixed net charge and generally unknown, nonzero $V_c$.
 
 **中文提示：**“导体内部电场为零”是静电平衡条件。下一课有稳恒电流的真实电阻导线内部需要非零电场，不能把本课条件机械套用到那里。
 
@@ -58,7 +58,7 @@ For a negative surface charge, the vector points into the metal. At an **inner c
 
 ### Why this differs from a prescribed sheet
 
-A single infinite nonconducting sheet produces fields $\pm\sigma_s/(2\epsilon_0)$ on its two sides. At a conductor, the field from all charges has been arranged to cancel on the metal side and add on the vacuum side. Its boundary value is therefore $\sigma_s/\epsilon_0$. Do not mix an individual sheet's contribution with the total field at a conducting boundary.
+A prescribed isolated sheet gives $\pm\sigma_s/(2\epsilon_0)$ on its two sides. At a conductor, all source contributions cancel inside and add outside, giving total boundary field $\sigma_s/\epsilon_0$.
 
 ## 3. Isolated spherical conductor
 
@@ -91,7 +91,7 @@ For a nonspherical conductor, surface charge is generally nonuniform. Sharper ex
 
 ### Empty closed cavity
 
-If a cavity contains no charge, its boundary is one equipotential surface. The charge-free interior obeys Laplace's equation. The constant solution meets the boundary data and is unique, so the cavity field is zero. External electrostatic sources can redistribute outer-surface charges and change the common potential, but cannot create a field in the empty closed cavity of an ideal equilibrium conductor.
+An empty closed cavity solves Laplace’s equation with an equipotential boundary. Uniqueness gives a constant interior potential and zero field, even with external electrostatic sources; the common potential can change.
 
 This conclusion does not follow solely from zero enclosed charge: zero net flux alone is insufficient. The equipotential boundary and uniqueness are essential for a general cavity shape.
 
@@ -117,13 +117,13 @@ For fixed cavity sources, external sources change the cavity potential by at mos
 
 With no external sources, a grounded shell has zero exterior potential and field. The earth can supply or remove charge; the shell need not remain neutral. For an isolated neutral spherical shell, an internal charge $q$ leaves outer charge $+q$, so its exterior field is nonzero.
 
-The classroom's car/Faraday-cage illustration motivates shielding. The mathematical treatment here is electrostatic; time-dependent shielding requires additional material, frequency, and geometry considerations.
+The car/Faraday-cage illustration concerns electrostatic shielding. Time-dependent shielding additionally depends on material, frequency, and geometry.
 
 ## 5. Uniqueness and the method of images（唯一性与镜像法）
 
 For a specified charge density in a region and specified potential on its boundary, Poisson's equation has at most one solution, with appropriate behavior at infinity in unbounded problems.
 
-To see the idea, let two solutions differ by $w$. They obey $\nabla^2w=0$ and $w=0$ on the boundary. Green's identity gives
+Let the difference of two candidate solutions be $w$. Then $\nabla^2w=0$ and $w=0$ at the boundary; Green’s identity gives
 
 $$
 \int_{\mathcal V}|\nabla w|^2\,d\mathcal V
@@ -184,11 +184,11 @@ $$
 \boxed{U(d)=-\frac{kq^2}{4d}=-\frac{q^2}{16\pi\epsilon_0d}.}
 $$
 
-This is the quasistatic external work required to bring $q$ from infinity. It is half the energy $-kq^2/(2d)$ of **two real fixed charges** separated by $2d$. The image location changes as the real charge moves; counting it as an independent real charge gives the wrong work. Equivalently, $U=\tfrac12qV_{\mathrm{ind}}$ for this grounded linear response.
+This is quasistatic external work from infinity, half the pair energy $-kq^2/(2d)$ of two real charges separated by $2d$. The image moves with the real charge and is not independent. Equivalently, $U=\tfrac12qV_{\mathrm{ind}}$.
 
 ## 7. Classroom supplement: neutral sphere in a uniform field
 
-Class 5, approximately 60:47–70:40, constructs an equivalent dipole to solve this problem. A neutral conducting sphere of radius $R$ is placed in $\mathbf E_0=E_0\hat{\mathbf z}$. Choose its constant potential as zero. Outside,
+A neutral conducting sphere of radius $R$ lies in $\mathbf E_0=E_0\hat{\mathbf z}$. With the sphere potential chosen as zero, its exterior potential is
 
 $$
 \boxed{V(r,\theta)=-E_0r\cos\theta+E_0\frac{R^3}{r^2}\cos\theta,\qquad r\ge R.}
@@ -221,7 +221,7 @@ This construction illustrates the principle that a fictitious interior dipole ma
 
 ## 8. Classroom supplement: spherical image construction
 
-Class 5, approximately 71:27–90:28, develops a nonplanar image. The transcript shifts between a charge in a cavity and a charge outside a sphere. The geometry determines which solution is physical, so both cases are written explicitly below.
+The spherical construction has two physical domains: an exterior charge and an interior cavity charge. Their total induced charges differ.
 
 Let a spherical boundary have radius $R$. A real charge $q$ lies on the positive $z$ axis at $z=a$, with $a\ne R$ and $a>0$. Seek an image $q'$ at $z=b$ such that the boundary potential vanishes. For a point on the sphere,
 
@@ -306,4 +306,4 @@ For an isolated shell with this cavity, adding the shell's constant $V_c$ change
 
 ## References
 
-Lecture 5 PDF pp. 5–24 covers equilibrium, surface fields, and shielding; pp. 25–30 covers the grounded plane and energy exercise. The uniform-field sphere and spherical images come from class-5 explanations rather than separate pages in the supplied PDF. The [source map](source-map.md) records the classroom/transcript ambiguities and their resolution.
+Lecture 5 pp. 5–30, plus classroom uniform-field/spherical-image examples. Their timestamps and ambiguities are recorded in the [source map](source-map.md).

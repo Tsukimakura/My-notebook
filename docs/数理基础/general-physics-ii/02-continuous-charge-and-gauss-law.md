@@ -3,7 +3,7 @@ title: "2 · Continuous Charge and Gauss's Law"
 status: draft
 tags: [math-physics, physics, electrostatics, gauss-law]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/lecture02(1).pdf, PDF pp. 3–30; mathematical appendices pp. 33–41"
   - "课程资料/普通物理学-II/lecture-record-10/course_content.md, 17:12–95:16; ppt_004–ppt_028"
@@ -15,9 +15,9 @@ sources:
 
 ## Main results（核心结论）
 
-A continuous source is handled by adding the fields of infinitesimal charge elements. Gauss's law instead relates the **total signed flux through a closed surface** to enclosed charge. It always holds, but determines a field directly only when symmetry sufficiently constrains that field.
+Integrate infinitesimal source fields, or use Gauss’s closed-surface flux law. Symmetry determines when the latter directly yields the field.
 
-The classroom contrasts **化整为零** (divide a source into elements and integrate) with **化零为整** (use a global flux law). Neither method removes the need to reason about symmetry.
+**化整为零:** source elements → integral. **化零为整:** local field → global flux. Both require symmetry reasoning.
 
 ## 1. Charge densities and the Coulomb integral
 
@@ -40,7 +40,7 @@ A reliable sequence is: choose $dq$ → write the separation vector → project 
 
 ## 2. Uniformly charged ring: field on its axis
 
-Consider a ring of radius $R$, lying in the $xy$ plane and carrying total charge $Q$ uniformly. At $P=(0,0,z)$, every element is at the same distance $s=\sqrt{R^2+z^2}$. Opposite elements cancel their transverse contributions. Rotation about the axis also rules out any preferred transverse direction.
+A uniform ring of radius $R$, charge $Q$, lies in the $xy$ plane. At $(0,0,z)$ all elements have distance $s=\sqrt{R^2+z^2}$; rotational symmetry cancels transverse components.
 
 The axial component is
 
@@ -131,7 +131,7 @@ $$
 
 The field on the left is due to **all** charges, inside and outside. Only the net enclosed charge appears on the right.
 
-For a point charge at the center of a sphere, $E=kq/r^2$ and $\Phi_E=E\,4\pi r^2=q/\epsilon_0$. The shrinking field and growing area cancel. The classroom connects this cancellation to the inverse-square law in three dimensions.
+For a centered charge, $E=kq/r^2$ and $\Phi_E=E\,4\pi r^2=q/\epsilon_0$: inverse-square decay cancels spherical area growth.
 
 For a general closed surface, a point charge contributes
 
@@ -151,7 +151,7 @@ where $d\Omega$ is the signed solid angle seen from the charge. The net solid an
 
 ## 6. How symmetry makes Gauss's law useful
 
-To extract an unknown $E$ from a flux integral, establish from the **physical source and boundary conditions** that $E$ is constant on the relevant surface patches and has a known orientation. Drawing a symmetric Gaussian surface cannot create symmetry absent from the source.
+Extract $E$ only when physical source/boundary symmetry fixes its direction and makes its magnitude constant on the relevant patches. The Gaussian surface cannot create that symmetry.
 
 ![Gaussian surfaces for spherical, planar, and cylindrical symmetry, with the relevant field directions and flux factors](assets/gaussian-surfaces.webp)
 
@@ -206,7 +206,7 @@ $$
 
 The $1/r$ scaling differs from the $1/r^2$ point-charge field because the source is extended indefinitely in one dimension. A finite rod approximates this result only near its central region when the perpendicular distance is much smaller than its length.
 
-As an extension of the same enclosed-charge argument, a uniformly charged infinite solid cylinder of radius $R$ has $E_r=\rho_qr/(2\epsilon_0)$ inside and $E_r=\rho_qR^2/(2\epsilon_0r)$ outside. This is a deduction from the taught method rather than a separate later topic.
+The same method gives a uniformly charged infinite solid cylinder $E_r=\rho_qr/(2\epsilon_0)$ inside and $E_r=\rho_qR^2/(2\epsilon_0r)$ outside.
 
 ## 7. Common errors and self-checks
 
@@ -221,4 +221,4 @@ For a quick dimensional check, $\lambda/(\epsilon_0r)$, $\sigma_s/\epsilon_0$, a
 
 ## References
 
-Lecture 2 PDF pp. 3–8 covers the ring and disk; pp. 10–24 covers flux and Gauss's law; pp. 25–30 covers spherical, planar, and cylindrical applications. Class 2, 17:12–95:16, adds the symmetry reasoning, solid-angle explanation, and integral/global comparison. Its mathematical appendices are summarized in the [toolkit](mathematical-toolkit.md).
+Lecture 2 pp. 3–8 (ring/disk), 10–24 (flux), 25–30 (symmetry applications); mathematical support in the [toolkit](mathematical-toolkit.md).

@@ -17,7 +17,7 @@ sources: []
   - 数学分析、线性代数、离散数学
   - 普通物理与课程复习材料
 - [概率论和数理统计](数理基础/probability-and-mathematical-statistics/index.md)：概率基础、随机变量、一维与二维分布，配套作业题与解析。
-- [普通物理学 II](数理基础/general-physics-ii/index.md)：电荷、电场、电势、导体与静电屏蔽，及电流、电阻和电容。
+- [普通物理学 II](数理基础/general-physics-ii/index.md)：前十五课，覆盖静电学、电路、磁场、电磁感应、电磁波与反射折射。
 
 ## 计算机科学
 

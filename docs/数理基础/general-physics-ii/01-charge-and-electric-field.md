@@ -3,7 +3,7 @@ title: "1 · Charge, Coulomb's Law, and Electric Fields"
 status: draft
 tags: [math-physics, physics, electrostatics, electric-field, dipole]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/lecture01(1).pdf, PDF pp. 4–32; mathematical support pp. 39–45"
   - "课程资料/普通物理学-II/lecture-record-09/course_content.md, 19:09–98:39; ppt_017–ppt_047"
@@ -17,9 +17,7 @@ sources:
 
 ## Main results（核心结论）
 
-Electric charge is a signed, conserved property of matter. Coulomb's law describes the electrostatic interaction between point charges; the electric field separates the source from the charge used to probe it. Fields add as vectors. A neutral object can still produce a field: an electric dipole is the simplest example.
-
-Prerequisites: vector addition, unit vectors, force and torque, and the meaning of a small-parameter expansion.
+Charge is signed and conserved; electric fields add as vectors. A neutral distribution can still produce a dipole or higher-multipole field.
 
 ## 1. Charge and electrical materials
 
@@ -31,9 +29,9 @@ $$
 q=Ne,\qquad N\in\mathbb Z,\qquad e\approx1.602\times10^{-19}\ \mathrm C.
 $$
 
-An electron carries $-e$; a proton carries $+e$. Charge is transferred between bodies during charging. The total signed charge of an isolated system is conserved. Pair creation or annihilation, when relevant, preserves total charge; it does not invalidate conservation.
+Electrons carry $-e$ and protons $+e$. Charge transfers between bodies; isolated total charge is conserved, including during pair creation or annihilation.
 
-The classroom also stresses **Lorentz invariance of total charge**: changing inertial reference frames does not change an object's total charge. This statement does not imply that charge density or current density is separately invariant.
+**Total charge is Lorentz invariant**; charge and current densities need not be separately invariant.
 
 | Material | Charge mobility | Examples and interpretation |
 | --- | --- | --- |
@@ -42,7 +40,7 @@ The classroom also stresses **Lorentz invariance of total charge**: changing ine
 | Semiconductor（半导体） | Carrier population is strongly tunable | Silicon; conductivity depends on temperature, doping, and excitation. |
 | Superconductor（超导体） | Zero DC resistance in its superconducting regime | Requires an appropriate material and conditions; a distinct quantum phase. |
 
-For a metal, a useful elementary picture is a lattice of positively charged ion cores plus mobile electrons. A full distinction between conducting and insulating solids requires electronic band structure, beyond this first electrostatics discussion.
+Metals contain mobile electrons and positive ion cores. Explaining conductor/insulator differences fully requires quantum band structure.
 
 **中文提示：**“电中性”不等于“没有电荷”；“绝缘”不等于“完全不响应电场”。净电荷、电荷是否能自由移动、电荷能否产生微小位移，是不同问题。
 
@@ -56,7 +54,7 @@ $$
 
 At terminal falling speed $v_t$ without an electric field, the elementary Stokes model gives $6\pi\eta a v_t=W_{\mathrm{eff}}$. An electric field can then balance the effective weight, $|q|E=W_{\mathrm{eff}}$, or alter the terminal speed. Repeated measurements reveal discrete charge increments. Precision experiments require corrections to this simplified drag model.
 
-The important lesson is the separation of **measurement**, **model**, and **inference**. Historical values printed in the slides are historical measurements, not the constant to use in current calculations.
+Oil-drop charge measurements depend on the force/drag model. Historical values on the slides are not the constants used in present calculations.
 
 ## 2. Coulomb's law in vector form
 
@@ -78,7 +76,7 @@ $$
 
 This is **superposition（叠加原理）**. Add Cartesian components, not force magnitudes. Coulomb's law here concerns stationary point charges in vacuum; an extended body requires integration unless symmetry justifies replacing it by an effective point source.
 
-The inverse-square structure resembles Newtonian gravitation. Differences matter: mass sources ordinary gravity with one sign, while electric charge has two signs; a neutral charge distribution can suppress its leading far field by cancellation.
+Like Newtonian gravity, Coulomb interaction is inverse-square, but electric charge has two signs. Cancellation in neutral sources suppresses the leading far field.
 
 ## 3. Why introduce a field?
 
@@ -108,7 +106,7 @@ $$
 
 The field has SI unit N/C, equivalently V/m. The external force on a point charge is $\mathbf F=q\mathbf E_{\mathrm{ext}}$; do not insert the charge's own singular field into this formula.
 
-The classroom emphasizes that the field concept enables a second approach: specify field equations and boundary conditions, then determine the field without explicitly tracking every source charge. [Class 5](05-conductors-and-image-charges.md) makes this idea concrete.
+Field equations plus boundary conditions provide an alternative to tracking individual sources; see [conductors and images](05-conductors-and-image-charges.md).
 
 ## 4. Electric field lines（电场线）
 
@@ -134,7 +132,7 @@ E_x\propto q\frac{x-x_0}{[(x-x_0)^2+(y-y_0)^2]^{3/2}},\qquad
 E_y\propto q\frac{y-y_0}{[(x-x_0)^2+(y-y_0)^2]^{3/2}}.
 $$
 
-The program sets the overall Coulomb scale to one, sums contributions, and uses `streamplot`. Its examples are a dipole $(+q,-q)$ and a linear quadrupole $(+q,-2q,+q)$. Although the function is called `CoulombField2D`, it shows a **planar slice of a 3D point-charge field**, not the field of infinite line charges. Numerical calculations must mask the point-charge singularities.
+The supplied `streamplot` examples are a dipole $(+q,-q)$ and quadrupole $(+q,-2q,+q)$, with Coulomb scale set to one. Despite the name `CoulombField2D`, this is a **planar slice of a 3D point-charge field**, not a line-charge field. Mask the singularities.
 
 ## 5. Electric dipole（电偶极子）
 
@@ -183,13 +181,13 @@ Alignment at $\theta=0$ minimizes energy and is stable; anti-alignment at $\thet
 
 ![Dipole forces in a uniform electric field and its potential energy as a function of orientation](assets/dipole-torque-energy.webp)
 
-For a rigid dipole with moment of inertia $I$, small oscillations about alignment obey $I\ddot\theta\simeq-pE\theta$, with angular frequency $\omega=\sqrt{pE/I}$. This follows from the classroom's restoring-torque argument. An undamped dipole oscillates; it does not necessarily settle at the minimum without dissipation.
+For a rigid dipole of moment of inertia $I$, small-angle motion obeys $I\ddot\theta\simeq-pE\theta$, hence $\omega=\sqrt{pE/I}$. Without dissipation it oscillates instead of settling.
 
 In a nonuniform external field, the two forces need not cancel. For a fixed small dipole in electrostatics, $\mathbf F=\nabla(\mathbf p\cdot\mathbf E)$. The uniform-field zero-force conclusion has a specific condition.
 
 ## 6. Classroom extensions: materials and higher multipoles
 
-Class 2 opens with applications of the dipole concept. Displacing positive and negative charge centers produces polarization even if the material remains neutral. **Ferroelectricity（铁电性）** involves spontaneous polarization that can be switched by an applied field; hysteresis permits remanent polarization after the field is removed. **Piezoelectricity（压电性）** couples mechanical stress to polarization, and the converse effect couples an electric field to strain. Piezoelectric transducers can convert mechanical and electrical signals in either direction. Converse piezoelectric strain does not require a phase transition, and ordinary microphones or earphones need not all use this mechanism.
+Separated positive/negative charge centers produce polarization without requiring net charge. **Ferroelectrics（铁电体）** have switchable spontaneous polarization and possible remanence. **Piezoelectricity（压电性）** couples stress to polarization; the converse couples field to strain, without requiring a phase transition. Piezoelectric transducers convert mechanical and electrical signals, though not all microphones or earphones use this mechanism.
 
 The class also introduces the hierarchy of far fields:
 
@@ -212,4 +210,4 @@ These scalings apply far from a localized distribution; angular factors may vani
 
 ## References
 
-Lecture 1 PDF pp. 4–32 supplies the core sequence; class 1, 19:09–98:39, supplies the explanations and dipole-energy discussion. Class 2, 03:19–16:36, supplies materials and multipole extensions. The slide reading list points to Halliday, Resnick & Krane, chapters on charge, Coulomb's law, and electric fields. [Source map](source-map.md) records the complete input inventory.
+Lecture 1 pp. 4–32; class 2 opening dipole/material extensions. Page ranges and timestamps: [source map](source-map.md).

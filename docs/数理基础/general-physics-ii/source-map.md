@@ -3,20 +3,20 @@ title: "General Physics II · Source Map and Scope"
 status: draft
 tags: [math-physics, physics, course, sources]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
-  - "课程资料/普通物理学-II/: six lecture PDFs, six classroom transcript/screenshot directories, and demo1.zip"
+  - "课程资料/普通物理学-II/: lectures 1–15, classroom transcripts/screenshots, demo1.zip, and 15/chap15.pdf"
 ---
 
 # General Physics II · Source Map and Scope
 
 [Course index](index.md)
 
-This page records the inputs used to prepare the first-six-class notes. Local source names are provenance identifiers; the original PDFs and transcripts remain in `课程资料/普通物理学-II/` and are not duplicated into the published website. **Page numbers below refer to the one-based PDF page index**, which can differ from the printed slide counter.
+Source names below are publication-safe identifiers for the supplied course materials, not download links. Originals remain outside the website. **Pages are one-based PDF pages**, which may differ from printed slide counters. Classes 7–15 come from their numbered source directories; transcript identifiers continue the existing anonymized sequence.
 
 ## 1. Source inventory and class mapping
 
-The classroom sequence is established from the opening recaps and lesson content, not simply from file counts. There are **six PDFs, six timestamped transcripts, 242 classroom screenshots, and one demonstration archive**. Screenshot sets include repeated screens, desktop/application views, breaks, and post-class material; these do not all represent additional lecture topics.
+The inputs contain **15 lecture PDFs, one ten-page class-15 handout, 15 transcripts, 601 classroom screenshots, and one demonstration archive**. The first six classes supply 242 screenshots; classes 7–15 supply 359. Repeated slides, desktop views, breaks, and post-class conversations are not additional physics topics.
 
 | Class | PDF and page count | Transcript directory | Screenshots | Principal teaching interval / topic |
 | --- | --- | --- | --- | --- |
@@ -26,6 +26,15 @@ The classroom sequence is established from the opening recaps and lesson content
 | 4 | `lecture04(2).pdf` — 33 pp. | `lecture-record-12` | 33 | Approximately 00:13–93:00: gradient, uniform-ball potential, curl, divergence, Poisson's equation, and spherical divergence. |
 | 5 | `lecture05(1).pdf` — 32 pp. | `lecture-record-13` | 29 | Approximately 02:00–92:04: conductor equilibrium, shielding, image plane, uniform-field sphere, and spherical images. |
 | 6 | `lecture06(1).pdf` — 38 pp. | `lecture-record-14` | 44 | Approximately 04:20–99:09: current and Drude transport, thermal links, continuity, capacitance, combinations, and material appendices. |
+| 7 | `07/lecture07(2).pdf` — 46 pp. | `07/lecture-record-15` | 53 | Approximately 03:56–97:00: meters, emf, network rules, capacitor energy, RC transients, dielectrics. |
+| 8 | `08/lecture08(1).pdf` — 31 pp. | `08/lecture-record-16` | 35 | Opening approximately 30 minutes completes polarization/displacement; then Lorentz force, trajectories, Hall effect, wire force and torque. |
+| 9 | `09/lecture09(2).pdf` — 38 pp. | `09/lecture-record-17` | 36 | Opening approximately 25 minutes completes motor/energy accounting; then Biot–Savart, Ampère law and standard geometries. |
+| 10 | `10/lecture10(1).pdf` — 31 pp. | `10/lecture-record-18` | 43 | Dipole origins, coil/finite-solenoid fields, paramagnetism, diamagnetism, ordering and domains. |
+| 11 | `11/lecture11(1).pdf` — 38 pp. | `11/lecture-record-19` | 44 | Opening approximately 22 minutes completes ordering and anomalous Hall; then induction, induced fields and frame transformations. |
+| 12 | `12/lecture12(1).pdf` — 31 pp. | `12/lecture-record-20` | 36 | Approximately 05:00–97:00: self-inductance, RL response, field energy, mutual induction and experimental applications. |
+| 13 | `13/lecture13.pdf` — 33 pp. | `13/lecture-record-21` | 32 | Approximately 02:00–94:00: LC/RLC dynamics, damping, complex notation, AC impedance and resonance. |
+| 14 | `14/lecture14(2).pdf` — 37 pp. | `14/lecture-record-22` | 35 | Opening approximately ten minutes completes resonance/selectivity; then Maxwell correction, waves and energy flux. |
+| 15 | `15/lecture15.pdf` — 36 pp.; `15/chap15.pdf` — 10 pp. | `15/lecture-record-23` | 45 | Opening approximately 30 minutes completes radiation momentum/pressure; then rays, refraction, three derivations, and field invariants. |
 
 Each directory contains `course_content.md` and files named `ppt_NNN.png`. The images were inspected as source context and topic/progress checks. Published figures are newly drawn diagrams and calculated plots, not copied screenshots.
 
@@ -40,6 +49,15 @@ Each directory contains `course_content.md` and files named `ppt_NNN.png`. The i
 | [Conductors and images](05-conductors-and-image-charges.md) | Lecture 5 pp. 5–30 | Uniform-field sphere at approximately 60:47–70:40; spherical image construction at approximately 71:27–90:28. |
 | [Current, resistance, capacitance](06-current-resistance-and-capacitance.md) | Lecture 6 pp. 3–28 and 33–38 | Copper density and mean free path at approximately 35–40 minutes; Fermi motion at 40–48; thermal transport at 54–64; displacement-current preview at 68–70; capacitor combinations at 88–89. |
 | [Mathematical toolkit](mathematical-toolkit.md) | Lecture 1 pp. 39–45; lecture 2 pp. 33–41; lecture 3 pp. 37–39; lecture 4 pp. 29–33 | Supporting appendices; not all were taught in equal detail. |
+| [DC circuits and dielectrics](07-dc-circuits-and-dielectrics.md) | Lecture 7 pp. 3–34, 36–46 | Network/material appendices were used in class; polarization $\mathbf P$, bound charge and $\mathbf D$ continue in class 8. |
+| [Magnetic force and motion](08-magnetic-force-and-motion.md) | Lecture 8 pp. 3–31 | Class 9 opening completes loop energy, motor operation and magnetic-force work accounting. |
+| [Fields of currents](09-fields-of-currents.md) | Lecture 9 pp. 3–38 | Sheet fields, curl interpretation and local/global laws. |
+| [Dipoles and materials](10-magnetic-dipoles-and-materials.md) | Lecture 10 pp. 5–29 | Class 10 derives the finite-solenoid result; class 11 opening completes symmetry breaking, anomalous and quantum anomalous Hall context. |
+| [Induction](11-electromagnetic-induction.md) | Lecture 11 pp. 5–27, 29–38 | Moving/fixed contour distinction, eddy-current examples, and extensive electric/magnetic frame discussion. |
+| [Inductance and RL](12-inductance-and-rl-circuits.md) | Lecture 12 pp. 4–30 | Pickup measurements, transformer coupling and reverse mutual-linkage calculation. |
+| [LC/RLC and AC](13-lc-rlc-and-ac-circuits.md) | Lecture 13 pp. 3–32 | Class 14 opening adds quality factor and resonance-width discussion. RMS/power relations state the half-power convention explicitly. |
+| [Maxwell equations and waves](14-maxwell-equations-and-waves.md) | Lecture 14 pp. 3–31, 33 | Radiation-pressure material is completed in class 15 rather than counted as fully taught in class 14. |
+| [Light and refraction](15-light-reflection-and-refraction.md) | Lecture 15 pp. 3–30, 33–36; `chap15.pdf` pp. 1–10 | Includes lecture 14 pp. 33–37 as taught at the start of class 15. The handout duplicates/supports the optical derivations rather than constituting another class. |
 
 Reading and summary slides are used to organize and cross-check the notes. A Tronclass quiz placeholder without the actual question is not reconstructed as an invented quiz. Breaks, conversations after class, and uncertain speech fragments are not converted into physics claims.
 
@@ -71,16 +89,33 @@ Automatic recognition often renders 电场 as “电厂”, 电势 as “电视�
 | Low-temperature electrons implied to stop | Retain the classroom's Fermi-motion refinement and give a clearly labeled free-electron estimate. |
 | Impurity scattering described as necessarily inelastic | Explain momentum relaxation and the possibility of elastic impurity scattering. |
 | Superconductivity described as collision-free classical pairs | Give a limited quantum-phase/pairing overview and avoid interpreting the cartoon literally. |
+| A dielectric treated as universally replacing $\epsilon_0$ in every equation | Restrict the shortcut to its homogeneous linear material model; distinguish static and optical response. |
+| $\mathbf D$ described as just the free-charge electric field | Define $\mathbf D=\epsilon_0\mathbf E+\mathbf P$; its divergence counts free charge, while $\mathbf E$ responds to all charges. |
+| Curving magnetic lines taken as proof of local curl | Distinguish line geometry, local current density, circulation, and singular/excluded regions. |
+| Earth's dipole implied to originate simply from a rigid rotating net charge | Treat the rotating-charge example only as a current-loop model, not a geodynamo explanation. |
+| Magnetic force said both to do no work and to drive a motor | Separate bulk/drift/total carrier velocities and include source power and induced emf. |
+| Induced electric potential called entirely meaningless | A scalar alone cannot describe the full induced field; path-dependent emf and consistent terminal voltages remain meaningful. |
+| Induced-field loop formula applied without checking whether the contour moves | Include $\mathbf u\times\mathbf B$ for material moving contours. |
+| Phase sign mixed between current and impedance | Fix $e^{j\Omega t}$, $\phi=\arg Z$, and current $\cos(\Omega t-\phi)$. |
+| Resonance half-height left unspecified | State a half-**power** width, so current amplitude is $1/\sqrt2$ of its maximum. |
+| Magnetic energy formula applied indiscriminately to matter | Use $B^2/(2\mu_0)$ for vacuum; specify linear/reversible assumptions for material energy. |
+| Momentum conservation written without a boundary-flux term | State the isolated-system/control-volume condition explicitly. |
+| Fermat phrased as a universally shortest-time path | Use stationary optical travel time; simple examples are minima. |
+| Transformed light-wave electric and magnetic amplitudes called equal | Preserve the SI relation $E'=cB'$, and distinguish invariant speed from changing frequency/amplitude. |
 
 Worked limits, some numerical checks, the uniqueness proof, and the mathematical domain counterexample are explanatory derivations added to make the notes self-contained. They are not presented as verbatim classroom statements.
 
-## 5. Scope boundary
+## 5. Scope boundary and concise revision
 
-The main lecture content has reached **coaxial capacitance**, its geometric interpretation, series/parallel combinations, and brief material appendices by the end of class 6. Supporting mathematical appendices are collected separately.
+Coverage now reaches **reflection/refraction, Fermat and Huygens constructions, electromagnetic boundary-phase matching, and the Lorentz-invariant plane-wave properties** in class 15. Cross-class continuations are placed with their natural subject and identified above.
 
 The screened-potential exercise on lecture 4 PDF p. 27 has no clearly corresponding developed classroom solution and is omitted from the completed lesson sequence. The post-class Feynman-history/cargo-cult material in lecture 1 is used only for the broad independent-reasoning lesson, rather than reproducing long quotations or treating it as a physics derivation.
 
-Magnetic-field calculations, full Maxwell equations, dielectric polarization theory, capacitor energy density, full circuit analysis, RC charging/discharging, optics, and quantum-mechanical calculations are not expanded into new lesson chapters. Brief mentions of displacement current, Hall/Peltier effects, Fermi motion, and BCS are included only to the extent needed for the classroom discussion.
+Fresnel coefficients and polarization by reflection are announced but not developed by the end of these materials. Full polarization, interference/diffraction, and quantum-mechanical derivations are left for later classes. Quantum Hall, spin glass, BCS, Fermi-motion and thermoelectric remarks retain their classroom-level scope; simple explanatory derivations are identified rather than presented as quotations.
+
+The first six chapters were edited for brevity: repeated introductions, classroom narration and duplicate provenance were shortened. All 124 pre-existing display-formula blocks, worked-example topics and original figure references were preserved. Provenance detail remains here and in each page's metadata.
+
+The introduction's historical course record remains: tentative homework 30%, quizzes/midterm 30%, final 40%, about twelve problem sets and first-Tuesday-class paper submission; broad term outline electricity → magnetism → optics → quantum physics. Its reading lists name Halliday/Resnick/Walker, Halliday/Resnick/Krane, Feynman, Berkeley E&M, and later Griffiths/Fleisch. These are original course records, not updated assignment announcements.
 
 ## 6. External checks
 
@@ -89,5 +124,11 @@ The local materials are the primary basis. A small number of textbook/university
 - [Feynman Lectures, Vol. II, chapter 6](https://www.feynmanlectures.caltech.edu/II_06.html): sphere in a uniform field; grounded versus isolated spherical images.
 - [MIT OCW 2.57, complete 2004 transport notes](https://ocw.mit.edu/courses/2-57-nano-to-macro-transport-processes-spring-2012/2e4ecaa5cf55f03bcefbc8ccce79aed6_MIT2_57S12_lec_notes_2004.pdf): Wiedemann–Franz relation and Lorenz number.
 - [OpenStax, University Physics Vol. 3, §9.8](https://openstax.org/books/university-physics-volume-3/pages/9-8-superconductivity): zero resistance, Cooper pairing, and the distinction from a perfect conductor.
+- [NIST, SI definition](https://www.nist.gov/pml/special-publication-330/sp-330-section-2): elementary-charge-based ampere and current unit conventions.
+- [NIST, units for magnetic quantities](https://www.nist.gov/publications/units-magnetic-quantities): vacuum permeability is no longer an exact defining SI constant.
+- [Royal Swedish Academy, quantum Hall background](https://www.nobelprize.org/uploads/2018/06/advanced-physicsprize1998.pdf): integer/fractional Hall plateau interpretation.
+- [Royal Swedish Academy, 2021 physics background](https://www.nobelprize.org/uploads/2021/10/popular-physicsprize2021-2.pdf): spin-glass frustration, distinguished from ordinary thermal disorder.
+- [University of Colorado, magnetic-mirror lecture](https://impact.colorado.edu/Kempf%20Teaching%20Portfolio/PHYS5150_2023/Scripts/plasma%207%20Magnetic%20mirrors.pdf): adiabatic-invariant clarification of the mirror picture.
+- [Chang et al., Science (2013)](https://doi.org/10.1126/science.1234414): the quantum-anomalous-Hall example shown in the class-11 continuation of magnetic materials.
 
 The notes remain `draft` so subsequent textbook review and future course corrections can be recorded explicitly.

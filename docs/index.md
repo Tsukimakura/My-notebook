@@ -29,7 +29,7 @@ courses:
     description: 随机变量、常用分布、联合分布与练习题。
   - name: 普通物理学 II
     path: 数理基础/general-physics-ii/
-    description: 前六课：静电学、导体、电流与电容。
+    description: 前十五课：电磁学、电路与光的反射折射。
   - name: 计算机系统 II
     path: 计算机科学/Computer Systems II/
     description: 体系结构、RISC-V 与流水线。

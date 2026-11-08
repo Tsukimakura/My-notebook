@@ -3,7 +3,7 @@ title: "3 · Electric Potential and Potential Energy"
 status: draft
 tags: [math-physics, physics, electrostatics, potential, energy]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/lecture03(1).pdf, PDF pp. 3–35; line-integral appendix pp. 37–39"
   - "课程资料/普通物理学-II/lecture-record-11/course_content.md, 13:09–96:44; ppt_001–ppt_049"
@@ -16,15 +16,13 @@ sources:
 
 ## Main results（核心结论）
 
-Electrostatic work is path independent. This allows a potential energy and, after division by the probe charge, an electric potential. Potential is a scalar: sum scalar contributions, then differentiate to obtain the field. Potential differences determine energy changes; the additive zero of potential is a choice.
+Electrostatic work is path independent. Scalar potentials add; differences determine energy changes, and spatial derivatives determine the field.
 
 $$
 V_f-V_i=-\int_i^f\mathbf E\cdot d\boldsymbol\ell,\qquad
 \mathbf E=-\nabla V,\qquad
 \Delta U=q\Delta V.
 $$
-
-Prerequisites: work-energy theorem, signed work, line integrals, and elementary partial derivatives.
 
 ## 1. Why electrostatic forces are conservative
 
@@ -50,7 +48,7 @@ Equivalent statements in a suitable simply connected region are:
 - A single-valued scalar potential can be defined.
 - The local curl vanishes: $\nabla\times\mathbf E=0$.
 
-The classroom uses circulation in a vortex as a counterexample: a vector field tangent to a circular path can have nonzero closed-loop work and cannot be described by an electrostatic potential. General time-dependent electric fields need not be conservative.
+A circulating vortex field can do nonzero closed-loop work and is not electrostatic. General time-dependent electric fields need not be conservative.
 
 **中文提示：**“保守”说的是做功与路径无关，并不要求轨迹沿径向。验证库仑力时，是把任意路径的位移投影到径向后积分。
 
@@ -70,7 +68,7 @@ $$
 
 For a quasistatic transfer with negligible change of kinetic energy, an external agent does work $W_{\mathrm{ext}}=\Delta U$. The external work and field work have opposite signs.
 
-This distinction matters in charging or bringing particles together. For two like charges, approaching increases $U$, so the external agent must supply positive work against repulsion. For opposite charges, approaching decreases $U$ and the field can release kinetic energy.
+Bringing like charges closer requires positive external work and raises $U$; opposite charges approaching lower $U$ and can gain kinetic energy.
 
 ## 3. Electric potential（电势）
 
@@ -165,9 +163,9 @@ $$
 =\frac12\sum_iq_iV_{\mathrm{others}}(\mathbf r_i).}
 $$
 
-Each unordered pair appears once. The factor $1/2$ corrects the double counting in the second expression. The singular point-charge self-energy is excluded. This energy is for the configuration of charges, not merely the potential at one chosen point.
+The factor $1/2$ avoids counting each pair twice. Exclude singular point-charge self-energies; this is configuration energy, not potential at a point.
 
-**Example:** three equal charges $q$ at the vertices of an equilateral triangle of side $a$ have $U=3kq^2/a$. By symmetry the field at the center is zero, but the center's potential is $3\sqrt3kq/a$. These statements concern different quantities and are fully compatible.
+**Example:** an equilateral triangle of charges $q$ and side $a$ has $U=3kq^2/a$. At its center $\mathbf E=0$ by symmetry, but $V=3\sqrt3kq/a$.
 
 ## 7. Potentials from continuous sources
 
@@ -190,7 +188,7 @@ $$
 
 The logarithm's argument is dimensionless. For $z\gg L$, the result tends to $k\lambda L/z=kQ/z$.
 
-This one-variable expression gives the derivative along the line $x_P=0$, and hence $E_z$. It does **not** provide $E_x$ by differentiation with respect to the rod's integration variable. Off a symmetry axis, obtain the full observation-coordinate dependence or calculate the missing component separately.
+Differentiate this expression along the observation line $x_P=0$ to obtain $E_z$. The source variable $x$ cannot supply $E_x$; that component requires full observation-coordinate dependence or a separate calculation.
 
 ### Infinite line: choose a finite reference radius
 
@@ -283,4 +281,4 @@ Example: $V=\alpha x^2-\beta y$ yields $\mathbf E=(-2\alpha x,\beta,0)$. The gra
 
 ## References
 
-Lecture 3 PDF pp. 3–16 gives work, potential, and equipotentials; pp. 17–22 covers charges, dipoles, and assembly energy; pp. 23–32 covers continuous sources and differentiation. Class 3, 13:09–96:44, adds the conservative-force/curl discussion. The uniformly charged ball is a class-4 worked example, approximately 24–29 minutes. The [source map](source-map.md) distinguishes these classroom supplements from slide-only material.
+Lecture 3 pp. 3–32; the uniform-ball potential is a class-4 supplement. Detailed provenance: [source map](source-map.md).

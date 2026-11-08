@@ -3,20 +3,21 @@ title: "General Physics II · Mathematical Toolkit"
 status: draft
 tags: [math-physics, physics, vector-calculus, mathematical-methods]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/lecture01(1).pdf, PDF pp. 39–45"
   - "课程资料/普通物理学-II/lecture02(1).pdf, PDF pp. 33–41"
   - "课程资料/普通物理学-II/lecture03(1).pdf, PDF pp. 37–39"
   - "课程资料/普通物理学-II/lecture04(2).pdf, PDF pp. 29–33"
   - "Classroom explanations of expansions, gradients, line/surface integrals, and spherical divergence in classes 1–4"
+  - "Lectures 8, 9, 13 and 14: triple products, Stokes theorem, phasors and curl-curl identity"
 ---
 
 # General Physics II · Mathematical Toolkit
 
 [Course index](index.md) · [Formula sheet](quick-reference.md)
 
-This page collects the mathematical support supplied with lectures 1–4. Some appendix details were assigned for independent reading rather than fully developed in class. They support the first six classes and introduce no additional physics syllabus.
+Mathematical tools for classes 1–15, including the supplied appendices. Their use in a physics derivation is shown in the linked lesson chapters.
 
 ## 1. Vectors, components, and projections
 
@@ -236,6 +237,36 @@ $$
 $$
 
 These reconcile local differentiation away from the origin with the nonzero flux through an enclosing sphere.
+
+## 8. Triple products and curl identities
+
+$$
+\mathbf a\times(\mathbf b\times\mathbf c)
+=\mathbf b(\mathbf a\cdot\mathbf c)-\mathbf c(\mathbf a\cdot\mathbf b),\qquad
+\nabla\cdot(\nabla\times\mathbf A)=0.
+$$
+
+For a sufficiently smooth field,
+
+$$
+\nabla\times(\nabla\times\mathbf A)
+=\nabla(\nabla\cdot\mathbf A)-\nabla^2\mathbf A.
+$$
+
+The first identity reduces loop-torque cross products; the last reduces source-free Maxwell equations to wave equations. Differential operators act on the following functions, so they are not interchangeable with arbitrary constant vectors in every vector identity.
+
+## 9. Complex signals and characteristic roots
+
+With $j^2=-1$, Euler's identity gives $e^{j\alpha}=\cos\alpha+j\sin\alpha$. A phasor $\widetilde X=X_m e^{j\alpha}$ represents $x(t)=\operatorname{Re}(\widetilde X e^{j\Omega t})$. Then
+
+$$
+\frac d{dt}\longleftrightarrow j\Omega,\qquad
+\int dt\longleftrightarrow\frac1{j\Omega}
+$$
+
+for the sinusoidal part; integration constants belong to the transient/initial-condition solution. An impedance's argument is voltage phase minus current phase with this convention. The opposite time-exponential convention conjugates the corresponding impedance signs.
+
+For $\ddot x+2\beta\dot x+\omega_0^2x=0$, substitution $x=e^{st}$ gives $s^2+2\beta s+\omega_0^2=0$. A repeated root requires the second solution $te^{st}$; two equal exponential terms are not independent. See [RLC damping](13-lc-rlc-and-ac-circuits.md).
 
 ## References
 
