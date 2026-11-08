@@ -7,29 +7,34 @@ repo_name: Tsukimakura/My-notebook
 edit_uri: edit/main/docs/
 theme:
   name: material
+  custom_dir: overrides
+  language: zh
+  favicon: assets/brand.svg
   font: false
 
   icon:
-    logo: material/github
+    logo: material/book-open-page-variant-outline
 
   palette:
-    # Palette toggle for light mode
-    - scheme: default
-      primary: grey
-      icon: material/brightness-7 
-      name: Switch to dark mode
-
-    # Palette toggle for dark mode
-    - scheme: slate
-      primary: black
-      icon: material/brightness-4
-      name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
 
   features:
       - navigation.instant # 切换笔记时保留对话和正在进行的请求
       - navigation.instant.progress
       - navigation.top # 返回顶部按钮
-      - navigation.tabs # 顶部分类标签
       - navigation.sections
       - navigation.indexes
       - navigation.footer
@@ -61,6 +66,7 @@ markdown_extensions:
 extra_javascript:
   - assets/vendor/katex/katex.min.js
   - assets/vendor/katex/auto-render.min.js
+  - javascripts/notebook-theme.js?v=1
   - javascripts/katex.js
   - assets/vendor/markdown-it/markdown-it.min.js
   - assets/vendor/dompurify/purify.min.js
@@ -71,6 +77,10 @@ extra_javascript:
 
 extra_css:
   - assets/vendor/katex/katex.min.css
+  - stylesheets/notebook-theme.css?v=1
   - stylesheets/notebook-ai.css?v=7
 
 copyright: Copyright © 2025 Tsukimakura
+
+extra:
+  generator: false

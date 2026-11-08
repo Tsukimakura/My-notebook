@@ -3,6 +3,7 @@ WORKDIR /build
 COPY requirements.txt requirements.lock ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY mkdocs.yml ./
+COPY overrides ./overrides
 COPY docs ./docs
 COPY scripts/build_retrieval_index.py ./scripts/build_retrieval_index.py
 COPY scripts/check_privacy.py ./scripts/check_privacy.py

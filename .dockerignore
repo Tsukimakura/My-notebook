@@ -3,6 +3,8 @@
 !requirements.txt
 !requirements.lock
 !mkdocs.yml
+!overrides/
+!overrides/**
 !backend/
 !backend/**
 !docs/

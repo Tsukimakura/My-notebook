@@ -1,0 +1,24 @@
+{% import "partials/language.html" as lang with context %}
+<header class="md-header notebook-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="主导航">
+    <a href="{{ nav.homepage.url | url }}" class="notebook-brand" aria-label="Tsukimakura 的笔记首页">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 8c-4-3-8-3-12-2v19c4-1 8-1 12 2 4-3 8-3 12-2V6c-4-1-8-1-12 2Zm0 0v19"/><path d="M9 11h3m-3 5h3m8-5h3m-3 5h3"/></svg>
+      <span>Tsukimakura<span class="notebook-brand-dot">.</span></span>
+    </a>
+    <label class="md-header__button md-icon notebook-menu" for="__drawer" aria-label="打开笔记目录">{% include ".icons/material/menu.svg" %}</label>
+    <div class="md-header__title" data-md-component="header-title"><div class="md-header__ellipsis"><div class="md-header__topic"><span class="md-ellipsis">学习笔记</span></div><div class="md-header__topic" data-md-component="header-topic"><span class="md-ellipsis">{{ page.title }}</span></div></div></div>
+    <div class="notebook-topnav">
+      <a href="{{ nav.homepage.url | url }}">首页</a>
+      <a href="{{ 'knowledge-map/' | url }}">知识地图</a>
+      <a href="{{ '计算机科学/' | url }}">计算机科学</a>
+      <a href="{{ '数理基础/' | url }}">数理基础</a>
+      <a href="{{ '信息安全/' | url }}">信息安全</a>
+    </div>
+    <div class="notebook-header-actions">
+      {% if config.theme.palette %}{% include "partials/palette.html" %}{% include "partials/javascripts/palette.html" %}{% endif %}
+      <label class="md-header__button md-icon notebook-search-toggle" for="__search" aria-label="搜索笔记">{% include ".icons/material/magnify.svg" %}</label>
+      {% include "partials/search.html" %}
+      <a class="md-header__button md-icon notebook-repo" href="{{ config.repo_url }}" title="GitHub 仓库" aria-label="GitHub 仓库" target="_blank" rel="noopener noreferrer">{% include ".icons/fontawesome/brands/github.svg" %}</a>
+    </div>
+  </nav>
+</header>

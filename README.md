@@ -58,3 +58,9 @@ key 默认在当前标签页临时保存，最多 2 小时；用户可主动选�
 运行 `make ai-bootstrap` 安装后端依赖，使用 `make ai-serve` 预览完整功能。通用运行模板位于 `deploy/`；真实配置、凭据和运维记录不提交仓库。
 
 默认访问 `http://127.0.0.1:8000`。端口占用时可运行 `make ai-serve PORT=8001`，并访问对应端口；`make serve` 仅提供静态预览。
+
+## 界面与封面
+
+网站通过 `overrides/` 定制首页和导航，正文、首页与问答共享 `docs/stylesheets/notebook-theme.css` 中的颜色与字体。明暗模式首次跟随系统，手动切换后记住选择；减少动态效果设置会关闭过渡动画。首页分区和课程入口在 `docs/index.md` 的页面信息中维护。
+
+封面位于 `docs/assets/cover/afternoon.png`，使用维护者提供的图片，发布副本移除了文字元数据，像素保持不变。标题使用站内提供的 Noto Serif CJK 子集，许可见 `docs/assets/fonts/OFL-Noto.txt`；正文使用系统字体，不访问外部字体服务。字体子集仅在需要补字时使用 `scripts/subset_heading_font.py` 重新生成，网站构建不依赖字体处理工具。
