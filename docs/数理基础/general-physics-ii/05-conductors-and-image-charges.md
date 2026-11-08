@@ -304,6 +304,13 @@ For an isolated shell with this cavity, adding the shell's constant $V_c$ change
 - **Force:** evaluate the field of induced charges at the real charge, excluding its own field.
 - **Energy:** do not compute physical work by treating image charges as independent real charges.
 
+## Related homework（知识点应用）
+
+- [Ch. 5, Ex. 3 · Isolated sphere with fixed net charge](homework/03-conductors-and-circuits.md#ch05-ex03).
+- [Ch. 5, Ex. 4 · Perpendicular grounded walls](homework/03-conductors-and-circuits.md#ch05-ex04).
+- [Ch. 5, Ex. 8 · Connected spheres and field enhancement](homework/03-conductors-and-circuits.md#ch05-ex08).
+- [Ch. 6, Ex. 5 · Wire–plane image and capacitance](homework/03-conductors-and-circuits.md#ch06-ex05).
+
 ## References
 
 Lecture 5 pp. 5–30, plus classroom uniform-field/spherical-image examples. Their timestamps and ambiguities are recorded in the [source map](source-map.md).

@@ -146,6 +146,12 @@ Alignment minimizes $U$; anti-alignment is unstable. A DC motor reverses loop cu
 
 **中文提示：**洛伦兹力对单个载流子的总速度不做功，不等于“有电源的载流线圈不能输出机械功”。不要把漂移速度、导线整体速度与总速度混为一谈。
 
+## Related homework（知识点应用）
+
+- [Ch. 8, Ex. 3 · Loop partly in a magnetic field](homework/04-magnetic-force-and-fields.md#ch08-ex03).
+- [Ch. 8, Ex. 4 · Rotating charged disk torque](homework/04-magnetic-force-and-fields.md#ch08-ex04).
+- [Ch. 8, Ex. 7 · Crossed-field drift and trajectory](homework/04-magnetic-force-and-fields.md#ch08-ex07).
+
 ## Sources and checks
 
 Lecture 8 pp. 3–18: Lorentz force, beam measurements, motion, and Hall effect; pp. 19–26: wire forces and loop torque; pp. 30–31: vector identity and motor. Class 9's opening discussion supplies dipole energy and work accounting. Check charge signs, velocity components, Hall-contact orientation, and the normal used in $\boldsymbol\mu$.

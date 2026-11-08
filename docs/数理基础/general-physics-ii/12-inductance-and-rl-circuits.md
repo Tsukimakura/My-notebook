@@ -172,6 +172,12 @@ Zero total planar flux gives the opposite flux through the larger loop. Multiply
 
 **中文提示：**自感是本回路的电流改变本回路的磁通；互感是一个回路的电流改变另一个回路的磁通。两者都遵循法拉第定律，区别在于磁通由谁产生。
 
+## Related homework（知识点应用）
+
+- [Ch. 12, Ex. 5 · Current reversal, voltage polarity, and energy](homework/06-inductance-and-ac-circuits.md#ch12-ex05).
+- [Ch. 12, Ex. 7 · Internal inductance and flux linkage](homework/06-inductance-and-ac-circuits.md#ch12-ex07).
+- [Ch. 12, Ex. 9 · Mutual inductance and source work](homework/06-inductance-and-ac-circuits.md#ch12-ex09).
+
 ## Sources and checks
 
 Lecture 12 pp. 4–15: inductance and RL response; pp. 17–23: energy; pp. 24–28: mutual induction. The classroom adds magnetic measurement, transformer use, and the reverse-linkage calculation. Check flux versus flux linkage, emf versus passive voltage, and the fixed-geometry/linear-response assumptions.

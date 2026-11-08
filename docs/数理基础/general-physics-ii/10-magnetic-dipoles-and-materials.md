@@ -157,6 +157,11 @@ The spin-glass introduction concerns disorder and competing interactions that fr
 
 Class 11 completes the phase-transition discussion: an ordered state selects a magnetization direction and breaks a symmetry of the disordered phase. It then introduces the **anomalous Hall effect**: magnetization can add a transverse response beyond the ordinary applied-field term. A remanently magnetized suitable material can retain that response at zero applied field. The **quantum anomalous Hall effect** is a distinct quantized regime in appropriate magnetic topological systems, not a property of every ferromagnet. The classroom's example is [Chang et al., Science 340, 167–170 (2013)](https://doi.org/10.1126/science.1234414); no band-topology calculation is required here.
 
+## Related homework（知识点应用）
+
+- [Ch. 9, Ex. 2 · Ring superposition for a spherical shell](homework/04-magnetic-force-and-fields.md#ch09-ex02).
+- [Ch. 10, Ex. 1 · Far-field dipole derivation and interaction energy](homework/05-dipoles-and-induction.md#ch10-ex01).
+
 ## Sources and checks
 
 Lecture 10 pp. 5–15: moments and coil fields; pp. 16–27: material response; p. 29 and the opening approximately 22 minutes of class 11: anomalous Hall and ordering. The finite-solenoid integration and microscopic angular-momentum discussion come from class 10. Check field uniformity, far-field limits, the chosen moment model, and whether a response is induced or spontaneous.

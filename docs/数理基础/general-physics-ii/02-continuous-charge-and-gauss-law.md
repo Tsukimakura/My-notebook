@@ -219,6 +219,13 @@ The same method gives a uniformly charged infinite solid cylinder $E_r=\rho_qr/(
 
 For a quick dimensional check, $\lambda/(\epsilon_0r)$, $\sigma_s/\epsilon_0$, and $\rho_qr/\epsilon_0$ must all have units of electric field.
 
+## Related homework（知识点应用）
+
+- [Ch. 1, Ex. 7 · Continuous line-charge integral](homework/01-electric-fields-and-gauss-law.md#ch01-ex07).
+- [Ch. 2, Ex. 4 · Concentric-shell fields](homework/01-electric-fields-and-gauss-law.md#ch02-ex04).
+- [Ch. 2, Ex. 6 · Cube-face flux and boundary charge](homework/01-electric-fields-and-gauss-law.md#ch02-ex06).
+- [Ch. 2, Ex. 9 · Planar p–n junction](homework/01-electric-fields-and-gauss-law.md#ch02-ex09).
+
 ## References
 
 Lecture 2 pp. 3–8 (ring/disk), 10–24 (flux), 25–30 (symmetry applications); mathematical support in the [toolkit](mathematical-toolkit.md).

@@ -204,6 +204,12 @@ For linear isotropic response, $\mathbf P=\epsilon_0\chi_e\mathbf E$, $\kappa=1+
 
 In a linear nondispersive medium, the combined reversible electric/material energy density is $u_E=\tfrac12\mathbf E\cdot\mathbf D$. Nonlinear, dispersive, or hysteretic media require a more careful energy treatment.
 
+## Related homework（知识点应用）
+
+- [Ch. 7, Ex. 3 · Wheatstone bridge](homework/03-conductors-and-circuits.md#ch07-ex03).
+- [Ch. 7, Ex. 5 · Three-resistor RC transient](homework/03-conductors-and-circuits.md#ch07-ex05).
+- [Ch. 7, Ex. 9 · Capacitor force including battery work](homework/03-conductors-and-circuits.md#ch07-ex09).
+
 ## Sources and checks
 
 Lecture 7 pp. 3–24: circuits and RC response; pp. 25–32, 43–46: energy and dielectric mechanisms; pp. 36–42: network combinations. Polarization formulas come from the first approximately 30 minutes of class 8. Check meter loading, loop signs, $q$-versus-$v$ constraints, and the distinction between free and total charge.

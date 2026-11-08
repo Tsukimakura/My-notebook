@@ -7,6 +7,7 @@ updated: 2026-11-08
 sources:
   - "课程资料/普通物理学-II/14/lecture14(2).pdf, pp. 3–31, 33"
   - "课程资料/普通物理学-II/14/lecture-record-22/course_content.md, approximately 11:00–96:00"
+  - "课程资料/普通物理学-II/homework/chap14.pdf, Exercise 3, PDF p. 9 (Poynting-theorem application)"
 ---
 
 # 14 · Maxwell's Equations and Electromagnetic Waves
@@ -128,6 +129,15 @@ $$
 [S]=\mathrm{W/m^2}.}
 $$
 
+For fields in vacuum or the nonmagnetic Ohmic model used in the homework, local energy conservation is **Poynting's theorem**:
+
+$$
+\boxed{\frac{\partial u}{\partial t}+\nabla\cdot\mathbf S=-\mathbf J\cdot\mathbf E,
+\qquad u=\frac{\epsilon_0E^2}{2}+\frac{B^2}{2\mu_0}.}
+$$
+
+It follows by dotting the Ampère–Maxwell equation with $\mathbf E/\mu_0$, Faraday's equation with $\mathbf B/\mu_0$, and using $\nabla\cdot(\mathbf E\times\mathbf B)=\mathbf B\cdot(\nabla\times\mathbf E)-\mathbf E\cdot(\nabla\times\mathbf B)$. The term $\mathbf J\cdot\mathbf E$ is field power delivered to matter; for $\mathbf J=\sigma\mathbf E$ it is positive Joule heating. 场能变化、流出边界的能流和物质获得的功率必须一起记账。 [Ch. 14, Ex. 3](homework/07-maxwell-equations-and-energy.md#ch14-ex03) applies this law to inward energy flow into a resistive wire.
+
 For a traveling plane wave,
 
 $$
@@ -160,6 +170,12 @@ Far-field wave amplitudes consequently scale as $1/r$. A dipole antenna is not i
 An LC oscillator coupled through a transmission line to a dipole antenna drives oscillating charge/current. Accelerating charges radiate at the drive frequency; receiver circuitry responds to the arriving fields. A source is needed to maintain radiation and compensate losses.
 
 Radio, microwave, infrared, visible, ultraviolet, X-ray, and gamma radiation belong to the same electromagnetic spectrum, differing principally in frequency and wavelength. In vacuum they share speed $c$; differences in propagation through matter require the material's frequency-dependent response. Momentum transport and radiation pressure are developed at the beginning of [class 15](15-light-reflection-and-refraction.md).
+
+## Related homework（知识点应用）
+
+- [Ch. 14, Ex. 1 · Displacement current inside a capacitor](homework/07-maxwell-equations-and-energy.md#ch14-ex01).
+- [Ch. 14, Ex. 3 · Poynting energy flow into a wire](homework/07-maxwell-equations-and-energy.md#ch14-ex03).
+- [Ch. 14, Ex. 4 · Angular impulse from an induced field](homework/07-maxwell-equations-and-energy.md#ch14-ex04).
 
 ## Sources and checks
 

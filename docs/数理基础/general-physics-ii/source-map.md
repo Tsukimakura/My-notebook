@@ -132,3 +132,28 @@ The local materials are the primary basis. A small number of textbook/university
 - [Chang et al., Science (2013)](https://doi.org/10.1126/science.1234414): the quantum-anomalous-Hall example shown in the class-11 continuation of magnetic materials.
 
 The notes remain `draft` so subsequent textbook review and future course corrections can be recorded explicitly.
+
+## 7. Homework sources and coverage {#homework-sources}
+
+The [homework collection](homework/index.md) adds the user's seven assigned sets: **40 problems from 14 chapter handouts**. The files below contain problem statements, not an official answer key. Worked solutions are editorial derivations using the corresponding lecture methods. Mathematical symbols, source polarity, and circuit connections were checked against rendered PDF pages because automatic text extraction corrupts some embedded mathematical fonts.
+
+| Assignment | Source handout | Exercises | PDF pages / printed pages |
+| --- | --- | --- | --- |
+| 1 | `homework/chap01.pdf` | 3, 7, 10 | 7–8 / 7–8 |
+| 1 | `homework/chap02.pdf` | 4, 6, 9 | 7–8 / 15–16 |
+| 2 | `homework/chap03.pdf` | 2, 4, 7 | 7–8 / 23–24 |
+| 2 | `homework/chap04.pdf` | 2, 5 | 8–9 / 32–33 |
+| 3 | `homework/chap05.pdf` | 3, 4, 8 | 9–10 / 42–43 |
+| 3 | `homework/chap06.pdf` | 5, 7, 8 | 9–10 / 52–53 |
+| 3 | `homework/chap07.pdf` | 3, 5, 9 | 9–11 / 62–64 |
+| 4 | `homework/chap08.pdf` | 3, 4, 7 | 8–9 / 72–73 |
+| 4 | `homework/chap09.pdf` | 2, 7, 9 | 11–13 / 85–87 |
+| 5 | `homework/chap10.pdf` | 1 | 9 / 96 |
+| 5 | `homework/chap11.pdf` | 1, 3, 4, 7 | 7–9 / 103–105 |
+| 6 | `homework/chap12.pdf` | 5, 7, 9 | 7–9 / 112–114 |
+| 6 | `homework/chap13.pdf` | 2, 4, 5 | 8–9 / 122–123 |
+| 7 | `homework/chap14.pdf` | 1, 3, 4 | 9 / 133 |
+
+Each problem links to the relevant lecture section, and lectures 1–14 link back to their applications. The added Poynting-theorem paragraph in lecture 14 supplies the local energy-balance statement required by Ch. 14, Ex. 3. The [eight homework figures](homework/assets/README.md) have a separate source/license inventory and a reproduction script, `scripts/generate_gp2_homework_figures.py`.
+
+Specific conventions retained from the handouts include the isolated sphere's fixed charge $Q_0$ (Ch. 5, Ex. 3), the right-positive source in the bridge (Ch. 7, Ex. 3), the AC source's **peak** value $\mathcal E_m=150\ \mathrm V$ (Ch. 13, Ex. 2), the $0.50\ \mu\mathrm F$ capacitor (Ch. 13, Ex. 5), and the insulating fixed-charge shells (Ch. 14, Ex. 4). Solutions retain all subparts; no unassigned exercises are reconstructed as assigned work.

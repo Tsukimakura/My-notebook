@@ -152,6 +152,14 @@ For stationary oppositely charged sheets, a parallel boost changes transverse ch
 
 The same induction experiment can therefore have different electric/magnetic force decompositions in different frames. One must transform fields, velocities, geometry, and time consistently; emf is not generally a frame-invariant scalar. The six field components transform together rather than forming an ordinary four-vector.
 
+## Related homework（知识点应用）
+
+- [Ch. 11, Ex. 1 · Loop moving away from a wire](homework/05-dipoles-and-induction.md#ch11-ex01).
+- [Ch. 11, Ex. 3 · Sinusoidal pickup-loop emf](homework/05-dipoles-and-induction.md#ch11-ex03).
+- [Ch. 11, Ex. 4 · Induced field and constrained particle](homework/05-dipoles-and-induction.md#ch11-ex04).
+- [Ch. 11, Ex. 7 · Faraday disk and moving flux path](homework/05-dipoles-and-induction.md#ch11-ex07).
+- [Ch. 14, Ex. 4 · Induction torque on charged shells](homework/07-maxwell-equations-and-energy.md#ch14-ex04).
+
 ## Sources and checks
 
 Lecture 11 pp. 5–20: flux induction and energy transfer; pp. 21–26: induced field and potential limitation; pp. 29–38 and the classroom's latter half: inertial frames and field transformations. Check whether the contour moves, distinguish emf from current, and oppose the flux **change** rather than automatically opposing the field.

@@ -230,6 +230,11 @@ One must also prescribe appropriate conductor potentials, total conductor charge
 - Do not evaluate the point-charge field or ordinary derivatives at its singularity.
 - Use curvilinear formulas when working with spherical components; basis vectors depend on angle.
 
+## Related homework（知识点应用）
+
+- [Ch. 4, Ex. 2 · Curl-free field and charge density](homework/02-potential-and-local-laws.md#ch04-ex02).
+- [Ch. 4, Ex. 5 · Six-face flux versus enclosed charge](homework/02-potential-and-local-laws.md#ch04-ex05).
+
 ## References
 
 Lecture 4 pp. 4–26 and appendices pp. 29–33. The undeveloped screened-potential exercise is excluded; see [source map](source-map.md).

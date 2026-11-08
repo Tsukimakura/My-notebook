@@ -36,6 +36,7 @@ sources:
 | 15 | [Light, reflection, refraction](15-light-reflection-and-refraction.md) | Radiation pressure, rays, Fermat, Huygens, phase matching. |
 
 - [Mathematical toolkit](mathematical-toolkit.md): vectors, calculus, coordinate systems, distributions, and complex notation.
+- [Homework and worked solutions](homework/index.md): seven assignments, all 40 assigned problems, with lecture links and sourced figures.
 - [Formula sheet and conceptual checks](quick-reference.md): formulas with their conditions, units, and common mistakes.
 - [Source map and scope](source-map.md): PDF page ranges, classroom timestamps, supplemental discussions, and editorial corrections.
 - [Figure sources and reproduction](assets/README.md): 23 original diagrams and computed plots.

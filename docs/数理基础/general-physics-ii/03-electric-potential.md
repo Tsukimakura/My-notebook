@@ -279,6 +279,12 @@ Example: $V=\alpha x^2-\beta y$ yields $\mathbf E=(-2\alpha x,\beta,0)$. The gra
 - Differentiate with respect to observation coordinates, not a source integration coordinate.
 - Do not use $V(\infty)=0$ for an ideal infinite line or infinite sheet.
 
+## Related homework（知识点应用）
+
+- [Ch. 3, Ex. 2 · Gradient of an exponential potential](homework/02-potential-and-local-laws.md#ch03-ex02).
+- [Ch. 3, Ex. 4 · Thick-shell potential](homework/02-potential-and-local-laws.md#ch03-ex04).
+- [Ch. 3, Ex. 7 · Path integrals and equipotentials](homework/02-potential-and-local-laws.md#ch03-ex07).
+
 ## References
 
 Lecture 3 pp. 3–32; the uniform-ball potential is a class-4 supplement. Detailed provenance: [source map](source-map.md).

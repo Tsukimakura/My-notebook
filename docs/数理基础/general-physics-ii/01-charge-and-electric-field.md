@@ -208,6 +208,12 @@ These scalings apply far from a localized distribution; angular factors may vani
 4. **Dipole direction:** $\mathbf p$ points from $-q$ to $+q$; reversing it reverses the torque formula's prediction.
 5. **Approximation:** use the exact two-charge expression before making $r\gg d$ assumptions.
 
+## Related homework（知识点应用）
+
+- [Ch. 1, Ex. 3 · Dipole force from a field gradient](homework/01-electric-fields-and-gauss-law.md#ch01-ex03).
+- [Ch. 1, Ex. 7 · Semi-infinite rod and superposition](homework/01-electric-fields-and-gauss-law.md#ch01-ex07).
+- [Ch. 1, Ex. 10 · Electric versus gravitational force](homework/01-electric-fields-and-gauss-law.md#ch01-ex10).
+
 ## References
 
 Lecture 1 pp. 4–32; class 2 opening dipole/material extensions. Page ranges and timestamps: [source map](source-map.md).

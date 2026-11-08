@@ -182,6 +182,12 @@ $$
 
 Ideal inductors and capacitors exchange energy with the circuit but absorb zero net energy over a full cycle. This energy check also explains the half-power width. Mechanical resonance, frequency selection, and resonant electromagnetic absorption are the classroom's qualitative applications; detailed MRI or quantum-transition theory is not developed here.
 
+## Related homework（知识点应用）
+
+- [Ch. 13, Ex. 2 · Series–parallel AC network](homework/06-inductance-and-ac-circuits.md#ch13-ex02).
+- [Ch. 13, Ex. 4 · Coupled RLC normal modes](homework/06-inductance-and-ac-circuits.md#ch13-ex04).
+- [Ch. 13, Ex. 5 · LC switching and peak voltage](homework/06-inductance-and-ac-circuits.md#ch13-ex05).
+
 ## Sources and checks
 
 Lecture 13 pp. 3–14: LC dynamics and analogy; pp. 15–20: complex form and damping; pp. 21–28: AC impedance and resonance. Class 14's first approximately ten minutes supplies quality factor/selectivity. Keep $\omega_0$, $\omega_d$, and $\Omega$ distinct; check phase conventions and distinguish amplitude decay, energy decay, and half-power width.
