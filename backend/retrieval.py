@@ -47,6 +47,7 @@ class Index:
         # Directory landing-page titles supply bilingual course names to child pages.
         self.course_titles = {d["page"]: d.get("page_title", d["title"]) for d in self.docs if d.get("overview")}
         for folder, group in self.groups.items():
+            self.scopes[group["id"]].update(i for i, doc in enumerate(self.docs) if doc["page"] == folder)
             group["title"] = self.course_titles.get(folder, group["title"])
         self.postings = defaultdict(list)
         self.lengths, self.title_terms, self.terms = [], [], []
@@ -180,6 +181,9 @@ class Index:
                 for position, i in enumerate(ranking[:30]):
                     fused[i] += 1 / (60 + position)
             for i in sorted(fused, key=lambda i: (-fused[i], i)):
+                add(i)
+        if selected is not None and not found:
+            for i in sorted(selected):
                 add(i)
         if selected is not None and scope["mode"] == "prefer" and len(found) < limit:
             # Keep at least two thirds of the excerpt budget inside the selected notes.

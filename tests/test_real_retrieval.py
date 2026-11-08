@@ -25,6 +25,12 @@ class RealNotebookTests(unittest.TestCase):
         self.assertFalse(any("/assets/" in d["url"] or "/source-map/" in d["url"] for d in docs))
         self.assertLessEqual(sum(len(d["text"]) for d in docs), 24000)
 
+    def test_selecting_course_folder_includes_its_landing_page(self):
+        folder = next(f for f in self.index.catalog()["folders"] if f["path"].endswith("/general-physics-ii/"))
+        docs = self.index.search("总结", scope={"ids": [folder["id"]], "mode": "strict"})
+        self.assertTrue(any(d["overview"] for d in docs))
+        self.assertTrue(all("general-physics-ii/" in d["url"] for d in docs))
+
     def test_selected_page_and_section_scopes_are_enforced(self):
         catalog = self.index.catalog()
         page = next(p for p in catalog["pages"] if "ch02/03-continuous-distributions/" in p["path"])
