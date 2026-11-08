@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <div class="notebook-ai-session-bar"><label>对话<select data-session aria-label="切换对话"></select></label>
       <details><summary>管理</summary>
         <label>名称<input data-session-title maxlength="100"></label>
-        <label>记录保存<select data-history-days><option value="0">一直保留</option><option value="30">30 天未使用后删除</option><option value="90">90 天未使用后删除</option></select></label>
+        <label>记录保存<select data-history-days><option value="0">一直保留</option><option value="30">30 天无新消息后删除</option><option value="90">90 天无新消息后删除</option></select></label>
         <div class="notebook-ai-actions"><button type="button" data-delete-session>删除此对话</button><button type="button" data-export>导出全部</button><button type="button" data-import>导入</button><button type="button" data-clear-sessions>清空全部</button></div>
         <input type="file" data-import-file accept="application/json,.json" hidden>
         <p>记录保存在此浏览器，清除网站数据会删除记录。导出文件不含 API key。</p>
@@ -61,7 +61,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p data-settings-status role="status"></p>
     </section>
     <section data-chat-view class="notebook-ai-chat" aria-label="笔记对话">
+    <div class="notebook-ai-tools">
     <div data-note-scope></div>
+    <details data-memory-view class="notebook-ai-memory"><summary>记忆</summary>
+      <label>这段对话的记忆<textarea data-session-memory maxlength="2000" rows="3" placeholder="旧对话的摘要，也可以自己填写"></textarea></label>
+      <div class="notebook-ai-actions"><button type="button" data-summarize>整理旧对话</button><button type="button" data-clear-memory>清除这段记忆</button></div>
+      <label>所有对话使用的学习偏好<textarea data-learning-notes maxlength="2000" rows="2" placeholder="例如：先讲直觉，再给出推导"></textarea></label>
+      <label class="notebook-ai-consent"><input type="checkbox" data-auto-summary>自动整理旧对话（会额外调用模型）</label>
+      <p>记忆和学习偏好会随问题发送给所选供应商。整理只处理旧对话，近期问答仍直接保留。</p>
+    </details></div>
     <button type="button" data-earlier hidden>查看更早的消息</button>
     <div data-messages class="notebook-ai-messages" aria-label="对话记录">
       <p>根据笔记提问，也可以继续追问。回答中的笔记链接会在左侧打开。</p>
@@ -257,7 +265,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     summary();
     get("settings-status").textContent = stored ? "设置已保存。" : "浏览器禁止存储，key 仅在本页暂存，刷新后需重新填写。";
     if (changed && current.messages.length) activate(newSession());
-    else {
+    else if (current.provider !== provider || current.model !== model) {
       current.provider = provider; current.model = model;
       void persist(current); refreshSessions();
     }
@@ -454,6 +462,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       {role: "assistant", content: historyAnswer(turn.answer)},
     ]);
     const payload = {provider: current.provider, model: current.model, question, history};
+    if (current.summary || sessionPreferences.notes) payload.memory = {summary: current.summary || "", notes: sessionPreferences.notes || ""};
     if (noteScope?.value().ids.length) payload.scope = noteScope.value();
     // Stay below the existing 20 KB proxy/body cap, including UTF-8 and JSON escaping.
     const bytes = value => new TextEncoder().encode(JSON.stringify(value)).length;
@@ -603,7 +612,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!question || question.length > 4000) return;
     const body = requestBody(question);
     if (!body) {
-      get("status").textContent = "问题编码后过长，请缩短问题。";
+      get("status").textContent = "问题和记忆过长，请缩短后再发送。";
       return;
     }
     if (!turns.length && !get("messages").querySelector("article")) get("messages").replaceChildren();
@@ -612,7 +621,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     session.draft = ""; session.updatedAt = Date.now();
     if (session.title === "新对话") session.title = question.slice(0, 32);
     void persist(session); refreshSessions();
-    const userMessage = addMessage("user", question);
+    addMessage("user", question);
     get("question").value = "";
     get("status").textContent = "正在检索笔记并等待模型回答，你可以继续浏览左侧笔记……";
     for (const name of ["submit", "save", "continue"]) get(name).disabled = true;
@@ -621,8 +630,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const controller = new AbortController();
     pending = controller;
     const job = {controller, stopped: false, status: "正在提交问题"};
-    running.set(session.id, job); refreshSessions();
+    running.set(session.id, job); refreshSessions(); updateMemory();
     const started = performance.now();
+    let completed = false;
     const timer = setTimeout(() => controller.abort(), 265000);
     let phase = "正在提交问题";
     const drawProgress = () => {
@@ -645,6 +655,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (typeof data?.answer !== "string" || !data.answer.trim() || !Array.isArray(data.sources)) {
         throw new Error("回答格式异常，请稍后重试。");
       }
+      completed = true;
       userRecord.pending = false;
       session.messages.push({role: "assistant", content: data.answer, sources: data.sources,
         truncated: data.truncated === true, finish_reason: data.finish_reason, scope: userRecord.scope});
@@ -655,7 +666,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       void persist(session);
       job.finished = true;
-      if (current === session) { renderSession(); scrollMessages(); }
+      if (current === session) {
+        const follow = nearBottom(), top = get("messages").scrollTop;
+        renderSession();
+        if (follow) scrollMessages(); else get("messages").scrollTop = top;
+      }
     } catch (error) {
       userRecord.pending = false; userRecord.failed = true;
       session.draft = question;
@@ -663,8 +678,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         ? `${job.stopped ? "已停止等待" : "请求超时"}。已发出的供应商调用仍可能产生费用。`
         : `${error.message}（等待 ${Math.round((performance.now() - started) / 1000)} 秒）`;
       void persist(session);
+      job.finished = true;
       if (current === session) {
-        userMessage.message.classList.add("notebook-ai-failed");
+        renderSession();
         if (!get("question").value) get("question").value = question;
         get("status").textContent = session.status;
       }
@@ -678,7 +694,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         for (const name of ["submit", "save", "continue"]) get(name).disabled = false;
         get("continue").hidden = !lastIncomplete;
         get("stop").hidden = true;
+        updateMemory();
       }
+      if (completed && sessionPreferences.autoSummary && conversations.has(session.id)) void summarizeSession(session, true);
     }
   });
   get("question").addEventListener("keydown", event => {
@@ -712,10 +730,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("messages").replaceChildren();
     for (const record of current.messages.slice(-visibleCount)) {
       const output = addMessage(record.role, record.content);
-      if (record.failed) output.message.classList.add("notebook-ai-failed");
+      if (record.failed) {
+        output.message.classList.add("notebook-ai-failed");
+        output.message.querySelector(".notebook-ai-role").textContent = "你 · 未完成";
+        const retry = document.createElement("button"); retry.type = "button"; retry.textContent = "重新填写";
+        retry.addEventListener("click", () => {
+          get("question").value = record.content; noteScope?.restore(record.scope); get("question").focus();
+        });
+        output.message.append(retry);
+      }
       if (record.role === "assistant") {
         const formatted = render(record.content, record.sources || [], output.content, output.sources);
         if (!formatted && !current.status) current.status = "排版资源未加载，暂以纯文本显示。";
+        const remember = document.createElement("button");
+        remember.type = "button"; remember.textContent = "记住这条";
+        remember.addEventListener("click", () => {
+          const selection = window.getSelection();
+          const selected = selection?.rangeCount && output.content.contains(selection.getRangeAt(0).commonAncestorContainer)
+            ? selection.toString().trim() : "";
+          const note = selected || record.content;
+          const combined = [current.summary, note].filter(Boolean).join("\n");
+          if (combined.length > 2000) { get("status").textContent = "记忆放不下整条回答，请先选中要记住的一小段文字。"; return; }
+          current.summary = combined; get("session-memory").value = combined;
+          get("memory-view").open = true; void persist(current); updateMemory();
+        });
+        output.message.append(remember);
         if (record.truncated) {
           const warning = document.createElement("p"); warning.className = "notebook-ai-warning";
           warning.textContent = incompleteMessage(record.finish_reason);
@@ -724,6 +763,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
     get("earlier").hidden = current.messages.length <= visibleCount;
+    updateMemory();
     const job = running.get(current.id);
     pending = job?.controller || null;
     for (const name of ["submit", "save", "continue"]) get(name).disabled = Boolean(pending);
@@ -732,7 +772,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("status").textContent = (job && !job.finished ? job.status : "") || (lastIncomplete ? incompleteMessage(last.finish_reason) : current.status || "");
   };
   const activate = session => {
-    if (current) { current.draft = get("question").value; void persist(current); }
+    if (current && current.draft !== get("question").value) {
+      current.draft = get("question").value; void persist(current);
+    }
     current = session; visibleCount = 40;
     preferences.provider = session.provider;
     if (session.model) preferences.models[session.provider] = session.model;
@@ -743,8 +785,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     restoring = true; noteScope?.restore(session.scope); restoring = false;
     get("question").value = session.draft || "";
     get("session-title").value = session.title;
+    get("session-memory").value = session.summary || "";
     storage("sessionStorage", "setItem", "notebook-ai.active-session", session.id);
-    refreshSessions(); renderSession(); summary();
+    refreshSessions(); renderSession(); scrollMessages(); summary();
   };
   const newSession = () => {
     const now = Date.now();
@@ -759,7 +802,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("session-title").value = current.title; void persist(current); refreshSessions();
   });
   get("question").addEventListener("change", () => { current.draft = get("question").value; void persist(current); });
-  get("earlier").addEventListener("click", () => { visibleCount += 40; renderSession(); });
+  get("earlier").addEventListener("click", () => {
+    const oldHeight = get("messages").scrollHeight, top = get("messages").scrollTop;
+    visibleCount += 40; renderSession();
+    get("messages").scrollTop = get("messages").scrollHeight - oldHeight + top;
+  });
   get("history-days").addEventListener("change", async () => {
     sessionPreferences.keepDays = Number(get("history-days").value);
     try { await database.settings(sessionPreferences); }
@@ -780,7 +827,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   get("export").addEventListener("click", async () => {
     await writes;
     const records = [...conversations.values()].map(window.NotebookConversations.clean);
-    const blob = new Blob([JSON.stringify({version: 1, sessions: records}, null, 2)], {type: "application/json"});
+    const blob = new Blob([JSON.stringify({version: 1, sessions: records, memory: {notes: sessionPreferences.notes || ""}}, null, 2)], {type: "application/json"});
     const link = document.createElement("a"), url = URL.createObjectURL(blob);
     link.href = url; link.download = "notebook-conversations.json"; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
@@ -790,20 +837,104 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       if (file.size > 20 * 1024 * 1024) throw new Error("请选择小于 20 MB 的会话文件。");
       await writes;
-      const imported = await database.import(JSON.parse(await file.text()));
+      const bundle = JSON.parse(await file.text());
+      const imported = await database.import(bundle);
+      if (!sessionPreferences.notes && typeof bundle.memory?.notes === "string" && bundle.memory.notes.length <= 2000) {
+        sessionPreferences.notes = bundle.memory.notes;
+        get("learning-notes").value = sessionPreferences.notes;
+        await database.settings(sessionPreferences);
+      }
       for (const session of imported) conversations.set(session.id, session);
       if (imported.length) activate(imported[0]);
     } catch (error) { get("session-status").textContent = error.name === "Error" ? error.message : "文件内容不正确，请选择本站导出的 JSON 文件。"; }
     get("import-file").value = "";
   });
+  const updateMemory = () => {
+    if (!current) return;
+    const older = Math.max(0, historyTurns(current).length - 3);
+    get("summarize").disabled = running.has(current.id) || older <= current.summaryThrough;
+    get("clear-memory").disabled = !current.summary;
+  };
+  get("session-memory").addEventListener("change", () => {
+    current.summary = get("session-memory").value.trim();
+    if (!current.summary) current.summaryThrough = Math.max(0, historyTurns(current).length - 3);
+    void persist(current); updateMemory();
+  });
+  get("clear-memory").addEventListener("click", () => {
+    current.summary = ""; current.summaryThrough = Math.max(0, historyTurns(current).length - 3); get("session-memory").value = "";
+    void persist(current); updateMemory();
+  });
+  const saveLearningPreferences = async () => {
+    sessionPreferences.notes = get("learning-notes").value.trim();
+    sessionPreferences.autoSummary = get("auto-summary").checked;
+    try { await database.settings(sessionPreferences); }
+    catch { get("session-status").textContent = "学习偏好未能保存，请重试。"; }
+  };
+  get("learning-notes").addEventListener("change", saveLearningPreferences);
+  get("auto-summary").addEventListener("change", saveLearningPreferences);
+  const summarizeSession = async (session, automatic = false) => {
+    if (running.has(session.id) || !conversations.has(session.id)) return;
+    const older = historyTurns(session).slice(0, -3);
+    const start = Math.min(session.summaryThrough || 0, older.length);
+    if (older.length <= start || (automatic && older.length - start < 4)) return;
+    if (!credential || credential.expiresAt <= Date.now() || credential.provider !== session.provider) {
+      if (!automatic) { showSettings(true); get("settings-status").textContent = "请先填写这个供应商的 key。"; }
+      return;
+    }
+    const originalSummary = session.summary;
+    const batch = older.slice(start, start + 3);
+    const history = batch.flatMap(turn => [{role: "user", content: turn.question.slice(0, 800)},
+      {role: "assistant", content: turn.answer.slice(0, 1200)}]);
+    const payload = {provider: session.provider, model: session.model, question: "整理旧对话", task: "summary",
+      history, memory: {summary: originalSummary || ""}};
+    while (new TextEncoder().encode(JSON.stringify(payload)).length > 18000) {
+      const longest = history.reduce((a, b) => a.content.length > b.content.length ? a : b);
+      if (longest.content.length <= 200) return;
+      longest.content = longest.content.slice(0, -200);
+    }
+    const controller = new AbortController();
+    const job = {controller, stopped: false, status: "正在整理记忆"};
+    const began = performance.now();
+    running.set(session.id, job); refreshSessions();
+    if (current === session) { pending = controller; renderSession(); }
+    const draw = () => {
+      job.status = `正在整理记忆，已等待 ${Math.floor((performance.now() - began) / 1000)} 秒`;
+      if (current === session) get("status").textContent = job.status;
+    };
+    const ticker = setInterval(draw, 1000), timeout = setTimeout(() => controller.abort(), 265000);
+    try {
+      const result = await runQuestion(JSON.stringify(payload), credential.key, controller.signal, () => {});
+      if (result.truncated || typeof result.answer !== "string" || !result.answer.trim() || result.answer.length > 2000) {
+        throw new Error("记忆未整理完整，原有记忆已保留。");
+      }
+      if (!conversations.has(session.id)) return;
+      if (session.summary !== originalSummary) throw new Error("记忆已修改，本次整理没有覆盖你的修改。");
+      session.summary = result.answer.trim(); session.summaryThrough = start + batch.length;
+      session.status = `记忆已整理至第 ${session.summaryThrough} 轮。`;
+      if (current === session) get("session-memory").value = session.summary;
+      void persist(session);
+    } catch (error) {
+      session.status = error.name === "AbortError" ? "记忆整理已停止，原有记忆已保留。" : error.message;
+    } finally {
+      clearInterval(ticker); clearTimeout(timeout); running.delete(session.id); refreshSessions();
+      if (current === session) renderSession();
+    }
+  };
+  get("summarize").addEventListener("click", () => { void summarizeSession(current); });
   database = await window.NotebookConversations.open();
   let records;
   try { sessionPreferences = await database.settings(); records = await database.list(); }
   catch { database.fallback(); sessionPreferences = await database.settings(); records = []; }
   get("history-days").value = String(sessionPreferences.keepDays);
+  get("learning-notes").value = sessionPreferences.notes || "";
+  get("auto-summary").checked = sessionPreferences.autoSummary === true;
   for (const session of records) {
     // A page reload cannot safely recreate an upstream request that may already be billed.
-    for (const message of session.messages) if (message.pending) { message.pending = false; message.failed = true; }
+    for (const message of session.messages) if (message.pending) {
+      message.pending = false; message.failed = true;
+      session.draft = session.draft || message.content;
+      session.status = "上次回答未保存，可以重新发送。";
+    }
     conversations.set(session.id, session);
   }
   const active = storage("sessionStorage", "getItem", "notebook-ai.active-session");

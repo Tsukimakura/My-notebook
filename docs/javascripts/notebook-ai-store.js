@@ -12,7 +12,7 @@ window.NotebookConversations = (() => {
       createdAt: Number.isFinite(value.createdAt) ? Math.min(now, value.createdAt) : now,
       updatedAt: Number.isFinite(value.updatedAt) ? Math.min(now, value.updatedAt) : now,
       revision: Number.isSafeInteger(value.revision) && value.revision >= 0 ? value.revision : 0,
-      summary: text(value.summary, 2000), summaryThrough: Number.isSafeInteger(value.summaryThrough) ? Math.max(0, value.summaryThrough) : 0,
+      summary: text(value.summary, 2000), summaryThrough: Number.isSafeInteger(value.summaryThrough) ? Math.min(Math.floor(value.messages.length / 2), Math.max(0, value.summaryThrough)) : 0,
       messages: value.messages.map(message => {
         if (!message || !['user', 'assistant'].includes(message.role) || typeof message.content !== 'string'
             || message.content.length > 64000) throw new Error('消息格式不正确。');
@@ -24,6 +24,8 @@ window.NotebookConversations = (() => {
             .map(source => ({id: source.id, title: text(source.title, 500), url: text(source.url, 2000), outside_scope: source.outside_scope === true}))};
       })};
   };
+  const preferencesRecord = value => ({id: 'preferences', keepDays: [30, 90].includes(value?.keepDays) ? value.keepDays : 0,
+    notes: text(value?.notes, 2000), autoSummary: value?.autoSummary === true});
   const uid = () => [...crypto.getRandomValues(new Uint8Array(16))].map(b => b.toString(16).padStart(2, '0')).join('');
   const open = async () => {
     let db = null;
@@ -57,15 +59,14 @@ window.NotebookConversations = (() => {
     });
     const settings = async value => {
       if (value !== undefined) {
-        const record = {id: 'preferences', keepDays: [30, 90].includes(value.keepDays) ? value.keepDays : 0,
-          notes: text(value.notes, 2000), autoSummary: value.autoSummary === true};
+        const record = preferencesRecord(value);
         await transaction('settings', 'readwrite', (store, memory) => memory ? memory.set(record.id, record) : store.put(record));
         return record;
       }
-      return await transaction('settings', 'readonly', (store, memory, done) => {
+      return preferencesRecord(await transaction('settings', 'readonly', (store, memory, done) => {
         if (memory) return memory.get('preferences');
         store.get('preferences').onsuccess = event => done(event.target.result);
-      }) || {keepDays: 0, notes: '', autoSummary: false};
+      }));
     };
     return {
       get persistent() { return Boolean(db); }, fallback: () => { db?.close(); db = null; }, close: () => db?.close(), uid, clean, settings,
@@ -105,6 +106,9 @@ window.NotebookConversations = (() => {
         if (data?.version !== 1 || !Array.isArray(data.sessions) || data.sessions.length > 100) throw new Error('请选择本站导出的会话文件（每次最多 100 个会话）。');
         // Validate everything before writing anything; imported IDs never overwrite live sessions.
         const records = data.sessions.map(value => clean({...value, id: uid(), revision: 0}));
+        for (const record of records) for (const message of record.messages) {
+          if (message.pending) { message.pending = false; message.failed = true; }
+        }
         await transaction('sessions', 'readwrite', (store, memory) => {
           for (const record of records) {
             record.revision = 1;

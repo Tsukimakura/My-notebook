@@ -376,7 +376,7 @@ const snapshot = window => Object.fromEntries(['localStorage', 'sessionStorage']
   Object.fromEntries(Object.keys(window[area]).map(key => [key, window[area].getItem(key)])),
 ]));
 
-test('temporary keys restore after refresh without extending their expiry; transcript does not persist', async t => {
+test('temporary keys restore without extending expiry; conversation storage is separate from credentials', async t => {
   const first = await setup(t, answerResponse('temporary answer'));
   await first.submit();
   const before = JSON.parse(first.window.sessionStorage.getItem(credentialName));
@@ -820,3 +820,92 @@ test('refresh restores conversation text, model, and citations from IndexedDB', 
 });
 
 require('./test_conversations.cjs');
+
+
+test('old-turn summaries and learning preferences persist and reach only their intended conversations', async t => {
+  const requests = [], indexedDB = new IDBFactory();
+  const fetch = async (url, options) => {
+    const body = JSON.parse(options.body); requests.push(body);
+    return answerResponse(body.task === 'summary' ? '已理解正态分布，接下来研究条件分布。' : 'answer')();
+  };
+  const first = await setup(t, fetch, {indexedDB});
+  first.get('learning-notes').value = '先讲直觉';
+  first.get('learning-notes').dispatchEvent(new first.window.Event('change'));
+  for (let i = 1; i <= 6; i++) { first.get('question').value = `question ${i}`; await first.submit(); }
+  assert.equal(requests.filter(body => body.task === 'summary').length, 0);
+  assert.equal(first.get('summarize').disabled, false);
+  first.get('summarize').click();
+  await new Promise(resolve => setTimeout(resolve, 15)); await first.window.NotebookAIFlush();
+  const summary = requests.find(body => body.task === 'summary');
+  assert.equal(summary.history.length, 6);
+  assert.equal(summary.history[0].content, 'question 1');
+  assert.equal(summary.history.at(-2).content, 'question 3');
+  assert.match(first.get('session-memory').value, /已理解正态/);
+  const next = await setup(t, fetch, {indexedDB});
+  assert.equal(next.get('learning-notes').value, '先讲直觉');
+  next.get('question').value = 'follow-up'; await next.submit();
+  assert.match(requests.at(-1).memory.summary, /已理解正态/);
+  assert.equal(requests.at(-1).memory.notes, '先讲直觉');
+  assert.equal(requests.at(-1).history.at(-2).content, 'question 6');
+  next.get('new').click(); next.get('question').value = 'new topic'; await next.submit();
+  assert.equal(requests.at(-1).memory.summary, '');
+  assert.equal(requests.at(-1).memory.notes, '先讲直觉');
+  assert.deepEqual(requests.at(-1).history, []);
+});
+
+test('automatic summaries require opt-in and do not overwrite memory with truncated output', async t => {
+  let summaries = 0;
+  const fetch = async (url, options) => {
+    const body = JSON.parse(options.body);
+    if (body.task === 'summary') {
+      summaries++;
+      return jsonResponse({answer: 'partial', sources: [], truncated: true, finish_reason: 'max_tokens'});
+    }
+    return answerResponse('answer')();
+  };
+  const {window, get, submit} = await setup(t, fetch);
+  get('session-memory').value = '保留这条记忆'; get('session-memory').dispatchEvent(new window.Event('change'));
+  for (let i = 0; i < 7; i++) { get('question').value = `question ${i}`; await submit(); }
+  assert.equal(summaries, 0);
+  get('auto-summary').checked = true; get('auto-summary').dispatchEvent(new window.Event('change'));
+  get('question').value = 'next'; await submit();
+  await new Promise(resolve => setTimeout(resolve, 15)); await window.NotebookAIFlush();
+  assert.equal(summaries, 1);
+  assert.equal(get('session-memory').value, '保留这条记忆');
+  assert.match(get('status').textContent, /原有记忆已保留/);
+  get('clear-memory').click();
+  get('question').value = 'after clearing memory'; await submit();
+  assert.equal(summaries, 1);
+  assert.equal(get('session-memory').value, '');
+});
+
+test('manual memory edits made during summarization are never overwritten', async t => {
+  let finishSummary;
+  const {window, get, submit} = await setup(t, async (url, options) => {
+    if (JSON.parse(options.body).task === 'summary') return new Promise(resolve => { finishSummary = resolve; });
+    return answerResponse('answer')();
+  });
+  for (let i = 0; i < 6; i++) { get('question').value = `question ${i}`; await submit(); }
+  get('summarize').click(); await new Promise(setImmediate);
+  get('session-memory').value = '我的手动修改'; get('session-memory').dispatchEvent(new window.Event('change'));
+  finishSummary(await answerResponse('model summary')());
+  await new Promise(resolve => setTimeout(resolve, 15)); await window.NotebookAIFlush();
+  assert.equal(get('session-memory').value, '我的手动修改');
+  assert.match(get('status').textContent, /没有覆盖/);
+});
+
+test('each conversation restores its own selected-note scope', async t => {
+  const requests = [];
+  const {window, get, submit} = await setup(t, async (url, options) => {
+    if (url === '/api/notes') return {ok: true, json: async () => ({folders: [], pages: [{id: 'b'.repeat(24), title: 'Current note', path: '/a-note/'}]})};
+    requests.push(JSON.parse(options.body)); return answerResponse('answer')();
+  });
+  get('current-note').click(); await new Promise(setImmediate);
+  const first = get('session').value;
+  get('new').click();
+  assert.equal(get('scope-label').textContent, '全部笔记');
+  get('session').value = first; get('session').dispatchEvent(new window.Event('change'));
+  assert.match(get('scope-label').textContent, /1/);
+  get('question').value = 'use selected note'; await submit();
+  assert.deepEqual(requests[0].scope.ids, ['b'.repeat(24)]);
+});

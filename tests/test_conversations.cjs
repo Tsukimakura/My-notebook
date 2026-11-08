@@ -72,3 +72,12 @@ test('unavailable IndexedDB falls back to page memory without claiming persisten
   await database.save(record(database));
   assert.equal((await database.list()).length, 1);
 });
+
+
+test('a deleted conversation cannot be resurrected by an old tab', async t => {
+  const factory = new IDBFactory(), first = await store(t, factory), second = await store(t, factory);
+  const original = await first.save(record(first));
+  await second.remove(original.id);
+  await assert.rejects(first.save(original), /其他标签页/);
+  assert.equal((await second.list()).length, 0);
+});

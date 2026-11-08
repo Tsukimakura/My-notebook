@@ -3,6 +3,7 @@ window.NotebookScope = (host, changed = () => {}) => {
   host.innerHTML = `<details><summary>检索：<span data-scope-label>全部笔记</span></summary>
     <div class="notebook-ai-actions"><button type="button" data-current-note>当前笔记</button><button type="button" data-scope-clear>全部笔记</button></div>
     <label>范围<select data-scope-mode><option value="strict">仅检索所选笔记</option><option value="prefer">优先所选，允许补充</option></select></label>
+    <p>选定范围后，仍按问题挑选片段。</p>
     <label>查找笔记<input type="search" data-note-search placeholder="输入课程或笔记名"></label>
     <div data-note-tree class="notebook-ai-note-tree"></div><p data-scope-status role="status"></p></details>`;
   const get = name => host.querySelector(`[data-${name}]`);

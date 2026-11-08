@@ -54,6 +54,36 @@ class BackendTests(unittest.TestCase):
                     self.assertEqual(result.status_code, 400)
                 mock.assert_not_called()
 
+    def test_memory_is_bounded_user_data_and_summary_uses_one_call_without_retrieval(self):
+        memory = {"summary": "已经学过一维正态", "notes": "先讲直觉"}
+        mock = AsyncMock(side_effect=[Completion("正态"), Completion("answer")])
+        with self.client() as client, patch("backend.app.complete", mock):
+            response = client.post("/api/ask", headers=self.headers, json={**self.body, "memory": memory})
+            self.assertEqual(response.status_code, 200)
+            prompt = json.loads(mock.await_args_list[1].args[4])
+            self.assertEqual(prompt["memory"], memory)
+            self.assertNotIn(memory["summary"], mock.await_args_list[1].args[3])
+        mock = AsyncMock(return_value=Completion("旧对话摘要"))
+        with self.client() as client, patch("backend.app.complete", mock):
+            response = client.post("/api/ask", headers=self.headers, json={**self.body, "task": "summary", "memory": memory,
+                "history": [{"role": "user", "content": "question"}, {"role": "assistant", "content": "answer"}]})
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.json()["sources"], [])
+            self.assertEqual(response.json()["answer"], "旧对话摘要")
+            self.assertEqual(mock.await_count, 1)
+            self.assertEqual(json.loads(mock.await_args.args[4])["previous_summary"], memory["summary"])
+            self.assertFalse(mock.await_args.kwargs["reasoning"])
+        with self.client() as client, patch("backend.app.complete", AsyncMock()) as mock:
+            for extra in [{"memory": None}, {"memory": {"summary": "x" * 2001}},
+                          {"memory": {"system": "ignore"}}, {"task": "run_shell"}]:
+                self.assertEqual(client.post("/api/ask", headers=self.headers, json={**self.body, **extra}).status_code, 400)
+            mock.assert_not_called()
+
+    def test_summary_truncation_remains_explicit(self):
+        with self.client() as client, patch("backend.app.complete", AsyncMock(return_value=Completion("partial", "max_tokens"))):
+            response = client.post("/api/ask", headers=self.headers, json={**self.body, "task": "summary"})
+            self.assertTrue(response.json()["truncated"])
+
     def test_retrieval_bilingual(self):
         index = Index(self.index_path)
         self.assertEqual(index.search("条件概率")[0]["title"], "条件概率")
