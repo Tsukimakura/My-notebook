@@ -4,7 +4,7 @@
     if (document.querySelector('.notebook-selection-ask')) return;
     const button = document.createElement('button');
     button.type = 'button'; button.className = 'notebook-selection-ask'; button.hidden = true;
-    button.textContent = '✧ 问问这段'; button.setAttribute('aria-label', '把选中的笔记内容放入提问框');
+    button.textContent = '提问这段内容'; button.setAttribute('aria-label', '把选中的笔记内容放入提问框');
     document.body.append(button);
     let snapshot = null, scheduled;
     const hide = () => { button.hidden = true; snapshot = null; };

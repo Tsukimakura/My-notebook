@@ -940,11 +940,14 @@ test('mobile separator changes panel height without consuming the entire noteboo
   assert.equal(handle.getAttribute('aria-valuenow'), '300');
 });
 
-test('welcome suggestions fill the question without calling a model and references start folded', async t => {
+test('current-note shortcut fills the question without calling a model and references start folded', async t => {
   let calls = 0;
-  const {window, get, panel, submit} = await setup(t, async () => { calls++; return answerResponse('answer [1]')(); });
-  panel.querySelector('[data-prompt="normal"]').click();
-  assert.match(get('question').value, /一维正态分布/);
+  const {window, get, panel, submit} = await setup(t, async url => {
+    if (url === '/api/notes') return {ok: true, json: async () => ({pages: [], folders: []})};
+    calls++; return answerResponse('answer [1]')();
+  });
+  panel.querySelector('[data-prompt="current"]').click();
+  assert.match(get('question').value, /当前笔记/);
   assert.equal(window.document.activeElement, get('question'));
   assert.equal(calls, 0);
   await submit();

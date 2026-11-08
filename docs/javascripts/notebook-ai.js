@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Fixed markup only; model Markdown is parsed and sanitized separately.
   panel.innerHTML = `
     <div data-resize class="notebook-ai-resize" role="separator" tabindex="0" aria-controls="notebook-ai" aria-orientation="vertical" aria-label="调整问答栏宽度"><span></span></div>
-    <div class="notebook-ai-heading"><h2><span aria-hidden="true">✧</span> 问笔记</h2><div>
+    <div class="notebook-ai-heading"><h2>问笔记</h2><div>
       <button type="button" data-settings aria-expanded="false">设置</button>
       <button type="button" data-new>新对话</button>
       <button type="button" data-close aria-label="收起对话栏">×</button>
@@ -713,9 +713,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   panel.addEventListener("click", event => {
     const prompt = event.target.closest("[data-prompt]")?.dataset.prompt;
     if (!prompt) return;
-    get("question").value = prompt === "current" ? "请梳理当前笔记的核心概念，以及它们之间的联系。"
-      : prompt === "normal" ? "请结合一维正态分布，详细讲解二维正态分布。"
-      : "请总结普通物理学 II 课程目前已有的知识体系。";
+    get("question").value = "请解释当前笔记的主要内容。";
     if (prompt === "current") get("current-note")?.click();
     get("question").focus();
   });
@@ -779,11 +777,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("messages").replaceChildren();
     if (!current.messages.length) {
       const empty = document.createElement("div"); empty.className = "notebook-ai-empty";
-      empty.innerHTML = `<span class="notebook-ai-empty-mark" aria-hidden="true">✧</span><h3>从一个问题开始</h3>
-        <p>解释概念，串联章节，回到笔记里找答案。</p>
-        <button type="button" data-prompt="current">梳理当前笔记 <span aria-hidden="true">↗</span></button>
-        <button type="button" data-prompt="normal">一维和二维正态有什么联系？ <span aria-hidden="true">↗</span></button>
-        <button type="button" data-prompt="course">总结普通物理学 II 的知识体系 <span aria-hidden="true">↗</span></button>`;
+      empty.innerHTML = `<p>暂无消息</p><button type="button" data-prompt="current">提问当前笔记</button>`;
       get("messages").append(empty);
     }
     for (const record of current.messages.slice(-visibleCount)) {

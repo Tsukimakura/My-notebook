@@ -4,36 +4,35 @@
   <section class="notebook-hero" aria-labelledby="home-title">
     <img class="notebook-hero-image" src="{{ 'assets/cover/afternoon.png' | url }}" alt="暖色阳光下，灰绿发色的女孩伏在手臂上" width="1280" height="720" fetchpriority="high">
     <div class="notebook-hero-copy">
-      <p class="notebook-eyebrow"><span></span> 个人笔记 · 持续整理</p>
+      <p class="notebook-eyebrow">学习笔记</p>
       <h1 id="home-title">Tsukimakura's<br>notebook<span>.</span></h1>
-      <p class="notebook-hero-description">记录学过的知识，连接零散的思考。<br>计算机科学、数学与信息安全的学习笔记。</p>
-      <div class="notebook-hero-actions"><a class="notebook-button" href="#subjects">浏览笔记 <span aria-hidden="true">↗</span></a><button class="notebook-button notebook-button-quiet" type="button" data-open-ai>问问笔记 <span aria-hidden="true">✧</span></button></div>
+      <p class="notebook-hero-description">计算机科学、数学、物理与信息安全。<br>课程笔记、题解与资料索引。</p>
+      <div class="notebook-hero-actions"><a class="notebook-button" href="#subjects">浏览笔记 <span aria-hidden="true">↗</span></a><button class="notebook-button notebook-button-quiet" type="button" data-open-ai>问笔记</button></div>
     </div>
-    <span class="notebook-hero-caption" aria-hidden="true">a quiet afternoon</span>
   </section>
   <button class="notebook-home-search" type="button" data-open-search>
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg>
     <span>搜索笔记、概念或课程…</span><kbd data-search-shortcut>Ctrl K</kbd>
   </button>
   <section id="subjects" class="notebook-home-section" aria-labelledby="subjects-title">
-    <div class="notebook-section-heading"><div><p class="notebook-eyebrow">EXPLORE</p><h2 id="subjects-title">知识分区</h2></div><a href="{{ 'knowledge-map/' | url }}">查看知识地图 <span aria-hidden="true">↗</span></a></div>
+    <div class="notebook-section-heading"><div><h2 id="subjects-title">知识分区</h2></div><a href="{{ 'knowledge-map/' | url }}">查看知识地图 <span aria-hidden="true">↗</span></a></div>
     <div class="notebook-subject-grid">
       {% for subject in page.meta.subjects %}
       <a class="notebook-subject" href="{{ subject.path | url }}">
-        <div class="notebook-subject-top"><span class="notebook-subject-icon">{% include ".icons/" ~ subject.icon ~ ".svg" %}</span><span class="notebook-card-arrow" aria-hidden="true">↗</span></div>
-        <p class="notebook-card-overline">{{ subject.english }}</p><h3>{{ subject.name }}</h3><p>{{ subject.description }}</p><span class="notebook-card-tags">{{ subject.topics }}</span>
+        <div class="notebook-subject-top"><span class="notebook-subject-icon">{% include ".icons/" ~ subject.icon ~ ".svg" %}</span></div>
+        <h3>{{ subject.name }}</h3><p>{{ subject.description }}</p><span class="notebook-card-tags">{{ subject.topics }}</span>
       </a>
       {% endfor %}
     </div>
   </section>
   <section class="notebook-home-section" aria-labelledby="courses-title">
-    <div class="notebook-section-heading"><div><p class="notebook-eyebrow">ON THE DESK</p><h2 id="courses-title">课程笔记</h2></div><span class="notebook-section-aside">顺着一门课，慢慢读。</span></div>
+    <div class="notebook-section-heading"><div><h2 id="courses-title">课程笔记</h2></div></div>
     <div class="notebook-course-grid">
       {% for course in page.meta.courses %}
-      <a class="notebook-course" href="{{ course.path | url }}"><span class="notebook-course-number">{{ '%02d' | format(loop.index) }}</span><div><h3>{{ course.name }}</h3><p>{{ course.description }}</p></div><span class="notebook-card-arrow" aria-hidden="true">↗</span></a>
+      <a class="notebook-course" href="{{ course.path | url }}"><span class="notebook-course-number">{{ '%02d' | format(loop.index) }}</span><div><h3>{{ course.name }}</h3><p>{{ course.description }}</p></div></a>
       {% endfor %}
     </div>
   </section>
-  <div class="notebook-home-note"><span aria-hidden="true">✳</span><p>笔记还在不断整理。重要结论请结合教材与原始资料阅读，欢迎在 GitHub 上提出修正。</p><a href="{{ config.repo_url }}/issues" target="_blank" rel="noopener noreferrer">交流与纠错 ↗</a></div>
+  <div class="notebook-home-note"><p>发现错误或有补充，可以在 GitHub 提 Issue。</p><a href="{{ config.repo_url }}/issues" target="_blank" rel="noopener noreferrer">反馈问题</a></div>
 </div>
 {% endblock %}

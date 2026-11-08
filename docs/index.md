@@ -9,30 +9,27 @@ updated: 2026-11-08
 sources: []
 subjects:
   - name: 计算机科学
-    english: COMPUTER SCIENCE
     path: 计算机科学/
     icon: material/code-braces
-    description: 从程序如何运行，到算法如何思考。
+    description: 程序设计、算法、计算机系统与人工智能。
     topics: 算法 · 计算机系统 · 人工智能
   - name: 数理基础
-    english: MATHEMATICS & PHYSICS
     path: 数理基础/
     icon: material/function-variant
-    description: 用定义、推导和直觉，理解问题的结构。
+    description: 数学分析、线性代数、概率统计与物理。
     topics: 数学分析 · 概率统计 · 普通物理
   - name: 信息安全
-    english: INFORMATION SECURITY
     path: 信息安全/
     icon: material/shield-key-outline
-    description: 理解系统的边界，也理解它的薄弱之处。
+    description: Web 安全、密码学与逆向分析。
     topics: Web 安全 · 密码学 · 逆向工程
 courses:
   - name: 概率论与数理统计
     path: 数理基础/probability-and-mathematical-statistics/
-    description: 从随机变量到联合分布，连接公式与直觉。
+    description: 随机变量、常用分布、联合分布与练习题。
   - name: 普通物理学 II
     path: 数理基础/general-physics-ii/
-    description: 电荷、电场与电势，前六课的电磁学笔记。
+    description: 前六课：静电学、导体、电流与电容。
   - name: 计算机系统 II
     path: 计算机科学/Computer Systems II/
     description: 体系结构、RISC-V 与流水线。
