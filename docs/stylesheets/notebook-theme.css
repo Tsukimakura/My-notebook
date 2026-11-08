@@ -203,7 +203,8 @@ summary { cursor: pointer; }
   .notebook-header .md-header__button { padding: .3rem; }
   .notebook-header-actions { gap: 0; }
   .notebook-search-toggle { display: block; }
-  .notebook-header .md-search__inner, [data-md-toggle="search"]:checked ~ .notebook-header .md-search__inner { width: 100%; }
+  .notebook-header .md-search__inner { width: 90%; }
+  [data-md-toggle="search"]:checked ~ .notebook-header .md-search__inner { width: 100%; }
   .md-main__inner { padding: 0 .45rem; margin-top: .6rem; }
   .md-content__inner { padding: 1.2rem .9rem; border-radius: .75rem; margin: .3rem 0 1.5rem; }
   .md-typeset h1 { font-size: 1.4rem; }
@@ -227,8 +228,14 @@ summary { cursor: pointer; }
   .notebook-subject-top { margin-bottom: .7rem; }
   .notebook-home-note { align-items: start; flex-wrap: wrap; }
   .notebook-home-note p { flex: 1; }
-  .notebook-home-note a { width: 100%; margin-left: 2rem; }
+  .notebook-home-note a { width: auto; flex-basis: calc(100% - 2rem); margin-left: 2rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+@media (min-width: 761px) and (max-width: 959px) {
+  .notebook-search-toggle { display: block; }
+  .notebook-header .md-search__inner { width: 90%; }
+  [data-md-toggle="search"]:checked ~ .notebook-header .md-search__inner { width: 100%; }
 }
