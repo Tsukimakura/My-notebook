@@ -968,12 +968,15 @@ test('selected notebook text carries its source into the draft and preferred sco
   }}));
   await new Promise(setImmediate);
   assert.equal(panel.hidden, false);
-  assert.match(get('question').value, /> 正态分布的标准化/);
-  assert.match(get('question').value, /出处：《概率笔记》/);
+  assert.equal(get('question').value, '条件概率是什么？');
+  assert.match(get('quote-preview').textContent, /正态分布的标准化/);
+  assert.equal(get('quote-source').textContent, '概率笔记');
   assert.equal(generations, 0);
   await submit();
   assert.equal(generations, 1);
   assert.deepEqual(sent.scope, {ids: ['c'.repeat(24)], mode: 'prefer'});
+  assert.match(sent.question, /正态分布的标准化/);
+  assert.match(sent.question, /引用笔记《概率笔记》/);
 });
 
 test('Escape closes tools before collapsing the assistant and never sends a request', async t => {
@@ -989,15 +992,42 @@ test('Escape closes tools before collapsing the assistant and never sends a requ
 });
 
 
-test('multiline selections stay within the question limit and are marked as excerpts', async t => {
-  const {window, get} = await setup(t, async () => ({ok: true, json: async () => ({pages: [], folders: []})}));
+test('multiline quotes stay separate from the question and preserve their Markdown', async t => {
+  let sent;
+  const {window, get, submit} = await setup(t, async (url, options) => {
+    if (url === '/api/notes') return {ok: true, json: async () => ({pages: [], folders: []})};
+    sent = JSON.parse(options.body); return answerResponse('answer')();
+  });
   window.document.dispatchEvent(new window.CustomEvent('notebook:ask-selection', {detail: {
-    text: 'a\n'.repeat(900), title: 'A'.repeat(100), url: '/a-note/' + 'x'.repeat(750),
+    markdown: 'a\n'.repeat(900), title: 'A'.repeat(100), url: '/a-note/' + 'x'.repeat(750),
   }}));
   await new Promise(setImmediate);
-  assert.ok(get('question').value.length <= 4000);
-  assert.match(get('question').value, /（节选）/);
-  assert.match(get('question').value, /出处/);
+  assert.equal(get('question').value, '条件概率是什么？');
+  assert.equal(get('quote-markdown').value, 'a\n'.repeat(900));
+  await submit();
+  assert.ok(sent.question.length <= 4000);
+  assert.match(sent.question, /引用笔记/);
 });
 
 require('./test_theme.cjs');
+
+
+test('quote preview renders math and links, persists on reload, and never relaxes answer link rules', async t => {
+  const indexedDB = new IDBFactory();
+  const fetch = async url => url === '/api/notes' ? {ok: true, json: async () => ({pages: [], folders: []})}
+    : answerResponse('[external](https://external.example/)')();
+  const first = await setup(t, fetch, {indexedDB});
+  const markdown = String.raw`标准化 \(z=\frac{x-\mu}{\sigma}\) 与 [教材](https://external.example/book)。`;
+  first.window.document.dispatchEvent(new first.window.CustomEvent('notebook:ask-selection', {detail: {markdown, title: '正态', url: '/a-note/#normal'}}));
+  await new Promise(setImmediate); await first.window.NotebookAIFlush();
+  assert.equal(first.get('quote-preview').querySelectorAll('.katex').length, 1);
+  assert.equal(first.get('quote-preview').querySelector('a').target, '_blank');
+  const next = await setup(t, fetch, {indexedDB});
+  assert.equal(next.get('quote-markdown').value, markdown);
+  await next.submit();
+  assert.equal(next.get('answer').querySelector('a'), null);
+  assert.equal(next.get('quote').hidden, true);
+  assert.equal(next.get('messages').querySelectorAll('.notebook-ai-quoted-message .katex').length, 1);
+});
+
+require('./test_selection.cjs');

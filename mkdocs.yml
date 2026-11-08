@@ -67,21 +67,22 @@ extra_javascript:
   - assets/vendor/katex/katex.min.js
   - assets/vendor/katex/auto-render.min.js
   - javascripts/notebook-theme.js?v=2
-  - javascripts/notebook-reader.js?v=2
+  - javascripts/notebook-selection.js?v=1
+  - javascripts/notebook-reader.js?v=3
   - javascripts/katex.js?v=2
   - assets/vendor/markdown-it/markdown-it.min.js
   - assets/vendor/dompurify/purify.min.js
   - javascripts/notebook-ai-models.js?v=1
   - javascripts/notebook-ai-scope.js?v=3
-  - javascripts/notebook-ai-store.js?v=2
+  - javascripts/notebook-ai-store.js?v=3
   - javascripts/notebook-ai-layout.js?v=2
-  - javascripts/notebook-ai.js?v=13
+  - javascripts/notebook-ai.js?v=14
 
 extra_css:
   - assets/vendor/katex/katex.min.css
   - stylesheets/notebook-theme.css?v=2
   - stylesheets/notebook-reader.css?v=1
-  - stylesheets/notebook-ai.css?v=10
+  - stylesheets/notebook-ai.css?v=11
 
 copyright: Copyright © 2025 Tsukimakura
 

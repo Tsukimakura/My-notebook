@@ -14,11 +14,11 @@
       const range = selection.getRangeAt(0);
       const article = document.querySelector('.md-content__inner');
       if (!article?.contains(range.startContainer) || !article.contains(range.endContainer)) { hide(); return; }
-      const text = selection.toString().trim();
-      if (text.length < 2) { hide(); return; }
+      const excerpt = window.NotebookSelection?.markdown(range, article);
+      if (!excerpt?.markdown) { hide(); return; }
       const rect = range.getBoundingClientRect();
       if (rect.bottom < 64 || rect.top > innerHeight) { hide(); return; }
-      snapshot = {text: text.length > 1200 ? text.slice(0, 1200) + '\n（节选）' : text,
+      snapshot = {markdown: excerpt.markdown,
         title: (article.querySelector('h1')?.textContent || document.title).replace(/¶$/, '').trim().slice(0, 100),
         url: location.pathname + location.hash};
       button.hidden = false;

@@ -3,12 +3,22 @@ window.NotebookConversations = (() => {
   const text = (value, max) => typeof value === 'string' ? value.slice(0, max) : '';
   const cleanScope = value => ({ids: Array.isArray(value?.ids) ? value.ids.filter(id => /^[a-f0-9]{24}$/.test(id)).slice(0, 100) : [],
     mode: value?.mode === 'prefer' ? 'prefer' : 'strict'});
+  const quote = value => {
+    if (!value || typeof value.markdown !== 'string' || !value.markdown.trim() || value.markdown.length > 2200) return null;
+    let url = '';
+    try {
+      const parsed = new URL(value.url, location.origin);
+      if (typeof value.url === 'string' && value.url.startsWith('/') && !value.url.startsWith('//')
+          && value.url.length <= 800 && parsed.origin === location.origin) url = value.url;
+    } catch { /* Keep the excerpt even if its old source URL is no longer valid. */ }
+    return {markdown: value.markdown, title: text(value.title, 100), url};
+  };
   const clean = value => {
     if (!value || !/^[a-f0-9]{32}$/.test(value.id) || !Array.isArray(value.messages)
         || value.messages.length > 2000 || !['openai', 'deepseek', 'anthropic'].includes(value.provider)) throw new Error('会话格式不正确。');
     const now = Date.now();
     return {id: value.id, title: text(value.title, 100) || '新对话', provider: value.provider,
-      model: text(value.model, 100), scope: cleanScope(value.scope), draft: text(value.draft, 4000),
+      model: text(value.model, 100), scope: cleanScope(value.scope), draftQuote: quote(value.draftQuote), draft: text(value.draft, 4000),
       createdAt: Number.isFinite(value.createdAt) ? Math.min(now, value.createdAt) : now,
       updatedAt: Number.isFinite(value.updatedAt) ? Math.min(now, value.updatedAt) : now,
       revision: Number.isSafeInteger(value.revision) && value.revision >= 0 ? value.revision : 0,
@@ -17,7 +27,7 @@ window.NotebookConversations = (() => {
         if (!message || !['user', 'assistant'].includes(message.role) || typeof message.content !== 'string'
             || message.content.length > 64000) throw new Error('消息格式不正确。');
         return {role: message.role, content: message.content, failed: message.failed === true,
-          pending: message.pending === true, truncated: message.truncated === true,
+          pending: message.pending === true, quote: quote(message.quote), truncated: message.truncated === true,
           finish_reason: text(message.finish_reason, 30), scope: cleanScope(message.scope),
           sources: (Array.isArray(message.sources) ? message.sources : []).slice(0, 24).filter(source =>
             Number.isInteger(source?.id) && typeof source.url === 'string' && source.url.startsWith('/') && !source.url.startsWith('//'))
@@ -119,5 +129,5 @@ window.NotebookConversations = (() => {
       },
     };
   };
-  return {open, uid, clean};
+  return {open, uid, clean, quote};
 })();

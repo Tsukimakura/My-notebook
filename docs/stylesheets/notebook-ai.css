@@ -146,3 +146,11 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
   .notebook-ai-user .notebook-ai-role { display: none; }
   .notebook-ai-session-bar > label select { font-size: .6rem; }
 }
+
+.notebook-ai-quote { flex-shrink: 0; max-height: 26%; overflow: auto; border: 1px solid var(--notebook-line); border-radius: .5rem; padding: .5rem .65rem; background: var(--notebook-canvas); }
+.notebook-ai-quote-heading { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .6rem; }
+.notebook-ai-quote-heading button { border: 0; padding: 0 .2rem; font-size: .9rem; }
+.notebook-ai-quote .notebook-ai-answer { font-size: .68rem; }
+.notebook-ai-quote textarea { font-family: var(--md-code-font); font-size: .62rem; }
+.notebook-ai-quoted-message { margin: .5rem 0 0; padding-left: .6rem; border-left: 2px solid var(--notebook-line); }
+.notebook-ai-quoted-message .notebook-ai-answer { font-size: .68rem; }

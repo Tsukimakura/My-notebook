@@ -75,6 +75,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     <div data-messages class="notebook-ai-messages" aria-label="对话记录">
       <p>根据笔记提问，也可以继续追问。回答中的笔记链接会在左侧打开。</p>
     </div>
+    <section data-quote hidden class="notebook-ai-quote" aria-label="引用笔记">
+      <div class="notebook-ai-quote-heading"><a data-quote-source></a><button type="button" data-remove-quote aria-label="移除引用">×</button></div>
+      <div data-quote-preview class="notebook-ai-answer"></div>
+      <details><summary>编辑引用</summary><textarea data-quote-markdown maxlength="2200" rows="3" aria-label="引用的 Markdown"></textarea></details>
+    </section>
     <p data-status role="status" aria-live="polite"></p>
     <form data-chat-form autocomplete="off">
       <label class="notebook-ai-composer-label">你的问题<textarea data-question required maxlength="4000" rows="3" placeholder="问一个问题，或选中正文中的一段文字…"></textarea></label>
@@ -104,11 +109,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     return writes;
   };
   window.NotebookAIFlush = () => writes;
+  const composeQuestion = (question, quote) => quote
+    ? `${question}\n\n引用笔记《${quote.title || "笔记"}》${quote.url ? "\n" + quote.url : ""}\n\n${quote.markdown}` : question;
   const historyTurns = session => {
     const result = [];
     for (let i = 1; i < session.messages.length; i++) {
       const user = session.messages[i - 1], answer = session.messages[i];
-      if (user.role === "user" && !user.failed && answer.role === "assistant") result.push({question: user.content, answer: answer.content});
+      if (user.role === "user" && !user.failed && answer.role === "assistant") result.push({question: composeQuestion(user.content, user.quote), answer: answer.content});
     }
     return result;
   };
@@ -389,12 +396,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       return url ? `<a href="${escape(url)}" title="${escape(source.title)}">[${id}]</a>` : `[${id}]`;
     };
   }
-  const render = (answer, sources, target, sourceList) => {
+  const render = (answer, sources, target, sourceList, quote = false) => {
     target.replaceChildren();
     const formatted = markdown && window.DOMPurify?.isSupported && window.katex;
     if (formatted) {
       const env = {sources: new Map(sources.map(s => [s.id, s])), math: []};
-      const fragment = window.DOMPurify.sanitize(markdown.render(answer, env), {
+      const validate = markdown.validateLink;
+      let html;
+      try {
+        if (quote) markdown.validateLink = value => {
+          try { const url = new URL(value, location.origin); return ["http:", "https:"].includes(url.protocol) && !url.username && !url.password; }
+          catch { return false; }
+        };
+        html = markdown.render(answer, env);
+      } finally { markdown.validateLink = validate; }
+      const fragment = window.DOMPurify.sanitize(html, {
         ALLOWED_TAGS: ["p", "br", "hr", "h1", "h2", "h3", "h4", "h5", "h6", "strong", "em", "s", "blockquote",
           "ul", "ol", "li", "pre", "code", "table", "thead", "tbody", "tr", "th", "td", "a", "span", "div"],
         ALLOWED_ATTR: ["class", "href", "title", "start", "data-math-index"],
@@ -414,6 +430,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       target.textContent = answer;
     }
+    if (quote) for (const link of target.querySelectorAll("a[href]")) {
+      if (new URL(link.href).origin !== location.origin) { link.target = "_blank"; link.rel = "noopener noreferrer"; }
+    }
     sourceList.replaceChildren();
     for (const source of sources) {
       const url = safeURL(source.url);
@@ -429,6 +448,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (heading) heading.textContent = `参考笔记 · ${sourceList.children.length}`;
     if (sourceList.parentElement?.classList.contains("notebook-ai-references")) sourceList.parentElement.hidden = !sourceList.children.length;
     return Boolean(formatted);
+  };
+  const quotePreview = (quote, target) => render(quote.markdown, [], target, document.createElement("ol"), true);
+  const refreshDraftQuote = () => {
+    const quote = current?.draftQuote;
+    get("quote").hidden = !quote;
+    if (!quote) { get("quote-preview").replaceChildren(); get("quote-markdown").value = ""; return; }
+    get("quote-source").textContent = quote.title || "引用笔记";
+    const url = safeURL(quote.url);
+    if (url) get("quote-source").href = url; else get("quote-source").removeAttribute("href");
+    get("quote-markdown").value = quote.markdown;
+    quotePreview(quote, get("quote-preview"));
+  };
+  get("remove-quote").addEventListener("click", () => { current.draftQuote = null; refreshDraftQuote(); void persist(current); });
+  get("quote-markdown").addEventListener("change", () => {
+    if (!current.draftQuote) return;
+    const markdown = get("quote-markdown").value.trim();
+    current.draftQuote = markdown ? {...current.draftQuote, markdown} : null;
+    refreshDraftQuote(); void persist(current);
+  });
+  const showUserQuote = (record, output) => {
+    if (!record.quote) return;
+    const block = document.createElement("blockquote"); block.className = "notebook-ai-quoted-message";
+    const content = document.createElement("div"); content.className = "notebook-ai-answer";
+    const source = document.createElement("a"); source.textContent = record.quote.title || "引用笔记";
+    const url = safeURL(record.quote.url); if (url) source.href = url;
+    quotePreview(record.quote, content); block.append(source, content); output.message.append(block);
   };
   const addMessage = (role, text) => {
     const message = document.createElement("article");
@@ -468,7 +513,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       {role: "user", content: turn.question.slice(0, 1000)},
       {role: "assistant", content: historyAnswer(turn.answer)},
     ]);
-    const payload = {provider: current.provider, model: current.model, question, history};
+    const payload = {provider: current.provider, model: current.model, question: composeQuestion(question, current.draftQuote), history};
+    if (payload.question.length > 4000) return null;
     if (current.summary || sessionPreferences.notes) payload.memory = {summary: current.summary || "", notes: sessionPreferences.notes || ""};
     if (noteScope?.value().ids.length) payload.scope = noteScope.value();
     // Stay below the existing 20 KB proxy/body cap, including UTF-8 and JSON escaping.
@@ -623,12 +669,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
     if (!turns.length && !get("messages").querySelector("article")) get("messages").replaceChildren();
-    const userRecord = {role: "user", content: question, pending: true, scope: noteScope?.value()};
+    const userRecord = {role: "user", content: question, pending: true, scope: noteScope?.value(), quote: current.draftQuote ? {...current.draftQuote} : null};
     session.messages.push(userRecord);
-    session.draft = ""; session.updatedAt = Date.now();
+    session.draft = ""; session.draftQuote = null; refreshDraftQuote(); session.updatedAt = Date.now();
     if (session.title === "新对话") session.title = question.slice(0, 32);
     void persist(session); refreshSessions();
-    addMessage("user", question);
+    showUserQuote(userRecord, addMessage("user", question));
     get("question").value = "";
     get("status").textContent = "正在检索笔记并等待模型回答，你可以继续浏览左侧笔记……";
     for (const name of ["submit", "save", "continue"]) get(name).disabled = true;
@@ -682,7 +728,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     } catch (error) {
       userRecord.pending = false; userRecord.failed = true;
-      session.draft = question;
+      const draft = current === session ? get("question").value : session.draft;
+      if (!draft) { session.draft = question; session.draftQuote ||= userRecord.quote ? {...userRecord.quote} : null; }
+      else session.draft = draft;
       session.status = error.name === "AbortError"
         ? `${job.stopped ? "已停止等待" : "请求超时"}。已发出的供应商调用仍可能产生费用。`
         : `${error.message}（等待 ${Math.round((performance.now() - started) / 1000)} 秒）`;
@@ -691,6 +739,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (current === session) {
         renderSession();
         if (!get("question").value) get("question").value = question;
+        refreshDraftQuote();
         get("status").textContent = session.status;
       }
     } finally {
@@ -719,20 +768,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   document.addEventListener("notebook:ask-selection", async event => {
     const detail = event.detail;
-    if (!current || !detail || typeof detail.text !== "string" || !detail.text.trim() || detail.text.length > 2000
-        || typeof detail.url !== "string" || !detail.url.startsWith("/") || detail.url.startsWith("//")) return;
-    const url = new URL(detail.url, location.origin);
-    if (url.origin !== location.origin) return;
+    if (!current || !detail || typeof detail.url !== "string" || !detail.url.startsWith("/") || detail.url.startsWith("//")) return;
+    const quote = window.NotebookConversations.quote({markdown: detail.markdown || detail.text, title: detail.title, url: detail.url});
+    if (!quote || !quote.url) return;
     const session = current;
-    const title = typeof detail.title === "string" ? detail.title.slice(0, 100) : "当前笔记";
-    const source = detail.url.length <= 800 ? `\n${detail.url}` : "";
-    const rawQuote = detail.text.trim().replace(/\n/g, "\n> ");
-    const quote = rawQuote.length > 2800 ? rawQuote.slice(0, 2800) + "\n> （节选）" : rawQuote;
-    const question = `请结合笔记解释这段内容：\n\n> ${quote}\n\n出处：《${title}》${source}`;
-    if (question.length > 4000) return;
     showPanel(true); showSettings(false);
-    get("question").value = question; session.draft = question; void persist(session);
-    get("question").focus();
+    session.draftQuote = quote;
+    if (!get("question").value.trim()) get("question").value = "请解释这段内容。";
+    session.draft = get("question").value;
+    refreshDraftQuote(); void persist(session); get("question").focus();
     const selected = await noteScope?.forPage(detail.url);
     if (selected && conversations.has(session.id)) {
       session.scope = selected;
@@ -782,12 +826,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     for (const record of current.messages.slice(-visibleCount)) {
       const output = addMessage(record.role, record.content);
+      if (record.role === "user") showUserQuote(record, output);
       if (record.failed) {
         output.message.classList.add("notebook-ai-failed");
         output.message.querySelector(".notebook-ai-role").textContent = "你 · 未完成";
         const retry = document.createElement("button"); retry.type = "button"; retry.textContent = "重新填写";
         retry.addEventListener("click", () => {
-          get("question").value = record.content; noteScope?.restore(record.scope); get("question").focus();
+          get("question").value = record.content; current.draftQuote = record.quote ? {...record.quote} : null;
+          refreshDraftQuote(); noteScope?.restore(record.scope); get("question").focus();
         });
         output.message.append(retry);
       }
@@ -838,6 +884,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("consent").checked = credential?.provider === session.provider;
     restoring = true; noteScope?.restore(session.scope); restoring = false;
     get("question").value = session.draft || "";
+    refreshDraftQuote();
     get("session-title").value = session.title;
     get("session-memory").value = session.summary || "";
     storage("sessionStorage", "setItem", "notebook-ai.active-session", session.id);
@@ -846,7 +893,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const newSession = () => {
     const now = Date.now();
     const session = {id: window.NotebookConversations.uid(), title: "新对话", provider: preferences.provider,
-      model: preferences.models[preferences.provider] || "", scope: {ids: [], mode: "strict"}, messages: [], draft: "",
+      model: preferences.models[preferences.provider] || "", scope: {ids: [], mode: "strict"}, messages: [], draft: "", draftQuote: null,
       createdAt: now, updatedAt: now, revision: 0, summary: "", summaryThrough: 0};
     conversations.set(session.id, session); void persist(session); return session;
   };
