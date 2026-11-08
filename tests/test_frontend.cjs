@@ -25,6 +25,7 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
     }
   }
   if (beforeScript) beforeScript(window);
+  window.eval(fs.readFileSync('docs/javascripts/notebook-ai-models.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
   window.document.querySelector('.notebook-ai-launch').click();
@@ -103,6 +104,73 @@ function answerResponse(answer) {
     answer, sources: [{id: 1, title: '概率笔记', url: '/probability/#conditional'}], expansion_failed: false,
   })});
 }
+
+test('model picker follows provider, fills editable ID and sends the saved selection', async t => {
+  let payload;
+  const {window, get, save, submit} = await setup(t, async (url, options) => {
+    payload = JSON.parse(options.body);
+    return answerResponse('answer')();
+  }, {autoSave: false});
+  assert.ok([...get('model-choice').options].some(option => option.value === 'gpt-6.1-sol'));
+  get('provider').value = 'deepseek';
+  get('provider').dispatchEvent(new window.Event('change'));
+  assert.ok([...get('model-choice').options].some(option => option.value === 'deepseek-flash'));
+  assert.ok(![...get('model-choice').options].some(option => option.value.startsWith('gpt-')));
+  assert.equal(get('model-docs').hostname, 'api-docs.deepseek.com');
+  assert.match(get('model-endpoint').textContent, /api\.deepseek\.com\/models/);
+  get('model-choice').value = 'deepseek-flash';
+  get('model-choice').dispatchEvent(new window.Event('change'));
+  assert.equal(get('model').value, 'deepseek-flash');
+  get('key').value = 'test-not-a-real-key';
+  get('consent').checked = true;
+  save();
+  await submit();
+  assert.equal(payload.provider, 'deepseek');
+  assert.equal(payload.model, 'deepseek-flash');
+  assert.equal(get('model-choice').disabled, false);
+});
+
+test('custom model IDs survive reload and provider switches without silent replacement', async t => {
+  const saved = {provider: 'deepseek', models: {deepseek: 'my-custom-model', anthropic: 'claude-sonnet-5-5'}, retention: 'session'};
+  const {window, get, save} = await setup(t, answerResponse('answer'), {autoSave: false, storageState: {
+    localStorage: {'notebook-ai.preferences.v1': JSON.stringify(saved)},
+  }});
+  assert.equal(get('model').value, 'my-custom-model');
+  assert.equal(get('model-choice').value, 'custom');
+  get('provider').value = 'anthropic';
+  get('provider').dispatchEvent(new window.Event('change'));
+  assert.equal(get('model-choice').value, 'claude-sonnet-5-5');
+  assert.equal(get('model-docs').hostname, 'platform.claude.com');
+  get('provider').value = 'deepseek';
+  get('provider').dispatchEvent(new window.Event('change'));
+  assert.equal(get('model').value, 'my-custom-model');
+  get('model-choice').value = 'custom';
+  get('model-choice').dispatchEvent(new window.Event('change'));
+  assert.equal(window.document.activeElement, get('model'));
+  get('model').value = 'another-custom:1';
+  get('model').dispatchEvent(new window.Event('input'));
+  assert.equal(get('model-choice').value, 'custom');
+  get('key').value = 'test-not-a-real-key';
+  get('consent').checked = true;
+  save();
+  const preferences = JSON.parse(window.localStorage.getItem('notebook-ai.preferences.v1'));
+  assert.equal(preferences.models.deepseek, 'another-custom:1');
+  assert.equal(preferences.models.anthropic, 'claude-sonnet-5-5');
+  assert.ok(!JSON.stringify(preferences).includes('test-not-a-real-key'));
+});
+
+test('typing an exact preset updates selection and catalog use makes no network requests', async t => {
+  let calls = 0;
+  const {window, get} = await setup(t, async () => { calls++; }, {autoSave: false});
+  get('model').value = 'gpt-6-luna';
+  get('model').dispatchEvent(new window.Event('input'));
+  assert.equal(get('model-choice').value, 'gpt-6-luna');
+  get('model').value = '';
+  get('model').dispatchEvent(new window.Event('input'));
+  assert.equal(get('model-choice').value, '');
+  assert.equal(calls, 0);
+  assert.match(get('model-note').textContent, /2026-11-08/);
+});
 
 test('renders headings, emphasis, lists, tables and fenced code', async t => {
   const answer = '## 笔记依据\n\n**条件概率**与*独立性*。[1]\n\n- 事件 A\n- 事件 B\n\n'

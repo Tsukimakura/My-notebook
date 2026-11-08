@@ -23,7 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
     <section data-settings-view hidden aria-label="AI 设置">
     <form data-settings-form autocomplete="off">
       <label>供应商<select data-provider><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="anthropic">Anthropic</option></select></label>
-      <label>模型 ID<input data-model required maxlength="100" placeholder="填写账户可用的模型 ID，只需设置一次" autocomplete="off" spellcheck="false"></label>
+      <label>常用模型<select data-model-choice aria-describedby="notebook-ai-model-note"></select></label>
+      <label>模型 ID（可手动修改）<input data-model required maxlength="100" placeholder="选择上方模型，或填写账户可用的模型 ID" autocomplete="off" spellcheck="false" aria-describedby="notebook-ai-model-note"></label>
+      <p id="notebook-ai-model-note" data-model-note></p>
+      <details><summary>模型 ID 是什么？到哪里查看？</summary>
+        <p>模型 ID 是 API 调用时识别模型的名称，需要与官方文档中的写法完全一致。打开当前供应商的 <a data-model-docs target="_blank" rel="noopener noreferrer">官方模型目录</a>，复制其中的 API 模型 ID；不要复制网页聊天产品的显示名称或其他平台的 ID。</p>
+        <p>也可以按 <a data-model-api-docs target="_blank" rel="noopener noreferrer">官方模型列表 API 文档</a>，使用自己的 key 查询 <code data-model-endpoint></code>，查看返回的 <code>data[].id</code>。请在自己信任的本地工具中操作，不要把 key 粘贴到第三方查询网站。</p>
+        <p>常用列表由站点维护者定期更新，不代表当前 key 一定有权限。未列出的模型可选择“自定义”后手动输入；实际可用性、价格及接口支持以供应商和账户为准。</p>
+      </details>
       <label>API key<input data-key type="password" required maxlength="512" autocomplete="off" spellcheck="false"></label>
       <label>密钥保存时间<select data-retention>
         <option value="session">临时：当前标签页，最多 2 小时</option>
@@ -60,6 +67,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const credentialName = "notebook-ai.credentials.v1";
   const preferenceName = "notebook-ai.preferences.v1";
   const providers = ["openai", "deepseek", "anthropic"];
+  const modelCatalog = window.NOTEBOOK_AI_MODELS || {};
+  const syncModelChoice = () => {
+    const value = get("model").value.trim();
+    const known = [...get("model-choice").options].some(option => option.value === value);
+    get("model-choice").value = value && known ? value : value ? "custom" : "";
+  };
+  const showModels = provider => {
+    const catalog = modelCatalog[provider];
+    get("model-choice").replaceChildren(new Option("请选择模型", ""));
+    for (const model of catalog?.models || []) {
+      get("model-choice").add(new Option(`${model.name} · ${model.id}`, model.id));
+    }
+    get("model-choice").add(new Option("自定义：手动输入模型 ID", "custom"));
+    get("model-note").textContent = catalog
+      ? `列表核对日期：${catalog.checked}。选择后仍可修改 ID，保存设置后生效。`
+      : "常用列表暂不可用，仍可手动输入模型 ID。";
+    // Links come only from the shipped public catalog, never from model output.
+    for (const [name, url] of [["model-docs", catalog?.docs], ["model-api-docs", catalog?.apiDocs]]) {
+      if (url) get(name).href = url;
+      else get(name).removeAttribute("href");
+    }
+    get("model-endpoint").textContent = catalog?.endpoint || "供应商的模型列表接口";
+    syncModelChoice();
+  };
+  get("model-choice").addEventListener("change", () => {
+    const choice = get("model-choice").value;
+    if (choice === "custom") {
+      get("model").focus();
+      get("model").select();
+    } else get("model").value = choice;
+  });
+  get("model").addEventListener("input", syncModelChoice);
   const storage = (area, action, name, value) => {
     try { return window[area][action](name, value); } catch { return null; }
   };
@@ -111,6 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   get("provider").value = preferences.provider;
   get("model").value = preferences.models[preferences.provider] || "";
+  showModels(preferences.provider);
   get("retention").value = preferences.retention;
   get("key").value = credential?.key || "";
   get("consent").checked = Boolean(credential);
@@ -150,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
   get("provider").addEventListener("change", () => {
     get("key").value = get("provider").value === credential?.provider ? credential.key : "";
     get("model").value = preferences.models[get("provider").value] || "";
+    showModels(get("provider").value);
     get("consent").checked = false;
   });
   get("settings-form").addEventListener("submit", event => {

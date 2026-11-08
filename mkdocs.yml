@@ -64,7 +64,8 @@ extra_javascript:
   - javascripts/katex.js
   - assets/vendor/markdown-it/markdown-it.min.js
   - assets/vendor/dompurify/purify.min.js
-  - javascripts/notebook-ai.js?v=6
+  - javascripts/notebook-ai-models.js?v=1
+  - javascripts/notebook-ai.js?v=7
 
 extra_css:
   - assets/vendor/katex/katex.min.css
