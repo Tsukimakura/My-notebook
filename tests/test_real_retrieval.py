@@ -22,6 +22,7 @@ class RealNotebookTests(unittest.TestCase):
         for chapter in range(1, 7):
             self.assertTrue(any(f"/0{chapter}-" in d["url"] for d in docs), chapter)
         self.assertTrue(all("general-physics-ii/" in d["url"] for d in docs))
+        self.assertTrue(any(d.get("section") == "Coverage boundary" for d in docs))
         self.assertFalse(any("/assets/" in d["url"] or "/source-map/" in d["url"] for d in docs))
         self.assertLessEqual(sum(len(d["text"]) for d in docs), 24000)
 

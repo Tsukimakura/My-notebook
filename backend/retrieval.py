@@ -166,7 +166,9 @@ class Index:
                     "#" in self.docs[i]["url"], i))
                 add(preferred[0], cap=2, size=1500)
             for page in ordered:
-                for i in pages[page]:
+                boundaries_first = sorted(pages[page], key=lambda i: (
+                    not bool(re.search(r"Coverage boundary|范围", self.docs[i].get("section", ""), re.I)), i))
+                for i in boundaries_first:
                     if re.search(r"Coverage boundary|The central idea|适用|范围", self.docs[i].get("section", ""), re.I):
                         add(i, size=1200)
         else:
