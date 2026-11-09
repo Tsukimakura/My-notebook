@@ -9,7 +9,9 @@ ENDPOINTS = {
     "deepseek": "https://api.deepseek.com/chat/completions",
     "anthropic": "https://api.anthropic.com/v1/messages",
 }
-MAX_ANSWER_CHARACTERS = 64000
+from backend.continuation import MAX_ANSWER_CHARACTERS
+
+DEFAULT_MAX_TOKENS = 32768
 
 
 @dataclass(frozen=True)
@@ -17,6 +19,7 @@ class Completion:
     text: str
     # Normalized values only; never forward arbitrary upstream details.
     finish_reason: str = "stop"
+    usage: dict | None = None
 
     @property
     def truncated(self):
@@ -50,7 +53,7 @@ def attachment_content(provider, prompt, attachments):
     return content
 
 
-async def complete(provider, key, model, system, prompt, max_tokens=8192, *, reasoning=True, attachments=None):
+async def complete(provider, key, model, system, prompt, max_tokens=DEFAULT_MAX_TOKENS, *, reasoning=True, attachments=None, previous_answer=None):
     headers = {"Authorization": "Bearer " + key}
     content = attachment_content(provider, prompt, attachments) if attachments else prompt
     if provider == 'deepseek' and attachments:
@@ -69,6 +72,12 @@ async def complete(provider, key, model, system, prompt, max_tokens=8192, *, rea
                 "max_tokens": max_tokens}
     else:
         raise ProviderError("不支持的供应商。", 400)
+    if previous_answer is not None:
+        followup = "接续上一条回答。只输出后续内容；若 prompt.continuation_repair 给出了未完成区块，则从该区块起完整补写。不要重讲已完成的部分，不重新检索或改动引用编号。"
+        if provider == 'openai':
+            body['input'] = [{'role': 'user', 'content': content}, {'role': 'assistant', 'content': previous_answer}, {'role': 'user', 'content': followup}]
+        else:
+            body['messages'].extend([{'role': 'assistant', 'content': previous_answer}, {'role': 'user', 'content': followup}])
     try:
         # No environment proxy, redirects, tools, remote files, or arbitrary base URL.
         async with httpx.AsyncClient(timeout=httpx.Timeout(180, connect=10, write=30, pool=10), trust_env=False,
@@ -85,7 +94,7 @@ async def complete(provider, key, model, system, prompt, max_tokens=8192, *, rea
                 data = bytearray()
                 async for chunk in response.aiter_bytes():
                     data.extend(chunk)
-                    if len(data) > 1_000_000:
+                    if len(data) > 4_000_000:
                         raise ProviderError("供应商响应超过大小限制。")
         result = json.loads(data)
         finish_reason = "incomplete"
@@ -115,9 +124,16 @@ async def complete(provider, key, model, system, prompt, max_tokens=8192, *, rea
             if finish_reason == "max_tokens":
                 raise ProviderError("模型已用尽输出预算，但尚未返回正文。请缩小问题范围；本次调用仍可能产生费用。")
             raise ProviderError("模型未返回文字，请尝试其他模型或更短的问题。")
+        raw_usage = result.get('usage') or {}
+        usage = {}
+        for name, value in [('input_tokens', raw_usage.get('input_tokens', raw_usage.get('prompt_tokens'))),
+                            ('output_tokens', raw_usage.get('output_tokens', raw_usage.get('completion_tokens'))),
+                            ('reasoning_tokens', (raw_usage.get('output_tokens_details') or raw_usage.get('completion_tokens_details') or {}).get('reasoning_tokens'))]:
+            if type(value) is int and 0 <= value <= 1000000000:
+                usage[name] = value
         if len(text) > MAX_ANSWER_CHARACTERS:
-            return Completion(text[:MAX_ANSWER_CHARACTERS], "size_limit")
-        return Completion(text, finish_reason)
+            return Completion(text[:MAX_ANSWER_CHARACTERS], "size_limit", usage)
+        return Completion(text, finish_reason, usage)
     except httpx.TimeoutException:
         raise ProviderError("等待模型服务响应超时；已发出的调用仍可能产生费用，请稍后重试。", 504) from None
     except (httpx.HTTPError, ValueError, KeyError, TypeError, IndexError):

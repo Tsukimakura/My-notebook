@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <details><summary>密钥、隐私与费用说明</summary>
         <p>默认只保留在当前标签页，最多 2 小时。7 天和 30 天会把 key 保存在此浏览器，同源脚本可以读取；请只在自己的设备上启用。到期后停止使用，可随时清除。</p>
         <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不将 key、问题或回答写入磁盘或应用日志。任务生成最多持续 4 分钟，结果仅在内存中暂存，完成后 2 分钟过期并定期清除，便于网络恢复后查询。</p>
-        <p>每次提问通常调用两次模型，回答生成预算上限为 8,192 tokens（推理模型可能将思考计入预算），详细回答可能花费更多时间和费用。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。</p>
+        <p>每次提问通常调用两次模型，回答生成预算上限为 32,768 tokens（推理模型可能将思考计入预算），详细回答可能花费更多时间和费用。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。</p>
         <p>选中的附件和开启配图后检索到的相关原图会随问题发送给供应商；图片和 PDF 可能增加费用。附件文件不写入本站磁盘或会话导出；会话仍保存文件名和问答文字。聊天记录保存在此浏览器，不自动同步到其他设备。不要输入其他密码、服务器凭据或敏感个人信息。</p>
       </details>
       <label class="notebook-ai-consent"><input type="checkbox" data-consent required>我了解密钥保存与转发、对话发送和费用说明</label>
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       </details>
       <input type="file" data-attachment-input accept=".png,.jpg,.jpeg,.webp,.pdf,.docx,.txt,.md" multiple hidden>
       <label class="notebook-ai-composer-label">你的问题<textarea data-question maxlength="4000" rows="2" placeholder="问一个问题，或选中正文中的一段文字…"></textarea></label>
-      <div class="notebook-ai-actions"><button type="button" data-attach>附件</button><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden>准备续写</button></div>
+      <div class="notebook-ai-actions"><button type="button" data-attach>附件</button><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden title="沿用原题和资料补全这条回答，会发起一次模型调用">继续生成</button></div>
     </form></section>`;
   document.body.append(launch, panel);
   window.NotebookPanelLayout?.(panel);
@@ -676,10 +676,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
   const incompleteMessage = reason => reason === "max_tokens"
-    ? "回答达到模型输出上限，尚未完成。可准备续写，或把问题拆成几个部分。"
+    ? "本次生成预算已用尽（含思考），后文尚未生成。点击“继续生成”可补全这条回答。"
     : reason === "size_limit"
-    ? "回答达到本站单条长度上限，后续内容未展示。可分部分继续提问。"
-    : "供应商未正常完成这条回答，内容可能不完整。可准备续写或稍后重试。";
+    ? "回答达到本站单条长度上限，请把剩余部分作为新问题询问。"
+    : "供应商未正常完成这条回答，内容可能不完整。可继续生成或稍后重试。";
 
   get("stop").addEventListener("click", () => {
     const job = running.get(current.id);
@@ -687,11 +687,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   get("continue").addEventListener("click", () => {
     if (pending || !lastIncomplete) return;
-    get("question").value = "请继续上一条未完成的回答，从断点接着讲解；若最后一个公式或代码块未写完，请将它完整重写，再继续后续内容。";
-    get("question").focus();
-    get("status").textContent = "已填入续写问题。";
+    const index = current.messages.length - 1;
+    const reply = current.messages[index], user = current.messages[index - 1];
+    if (!user || user.role !== 'user') return;
+    void generate(reply, user, originalRequest(current, index), 'continue');
   });
-  const generate = async (replacement = null, previousUser = null, replay = null) => {
+  const generate = async (replacement = null, previousUser = null, replay = null, mode = 'replace') => {
     if (pending) return;
     if (credential && credential.expiresAt <= Date.now()) forget(false);
     if (!credential || credential.provider !== current.provider) {
@@ -716,6 +717,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         payload.attachments = files;
       }
       delete payload.requires_attachments;
+      if (mode === 'continue') {
+        payload.task = 'continue';
+        payload.continuation = {answer: replacement.content, token: replacement.continuation || '', sources: replacement.sources || []};
+      }
       body = JSON.stringify(payload);
     } else body = requestBody(question);
     if (!body || new TextEncoder().encode(body).length > 12 * 1024 * 1024) {
@@ -776,10 +781,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       completed = true;
       userRecord.pending = false;
-      const answer = {content: data.answer, sources: data.sources, truncated: data.truncated === true, finish_reason: data.finish_reason, figures: data.figures || []};
+      const answer = {content: data.answer, sources: data.sources, truncated: data.truncated === true, finish_reason: data.finish_reason, figures: data.figures || [], continuation: data.continuation || '', usage: data.usage || {}};
       if (replacement) {
-        replacement.versions ||= [responseSnapshot(replacement)];
-        replacement.versions.push(answer); replacement.version = replacement.versions.length - 1;
+        if (mode !== 'continue') {
+          replacement.versions ||= [responseSnapshot(replacement)];
+          replacement.versions.push(answer); replacement.version = replacement.versions.length - 1;
+        } else if (replacement.versions) replacement.versions[replacement.version] = {...answer};
         Object.assign(replacement, answer);
       } else session.messages.push({role: "assistant", ...answer, scope: userRecord.scope});
       session.updatedAt = Date.now();
@@ -953,6 +960,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     for (const name of ["submit", "save", "continue"]) get(name).disabled = Boolean(pending);
     get("stop").hidden = !pending;
     get("continue").hidden = !lastIncomplete;
+    get("continue").disabled = Boolean(pending || (last?.content?.length || 0) >= 262144);
     get("status").textContent = (job && !job.finished ? job.status : "") || (lastIncomplete ? incompleteMessage(last.finish_reason) : current.status || "");
   };
   const activate = session => {
@@ -1037,7 +1045,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) { get("session-status").textContent = error.name === "Error" ? error.message : "文件内容不正确，请选择本站导出的 JSON 文件。"; }
     get("import-file").value = "";
   });
-  const responseSnapshot = record => ({content: record.content, sources: structuredClone(record.sources || []), figures: structuredClone(record.figures || []),
+  const responseSnapshot = record => ({content: record.content, sources: structuredClone(record.sources || []), figures: structuredClone(record.figures || []), continuation: record.continuation || '', usage: record.usage || {},
     truncated: record.truncated === true, finish_reason: record.finish_reason});
   const originalRequest = (session, index) => {
     const user = session.messages[index - 1];

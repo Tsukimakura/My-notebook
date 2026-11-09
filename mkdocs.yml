@@ -74,10 +74,10 @@ extra_javascript:
   - assets/vendor/dompurify/purify.min.js
   - javascripts/notebook-ai-models.js?v=1
   - javascripts/notebook-ai-scope.js?v=3
-  - javascripts/notebook-ai-store.js?v=5
+  - javascripts/notebook-ai-store.js?v=6
   - javascripts/notebook-ai-attachments.js?v=1
   - javascripts/notebook-ai-layout.js?v=3
-  - javascripts/notebook-ai.js?v=17
+  - javascripts/notebook-ai.js?v=18
 
 extra_css:
   - assets/vendor/katex/katex.min.css

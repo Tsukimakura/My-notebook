@@ -22,6 +22,7 @@ from starlette.staticfiles import StaticFiles
 from backend.providers import complete, ProviderError
 from backend.retrieval import Index
 from backend.jobs import Job, JobStore, MAX_JOBS
+from backend.continuation import checked_continuation, seal_context, open_context, restart_at, MAX_ANSWER_CHARACTERS
 from backend.attachments import checked_files, normalize, note_figures, AttachmentError, MAX_REQUEST_BYTES
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -79,7 +80,7 @@ def error(message, status=400):
 
 def checked_input(data):
     required = {"provider", "model", "question"}
-    if not isinstance(data, dict) or not required <= set(data) or set(data) - required - {"history", "scope", "memory", "task", "attachments", "note_images"}:
+    if not isinstance(data, dict) or not required <= set(data) or set(data) - required - {"history", "scope", "memory", "task", "attachments", "note_images", "continuation"}:
         raise ValueError
     provider, model, question = (data[name] for name in ("provider", "model", "question"))
     if provider not in ("openai", "deepseek", "anthropic"):
@@ -114,9 +115,12 @@ def checked_options(data, index):
     if any(not isinstance(value, str) or len(value) > 2000 for value in memory.values()):
         raise ValueError
     task = data.get("task", "answer")
-    if task not in ("answer", "summary"):
+    if task not in ("answer", "summary", "continue"):
         raise ValueError
-    return {"scope": index.validate_scope(data.get("scope", {})), "memory": memory, "task": task}
+    continuation = checked_continuation(data.get('continuation')) if task == 'continue' else None
+    if task != 'continue' and 'continuation' in data:
+        raise ValueError()
+    return {"scope": index.validate_scope(data.get("scope", {})), "memory": memory, "task": task, "continuation": continuation}
 
 
 def create_app(site_dir=None, index_path=None, origin=None):
@@ -177,6 +181,51 @@ def create_app(site_dir=None, index_path=None, origin=None):
                 options['attachments'] = await normalize(files)
         options['note_images'] = data.get('note_images', False)
 
+    async def continue_answer(index, provider, model, question, history, key, stage, options):
+        continuation = options['continuation']
+        try:
+            original = open_context(hash_salt, key, provider, model, continuation['token'])
+        except (ValueError, KeyError, TypeError):
+            # Old sessions or a restarted service can recover only from public indexed sources.
+            by_url = {}
+            for doc in index.docs:
+                by_url.setdefault(doc['url'], doc)
+            context = []
+            size = 24000 // max(1, len(continuation['sources']))
+            for source in continuation['sources']:
+                doc = by_url.get(source['url'])
+                if doc is None:
+                    raise ProviderError('原引用已不在当前笔记中，请重新回答原问题。', 400)
+                context.append({**doc, 'id': source['id'], 'text': doc['text'][:size]})
+            original = {'question': question, 'history': history, 'note_excerpts': context,
+                        'memory': options.get('memory', {}), 'figures': []}
+        files = options.get('attachments', [])
+        required = sorted(item['name'] for item in original.get('attachments', []))
+        if required and sorted(item['name'] for item in files) != required:
+            raise ProviderError('请重新附上原文件后继续生成。', 400)
+        figures = original.get('figures', [])
+        if figures:
+            sources = [{'id': figure['source_id'], 'images': [{'url': figure['url'], 'alt': figure['caption']}]} for figure in figures]
+            async with attachment_slots:
+                images, figures = await note_figures(site_dir, sources)
+            files += images
+        previous = continuation['answer']
+        cut = restart_at(previous)
+        prompt = {**original, 'figures': figures, 'continuation_repair': {'replace_from': cut, 'unfinished_block_starts_with': previous[cut:cut + 300]}}
+        stage('answer')
+        answer = await complete(provider, key, model, ANSWER, json.dumps(prompt, ensure_ascii=False),
+                                previous_answer=previous, **({'attachments': files} if files else {}))
+        prefix = previous[:cut].rstrip()
+        combined = (prefix + '\n\n' if prefix else '') + answer.text
+        truncated = answer.truncated or len(combined) > MAX_ANSWER_CHARACTERS
+        return {'answer': combined[:MAX_ANSWER_CHARACTERS], 'sources': [
+                    {name: source[name] for name in ('id', 'title', 'url')}
+                    for source in original.get('note_excerpts', [])],
+                'figures': figures, 'expansion_failed': False, 'truncated': truncated,
+                'finish_reason': 'size_limit' if len(combined) > MAX_ANSWER_CHARACTERS else answer.finish_reason,
+                'usage': answer.usage or {}, 'continued': True,
+                'continuation': seal_context(hash_salt, key, provider, model, original)}
+
     async def answer_question(index, provider, model, question, history, key, stage, timeout, options=None):
         options = options or {}
         async with asyncio.timeout(timeout):
@@ -188,6 +237,8 @@ def create_app(site_dir=None, index_path=None, origin=None):
                 truncated = summary.truncated or len(summary.text) > 2000
                 return {"answer": summary.text[:2000], "sources": [], "expansion_failed": False,
                         "truncated": truncated, "finish_reason": summary.finish_reason if summary.truncated else "size_limit" if truncated else "stop"}
+            if options.get('task') == 'continue':
+                return await continue_answer(index, provider, model, question, history, key, stage, options)
             files = options.get('attachments', [])
             attachment_args = {'attachments': files} if files else {}
             expanded = ""
@@ -215,15 +266,17 @@ def create_app(site_dir=None, index_path=None, origin=None):
                 async with attachment_slots:
                     images, figures = await note_figures(site_dir, context)
                 files = files + images
-            prompt = json.dumps({"question": question, "history": history, "figures": figures,
+            prompt_data = {"question": question, "history": history, "figures": figures,
                                  "attachments": [{'name': f['name'], 'kind': f['kind']} for f in options.get('attachments', [])],
-                                 "note_excerpts": [{k: v for k, v in s.items() if k != 'images'} for s in context], "coverage": coverage, "memory": options.get("memory", {})}, ensure_ascii=False)
+                                 "note_excerpts": [{k: v for k, v in s.items() if k != 'images'} for s in context], "coverage": coverage, "memory": options.get("memory", {})}
+            prompt = json.dumps(prompt_data, ensure_ascii=False)
             stage("answer")
             answer = await complete(provider, key, model, ANSWER, prompt, **({'attachments': files} if files else {}))
             return {"answer": answer.text, "figures": figures, "sources": [
                 {"id": s["id"], "title": s["title"], "url": s["url"], "outside_scope": s["outside_scope"]} for s in context],
                 "coverage": coverage, "expansion_failed": expansion_failed,
-                "truncated": answer.truncated, "finish_reason": answer.finish_reason}
+                "truncated": answer.truncated, "finish_reason": answer.finish_reason,
+                "usage": answer.usage or {}, "continuation": seal_context(hash_salt, key, provider, model, prompt_data)}
 
     def event(name, data):
         return f"event: {name}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
@@ -329,7 +382,7 @@ def create_app(site_dir=None, index_path=None, origin=None):
             return error("请求过于频繁，请稍后重试。", 429)
         try:
             data = json.loads(body)
-            if len(body) > 20000 and not (isinstance(data, dict) and data.get('attachments')):
+            if len(body) > 20000 and not (isinstance(data, dict) and (data.get('attachments') or data.get('task') == 'continue')):
                 return error("请求过大。", 413)
             provider, model, question, history = checked_input(data)
             options = checked_options(data, request.app.state.index)
@@ -410,7 +463,7 @@ def create_app(site_dir=None, index_path=None, origin=None):
                         return error("请求过大。", 413)
             try:
                 data = json.loads(body)
-                if len(body) > 20000 and not (isinstance(data, dict) and data.get('attachments')):
+                if len(body) > 20000 and not (isinstance(data, dict) and (data.get('attachments') or data.get('task') == 'continue')):
                     return error("请求过大。", 413)
                 provider, model, question, history = checked_input(data)
                 options = checked_options(data, request.app.state.index)

@@ -13,7 +13,7 @@ window.NotebookConversations = (() => {
     } catch { /* Keep the excerpt even if its old source URL is no longer valid. */ }
     return {markdown: value.markdown, title: text(value.title, 100), url};
   };
-  const sources = value => (Array.isArray(value) ? value : []).slice(0, 24).filter(source =>
+  const sources = value => (Array.isArray(value) ? value : []).slice(0, 32).filter(source =>
     Number.isInteger(source?.id) && typeof source.url === 'string' && source.url.startsWith('/') && !source.url.startsWith('//'))
     .map(source => ({id: source.id, title: text(source.title, 500), url: text(source.url, 2000), outside_scope: source.outside_scope === true}));
   const figures = value => (Array.isArray(value) ? value : []).slice(0, 4).flatMap(file => {
@@ -25,8 +25,10 @@ window.NotebookConversations = (() => {
       return [{url: url.pathname, caption: text(file.caption, 300), source_id: Number.isInteger(file.source_id) ? file.source_id : 0}];
     } catch { return []; }
   });
-  const response = value => ({content: text(value.content, 64000), sources: sources(value.sources),
-    truncated: value.truncated === true, finish_reason: text(value.finish_reason, 30), figures: figures(value.figures)});
+  const usage = value => Object.fromEntries(['input_tokens', 'output_tokens', 'reasoning_tokens']
+    .filter(key => Number.isSafeInteger(value?.[key]) && value[key] >= 0 && value[key] <= 1000000000).map(key => [key, value[key]]));
+  const response = value => ({content: text(value.content, 262144), sources: sources(value.sources),
+    truncated: value.truncated === true, finish_reason: text(value.finish_reason, 30), figures: figures(value.figures), continuation: text(value.continuation, 600065), usage: usage(value.usage)});
   const request = value => {
     if (!value || !['openai', 'deepseek', 'anthropic'].includes(value.provider)
         || typeof value.model !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,99}$/.test(value.model)
@@ -55,15 +57,17 @@ window.NotebookConversations = (() => {
       summary: text(value.summary, 2000), summaryThrough: Number.isSafeInteger(value.summaryThrough) ? Math.min(Math.floor(value.messages.length / 2), Math.max(0, value.summaryThrough)) : 0,
       messages: value.messages.map(message => {
         if (!message || !['user', 'assistant'].includes(message.role) || typeof message.content !== 'string'
-            || message.content.length > 64000) throw new Error('消息格式不正确。');
+            || message.content.length > 262144) throw new Error('消息格式不正确。');
         const result = {role: message.role, content: message.content, failed: message.failed === true,
           pending: message.pending === true, quote: quote(message.quote), truncated: message.truncated === true,
           finish_reason: text(message.finish_reason, 30), scope: cleanScope(message.scope), sources: sources(message.sources)};
         result.figures = figures(message.figures);
+        result.continuation = text(message.continuation, 600065);
+        result.usage = usage(message.usage);
         result.files = (Array.isArray(message.files) ? message.files : []).slice(0, 4).map(file => ({name: text(file?.name, 120)}));
         if (message.role === 'user') result.request = request(message.request);
         if (message.role === 'assistant' && Array.isArray(message.versions)) {
-          const versions = message.versions.filter(version => typeof version?.content === 'string' && version.content.length <= 64000).slice(0, 10).map(response);
+          const versions = message.versions.filter(version => typeof version?.content === 'string' && version.content.length <= 262144).slice(0, 10).map(response);
           if (versions.length) {
             result.versions = versions;
             result.version = Math.max(0, Math.min(versions.length - 1, Number.isInteger(message.version) ? message.version : versions.length - 1));

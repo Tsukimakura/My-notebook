@@ -303,9 +303,9 @@ class ProviderTests(unittest.TestCase):
                 self.assertNotIn("fake-secret", request.content.decode())
                 if provider == "openai":
                     self.assertFalse(json.loads(request.content)["store"])
-                    self.assertEqual(json.loads(request.content)["max_output_tokens"], 8192)
+                    self.assertEqual(json.loads(request.content)["max_output_tokens"], 32768)
                 else:
-                    self.assertEqual(json.loads(request.content)["max_tokens"], 8192)
+                    self.assertEqual(json.loads(request.content)["max_tokens"], 32768)
                 if provider == "anthropic":
                     self.assertEqual(request.headers["x-api-key"], "fake-secret")
 

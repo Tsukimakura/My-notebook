@@ -565,33 +565,37 @@ test('stop waiting aborts the browser request, unlocks retry, and states possibl
   assert.equal(get('question').value, '条件概率是什么？');
 });
 
-test('partial answer stays marked, and preparing continuation does not create a paid request', async t => {
+test('continue generation retains full answer and original request, preserves drafts, and updates the same message', async t => {
   const requests = [];
   const tail = 'UNFINISHED_FORMULA_TAIL';
   const partial = '开头'.repeat(5000) + tail;
-  const {get, submit} = await setup(t, async (url, options) => {
+  const {window, get, submit} = await setup(t, async (url, options) => {
     requests.push(JSON.parse(options.body));
     return {ok: true, headers: new Headers({'Content-Type': 'application/json'}), json: async () => ({
-      answer: requests.length === 1 ? partial : '完整续写。', sources: [],
+      answer: requests.length === 1 ? partial : partial + '\n\n完整续写。', sources: [], continuation: 'opaque-context',
       truncated: requests.length === 1, finish_reason: requests.length === 1 ? 'max_tokens' : 'stop',
     })};
   });
   get('question').value = '请详细讲解二维正态分布';
   await submit();
-  assert.match(get('status').textContent, /尚未完成/);
+  assert.match(get('status').textContent, /尚未生成/);
+  assert.equal(get('continue').textContent, '继续生成');
   assert.equal(get('continue').hidden, false);
-  assert.equal(get('messages').querySelectorAll('.notebook-ai-warning').length, 1);
+  get('question').value = '下一道题的草稿';
   get('continue').click();
-  assert.equal(requests.length, 1);
-  assert.match(get('question').value, /请继续上一条/);
-  assert.match(get('status').textContent, /已填入续写问题/);
-  await submit();
+  await new Promise(resolve => setTimeout(resolve, 15));
+  await window.NotebookAIFlush();
   assert.equal(requests.length, 2);
-  assert.ok(requests[1].history[1].content.endsWith(tail));
-  assert.match(requests[1].history[1].content, /中段已省略/);
-  assert.ok(requests[1].history[1].content.length <= 4000);
+  assert.equal(requests[1].task, 'continue');
+  assert.equal(requests[1].question, requests[0].question);
+  assert.equal(requests[1].continuation.answer, partial);
+  assert.equal(requests[1].continuation.token, 'opaque-context');
+  assert.equal(get('question').value, '下一道题的草稿');
+  assert.equal(get('messages').querySelectorAll('[data-answer]').length, 1);
+  assert.equal(get('messages').querySelectorAll('[data-user]').length, 1);
+  assert.match(get('answer').textContent, /完整续写/);
   assert.equal(get('continue').hidden, true);
-  assert.equal(get('messages').querySelectorAll('.notebook-ai-warning').length, 1);
+  assert.equal(get('messages').querySelectorAll('.notebook-ai-warning').length, 0);
 });
 
 
