@@ -31,21 +31,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     <form data-settings-form autocomplete="off">
       <label>供应商<select data-provider><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="anthropic">Anthropic</option></select></label>
       <label>常用模型<select data-model-choice aria-describedby="notebook-ai-model-note"></select></label>
-      <label data-model-custom hidden>模型 ID<input data-model required maxlength="100" placeholder="选择上方模型，或填写账户可用的模型 ID" autocomplete="off" spellcheck="false" aria-describedby="notebook-ai-model-note"></label>
+      <label data-model-custom hidden>模型 ID<input data-model required maxlength="100" placeholder="填写 API 模型 ID" autocomplete="off" spellcheck="false" aria-describedby="notebook-ai-model-note"></label>
+      <p id="notebook-ai-model-note" data-model-note>模型 ID 是 API 使用的名称；列表没有时选“自定义”。查看<a data-model-docs target="_blank" rel="noopener noreferrer">官方模型目录</a>。</p>
       <label>API key<input data-key type="password" required maxlength="512" autocomplete="off" spellcheck="false"></label>
-      <details data-advanced-settings><summary>高级设置</summary>
       <label>密钥保存时间<select data-retention>
         <option value="session">临时：当前标签页，最多 2 小时</option>
         <option value="7">在此浏览器记住 7 天</option>
         <option value="30">在此浏览器记住 30 天</option>
       </select></label>
-      <p id="notebook-ai-model-note" data-model-note></p>
-      <details><summary>模型 ID 是什么？到哪里查看？</summary>
-        <p>模型 ID 是 API 调用时识别模型的名称，需要与官方文档中的写法完全一致。打开当前供应商的 <a data-model-docs target="_blank" rel="noopener noreferrer">官方模型目录</a>，复制其中的 API 模型 ID；不要复制网页聊天产品的显示名称或其他平台的 ID。</p>
-        <p>也可以按 <a data-model-api-docs target="_blank" rel="noopener noreferrer">官方模型列表 API 文档</a>，使用自己的 key 查询 <code data-model-endpoint></code>，查看返回的 <code>data[].id</code>。请在自己信任的本地工具中操作，不要把 key 粘贴到第三方查询网站。</p>
-        <p>常用列表由站点维护者定期更新，不代表当前 key 一定有权限。未列出的模型可选择“自定义”后手动输入；实际可用性、价格及接口支持以供应商和账户为准。</p>
-      </details>
-      </details>
       <details><summary>密钥、隐私与费用说明</summary>
         <p>默认只保留在当前标签页，最多 2 小时。7 天和 30 天会把 key 保存在此浏览器，同源脚本可以读取；请只在自己的设备上启用。到期后停止使用，可随时清除。</p>
         <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不将 key、问题或回答写入磁盘或应用日志。任务生成最多持续 4 分钟，结果仅在内存中暂存，完成后 2 分钟过期并定期清除，便于网络恢复后查询。</p>
@@ -58,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p data-settings-status role="status"></p>
     </section>
     <section data-chat-view class="notebook-ai-chat" aria-label="笔记对话">
+    <select data-chat-model class="notebook-ai-model-picker" aria-label="切换模型"></select>
     <section id="notebook-ai-tools" data-tools-view class="notebook-ai-tools" aria-label="对话工具" hidden>
     <div class="notebook-ai-session-bar"><details><summary>对话管理</summary>
       <label>名称<input data-session-title maxlength="100"></label>
@@ -70,10 +64,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     <details data-memory-view class="notebook-ai-memory"><summary>记忆</summary>
       <label>这段对话的记忆<textarea data-session-memory maxlength="2000" rows="3" placeholder="旧对话的摘要，也可以自己填写"></textarea></label>
       <div class="notebook-ai-actions"><button type="button" data-summarize>整理旧对话</button><button type="button" data-clear-memory>清除这段记忆</button></div>
-      <details><summary>高级</summary>
       <label>所有对话使用的学习偏好<textarea data-learning-notes maxlength="2000" rows="2" placeholder="例如：先讲直觉，再给出推导"></textarea></label>
       <label class="notebook-ai-consent"><input type="checkbox" data-auto-summary>自动整理旧对话（会额外调用模型）</label>
-      </details>
       <p>记忆和学习偏好会随问题发送给所选供应商。最近 3 轮直接保留，更早的对话可以整理成记忆。</p>
     </details></section>
     <button type="button" data-earlier hidden>查看更早的消息</button>
@@ -151,18 +143,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const catalog = modelCatalog[provider];
     get("model-choice").replaceChildren(new Option("请选择模型", ""));
     for (const model of catalog?.models || []) {
-      get("model-choice").add(new Option(`${model.name} · ${model.id}`, model.id));
+      get("model-choice").add(new Option(model.name, model.id));
     }
     get("model-choice").add(new Option("自定义：手动输入模型 ID", "custom"));
-    get("model-note").textContent = catalog
-      ? `列表核对日期：${catalog.checked}。选择后仍可修改 ID，保存设置后生效。`
-      : "常用列表暂不可用，仍可手动输入模型 ID。";
-    // Links come only from the shipped public catalog, never from model output.
-    for (const [name, url] of [["model-docs", catalog?.docs], ["model-api-docs", catalog?.apiDocs]]) {
-      if (url) get(name).href = url;
-      else get(name).removeAttribute("href");
-    }
-    get("model-endpoint").textContent = catalog?.endpoint || "供应商的模型列表接口";
+    // This link follows the settings provider; no external lookup or key is needed.
+    if (catalog?.docs) get("model-docs").href = catalog.docs;
+    else get("model-docs").removeAttribute("href");
     syncModelChoice();
   };
   get("model-choice").addEventListener("change", () => {
@@ -188,8 +174,47 @@ document.addEventListener("DOMContentLoaded", async () => {
       preferences.models[provider] = saved.models[provider];
     }
   }
+  const syncChatModel = () => {
+    const picker = get("chat-model");
+    picker.replaceChildren(new Option("选择模型", ""));
+    for (const provider of providers) {
+      const group = document.createElement("optgroup");
+      group.label = {openai: "OpenAI", deepseek: "DeepSeek", anthropic: "Anthropic"}[provider];
+      const models = [...(modelCatalog[provider]?.models || [])];
+      const savedModel = preferences.models[provider];
+      if (savedModel && !models.some(model => model.id === savedModel)) models.push({id: savedModel, name: savedModel});
+      for (const model of models) group.append(new Option(model.name, `${provider}/${model.id}`));
+      picker.append(group);
+    }
+    picker.add(new Option("自定义模型…", "custom"));
+    picker.value = current?.model ? `${current.provider}/${current.model}` : "";
+    picker.disabled = Boolean(current && running.has(current.id));
+  };
+  get("chat-model").addEventListener("change", () => {
+    const value = get("chat-model").value;
+    if (pending) { syncChatModel(); return; }
+    if (value === "custom") {
+      showSettings(true); get("model-choice").value = "custom";
+      get("model-custom").hidden = false; get("model").focus(); return;
+    }
+    const [provider, model] = value.split("/");
+    if (!providers.includes(provider) || !model) { syncChatModel(); return; }
+    if (provider !== current.provider) {
+      get("provider").value = provider;
+      get("provider").dispatchEvent(new Event("change"));
+      get("model").value = model; syncModelChoice();
+      showSettings(true); syncChatModel();
+      get("settings-status").textContent = "请填写这个供应商的 key 并保存。";
+      return;
+    }
+    current.model = model; preferences.models[provider] = model;
+    storage("localStorage", "setItem", preferenceName, JSON.stringify(preferences));
+    get("provider").value = provider; get("model").value = model; showModels(provider);
+    void persist(current); summary();
+  });
   const summary = () => {
-    get("summary").textContent = `${preferences.provider} · ${preferences.models[preferences.provider] || "请设置模型"} · ${credential?.provider === preferences.provider ? "key 已就绪" : "请在设置中填写 key"}`;
+    syncChatModel();
+    get("summary").textContent = credential?.provider === preferences.provider ? "API key 已保存" : "未配置 API key";
   };
   const forget = (all = true) => {
     const previous = credential;
@@ -307,7 +332,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       void persist(current); refreshSessions();
     }
     showSettings(false);
-    get("status").textContent = stored ? "设置已保存，可以开始提问。" : get("settings-status").textContent;
+    get("status").textContent = stored ? "设置已保存。" : get("settings-status").textContent;
     get("question").focus();
   });
   window.addEventListener("storage", event => {
@@ -692,7 +717,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const index = current.messages.length - 1;
     const reply = current.messages[index], user = current.messages[index - 1];
     if (!user || user.role !== 'user') return;
-    void generate(reply, user, originalRequest(current, index), 'continue');
+    const request = window.NotebookConversations.request(user.request) || originalRequest(current, index);
+    if (reply.model) request.model = reply.model;
+    void generate(reply, user, request, 'continue');
   });
   const generate = async (replacement = null, previousUser = null, replay = null, mode = 'replace') => {
     if (pending) return;
@@ -786,7 +813,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       completed = true;
       userRecord.pending = false;
-      const answer = {respondedAt: Date.now(), elapsedMs: Math.round(performance.now() - started)
+      const answer = {model: outgoing.model, respondedAt: Date.now(), elapsedMs: Math.round(performance.now() - started)
         + (mode === 'continue' ? replacement?.elapsedMs || 0 : 0), content: data.answer, sources: data.sources, truncated: data.truncated === true, finish_reason: data.finish_reason, figures: data.figures || [], continuation: data.continuation || '', usage: data.usage || {}};
       if (replacement) {
         if (mode !== 'continue') {
@@ -975,6 +1002,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("status").setAttribute("aria-live", pending ? "off" : "polite");
     if (pending) panel.dataset.busy = "true"; else delete panel.dataset.busy;
     for (const name of ["submit", "save", "continue"]) get(name).disabled = Boolean(pending);
+    syncChatModel();
     get("stop").hidden = !pending;
     get("continue").hidden = !lastIncomplete;
     get("continue").disabled = Boolean(pending || (last?.content?.length || 0) >= 262144);
@@ -1061,7 +1089,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) { get("session-status").textContent = error.name === "Error" ? error.message : "文件内容不正确，请选择本站导出的 JSON 文件。"; }
     get("import-file").value = "";
   });
-  const responseSnapshot = record => ({respondedAt: record.respondedAt, elapsedMs: record.elapsedMs, content: record.content, sources: structuredClone(record.sources || []), figures: structuredClone(record.figures || []), continuation: record.continuation || '', usage: record.usage || {},
+  const responseSnapshot = record => ({model: record.model, respondedAt: record.respondedAt, elapsedMs: record.elapsedMs, content: record.content, sources: structuredClone(record.sources || []), figures: structuredClone(record.figures || []), continuation: record.continuation || '', usage: record.usage || {},
     truncated: record.truncated === true, finish_reason: record.finish_reason});
   const originalRequest = (session, index) => {
     const user = session.messages[index - 1];

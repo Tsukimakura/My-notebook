@@ -28,6 +28,7 @@ window.NotebookConversations = (() => {
   const usage = value => Object.fromEntries(['input_tokens', 'output_tokens', 'reasoning_tokens']
     .filter(key => Number.isSafeInteger(value?.[key]) && value[key] >= 0 && value[key] <= 1000000000).map(key => [key, value[key]]));
   const timing = value => ({
+    model: text(value.model, 100),
     respondedAt: Number.isSafeInteger(value.respondedAt) && value.respondedAt > 0 && value.respondedAt <= 8640000000000000 ? value.respondedAt : null,
     elapsedMs: Number.isSafeInteger(value.elapsedMs) && value.elapsedMs >= 0 && value.elapsedMs <= 86400000 ? value.elapsedMs : null,
   });

@@ -127,7 +127,9 @@ test('model picker follows provider, fills editable ID and sends the saved selec
   assert.ok([...get('model-choice').options].some(option => option.value === 'deepseek-flash'));
   assert.ok(![...get('model-choice').options].some(option => option.value.startsWith('gpt-')));
   assert.equal(get('model-docs').hostname, 'api-docs.deepseek.com');
-  assert.match(get('model-endpoint').textContent, /api\.deepseek\.com\/models/);
+  assert.ok(!get('model-note').closest('details'));
+  assert.ok(!get('retention').closest('details'));
+  assert.equal(get('advanced-settings'), null);
   get('model-choice').value = 'deepseek-flash';
   get('model-choice').dispatchEvent(new window.Event('change'));
   assert.equal(get('model').value, 'deepseek-flash');
@@ -179,7 +181,9 @@ test('typing an exact preset updates selection and catalog use makes no network 
   get('model').dispatchEvent(new window.Event('input'));
   assert.equal(get('model-choice').value, '');
   assert.equal(calls, 0);
-  assert.match(get('model-note').textContent, /2026-11-08/);
+  assert.match(get('model-note').textContent, /API/);
+  assert.ok(get('model-note').textContent.length < 80);
+  assert.ok(!get('model-choice').textContent.includes('支持图片'));
 });
 
 test('renders headings, emphasis, lists, tables and fenced code', async t => {
@@ -583,11 +587,14 @@ test('continue generation retains full answer and original request, preserves dr
   assert.equal(get('continue').textContent, '继续生成');
   assert.equal(get('continue').hidden, false);
   get('question').value = '下一道题的草稿';
+  get('chat-model').value = 'openai/gpt-6-luna';
+  get('chat-model').dispatchEvent(new window.Event('change'));
   get('continue').click();
   await new Promise(resolve => setTimeout(resolve, 15));
   await window.NotebookAIFlush();
   assert.equal(requests.length, 2);
   assert.equal(requests[1].task, 'continue');
+  assert.equal(requests[1].model, requests[0].model);
   assert.equal(requests[1].question, requests[0].question);
   assert.equal(requests[1].continuation.answer, partial);
   assert.equal(requests[1].continuation.token, 'opaque-context');
@@ -1326,6 +1333,32 @@ test('unsupported file types do not get previews, persisted data, or model reque
 });
 
 require('./test_outputs.cjs');
+
+
+test('chat model switching keeps the conversation, history and draft and uses the new model', async t => {
+  const requests = [];
+  const {window, get, submit} = await setup(t, async (url, options) => {
+    requests.push(JSON.parse(options.body)); return answerResponse('answer')();
+  });
+  await submit();
+  const id = get('session').value;
+  get('question').value = 'follow-up';
+  get('chat-model').value = 'openai/gpt-6-luna';
+  get('chat-model').dispatchEvent(new window.Event('change'));
+  assert.equal(get('settings-view').hidden, true);
+  assert.equal(get('session').value, id);
+  assert.equal(get('question').value, 'follow-up');
+  await submit();
+  assert.equal(requests.at(-1).model, 'gpt-6-luna');
+  assert.equal(requests.at(-1).history.length, 2);
+  assert.equal(get('chat-model').disabled, false);
+  get('chat-model').value = 'anthropic/claude-sonnet-5-5';
+  get('chat-model').dispatchEvent(new window.Event('change'));
+  assert.equal(get('settings-view').hidden, false);
+  assert.equal(get('provider').value, 'anthropic');
+  assert.equal(get('key').value, '');
+  assert.equal(requests.length, 2);
+});
 
 test('answer completion time and elapsed time survive reload and old answers get no invented time', async t => {
   const indexedDB = new IDBFactory();

@@ -20,7 +20,7 @@ window.NOTEBOOK_AI_MODELS = {
     apiDocs: "https://api-docs.deepseek.com/api/list-models/",
     endpoint: "GET https://api.deepseek.com/models",
     models: [
-      {id: "deepseek-flash", name: "DeepSeek Flash · 支持图片"},
+      {id: "deepseek-flash", name: "DeepSeek Flash"},
       {id: "deepseek-v4-pro", name: "DeepSeek V4 Pro"},
     ],
   },
