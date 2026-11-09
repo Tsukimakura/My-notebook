@@ -151,3 +151,12 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 .notebook-ai-attachment > span { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: .65rem; }
 .notebook-ai-attachment img { width: 2rem; height: 2rem; object-fit: contain; border-radius: .2rem; }
 .notebook-ai-answer img { display: block; max-width: 100%; max-height: 22rem; object-fit: contain; margin: .5rem auto; }
+
+.notebook-ai-figure { margin: .8rem 0; max-width: 100%; }
+.notebook-ai-figure > svg { display: block; width: 100%; height: auto; max-height: 24rem; border: 1px solid var(--notebook-line); border-radius: .4rem; }
+.notebook-ai-output-tools { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; margin: .2rem 0 .6rem; }
+.notebook-ai .notebook-ai-output-tools button { border: 0; padding: .25rem 0; font-size: .58rem; color: var(--notebook-muted); min-height: 32px; }
+.notebook-ai-export { position: relative; margin: 0 !important; font-size: .55rem !important; }
+.notebook-ai-export > summary { cursor: pointer; padding: .3rem 0; color: var(--notebook-muted); list-style: none; }
+.notebook-ai-export[open] { padding: .3rem .5rem; border: 1px solid var(--notebook-line); border-radius: .4rem; background: var(--notebook-canvas); }
+.notebook-ai .notebook-ai-export button { border: 0; min-height: 32px; }

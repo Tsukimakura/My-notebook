@@ -33,6 +33,7 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-scope.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-models.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-attachments.js', 'utf8'));
+  window.eval(fs.readFileSync('docs/javascripts/notebook-ai-outputs.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
   await window.NotebookAIReady;
@@ -1323,3 +1324,5 @@ test('unsupported file types do not get previews, persisted data, or model reque
   assert.equal(get('attachments').hidden,true);
   assert.equal(calls,0);
 });
+
+require('./test_outputs.cjs');

@@ -468,6 +468,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (quote) for (const link of target.querySelectorAll("a[href]")) {
       if (new URL(link.href).origin !== location.origin) { link.target = "_blank"; link.rel = "noopener noreferrer"; }
     }
+    window.NotebookOutputs?.render(target);
     sourceList.replaceChildren();
     for (const source of sources) {
       const url = safeURL(source.url);
@@ -1108,6 +1109,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     redo.disabled = running.has(session.id) || (record.versions?.length || 1) >= 10;
     redo.addEventListener("click", () => regenerate(session, record));
     actions.append(copy, redo);
+    if (window.NotebookOutputs) {
+      const menu = document.createElement('details'); menu.className = 'notebook-ai-export';
+      const heading = document.createElement('summary'); heading.textContent = '下载'; menu.append(heading);
+      for (const [format, label] of [['md', 'Markdown'], ['txt', '纯文本'], ['json', 'JSON']]) {
+        const button = document.createElement('button'); button.type = 'button'; button.textContent = label;
+        button.addEventListener('click', () => { window.NotebookOutputs.answer(record, format); menu.open = false; });
+        menu.append(button);
+      }
+      actions.append(menu);
+    }
     if (record.versions?.length > 1) {
       const version = document.createElement("span"); version.className = "notebook-ai-versions";
       const previous = document.createElement("button"), next = document.createElement("button"), count = document.createElement("span");

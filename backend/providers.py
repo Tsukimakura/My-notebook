@@ -86,7 +86,7 @@ async def complete(provider, key, model, system, prompt, max_tokens=DEFAULT_MAX_
             body['messages'].extend([{'role': 'assistant', 'content': previous_answer}, {'role': 'user', 'content': followup}])
     try:
         # No environment proxy, redirects, tools, remote files, or arbitrary base URL.
-        async with httpx.AsyncClient(timeout=httpx.Timeout(180, connect=10, write=30, pool=10), trust_env=False,
+        async with httpx.AsyncClient(timeout=httpx.Timeout(220, connect=10, write=30, pool=10), trust_env=False,
                                      follow_redirects=False) as client:
             async with client.stream("POST", ENDPOINTS[provider], headers=headers, json=body) as response:
                 if response.status_code in (401, 403):
