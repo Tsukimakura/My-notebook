@@ -11,7 +11,7 @@ window.NotebookConversations = (() => {
       if (typeof value.url === 'string' && value.url.startsWith('/') && !value.url.startsWith('//')
           && value.url.length <= 800 && parsed.origin === location.origin) url = value.url;
     } catch { /* Keep the excerpt even if its old source URL is no longer valid. */ }
-    return {markdown: value.markdown, title: text(value.title, 100), url};
+    return {markdown: value.markdown, title: text(value.title, 100), url, ...(value.kind === 'conversation' ? {kind: 'conversation'} : {})};
   };
   const sources = value => (Array.isArray(value) ? value : []).slice(0, 32).filter(source =>
     Number.isInteger(source?.id) && typeof source.url === 'string' && source.url.startsWith('/') && !source.url.startsWith('//'))

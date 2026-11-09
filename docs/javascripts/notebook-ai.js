@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     </details></section>
     <button type="button" data-earlier hidden>查看更早的消息</button>
     <div data-messages class="notebook-ai-messages" aria-label="对话记录"></div>
-    <section data-quote hidden class="notebook-ai-quote" aria-label="引用笔记">
+    <section data-quote hidden class="notebook-ai-quote" aria-label="引用内容">
       <details data-quote-details><summary>引用：<span data-quote-label></span></summary>
         <div class="notebook-ai-quote-heading"><a data-quote-source></a></div>
         <div data-quote-preview class="notebook-ai-answer"></div>
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }, () => conversations.values());
   window.NotebookAIFlush = () => writes;
   const composeQuestion = (question, quote) => quote
-    ? `${question}\n\n引用笔记《${quote.title || "笔记"}》${quote.url ? "\n" + quote.url : ""}\n\n${quote.markdown}` : question;
+    ? `${question}\n\n引用${quote.kind === "conversation" ? "对话" : "笔记"}《${quote.title || "笔记"}》${quote.url ? "\n" + quote.url : ""}\n\n${quote.markdown}` : question;
   const historyTurns = session => {
     const result = [];
     for (let i = 1; i < session.messages.length; i++) {
@@ -917,9 +917,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   document.addEventListener("notebook:ask-selection", async event => {
     const detail = event.detail;
-    if (!current || !detail || typeof detail.url !== "string" || !detail.url.startsWith("/") || detail.url.startsWith("//")) return;
-    const quote = window.NotebookConversations.quote({markdown: detail.markdown || detail.text, title: detail.title, url: detail.url});
-    if (!quote || !quote.url) return;
+    if (!current || !detail) return;
+    const conversation = detail.kind === "conversation" && detail.sessionId === current.id;
+    if (!conversation && (typeof detail.url !== "string" || !detail.url.startsWith("/") || detail.url.startsWith("//"))) return;
+    const quote = window.NotebookConversations.quote({markdown: detail.markdown || detail.text, title: detail.title,
+      url: conversation ? "" : detail.url, kind: conversation ? "conversation" : "note"});
+    if (!quote || (!conversation && !quote.url)) return;
     const session = current;
     showPanel(true); showSettings(false);
     session.draftQuote = quote;
@@ -927,6 +930,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!get("question").value.trim()) get("question").value = "请解释这段内容。";
     session.draft = get("question").value;
     refreshDraftQuote(); void persist(session); get("question").focus({preventScroll: true});
+    if (conversation) return;
     const selected = await noteScope?.forPage(detail.url);
     if (selected && conversations.has(session.id)) {
       session.scope = selected;
@@ -1011,7 +1015,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         remember.addEventListener("click", () => {
           const selection = window.getSelection();
           const selected = selection?.rangeCount && output.content.contains(selection.getRangeAt(0).commonAncestorContainer)
-            ? selection.toString().trim() : "";
+            ? window.NotebookSelection?.markdown(selection.getRangeAt(0), output.content, 2000)?.markdown || selection.toString().trim() : "";
           const note = selected || record.content;
           const combined = [current.summary, note].filter(Boolean).join("\n");
           if (combined.length > 2000) { get("status").textContent = "记忆放不下整条回答，请先选中要记住的一小段文字。"; return; }
@@ -1047,6 +1051,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     saveReadingPosition();
     current = session;
+    panel.dataset.sessionId = session.id;
     const position = read("sessionStorage", readingKey());
     visibleCount = Number.isInteger(position?.visibleCount) ? Math.max(40, Math.min(2000, position.visibleCount)) : 40;
     preferences.provider = session.provider;

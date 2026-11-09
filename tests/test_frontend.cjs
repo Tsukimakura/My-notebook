@@ -1403,3 +1403,65 @@ test('open state and reading position survive reload, reopening and switching co
   next.get('close').click();
   assert.equal(next.window.sessionStorage.getItem('notebook-ai.panel-open'), 'false');
 });
+
+test('native copying of rendered answer formulas produces pasteable TeX without duplicate glyphs', async t => {
+  const {window, get, submit} = await setup(t, answerResponse(String.raw`真空介电常数 $\epsilon_0$，电场为
+
+$$
+E=\frac{Q}{4\pi\epsilon_0 r^2}.
+$$`));
+  await submit();
+  window.eval(fs.readFileSync('docs/javascripts/notebook-selection.js', 'utf8'));
+  window.eval(fs.readFileSync('docs/javascripts/notebook-reader.js', 'utf8'));
+  const range = window.document.createRange(), selection = window.getSelection();
+  range.selectNodeContents(get('answer')); selection.removeAllRanges(); selection.addRange(range);
+  const copied = new Map(), event = new window.Event('copy', {bubbles: true, cancelable: true});
+  Object.defineProperty(event, 'clipboardData', {value: {setData: (type, value) => copied.set(type, value)}});
+  get('answer').dispatchEvent(event);
+  assert.equal(event.defaultPrevented, true);
+  const text = copied.get('text/plain');
+  assert.match(text, /\\\(\\epsilon_0\\\)/);
+  assert.match(text, /\$\$\nE=\\frac\{Q\}\{4\\pi\\epsilon_0 r\^2\}\.\n\$\$/);
+  assert.equal(text.match(/\\frac/g).length, 1);
+  assert.ok(!text.includes('application/x-tex'));
+  assert.ok(!text.includes('耗时'));
+  assert.deepEqual([...copied.keys()], ['text/plain']);
+  range.selectNodeContents(get('answer').querySelector('.katex-html'));
+  const partial = new window.Event('copy', {bubbles: true, cancelable: true});
+  Object.defineProperty(partial, 'clipboardData', {value: {setData: (type, value) => copied.set(type, value)}});
+  get('answer').dispatchEvent(partial);
+  assert.equal(copied.get('text/plain'), String.raw`\(\epsilon_0\)`);
+  const inputCopy = new window.Event('copy', {bubbles: true, cancelable: true});
+  Object.defineProperty(inputCopy, 'clipboardData', {value: {setData() { throw new Error('must not override input copying'); }}});
+  get('question').dispatchEvent(inputCopy);
+  assert.equal(inputCopy.defaultPrevented, false);
+});
+
+test('selected conversation formulas can be quoted and asked without changing note scope or sending automatically', async t => {
+  const requests = [], indexedDB = new IDBFactory();
+  const {window, get, submit} = await setup(t, async (url, options) => {
+    requests.push(JSON.parse(options.body)); return answerResponse(String.raw`使用 $dq=\lambda\,dl$ 计算电荷。`)();
+  }, {indexedDB});
+  await submit();
+  window.eval(fs.readFileSync('docs/javascripts/notebook-selection.js', 'utf8'));
+  window.eval(fs.readFileSync('docs/javascripts/notebook-reader.js', 'utf8'));
+  window.Range.prototype.getBoundingClientRect = () => ({top: 100, bottom: 140, left: 300, width: 200});
+  const selection = window.getSelection(), range = window.document.createRange();
+  range.selectNodeContents(get('answer')); selection.removeAllRanges(); selection.addRange(range);
+  window.document.dispatchEvent(new window.Event('selectionchange'));
+  await new Promise(resolve => setTimeout(resolve, 100));
+  const ask = window.document.querySelector('.notebook-selection-ask');
+  assert.equal(ask.hidden, false);
+  ask.click(); await new Promise(resolve => setTimeout(resolve, 10)); await window.NotebookAIFlush();
+  assert.equal(requests.length, 1);
+  assert.equal(get('quote').hidden, false);
+  assert.match(get('quote-markdown').value, /\\\(dq=\\lambda\\,dl\\\)/);
+  assert.equal(get('quote-source').hasAttribute('href'), false);
+  const restored = await setup(t, answerResponse('answer'), {indexedDB, autoSave: false});
+  assert.match(restored.get('quote-markdown').value, /dq=\\lambda/);
+  get('question').value = '这里的物理量是什么意思？'; await submit();
+  assert.equal(requests.length, 2);
+  assert.match(requests[1].question, /引用对话/);
+  assert.ok(!requests[1].question.includes('引用笔记'));
+  assert.deepEqual(requests[1].scope, requests[0].scope);
+});

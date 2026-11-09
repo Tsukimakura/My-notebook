@@ -3,7 +3,7 @@ window.NotebookSelection = {
   markdown(range, root, limit = 2000) {
     let remaining = limit - 8, clipped = false, stopped = false;
     const intersects = node => { try { return range.intersectsNode(node); } catch { return false; } };
-    const skip = element => element.hidden || element.matches('.headerlink,.md-clipboard,.md-content__button,.linenos,.linenodiv,script,style,button,input');
+    const skip = element => element.hidden || element.matches('.headerlink,.md-clipboard,.md-content__button,.linenos,.linenodiv,.notebook-ai-role,.notebook-ai-response-meta,.notebook-ai-references,.notebook-ai-reply-actions,script,style,button,input');
     const selectedText = node => {
       if (!intersects(node)) return '';
       let text = node.nodeValue || '';
