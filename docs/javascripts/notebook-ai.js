@@ -265,22 +265,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!get("tools-view").contains(event.target) && !get("tools").contains(event.target)) showTools(false);
   });
   const showSettings = show => {
+    if (show) saveReadingPosition();
     showTools(false);
     get("tools").hidden = show;
     get("settings-view").hidden = !show;
     get("chat-view").hidden = show;
     get("settings").setAttribute("aria-expanded", String(show));
     get("settings").textContent = show ? "返回对话" : "设置";
+    if (!show) restoreReadingPosition();
   };
   const showPanel = show => {
     if (!show) {
+      saveReadingPosition();
       showTools(false);
       if (panel.contains(document.activeElement)) document.activeElement.blur();
     }
     panel.hidden = !show;
+    storage("sessionStorage", "setItem", "notebook-ai.panel-open", String(show));
     document.body.classList.toggle("notebook-ai-open", show);
     launch.hidden = show;
     launch.setAttribute("aria-expanded", String(show));
+    if (show) restoreReadingPosition();
   };
   launch.addEventListener("click", () => {
     showPanel(true);
@@ -568,6 +573,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     while (get("messages").children.length > visibleCount) get("messages").firstElementChild.remove();
     return {message, content, sources};
   };
+  const readingKey = () => `notebook-ai.reading.${current.id}`;
+  let restoringPosition = false;
+  const saveReadingPosition = () => {
+    if (!current || panel.hidden || get("chat-view").hidden || restoringPosition) return;
+    const box = get("messages");
+    storage("sessionStorage", "setItem", readingKey(), JSON.stringify({top: box.scrollTop,
+      bottom: box.scrollHeight - box.scrollTop - box.clientHeight < 30, visibleCount}));
+  };
+  const restoreReadingPosition = () => {
+    if (!current || panel.hidden) return;
+    const owner = current;
+    const position = read("sessionStorage", readingKey());
+    const apply = () => {
+      if (current !== owner || panel.hidden) return;
+      const box = get("messages");
+      box.scrollTop = !position || position.bottom ? box.scrollHeight : Math.max(0, Number(position.top) || 0);
+    };
+    restoringPosition = true; apply();
+    if (get("messages").scrollHeight <= get("messages").clientHeight) { restoringPosition = false; return; }
+    (window.requestAnimationFrame || (callback => setTimeout(callback, 0)))(() => { apply(); restoringPosition = false; });
+  };
+  get("messages").addEventListener("scroll", saveReadingPosition, {passive: true});
+  // Images can finish loading after Markdown and change the scroll geometry.
+  get("messages").addEventListener("load", () => { if (restoringPosition) restoreReadingPosition(); }, true);
+  window.addEventListener("pagehide", saveReadingPosition);
+  document.addEventListener("visibilitychange", () => { if (document.hidden) saveReadingPosition(); });
   const scrollMessages = () => { get("messages").scrollTop = get("messages").scrollHeight; };
   const nearBottom = () => {
     const box = get("messages");
@@ -937,6 +968,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (current) { get("session").value = current.id; get("session-title").value = current.title; }
   };
   const renderSession = () => {
+    const readingTop = get("messages").scrollTop, follow = nearBottom();
     turns = historyTurns(current);
     const last = current.messages.at(-1);
     lastIncomplete = last?.role === "assistant" && last.truncated === true;
@@ -1003,6 +1035,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (pending) panel.dataset.busy = "true"; else delete panel.dataset.busy;
     for (const name of ["submit", "save", "continue"]) get(name).disabled = Boolean(pending);
     syncChatModel();
+    get("messages").scrollTop = follow ? get("messages").scrollHeight : readingTop;
     get("stop").hidden = !pending;
     get("continue").hidden = !lastIncomplete;
     get("continue").disabled = Boolean(pending || (last?.content?.length || 0) >= 262144);
@@ -1012,7 +1045,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (current && current.draft !== get("question").value) {
       current.draft = get("question").value; void persist(current);
     }
-    current = session; visibleCount = 40;
+    saveReadingPosition();
+    current = session;
+    const position = read("sessionStorage", readingKey());
+    visibleCount = Number.isInteger(position?.visibleCount) ? Math.max(40, Math.min(2000, position.visibleCount)) : 40;
     preferences.provider = session.provider;
     if (session.model) preferences.models[session.provider] = session.model;
     get("provider").value = session.provider; get("model").value = session.model;
@@ -1027,7 +1063,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("session-title").value = session.title;
     get("session-memory").value = session.summary || "";
     storage("sessionStorage", "setItem", "notebook-ai.active-session", session.id);
-    refreshSessions(); renderSession(); scrollMessages(); summary();
+    refreshSessions(); renderSession(); restoreReadingPosition(); summary();
   };
   const newSession = () => {
     const now = Date.now();
@@ -1272,5 +1308,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const active = storage("sessionStorage", "getItem", "notebook-ai.active-session");
   activate(conversations.get(active) || conversations.values().next().value || newSession());
   if (!database.persistent) get("session-status").textContent = "浏览器未允许保存对话，记录仅保留在当前页面。";
+  if (storage("sessionStorage", "getItem", "notebook-ai.panel-open") === "true") showPanel(true);
   await writes; launch.disabled = false; ready();
 });

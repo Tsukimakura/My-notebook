@@ -37,7 +37,7 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
   await window.NotebookAIReady;
-  window.document.querySelector('.notebook-ai-launch').click();
+  if (!window.document.querySelector('.notebook-ai-launch').hidden) window.document.querySelector('.notebook-ai-launch').click();
   const panel = window.document.querySelector('.notebook-ai');
   const get = name => panel.querySelector(`[data-${name}]`);
   const save = () => get('settings-form').dispatchEvent(new window.Event('submit', {bubbles: true, cancelable: true}));
@@ -1369,4 +1369,37 @@ test('answer completion time and elapsed time survive reload and old answers get
   assert.ok(Number.isFinite(Date.parse(meta.querySelector('time').dateTime)));
   const next = await setup(t, answerResponse('next'), {indexedDB, autoSave: false});
   assert.equal(next.get('messages').querySelector('.notebook-ai-response-meta').textContent, meta.textContent);
+});
+
+test('open state and reading position survive reload, reopening and switching conversations', async t => {
+  const indexedDB = new IDBFactory();
+  const first = await setup(t, answerResponse('long answer'), {indexedDB});
+  await first.submit();
+  const box = first.get('messages');
+  Object.defineProperties(box, {scrollHeight: {configurable: true, value: 2000}, clientHeight: {configurable: true, value: 400}});
+  box.scrollTop = 320; box.dispatchEvent(new first.window.Event('scroll'));
+  first.get('new').click();
+  const original = [...first.get('session').options].find(option => option.textContent !== '新对话').value;
+  first.get('session').value = original;
+  first.get('session').dispatchEvent(new first.window.Event('change'));
+  await new Promise(resolve => setTimeout(resolve, 5));
+  assert.equal(box.scrollTop, 320);
+  first.get('close').click();
+  first.window.document.querySelector('.notebook-ai-launch').click();
+  await new Promise(resolve => setTimeout(resolve, 5));
+  assert.equal(box.scrollTop, 320);
+  first.window.dispatchEvent(new first.window.Event('pagehide'));
+  await first.window.NotebookAIFlush();
+  const sessionStorage = Object.fromEntries(Object.entries(first.window.sessionStorage));
+  const next = await setup(t, answerResponse('next'), {indexedDB, autoSave: false, storageState: {sessionStorage}, beforeScript(window) {
+    Object.defineProperties(window.HTMLElement.prototype, {
+      scrollHeight: {configurable: true, get() { return this.matches('[data-messages]') ? 2000 : 0; }},
+      clientHeight: {configurable: true, get() { return this.matches('[data-messages]') ? 400 : 0; }},
+    });
+  }});
+  await new Promise(resolve => setTimeout(resolve, 5));
+  assert.equal(next.panel.hidden, false);
+  assert.equal(next.get('messages').scrollTop, 320);
+  next.get('close').click();
+  assert.equal(next.window.sessionStorage.getItem('notebook-ai.panel-open'), 'false');
 });
