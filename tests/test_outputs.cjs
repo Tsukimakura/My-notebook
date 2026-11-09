@@ -25,8 +25,8 @@ test('diagram rendering builds local SVG primitives without model attributes or 
   const {output,window}=fixture(t);
   const svg=output.diagram({title:'charge to field',nodes:[{id:'q',label:'<img onerror=x>',x:10,y:50,href:'https://evil'}, {id:'e',label:'E',x:90,y:50,shape:'box'}],edges:[{from:'q',to:'e',label:'force'}]});
   assert.equal(svg.querySelectorAll('circle').length,1);
-  assert.equal(svg.querySelectorAll('rect').length,2);
-  assert(Number(svg.querySelector('line').getAttribute('x2')) < Number(svg.querySelectorAll('rect')[1].getAttribute('x')));
+  assert.equal(svg.querySelectorAll('[data-diagram-node] > rect').length,1);
+  assert(Number(svg.querySelector('line').getAttribute('x2')) < Number(svg.querySelector('[data-diagram-node] > rect').getAttribute('x')));
   assert.equal(svg.querySelector('script,img,foreignObject,[href],[onerror]'),null);
   const xml=new window.XMLSerializer().serializeToString(svg);
   assert.equal((xml.match(/xmlns=/g)||[]).length,1);
@@ -68,4 +68,77 @@ test('whole answer JSON download excludes continuation capsules and includes the
   assert.equal(blob.type,'application/json');
   const reader=new window.FileReader();
   return new Promise(resolve=>{reader.onload=()=>{const value=JSON.parse(reader.result);assert.equal(value.answer,'full answer');assert.equal(value.continuation,undefined);resolve();};reader.readAsText(blob);});
+});
+
+
+const velocityDiagram = {title:'速度分解与磁场中的回旋',nodes:[
+  {id:'v',label:'速度 v',x:10,y:50,shape:'circle'},
+  {id:'vpar',label:'v∥',x:40,y:75,shape:'box'},
+  {id:'vperp',label:'v⊥',x:40,y:25,shape:'box'},
+  {id:'B',label:'B',x:70,y:50,shape:'box'},
+  {id:'circle',label:'匀速圆周',x:90,y:25,shape:'circle'},
+],edges:[{from:'v',to:'vpar',label:'分解'},{from:'v',to:'vperp',label:'分解'},
+  {from:'vperp',to:'circle',label:'q v⊥×B 提供向心力'},{from:'B',to:'circle',label:'决定转向'}]};
+const rectangle = node => {
+  const rect=node.querySelector('rect'), circle=node.querySelector('circle');
+  return rect ? {left:+rect.getAttribute('x'),top:+rect.getAttribute('y'),right:+rect.getAttribute('x') + +rect.getAttribute('width'),bottom:+rect.getAttribute('y') + +rect.getAttribute('height')}
+    : {left:+circle.getAttribute('cx') - +circle.getAttribute('r'),top:+circle.getAttribute('cy') - +circle.getAttribute('r'),right:+circle.getAttribute('cx') + +circle.getAttribute('r'),bottom:+circle.getAttribute('cy') + +circle.getAttribute('r')};
+};
+const intersects = (a,b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+
+test('velocity diagram keeps full labels clear of nodes and other labels and remains scrollable', t => {
+  const {output,root}=fixture(t), svg=output.diagram(velocityDiagram);
+  const nodes=[...svg.querySelectorAll('[data-diagram-node]')].map(rectangle);
+  const labels=[...svg.querySelectorAll('[data-diagram-label]')].map(rectangle);
+  assert.equal(labels.length,4);
+  for (let i=0;i<nodes.length;i++) for(let j=i+1;j<nodes.length;j++) assert.ok(!intersects(nodes[i],nodes[j]));
+  for (let i=0;i<labels.length;i++) {
+    for(const node of nodes) assert.ok(!intersects(labels[i],node));
+    for(const other of labels.slice(i+1)) assert.ok(!intersects(labels[i],other));
+  }
+  const circle=svg.querySelector('[aria-label="匀速圆周"] circle');
+  assert.ok(+circle.getAttribute('r')>40);
+  const long=output.diagram({...velocityDiagram,edges:[{from:'vperp',to:'circle',label:'垂直速度分量受到的磁力提供圆周运动所需的向心力'}]});
+  assert.ok([...long.querySelectorAll('text')].some(label=>label.querySelectorAll('tspan').length>1));
+  const titled=output.diagram({title:'长标题'.repeat(30),nodes:[{id:'only',label:'节点',x:50,y:50}],edges:[]});
+  const titleLabel=titled.lastElementChild;
+  assert.ok(titleLabel.querySelectorAll('tspan').length>1);
+  const titleBottom=+titleLabel.getAttribute('y')+[...titleLabel.querySelectorAll('tspan')].reduce((sum,line)=>sum+ +line.getAttribute('dy'),0)+6;
+  assert.ok(rectangle(titled.querySelector('[data-diagram-node]')).top>titleBottom);
+  const code=root.ownerDocument.createElement('code'), pre=root.ownerDocument.createElement('pre');
+  code.className='language-diagram';code.textContent=JSON.stringify(velocityDiagram);pre.append(code);root.append(pre);output.render(root);
+  assert.equal(root.querySelector('.notebook-ai-diagram-viewport').tabIndex,0);
+  assert.ok(+root.querySelector('svg').getAttribute('width')>=600);
+  const fit=[...root.querySelectorAll('button')].find(button=>button.textContent==='适应宽度');
+  fit.click();assert.equal(root.querySelector('.notebook-ai-diagram-viewport').dataset.fit,'true');
+  assert.equal(fit.getAttribute('aria-pressed'),'true');
+  fit.click();assert.equal(root.querySelector('.notebook-ai-diagram-viewport').dataset.fit,'false');
+});
+
+test('diagram routes an edge around an intervening node and separates coincident nodes', t => {
+  const {output}=fixture(t);
+  const svg=output.diagram({nodes:[{id:'a',label:'A',x:0,y:50,shape:'box'},{id:'block',label:'obstacle',x:50,y:50,shape:'box'},
+    {id:'b',label:'B',x:100,y:50,shape:'box'}],edges:[{from:'a',to:'b',label:'绕开节点'}]});
+  const edge=svg.querySelector('polyline[data-diagram-edge]');assert.ok(edge);
+  const points=edge.getAttribute('points').split(' ').map(value=>value.split(',').map(Number));
+  const box=rectangle(svg.querySelector('[aria-label="obstacle"]'));
+  for(let i=1;i<points.length;i++) {
+    const [a,b]=[points[i-1],points[i]];
+    assert.ok(a[0]===b[0]||a[1]===b[1]);
+    if(a[0]===b[0]&&a[0]>box.left&&a[0]<box.right) assert.ok(Math.max(a[1],b[1])<=box.top||Math.min(a[1],b[1])>=box.bottom);
+    if(a[1]===b[1]&&a[1]>box.top&&a[1]<box.bottom) assert.ok(Math.max(a[0],b[0])<=box.left||Math.min(a[0],b[0])>=box.right);
+  }
+  const crowded=output.diagram({nodes:Array.from({length:12},(_,i)=>({id:String(i),label:'同一点的节点 '+i,x:50,y:50,shape:'box'})),edges:[]});
+  const boxes=[...crowded.querySelectorAll('[data-diagram-node]')].map(rectangle);
+  for(let i=0;i<boxes.length;i++) for(const other of boxes.slice(i+1)) assert.ok(!intersects(boxes[i],other));
+});
+
+
+test('dense diagrams retain all connections without drawing through unrelated nodes', t => {
+  const {output}=fixture(t);
+  const nodes=Array.from({length:24},(_,i)=>({id:String(i),label:'node '+i,x:i%4*30,y:Math.floor(i/4)*20,shape:'box'}));
+  const svg=output.diagram({nodes,edges:[{from:'5',to:'18',label:'跨越多行的关系'},{from:'8',to:'15',label:'另一个关系'}]});
+  assert.equal(svg.querySelectorAll('[data-diagram-node]').length,24);
+  assert.equal(svg.querySelectorAll('[data-diagram-edge]').length,2);
+  assert.equal(svg.querySelector('foreignObject,script,[href],[onload]'),null);
 });

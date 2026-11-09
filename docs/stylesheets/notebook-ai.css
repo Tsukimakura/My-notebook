@@ -163,3 +163,7 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 
 .notebook-ai .notebook-ai-model-picker { flex-shrink: 0; width: 100%; padding: .3rem .5rem; font-size: .63rem; }
 .notebook-ai .notebook-ai-response-meta { color: var(--notebook-muted); font-size: .55rem; margin: .4rem 0 .15rem; }
+
+.notebook-ai-diagram-viewport { max-width: 100%; overflow-x: auto; border: 1px solid var(--notebook-line); border-radius: .4rem; }
+.notebook-ai-diagram-viewport > svg { display: block; width: 100%; min-width: var(--notebook-diagram-width); height: auto; }
+.notebook-ai-diagram-viewport[data-fit="true"] > svg { min-width: 0; }

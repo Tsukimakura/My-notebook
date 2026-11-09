@@ -16,7 +16,7 @@ window.NotebookOutputs = (() => {
   };
   const base = title => {
     const palette = colors();
-    const svg = element('svg', {width: 600, height: 360, viewBox: '0 0 600 360', role: 'img', 'aria-label': title || '示意图'});
+    const svg = element('svg', {width: 600, height: 360, viewBox: '0 0 600 360', 'font-family': 'system-ui, sans-serif', role: 'img', 'aria-label': title || '示意图'});
     svg.append(element('title', {}, title || '示意图'), element('rect', {x: 0, y: 0, width: 600, height: 360, fill: palette.paper}));
     if (title) svg.append(element('text', {x: 300, y: 26, 'text-anchor': 'middle', 'font-size': 19, fill: palette.ink}, title));
     return {svg, palette};
@@ -55,36 +55,203 @@ window.NotebookOutputs = (() => {
     });
     return svg;
   };
+  // Conservative glyph widths also work before fonts load and in detached SVGs.
+  const textWidth = (value, size = 16) => [...value].reduce((width, char) => width +
+    (/\p{Mark}/u.test(char) ? 0 : /[\s]/u.test(char) ? .35 : /[MW@#%]/.test(char) ? 1 : char.codePointAt(0) >= 0x2e80 ? 1 : .7) * size, 0);
+  const wrapText = (value, width, size = 16) => {
+    const lines = [];
+    for (const paragraph of value.split(/\n+/).filter(part => part.trim())) {
+      let line = '';
+      for (const word of paragraph.match(/[A-Za-z0-9_]+|[^A-Za-z0-9_]/gu) || ['']) {
+        if (line && textWidth(line + word, size) > width) { lines.push(line.trimEnd()); line = ''; }
+        for (const char of word) {
+          if (line && textWidth(line + char, size) > width) { lines.push(line.trimEnd()); line = ''; }
+          if (line || char.trim()) line += char;
+        }
+      }
+      lines.push(line.trimEnd());
+    }
+    return lines.length ? lines : [''];
+  };
+  const multiline = (lines, x, y, size, palette) => {
+    const label = element('text', {x, y, 'text-anchor': 'middle', 'font-size': size, fill: palette.ink});
+    lines.forEach((line, index) => label.append(element('tspan', {x, dy: index ? size * 1.35 : 0}, line)));
+    return label;
+  };
+  const bounds = (node, padding = 0) => ({left: node.x - node.w / 2 - padding, right: node.x + node.w / 2 + padding,
+    top: node.y - node.h / 2 - padding, bottom: node.y + node.h / 2 + padding});
+  const overlaps = (a, b, padding = 0) => a.left < b.right + padding && a.right > b.left - padding && a.top < b.bottom + padding && a.bottom > b.top - padding;
+  const segmentHits = (a, b, box) => {
+    // Clip a finite segment against an axis-aligned rectangle (Liang–Barsky).
+    let low = 0, high = 1;
+    const dx = b.x - a.x, dy = b.y - a.y;
+    for (const [p, q] of [[-dx, a.x - box.left], [dx, box.right - a.x], [-dy, a.y - box.top], [dy, box.bottom - a.y]]) {
+      if (Math.abs(p) < 1e-8) { if (q < 0) return false; }
+      else { const ratio = q / p; if (p < 0) low = Math.max(low, ratio); else high = Math.min(high, ratio); }
+    }
+    return low <= high;
+  };
+  const segments = points => points.slice(1).map((point, index) => [points[index], point]);
   const diagram = spec => {
     if (!spec || !Array.isArray(spec.nodes) || !spec.nodes.length || spec.nodes.length > 24 || !Array.isArray(spec.edges) || spec.edges.length > 48) throw new Error('Invalid diagram');
     const nodes = new Map();
     for (const node of spec.nodes) {
       if (typeof node.id !== 'string' || !node.id || node.id.length > 80 || nodes.has(node.id)
           || !finite(node.x) || !finite(node.y) || node.x < 0 || node.x > 100 || node.y < 0 || node.y > 100) throw new Error('Invalid node');
-      nodes.set(node.id, {x: 70 + node.x * 4.6, y: 75 + node.y * 2.1, label: text(node.label, 32), box: node.shape === 'box'});
+      const label = text(node.label, 120), lines = wrapText(label, 136), box = node.shape === 'box';
+      const labelWidth = Math.max(16, ...lines.map(line => textWidth(line))), labelHeight = lines.length * 21.6;
+      const radius = Math.max(34, Math.hypot(labelWidth / 2 + 14, labelHeight / 2 + 10));
+      nodes.set(node.id, {x: node.x * 7.2, y: node.y * 4.6, lines, label, box,
+        w: box ? Math.max(88, labelWidth + 32) : radius * 2, h: box ? Math.max(52, labelHeight + 28) : radius * 2});
     }
-    const {svg, palette} = base(text(spec.title)), arrow = `notebook-arrow-${++sequence}`;
+    const list = [...nodes.values()];
+    // Coordinates are layout hints. Separate colliding labels without changing graph connectivity.
+    for (let pass = 0; pass < 100; pass++) {
+      let changed = false;
+      for (let i = 0; i < list.length; i++) for (let j = i + 1; j < list.length; j++) {
+        const a = list[i], b = list[j], dx = b.x - a.x, dy = b.y - a.y;
+        const overlapX = (a.w + b.w) / 2 + 42 - Math.abs(dx), overlapY = (a.h + b.h) / 2 + 42 - Math.abs(dy);
+        if (overlapX <= 0 || overlapY <= 0) continue;
+        const axis = overlapX < overlapY ? 'x' : 'y';
+        const shift = ((axis === 'x' ? overlapX : overlapY) / 2 + .1) * ((axis === 'x' ? dx : dy) < 0 ? -1 : 1);
+        a[axis] -= shift; b[axis] += shift; changed = true;
+      }
+      if (!changed) break;
+    }
+    if (list.some((a, i) => list.slice(i + 1).some(b => overlaps(bounds(a, 12), bounds(b, 12))))) {
+      const columns = Math.ceil(Math.sqrt(list.length)), cellW = Math.max(...list.map(n => n.w)) + 70, cellH = Math.max(...list.map(n => n.h)) + 70;
+      list.forEach((node, index) => { node.x = index % columns * cellW; node.y = Math.floor(index / columns) * cellH; });
+    }
+    const offsetX = 100 - Math.min(...list.map(n => bounds(n).left)), offsetY = 100 - Math.min(...list.map(n => bounds(n).top));
+    list.forEach(node => { node.x += offsetX; node.y += offsetY; });
+    let width = Math.max(600, ...list.map(n => bounds(n).right + 100)), height = Math.max(300, ...list.map(n => bounds(n).bottom + 100));
+    const title = wrapText(text(spec.title), width - 48, 19);
+    const routeTop = Math.max(64, spec.title ? 28 + title.length * 25.65 : 64);
+    const extraTop = routeTop - 64;
+    list.forEach(node => { node.y += extraTop; }); height += extraTop;
+    const {svg, palette} = base(''), arrow = `notebook-arrow-${++sequence}`;
+    svg.classList.add('notebook-ai-diagram');
+    svg.querySelector('title').textContent = text(spec.title) || '关系示意图';
+    svg.setAttribute('aria-label', text(spec.title) || '关系示意图');
     const marker = element('marker', {id: arrow, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto-start-reverse'});
     marker.append(element('path', {d: 'M0 0 L10 5 L0 10 Z', fill: palette.ink}));
     const defs = element('defs'); defs.append(marker); svg.append(defs);
+    const ports = node => [
+      {x: node.x + node.w / 2 + 3, y: node.y, dx: 14, dy: 0}, {x: node.x - node.w / 2 - 3, y: node.y, dx: -14, dy: 0},
+      {x: node.x, y: node.y + node.h / 2 + 3, dx: 0, dy: 14}, {x: node.x, y: node.y - node.h / 2 - 3, dx: 0, dy: -14},
+    ];
+    const routes = [];
+    const route = (from, to) => {
+      const dx = to.x - from.x, dy = to.y - from.y, distance = Math.hypot(dx, dy), ux = dx / distance, uy = dy / distance;
+      const clearance = node => node.box ? Math.min(node.w / 2 / Math.abs(ux), node.h / 2 / Math.abs(uy)) + 4 : node.w / 2 + 4;
+      const direct = [{x: from.x + ux * clearance(from), y: from.y + uy * clearance(from)}, {x: to.x - ux * clearance(to), y: to.y - uy * clearance(to)}];
+      if (!list.some(node => node !== from && node !== to && segmentHits(...direct, bounds(node, 12)))) return direct;
+      let best = null, bestCost = Infinity;
+      const xs = [32, width - 32, ...list.flatMap(n => [bounds(n).left - 20, bounds(n).right + 20])];
+      const ys = [routeTop, height - 32, ...list.flatMap(n => [bounds(n).top - 20, bounds(n).bottom + 20])];
+      for (const start of ports(from)) for (const end of ports(to)) {
+        const a = {x: start.x + start.dx, y: start.y + start.dy}, b = {x: end.x + end.dx, y: end.y + end.dy};
+        const paths = [[a, {x: a.x, y: b.y}, b], [a, {x: b.x, y: a.y}, b],
+          ...xs.map(x => [a, {x, y: a.y}, {x, y: b.y}, b]), ...ys.map(y => [a, {x: a.x, y}, {x: b.x, y}, b])];
+        for (const middle of paths) {
+          if (segments(middle).some(([p, q]) => list.some(node => segmentHits(p, q, bounds(node, 8))))) continue;
+          const points = [start, ...middle, end].filter((point, i, all) => !i || Math.hypot(point.x - all[i - 1].x, point.y - all[i - 1].y) > .1);
+          const cost = segments(points).reduce((sum, [p, q]) => sum + Math.hypot(q.x - p.x, q.y - p.y), 0) + points.length * 10;
+          if (cost < bestCost) { best = points; bestCost = cost; }
+        }
+      }
+      if (best) return best;
+      // Dense graphs can need more than three bends. Search the obstacle corridors,
+      // bounded by 24 nodes (at most 56 x 56 intersections), only as a fallback.
+      const starts = ports(from), ends = ports(to);
+      const anchor = port => ({x: port.x + port.dx, y: port.y + port.dy});
+      const xsGrid = [...new Set([...xs, ...starts.map(p => anchor(p).x), ...ends.map(p => anchor(p).x)])].sort((a, b) => a - b);
+      const ysGrid = [...new Set([...ys, ...starts.map(p => anchor(p).y), ...ends.map(p => anchor(p).y)])].sort((a, b) => a - b);
+      const key = p => ysGrid.indexOf(p.y) * xsGrid.length + xsGrid.indexOf(p.x);
+      const point = id => ({x: xsGrid[id % xsGrid.length], y: ysGrid[Math.floor(id / xsGrid.length)]});
+      const roots = new Map(starts.map(p => [key(anchor(p)), p])), targets = new Map(ends.map(p => [key(anchor(p)), p]));
+      const queue = [...roots.keys()], previous = new Map(queue.map(id => [id, null]));
+      for (let cursor = 0; cursor < queue.length; cursor++) {
+        const id = queue[cursor], a = point(id);
+        if (targets.has(id)) {
+          const path = [a]; let parent = id;
+          while (previous.get(parent) !== null) { parent = previous.get(parent); path.unshift(point(parent)); }
+          const points = [roots.get(parent), ...path, targets.get(id)];
+          return points.filter((p, i) => !i || i === points.length - 1
+            || !((points[i - 1].x === p.x && p.x === points[i + 1].x) || (points[i - 1].y === p.y && p.y === points[i + 1].y)));
+        }
+        const x = id % xsGrid.length, y = Math.floor(id / xsGrid.length);
+        for (const [nx, ny] of [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]]) {
+          if (nx < 0 || nx >= xsGrid.length || ny < 0 || ny >= ysGrid.length) continue;
+          const next = ny * xsGrid.length + nx;
+          if (previous.has(next) || list.some(node => segmentHits(a, point(next), bounds(node, 8)))) continue;
+          previous.set(next, id); queue.push(next);
+        }
+      }
+      throw new Error('No clear diagram route');
+    };
     for (const edge of spec.edges) {
       const from = nodes.get(edge.from), to = nodes.get(edge.to);
       if (!from || !to || from === to) throw new Error('Invalid edge');
-      const distance = Math.hypot(to.x - from.x, to.y - from.y);
-      if (distance < 1) throw new Error('Nodes overlap');
-      const ux = (to.x - from.x) / distance, uy = (to.y - from.y) / distance;
-      const clearance = node => node.box ? Math.min(52 / Math.abs(ux), 25 / Math.abs(uy)) + 3 : 36;
-      const start = clearance(from), end = clearance(to);
-      if (distance < start + end + 5) throw new Error('Nodes overlap');
-      const line = element('line', {x1: from.x + ux * start, y1: from.y + uy * start, x2: to.x - ux * end, y2: to.y - uy * end, stroke: palette.ink, 'stroke-width': 2});
+      const points = route(from, to), attrs = {fill: 'none', stroke: palette.ink, 'stroke-width': 2, 'stroke-linejoin': 'round', 'data-diagram-edge': ''};
+      const line = points.length === 2 ? element('line', {...attrs, x1: points[0].x, y1: points[0].y, x2: points[1].x, y2: points[1].y})
+        : element('polyline', {...attrs, points: points.map(p => `${p.x},${p.y}`).join(' ')});
       if (edge.arrow !== false) line.setAttribute('marker-end', `url(#${arrow})`);
-      svg.append(line, element('text', {x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 - 9, 'text-anchor': 'middle', 'font-size': 15, fill: palette.ink}, text(edge.label, 40)));
+      svg.append(line); routes.push({points, label: text(edge.label, 160)});
     }
-    for (const node of nodes.values()) {
-      svg.append(node.box ? element('rect', {x: node.x - 52, y: node.y - 25, width: 104, height: 50, rx: 8, fill: palette.paper, stroke: palette.ink, 'stroke-width': 2})
-        : element('circle', {cx: node.x, cy: node.y, r: 33, fill: palette.paper, stroke: palette.ink, 'stroke-width': 2}),
-      element('text', {x: node.x, y: node.y + 5, 'text-anchor': 'middle', 'font-size': 16, fill: palette.ink}, node.label));
+    const occupied = list.map(node => bounds(node, 10)), legend = [];
+    const allSegments = routes.flatMap(r => segments(r.points));
+    for (const item of routes) {
+      if (!item.label) continue;
+      const lines = wrapText(item.label, 154, 15), w = Math.max(...lines.map(line => textWidth(line, 15))) + 16, h = lines.length * 20.25 + 12;
+      let best = null, bestCost = Infinity;
+      for (const [a, b] of segments(item.points)) {
+        const length = Math.hypot(b.x - a.x, b.y - a.y);
+        if (length < 35) continue;
+        const nx = -(b.y - a.y) / length, ny = (b.x - a.x) / length;
+        for (const fraction of [.5, .3, .7]) for (const sign of [-1, 1]) for (const gap of [12, 28, 48]) {
+          const distance = Math.abs(nx) * w / 2 + Math.abs(ny) * h / 2 + gap;
+          const x = a.x + (b.x - a.x) * fraction + nx * sign * distance, y = a.y + (b.y - a.y) * fraction + ny * sign * distance;
+          const box = {left: x - w / 2, right: x + w / 2, top: y - h / 2, bottom: y + h / 2};
+          if (box.left < 16 || box.top < routeTop || box.right > width - 16 || box.bottom > height - 16
+              || occupied.some(other => overlaps(box, other, 6)) || allSegments.some(([p, q]) => segmentHits(p, q, box))) continue;
+          const cost = gap + Math.abs(fraction - .5) * length + (segments(item.points).length > 1 ? 10 : 0);
+          if (cost < bestCost) { best = {x, y, box}; bestCost = cost; }
+        }
+      }
+      if (best) {
+        occupied.push(best.box);
+        const group = element('g', {'data-diagram-label': ''});
+        group.append(element('rect', {x: best.box.left, y: best.box.top, width: w, height: h, rx: 4, fill: palette.paper}),
+          multiline(lines, best.x, best.y - (lines.length - 1) * 10.125 + 5, 15, palette));
+        svg.append(group);
+      } else {
+        const [a, b] = segments(item.points).sort((a, b) => Math.hypot(b[1].x - b[0].x, b[1].y - b[0].y) - Math.hypot(a[1].x - a[0].x, a[1].y - a[0].y))[0];
+        const x = (a.x + b.x) / 2, y = (a.y + b.y) / 2, number = legend.length + 1;
+        svg.append(element('circle', {cx: x, cy: y, r: 12, fill: palette.paper, stroke: palette.line}),
+          element('text', {x, y: y + 5, 'text-anchor': 'middle', 'font-size': 14, fill: palette.ink}, number));
+        legend.push(`${number}. ${item.label}`);
+      }
     }
+    for (const node of list) {
+      const group = element('g', {'data-diagram-node': '', 'aria-label': node.label});
+      group.append(node.box ? element('rect', {x: node.x - node.w / 2, y: node.y - node.h / 2, width: node.w, height: node.h, rx: 8, fill: palette.paper, stroke: palette.ink, 'stroke-width': 2})
+        : element('circle', {cx: node.x, cy: node.y, r: node.w / 2, fill: palette.paper, stroke: palette.ink, 'stroke-width': 2}),
+        multiline(node.lines, node.x, node.y - (node.lines.length - 1) * 10.8 + 5, 16, palette));
+      svg.append(group);
+    }
+    if (spec.title) svg.append(multiline(title, width / 2, 28, 19, palette));
+    // Dense edge labels have a numbered key instead of covering the drawing.
+    let legendY = height - 36;
+    for (const entry of legend) {
+      const lines = wrapText(entry, width - 80, 15), label = multiline(lines, width / 2, legendY, 15, palette);
+      svg.append(label); legendY += lines.length * 20.25 + 12;
+    }
+    if (legend.length) height = legendY + 24;
+    width = Math.ceil(width); height = Math.ceil(height);
+    svg.setAttribute('width', width); svg.setAttribute('height', height); svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    svg.style.setProperty('--notebook-diagram-width', `${width}px`);
+    svg.querySelector('rect').setAttribute('width', width); svg.querySelector('rect').setAttribute('height', height);
     return svg;
   };
   const csv = rows => '\ufeff' + rows.map(row => row.map(value => {
@@ -119,7 +286,11 @@ window.NotebookOutputs = (() => {
     return node;
   };
   const figure = svg => {
-    const block = document.createElement('figure'); block.className = 'notebook-ai-figure'; block.append(svg);
+    const block = document.createElement('figure'); block.className = 'notebook-ai-figure';
+    if (svg.classList.contains('notebook-ai-diagram')) {
+      const viewport = document.createElement('div'); viewport.className = 'notebook-ai-diagram-viewport'; viewport.tabIndex = 0;
+      viewport.setAttribute('role', 'region'); viewport.setAttribute('aria-label', '示意图，可横向滚动'); viewport.append(svg); block.append(viewport);
+    } else block.append(svg);
     const tools = document.createElement('figcaption'); tools.className = 'notebook-ai-output-tools';
     const serialize = () => new XMLSerializer().serializeToString(svg);
     tools.append(button('下载 SVG', () => download(serialize(), 'figure.svg', 'image/svg+xml')),
@@ -127,13 +298,25 @@ window.NotebookOutputs = (() => {
         const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(serialize()), img = new Image();
         img.onload = () => {
           try {
-            const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 720;
-            canvas.getContext('2d').drawImage(img, 0, 0, 1200, 720);
+            const canvas = document.createElement('canvas');
+            const width = Number(svg.getAttribute('width')), height = Number(svg.getAttribute('height'));
+            const scale = Math.min(2, 2400 / Math.max(width, height));
+            canvas.width = Math.round(width * scale); canvas.height = Math.round(height * scale);
+            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
             canvas.toBlob(blob => { if (blob) { download(blob, 'figure.png'); resolve(); } else reject(new Error()); }, 'image/png');
           } catch (error) { reject(error); }
         };
         img.onerror = () => reject(new Error()); img.src = url;
       })));
+    if (svg.classList.contains('notebook-ai-diagram')) {
+      const viewport = block.firstElementChild;
+      const fit = button('适应宽度', () => {
+        const enabled = viewport.dataset.fit !== 'true'; viewport.dataset.fit = String(enabled);
+        fit.textContent = enabled ? '原始大小' : '适应宽度'; fit.setAttribute('aria-pressed', String(enabled));
+        viewport.setAttribute('aria-label', enabled ? '示意图，全图显示' : '示意图，可横向滚动');
+      });
+      fit.setAttribute('aria-pressed', 'false'); tools.append(fit);
+    }
     block.append(tools); return block;
   };
   const render = target => {
