@@ -143,3 +143,11 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 .notebook-ai-versions { display: inline-flex; align-items: center; gap: .3rem; color: var(--notebook-muted); font-size: .55rem; }
 .notebook-ai .notebook-ai-versions button { padding: .1rem .3rem; border: 0; font-size: .85rem; }
 .notebook-ai .notebook-ai-raw { min-height: 8rem; max-height: 35dvh; margin-top: .4rem; font-family: var(--md-code-font); font-size: .62rem; }
+
+.notebook-ai-attachments { margin: 0 !important; max-height: 8rem; overflow: auto; }
+.notebook-ai-attachments > summary { cursor: pointer; color: var(--notebook-muted); }
+.notebook-ai-attachments p, .notebook-ai-file-names { font-size: .58rem !important; color: var(--notebook-muted); }
+.notebook-ai-attachment { display: flex; align-items: center; gap: .4rem; padding: .2rem 0; }
+.notebook-ai-attachment > span { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: .65rem; }
+.notebook-ai-attachment img { width: 2rem; height: 2rem; object-fit: contain; border-radius: .2rem; }
+.notebook-ai-answer img { display: block; max-width: 100%; max-height: 22rem; object-fit: contain; margin: .5rem auto; }

@@ -16,8 +16,17 @@ window.NotebookConversations = (() => {
   const sources = value => (Array.isArray(value) ? value : []).slice(0, 24).filter(source =>
     Number.isInteger(source?.id) && typeof source.url === 'string' && source.url.startsWith('/') && !source.url.startsWith('//'))
     .map(source => ({id: source.id, title: text(source.title, 500), url: text(source.url, 2000), outside_scope: source.outside_scope === true}));
+  const figures = value => (Array.isArray(value) ? value : []).slice(0, 4).flatMap(file => {
+    try {
+      const url = new URL(file?.url, location.origin);
+      if (typeof file.url !== 'string' || !file.url.startsWith('/') || file.url.startsWith('//')
+          || url.origin !== location.origin || url.search || url.hash || url.pathname.startsWith('/api/')
+          || !/\.(png|jpe?g|webp)$/i.test(url.pathname)) return [];
+      return [{url: url.pathname, caption: text(file.caption, 300), source_id: Number.isInteger(file.source_id) ? file.source_id : 0}];
+    } catch { return []; }
+  });
   const response = value => ({content: text(value.content, 64000), sources: sources(value.sources),
-    truncated: value.truncated === true, finish_reason: text(value.finish_reason, 30)});
+    truncated: value.truncated === true, finish_reason: text(value.finish_reason, 30), figures: figures(value.figures)});
   const request = value => {
     if (!value || !['openai', 'deepseek', 'anthropic'].includes(value.provider)
         || typeof value.model !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,99}$/.test(value.model)
@@ -28,6 +37,8 @@ window.NotebookConversations = (() => {
         || history.reduce((size, item) => size + item.content.length, 0) > 8000) return null;
     const result = {provider: value.provider, model: value.model, question: value.question,
       history: history.map(item => ({role: item.role, content: item.content}))};
+    if (value.requires_attachments === true) result.requires_attachments = true;
+    if (value.note_images === true) result.note_images = true;
     if (value.scope) result.scope = cleanScope(value.scope);
     if (value.memory) result.memory = {summary: text(value.memory.summary, 2000), notes: text(value.memory.notes, 2000)};
     return result;
@@ -37,7 +48,7 @@ window.NotebookConversations = (() => {
         || value.messages.length > 2000 || !['openai', 'deepseek', 'anthropic'].includes(value.provider)) throw new Error('会话格式不正确。');
     const now = Date.now();
     return {id: value.id, title: text(value.title, 100) || '新对话', provider: value.provider,
-      model: text(value.model, 100), scope: cleanScope(value.scope), draftQuote: quote(value.draftQuote), draft: text(value.draft, 4000),
+      model: text(value.model, 100), noteImages: value.noteImages === true, scope: cleanScope(value.scope), draftQuote: quote(value.draftQuote), draft: text(value.draft, 4000),
       createdAt: Number.isFinite(value.createdAt) ? Math.min(now, value.createdAt) : now,
       updatedAt: Number.isFinite(value.updatedAt) ? Math.min(now, value.updatedAt) : now,
       revision: Number.isSafeInteger(value.revision) && value.revision >= 0 ? value.revision : 0,
@@ -48,6 +59,8 @@ window.NotebookConversations = (() => {
         const result = {role: message.role, content: message.content, failed: message.failed === true,
           pending: message.pending === true, quote: quote(message.quote), truncated: message.truncated === true,
           finish_reason: text(message.finish_reason, 30), scope: cleanScope(message.scope), sources: sources(message.sources)};
+        result.figures = figures(message.figures);
+        result.files = (Array.isArray(message.files) ? message.files : []).slice(0, 4).map(file => ({name: text(file?.name, 120)}));
         if (message.role === 'user') result.request = request(message.request);
         if (message.role === 'assistant' && Array.isArray(message.versions)) {
           const versions = message.versions.filter(version => typeof version?.content === 'string' && version.content.length <= 64000).slice(0, 10).map(response);
@@ -155,5 +168,5 @@ window.NotebookConversations = (() => {
       },
     };
   };
-  return {open, uid, clean, quote, request};
+  return {open, uid, clean, quote, request, figures};
 })();

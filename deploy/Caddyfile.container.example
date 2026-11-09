@@ -3,7 +3,7 @@ notes.example.com {
     log_skip /api/*
     encode zstd gzip
     request_body {
-        max_size 20KB
+        max_size 12MB
     }
     handle /api/* {
         header Cache-Control "no-store, no-transform"

@@ -32,6 +32,7 @@ async function setup(t, fetch, {rendering = true, storageState = {}, autoSave = 
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-store.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-scope.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai-models.js', 'utf8'));
+  window.eval(fs.readFileSync('docs/javascripts/notebook-ai-attachments.js', 'utf8'));
   window.eval(fs.readFileSync('docs/javascripts/notebook-ai.js', 'utf8'));
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
   await window.NotebookAIReady;
@@ -1246,4 +1247,75 @@ test('touch selection survives native collapse and opens the quote exactly once 
   assert.match(get('quote-markdown').value, /电荷密度乘以/);
   assert.equal(get('question').value, '请解释这段内容。');
   assert.equal(modelCalls, 0);
+});
+
+async function attachFile(window, get, file) {
+  Object.defineProperty(get('attachment-input'), 'files', {value: [file], configurable: true});
+  get('attachment-input').dispatchEvent(new window.Event('change'));
+  for (let i=0; i<40 && get('attach').textContent === '附件'; i++) await new Promise(resolve=>setTimeout(resolve,5));
+}
+
+test('text attachments are sent explicitly, isolated by conversation, and never enter IndexedDB contents', async t => {
+  let sent;
+  const {window, get, submit} = await setup(t, async (url, options) => { sent=JSON.parse(options.body); return answerResponse('file answer')(); });
+  const initial = get('session').value;
+  const marker = 'private-attachment-body-not-in-history';
+  await attachFile(window,get,new window.File([marker],'notes.txt',{type:'text/plain'}));
+  assert.equal(get('attach').textContent,'附件 1');
+  get('question').value=''; await submit();
+  assert.equal(sent.question,'请分析所附文件。');
+  assert.equal(sent.attachments.length,1);
+  assert.match(sent.attachments[0].data_url,/^data:text\/plain;base64,/);
+  assert.equal(Buffer.from(sent.attachments[0].data_url.split(',')[1],'base64').toString(),marker);
+  const db=await window.NotebookConversations.open(); t.after(()=>db.close());
+  const sessions=await db.list();
+  assert.ok(!JSON.stringify(sessions).includes(marker));
+  assert.ok(!JSON.stringify(sessions).includes(Buffer.from(marker).toString('base64')));
+  assert.equal(sessions[0].messages[0].request.requires_attachments,true);
+  assert.equal(sessions[0].messages[0].files[0].name,'notes.txt');
+  get('new').click();
+  assert.equal(get('attach').textContent,'附件');
+  get('session').value=initial; get('session').dispatchEvent(new window.Event('change'));
+  assert.equal(get('attach').textContent,'附件 1');
+  get('attachment-list').querySelector('button').click();
+  assert.equal(get('attachments').hidden,true);
+});
+
+test('image rendering accepts only verified same-origin figure URLs and survives history restore', async t => {
+  const indexedDB = new IDBFactory();
+  const first=await setup(t, async()=>({ok:true,headers:new Headers({'Content-Type':'application/json'}),json:async()=>({
+    answer:'![笔记图](/course/assets/figure.png) ![未知图](/other.png) ![远程图](https://evil.example/x.png)', sources:[],
+    figures:[{url:'/course/assets/figure.png',caption:'高斯面',source_id:1},{url:'https://evil.example/x.png',caption:'bad'}],
+  })}),{indexedDB});
+  await first.submit();
+  assert.equal(first.get('answer').querySelectorAll('img').length,1);
+  assert.equal(first.get('answer').querySelector('img').getAttribute('src'),'https://notes.example.com/course/assets/figure.png');
+  const next=await setup(t,answerResponse('unused'),{indexedDB});
+  assert.equal(next.get('answer').querySelectorAll('img').length,1);
+  assert.equal(next.get('answer').querySelector('img').alt,'高斯面');
+});
+
+test('attachment restoration never silently regenerates a visual answer without the files', async t => {
+  const indexedDB = new IDBFactory();
+  const first=await setup(t,answerResponse('file answer'),{indexedDB});
+  await attachFile(first.window,first.get,new first.window.File(['attachment body'],'notes.txt',{type:'text/plain'}));
+  await first.submit();
+  let calls=0;
+  const next=await setup(t,async()=>{calls++;return answerResponse('unexpected')();},{indexedDB});
+  assert.equal(next.get('attachments').hidden,true);
+  next.panel.querySelector('[data-regenerate]').click();
+  await new Promise(resolve=>setTimeout(resolve,20));
+  assert.equal(calls,0);
+  assert.match(next.get('status').textContent,/重新附上原文件/);
+});
+
+test('unsupported file types do not get previews, persisted data, or model requests', async t => {
+  let calls=0;
+  const {window,get}=await setup(t,async()=>{calls++;return answerResponse('answer')();});
+  Object.defineProperty(get('attachment-input'),'files',{value:[new window.File(['<svg onload="alert(1)"/>'],'a.svg',{type:'image/svg+xml'})]});
+  get('attachment-input').dispatchEvent(new window.Event('change'));
+  await new Promise(resolve=>setTimeout(resolve,15));
+  assert.match(get('status').textContent,/不支持 SVG/);
+  assert.equal(get('attachments').hidden,true);
+  assert.equal(calls,0);
 });

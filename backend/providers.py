@@ -29,19 +29,43 @@ class ProviderError(Exception):
         self.status = status
 
 
-async def complete(provider, key, model, system, prompt, max_tokens=8192, *, reasoning=True):
+def attachment_content(provider, prompt, attachments):
+    content = [{"type": "input_text" if provider == "openai" else "text", "text": prompt}]
+    for file in attachments:
+        if file['kind'] != 'text':
+            content.append({"type": "input_text" if provider == "openai" else "text",
+                            "text": json.dumps({"attachment_name": file['name'], "kind": file['kind']}, ensure_ascii=False)})
+        if file['kind'] == 'text':
+            content.append({"type": "input_text" if provider == "openai" else "text",
+                            "text": json.dumps({"attachment_name": file['name'], "untrusted_text": file['text']}, ensure_ascii=False)})
+        elif provider == 'openai':
+            data = f"data:{file['mime']};base64,{file['data']}"
+            content.append({"type": "input_image", "image_url": data, "detail": "auto"} if file['kind'] == 'image'
+                           else {"type": "input_file", "filename": file['name'], "file_data": data})
+        elif provider == 'anthropic':
+            content.append({"type": "image" if file['kind'] == 'image' else "document",
+                            "source": {"type": "base64", "media_type": file['mime'], "data": file['data']}})
+        else:
+            raise ProviderError('当前 DeepSeek 接口仅接入文字附件；图片和 PDF 请使用支持视觉的 OpenAI 或 Anthropic 模型。', 400)
+    return content
+
+
+async def complete(provider, key, model, system, prompt, max_tokens=8192, *, reasoning=True, attachments=None):
     headers = {"Authorization": "Bearer " + key}
+    content = attachment_content(provider, prompt, attachments) if attachments else prompt
+    if provider == 'deepseek' and attachments:
+        content = '\n\n'.join(part['text'] for part in content)
     if provider == "openai":
-        body = {"model": model, "instructions": system, "input": prompt,
+        body = {"model": model, "instructions": system, "input": [{"role": "user", "content": content}] if attachments else prompt,
                 "max_output_tokens": max_tokens, "store": False}
     elif provider == "deepseek":
         body = {"model": model, "messages": [{"role": "system", "content": system},
-                {"role": "user", "content": prompt}], "max_tokens": max_tokens}
+                {"role": "user", "content": content}], "max_tokens": max_tokens}
         if not reasoning:
             body["thinking"] = {"type": "disabled"}
     elif provider == "anthropic":
         headers = {"x-api-key": key, "anthropic-version": "2023-06-01"}
-        body = {"model": model, "system": system, "messages": [{"role": "user", "content": prompt}],
+        body = {"model": model, "system": system, "messages": [{"role": "user", "content": content}],
                 "max_tokens": max_tokens}
     else:
         raise ProviderError("不支持的供应商。", 400)
@@ -54,6 +78,8 @@ async def complete(provider, key, model, system, prompt, max_tokens=8192, *, rea
                     raise ProviderError("供应商拒绝认证，请检查 key、账户权限及地区支持。", 401)
                 if response.status_code == 429:
                     raise ProviderError("供应商额度不足或调用过于频繁，请稍后重试。", 429)
+                if attachments and response.status_code in (400, 413, 422):
+                    raise ProviderError("模型未接受附件；请确认模型支持附件类型，或缩小文件后手动重试。", 400)
                 if not 200 <= response.status_code < 300:
                     raise ProviderError("供应商调用失败，请检查模型 ID 和账户状态。")
                 data = bytearray()

@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p>默认只保留在当前标签页，最多 2 小时。7 天和 30 天会把 key 保存在此浏览器，同源脚本可以读取；请只在自己的设备上启用。到期后停止使用，可随时清除。</p>
         <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不将 key、问题或回答写入磁盘或应用日志。任务生成最多持续 4 分钟，结果仅在内存中暂存，完成后 2 分钟过期并定期清除，便于网络恢复后查询。</p>
         <p>每次提问通常调用两次模型，回答生成预算上限为 8,192 tokens（推理模型可能将思考计入预算），详细回答可能花费更多时间和费用。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。</p>
-        <p>聊天记录保存在此浏览器，不自动同步到其他设备。不要输入其他密码、服务器凭据或敏感个人信息。</p>
+        <p>选中的附件和开启配图后检索到的相关原图会随问题发送给供应商；图片和 PDF 可能增加费用。附件文件不写入本站磁盘或会话导出；会话仍保存文件名和问答文字。聊天记录保存在此浏览器，不自动同步到其他设备。不要输入其他密码、服务器凭据或敏感个人信息。</p>
       </details>
       <label class="notebook-ai-consent"><input type="checkbox" data-consent required>我了解密钥保存与转发、对话发送和费用说明</label>
       <div class="notebook-ai-actions"><button type="submit" data-save>保存设置</button><button type="button" data-clear>清除已保存 key</button></div>
@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <input type="file" data-import-file accept="application/json,.json" hidden>
       <p>记录保存在此浏览器。导出文件不含 API key。</p>
     </details></div>
+    <label class="notebook-ai-consent"><input type="checkbox" data-note-images>读取相关笔记配图（最多 4 张，需视觉模型）</label>
     <div data-note-scope></div>
     <details data-memory-view class="notebook-ai-memory"><summary>记忆</summary>
       <label>这段对话的记忆<textarea data-session-memory maxlength="2000" rows="3" placeholder="旧对话的摘要，也可以自己填写"></textarea></label>
@@ -84,8 +85,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     </section>
     <p data-status role="status" aria-live="polite"></p>
     <form data-chat-form autocomplete="off">
-      <label class="notebook-ai-composer-label">你的问题<textarea data-question required maxlength="4000" rows="2" placeholder="问一个问题，或选中正文中的一段文字…"></textarea></label>
-      <div class="notebook-ai-actions"><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden>准备续写</button></div>
+      <details data-attachments hidden class="notebook-ai-attachments"><summary data-attachment-count>附件</summary>
+        <div data-attachment-list></div><p>附件随本轮及后续问题发送；移除后停止发送。仅在本标签页保留，刷新后需重选。</p>
+      </details>
+      <input type="file" data-attachment-input accept=".png,.jpg,.jpeg,.webp,.pdf,.docx,.txt,.md" multiple hidden>
+      <label class="notebook-ai-composer-label">你的问题<textarea data-question maxlength="4000" rows="2" placeholder="问一个问题，或选中正文中的一段文字…"></textarea></label>
+      <div class="notebook-ai-actions"><button type="button" data-attach>附件</button><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden>准备续写</button></div>
     </form></section>`;
   document.body.append(launch, panel);
   window.NotebookPanelLayout?.(panel);
@@ -110,6 +115,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     return writes;
   };
+  const attachments = window.NotebookAttachments?.(panel, () => current, () => {
+    get("submit").disabled = Boolean(attachments?.busy || (current && running.has(current.id)));
+  }, () => conversations.values());
+  get("note-images").addEventListener("change", () => {
+    current.noteImages = get("note-images").checked; void persist(current);
+  });
   window.NotebookAIFlush = () => writes;
   const composeQuestion = (question, quote) => quote
     ? `${question}\n\n引用笔记《${quote.title || "笔记"}》${quote.url ? "\n" + quote.url : ""}\n\n${quote.markdown}` : question;
@@ -315,8 +326,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
   const markdown = typeof window.markdownit === "function" ? window.markdownit({
     html: false, linkify: false, breaks: true, maxNesting: 20,
-  }).disable("image") : null;
+  }) : null;
   if (markdown) {
+    markdown.renderer.rules.image = (tokens, index, options, env) => {
+      const token = tokens[index], value = token.attrGet('src');
+      const figure = env.figures?.find(item => safeURL(item.url) === safeURL(value));
+      const escape = markdown.utils.escapeHtml;
+      if (!figure || !safeURL(value)) return escape(token.content || '图片不可用');
+      return `<a href="${escape(safeURL(value))}" target="_blank" rel="noopener noreferrer"><img src="${escape(safeURL(value))}" alt="${escape(figure.caption || token.content)}" loading="lazy"></a>`;
+    };
     // Answer links stay on this site. References use URLs from our source index.
     markdown.validateLink = (value) => {
       try {
@@ -411,11 +429,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       return url ? `<a href="${escape(url)}" title="${escape(source.title)}">[${id}]</a>` : `[${id}]`;
     };
   }
-  const render = (answer, sources, target, sourceList, quote = false) => {
+  const render = (answer, sources, target, sourceList, quote = false, figures = []) => {
     target.replaceChildren();
     const formatted = markdown && window.DOMPurify?.isSupported && window.katex;
     if (formatted) {
-      const env = {sources: new Map(sources.map(s => [s.id, s])), math: []};
+      const env = {sources: new Map(sources.map(s => [s.id, s])), math: [], figures: window.NotebookConversations.figures(figures)};
       const validate = markdown.validateLink;
       let html;
       try {
@@ -427,8 +445,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       } finally { markdown.validateLink = validate; }
       const fragment = window.DOMPurify.sanitize(html, {
         ALLOWED_TAGS: ["p", "br", "hr", "h1", "h2", "h3", "h4", "h5", "h6", "strong", "em", "s", "blockquote",
-          "ul", "ol", "li", "pre", "code", "table", "thead", "tbody", "tr", "th", "td", "a", "span", "div"],
-        ALLOWED_ATTR: ["class", "href", "title", "start", "data-math-index"],
+          "ul", "ol", "li", "pre", "code", "table", "thead", "tbody", "tr", "th", "td", "a", "span", "div", "img"],
+        ALLOWED_ATTR: ["class", "href", "title", "start", "data-math-index", "src", "alt", "loading", "target", "rel"],
         ALLOW_DATA_ATTR: false, ALLOW_ARIA_ATTR: false, RETURN_DOM_FRAGMENT: true,
       });
       target.append(fragment);
@@ -484,6 +502,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     refreshDraftQuote(); void persist(current);
   });
   const showUserQuote = (record, output) => {
+    if (record.files?.length) {
+      const label = document.createElement('p'); label.className = 'notebook-ai-file-names';
+      label.textContent = '附件：' + record.files.map(file => file.name).join('、');
+      output.message.append(label);
+    }
     if (!record.quote) return;
     const block = document.createElement("blockquote"); block.className = "notebook-ai-quoted-message";
     const content = document.createElement("div"); content.className = "notebook-ai-answer";
@@ -531,14 +554,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]);
     const payload = {provider: current.provider, model: current.model, question: composeQuestion(question, current.draftQuote), history};
     if (payload.question.length > 4000) return null;
+    if (attachments?.files().length) payload.attachments = attachments.files();
+    if (get("note-images").checked) payload.note_images = true;
     if (current.summary || sessionPreferences.notes) payload.memory = {summary: current.summary || "", notes: sessionPreferences.notes || ""};
     if (noteScope?.value().ids.length) payload.scope = noteScope.value();
-    // Stay below the existing 20 KB proxy/body cap, including UTF-8 and JSON escaping.
     const bytes = value => new TextEncoder().encode(JSON.stringify(value)).length;
-    while (history.length && (history.reduce((n, item) => n + item.content.length, 0) > 8000 || bytes(payload) > 18000)) {
+    const textBytes = () => bytes({...payload, attachments: undefined});
+    while (history.length && (history.reduce((n, item) => n + item.content.length, 0) > 8000 || textBytes() > 18000)) {
       history.splice(0, 2);
     }
-    return bytes(payload) <= 18000 ? JSON.stringify(payload) : null;
+    return textBytes() <= 18000 && bytes(payload) <= 12 * 1024 * 1024 ? JSON.stringify(payload) : null;
   };
   const readAnswer = async response => {
     const type = response.headers.get("content-type") || "";
@@ -603,7 +628,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       try {
         mayExist = true;
-        const data = await jobRequest("/api/jobs", body, key, signal, id);
+        const data = await jobRequest("/api/jobs", body, key, signal, id, JSON.parse(body).attachments?.length ? 60000 : 12000);
         // Immediate results are accepted as well as the normal asynchronous job reply.
         if (typeof data?.answer === "string") { finished = true; return data; }
         if (data?.job_id !== id) throw new Error("任务响应格式异常，请刷新页面后重试。");
@@ -676,16 +701,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     if (!replacement && current.messages.length >= 1998) { get("status").textContent = "这段对话已很长，请新建对话。"; return; }
     const session = current;
-    const question = replacement ? previousUser.content : get("question").value.trim();
+    if (attachments?.busy) { get("status").textContent = "请等待附件读取完成。"; return; }
+    const question = replacement ? previousUser.content : (get("question").value.trim() || (attachments?.files().length ? "请分析所附文件。" : ""));
     if (!question || question.length > 4000) return;
-    const body = replay ? JSON.stringify(replay) : requestBody(question);
-    if (!body || new TextEncoder().encode(body).length > 18000) {
+    let body;
+    if (replay) {
+      const payload = {...replay};
+      if (payload.requires_attachments) {
+        const files = attachments?.files();
+        const names = list => list.map(file => file.name).sort().join('\n');
+        if (!files?.length || names(files) !== names(previousUser?.files || [])) {
+          get("status").textContent = "附件未保存，请重新附上原文件后重试。"; return;
+        }
+        payload.attachments = files;
+      }
+      delete payload.requires_attachments;
+      body = JSON.stringify(payload);
+    } else body = requestBody(question);
+    if (!body || new TextEncoder().encode(body).length > 12 * 1024 * 1024) {
       get("status").textContent = "问题和记忆过长，请缩短后再发送。";
+      return;
+    }
+    const outgoing = JSON.parse(body), files = outgoing.attachments || [];
+    if (outgoing.provider === 'deepseek' && (outgoing.note_images || files.some(file => /^data:(image\/|application\/pdf;)/.test(file.data_url)))) {
+      get("status").textContent = "当前 DeepSeek 接口仅接入文字附件；图片和 PDF 请使用支持视觉的 OpenAI 或 Anthropic 模型。";
       return;
     }
     if (!turns.length && !get("messages").querySelector("article")) get("messages").replaceChildren();
     const userRecord = replacement ? previousUser : {role: "user", content: question, pending: true,
-      scope: noteScope?.value(), quote: current.draftQuote ? {...current.draftQuote} : null, request: JSON.parse(body)};
+      scope: noteScope?.value(), quote: current.draftQuote ? {...current.draftQuote} : null,
+      files: files.map(file => ({name: file.name})),
+      request: window.NotebookConversations.request({...outgoing, requires_attachments: Boolean(files.length)})};
     if (!replacement) {
       session.messages.push(userRecord);
       session.draft = ""; session.draftQuote = null; refreshDraftQuote();
@@ -706,7 +752,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     running.set(session.id, job); refreshSessions(); renderSession(); updateMemory();
     const started = performance.now();
     let completed = false;
-    const timer = setTimeout(() => controller.abort(), 265000);
+    const timer = setTimeout(() => controller.abort(), files.length ? 325000 : 265000);
     let phase = "正在提交问题";
     const drawProgress = () => {
       const seconds = Math.floor((performance.now() - started) / 1000);
@@ -730,7 +776,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       completed = true;
       userRecord.pending = false;
-      const answer = {content: data.answer, sources: data.sources, truncated: data.truncated === true, finish_reason: data.finish_reason};
+      const answer = {content: data.answer, sources: data.sources, truncated: data.truncated === true, finish_reason: data.finish_reason, figures: data.figures || []};
       if (replacement) {
         replacement.versions ||= [responseSnapshot(replacement)];
         replacement.versions.push(answer); replacement.version = replacement.versions.length - 1;
@@ -869,12 +915,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         const retry = document.createElement("button"); retry.type = "button"; retry.textContent = "重新填写";
         retry.addEventListener("click", () => {
           get("question").value = record.content; current.draftQuote = record.quote ? {...record.quote} : null;
-          refreshDraftQuote(); noteScope?.restore(record.scope); get("question").focus();
+          if (record.files?.length && !attachments?.files().length) get("status").textContent = "附件未保存，请重新附上原文件。";
+          attachments?.render(); refreshDraftQuote(); noteScope?.restore(record.scope); get("question").focus();
         });
         output.message.append(retry);
       }
       if (record.role === "assistant") {
-        const formatted = render(record.content, record.sources || [], output.content, output.sources);
+        const formatted = render(record.content, record.sources || [], output.content, output.sources, false, record.figures || []);
         if (!formatted && !current.status) current.status = "排版资源未加载，暂以纯文本显示。";
         const remember = document.createElement("button");
         remember.type = "button"; remember.textContent = "记住";
@@ -922,6 +969,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     restoring = true; noteScope?.restore(session.scope); restoring = false;
     get("question").value = session.draft || "";
     get("quote-details").open = false;
+    get("note-images").checked = session.noteImages === true;
+    attachments?.render();
     refreshDraftQuote();
     get("session-title").value = session.title;
     get("session-memory").value = session.summary || "";
@@ -988,7 +1037,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) { get("session-status").textContent = error.name === "Error" ? error.message : "文件内容不正确，请选择本站导出的 JSON 文件。"; }
     get("import-file").value = "";
   });
-  const responseSnapshot = record => ({content: record.content, sources: structuredClone(record.sources || []),
+  const responseSnapshot = record => ({content: record.content, sources: structuredClone(record.sources || []), figures: structuredClone(record.figures || []),
     truncated: record.truncated === true, finish_reason: record.finish_reason});
   const originalRequest = (session, index) => {
     const user = session.messages[index - 1];
