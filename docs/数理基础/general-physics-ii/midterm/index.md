@@ -3,7 +3,7 @@ title: "General Physics II · Midterm Preparation"
 status: draft
 tags: [math-physics, physics, midterm, revision]
 created: 2026-11-08
-updated: 2026-11-09
+updated: 2026-11-10
 sources:
   - "Instructor's midterm requirements supplied by the user: electrostatics through Chapter 14; formulas provided"
   - "2023 midterm images supplied by the user: formula sheet p. 2, questions pp. 3, 5, 7, 9"
@@ -26,6 +26,7 @@ sources:
 
 | Material | Use |
 | --- | --- |
+| [期中公式速解](formula-guide.md) | 按计算题通用性排序，逐条解释卷内 31 式并补充常用缺项 |
 | [2023 paper · 4 questions, 100 points](paper-2023.md) | Question text and redrawn diagrams, without solutions |
 | [2023 worked solutions](solutions-2023.md) | All 13 subparts, methods, sign conventions, and source corrections |
 | [2023 formula sheet, annotated](formula-sheet-2023.md) | All supplied relations, their conditions, and the magnetic-energy correction |

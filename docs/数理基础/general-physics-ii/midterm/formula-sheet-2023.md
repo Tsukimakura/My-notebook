@@ -3,14 +3,14 @@ title: "2023 Midterm · Annotated Formula Sheet"
 status: draft
 tags: [math-physics, physics, midterm, formulas]
 created: 2026-11-08
-updated: 2026-11-09
+updated: 2026-11-10
 sources:
   - "2023 midterm formula-sheet image supplied by the user, printed p. 2"
 ---
 
 # 2023 Midterm · Annotated Formula Sheet
 
-[Midterm index](index.md) · [Question paper](paper-2023.md) · [Full course formula reference](../quick-reference.md) · [Physical definitions and units](essential-notes.md)
+[中文公式速解与补充](formula-guide.md) · [Midterm index](index.md) · [Question paper](paper-2023.md) · [Full course formula reference](../quick-reference.md) · [Physical definitions and units](essential-notes.md)
 
 The tables reproduce all 31 relations on the supplied sheet, grouped by topic. Conditions and symbol explanations are added. This is the **2023** sheet; the instructor has said formulas will also be provided for the current exam, but has not supplied its final sheet here.
 
