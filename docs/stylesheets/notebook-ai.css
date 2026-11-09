@@ -167,3 +167,5 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 .notebook-ai-diagram-viewport { max-width: 100%; overflow-x: auto; border: 1px solid var(--notebook-line); border-radius: .4rem; }
 .notebook-ai-diagram-viewport > svg { display: block; width: 100%; min-width: var(--notebook-diagram-width); height: auto; }
 .notebook-ai-diagram-viewport[data-fit="true"] > svg { min-width: 0; }
+
+.notebook-ai-answer .notebook-ai-citation + .notebook-ai-citation { margin-inline-start: .2em; }

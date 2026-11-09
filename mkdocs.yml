@@ -78,13 +78,13 @@ extra_javascript:
   - javascripts/notebook-ai-attachments.js?v=2
   - javascripts/notebook-ai-outputs.js?v=2
   - javascripts/notebook-ai-layout.js?v=3
-  - javascripts/notebook-ai.js?v=21
+  - javascripts/notebook-ai.js?v=22
 
 extra_css:
   - assets/vendor/katex/katex.min.css
   - stylesheets/notebook-theme.css?v=2
   - stylesheets/notebook-reader.css?v=2
-  - stylesheets/notebook-ai.css?v=16
+  - stylesheets/notebook-ai.css?v=17
 
 copyright: Copyright © 2025 Tsukimakura
 

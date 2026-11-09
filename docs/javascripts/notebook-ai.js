@@ -444,8 +444,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     markdown.renderer.rules.notebook_math_block = mathPlaceholder;
     markdown.inline.ruler.before("link", "notebook_citation", (state, silent) => {
       if (state.linkLevel > 0) return false;
-      const match = /^\[(\d{1,3})\](?![\[(])/.exec(state.src.slice(state.pos));
+      const match = /^\[(\d{1,3})\]/.exec(state.src.slice(state.pos));
       if (!match || !state.env.sources.has(Number(match[1]))) return false;
+      const next = state.src.slice(state.pos + match[0].length);
+      // Adjacent [1][3][4] are independent citations. Keep explicit Markdown
+      // links and defined reference links under the normal link parser.
+      if (next.startsWith("(")) return false;
+      if (next.startsWith("[")) {
+        const reference = /^\[(\d{1,3})\]/.exec(next);
+        if (!reference || state.env.references?.[reference[1]]) return false;
+      }
       if (!silent) {
         const token = state.push("notebook_citation", "", 0);
         token.content = match[1];
@@ -458,7 +466,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const source = env.sources.get(Number(id));
       const url = safeURL(source.url);
       const escape = markdown.utils.escapeHtml;
-      return url ? `<a href="${escape(url)}" title="${escape(source.title)}">[${id}]</a>` : `[${id}]`;
+      return url ? `<a class="notebook-ai-citation" href="${escape(url)}" title="${escape(source.title)}">[${id}]</a>` : `[${id}]`;
     };
   }
   const render = (answer, sources, target, sourceList, quote = false, figures = []) => {

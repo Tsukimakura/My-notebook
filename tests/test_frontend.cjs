@@ -1465,3 +1465,36 @@ test('selected conversation formulas can be quoted and asked without changing no
   assert.ok(!requests[1].question.includes('引用笔记'));
   assert.deepEqual(requests[1].scope, requests[0].scope);
 });
+
+
+test('adjacent citations each link to their own source without consuming ordinary Markdown links', async t => {
+  const {get,submit}=await setup(t,async()=>jsonResponse({answer:String.raw`漂移与电荷符号无关 [1][3][4]。另见 [1][4] 和 [99][1]。
+
+[1](/explicit/) [1][manual] [1][3]
+
+[manual]: /manual/
+[3]: /reference-three/
+
+\[1]、\[3]、\[4] 是转义文本。${"`[1][3][4]`"} 和 $a[1][3]$ 不作为引用。
+`,sources:[{id:1,title:'电场',url:'/electric/'},{id:3,title:'磁场',url:'/magnetic/'},{id:4,title:'漂移',url:'/drift/'}]}));
+  await submit();
+  const output=get('answer');
+  const first=output.querySelector('p');
+  // The explicit definition of [3] means the first [1][3] is a Markdown reference link.
+  assert.equal(first.querySelector('a').pathname,'/reference-three/');
+  assert.ok(output.querySelector('a[href="/explicit/"]'));
+  assert.ok(output.querySelector('a[href="/manual/"]'));
+  assert.ok(output.querySelector('a[href="/reference-three/"]'));
+  assert.equal(output.querySelector('code a,.notebook-ai-math a'),null);
+});
+
+test('all adjacent source IDs remain independently clickable including repeated and unknown IDs', async t => {
+  const {get,submit}=await setup(t,async()=>jsonResponse({answer:'结论 [1][3][4]。另一处 [1][4]。未知 [99][1]。重复 [1][1]。',
+    sources:[{id:1,title:'电场',url:'/electric/'},{id:3,title:'磁场',url:'/magnetic/'},{id:4,title:'漂移',url:'/drift/'}]}));
+  await submit();
+  const citations=[...get('answer').querySelectorAll('.notebook-ai-citation')];
+  assert.deepEqual(citations.map(link=>link.textContent),['[1]','[3]','[4]','[1]','[4]','[1]','[1]','[1]']);
+  assert.deepEqual(citations.slice(0,3).map(link=>link.pathname),['/electric/','/magnetic/','/drift/']);
+  assert.equal(get('answer').querySelector('a a'),null);
+  assert.match(get('answer').textContent,/未知 \[99\]\[1\]/);
+});
