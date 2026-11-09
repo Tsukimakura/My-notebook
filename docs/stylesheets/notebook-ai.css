@@ -160,3 +160,5 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 .notebook-ai-export > summary { cursor: pointer; padding: .3rem 0; color: var(--notebook-muted); list-style: none; }
 .notebook-ai-export[open] { padding: .3rem .5rem; border: 1px solid var(--notebook-line); border-radius: .4rem; background: var(--notebook-canvas); }
 .notebook-ai .notebook-ai-export button { border: 0; min-height: 32px; }
+
+.notebook-ai .notebook-ai-response-meta { color: var(--notebook-muted); font-size: .55rem; margin: .4rem 0 .15rem; }

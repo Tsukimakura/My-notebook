@@ -786,7 +786,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       completed = true;
       userRecord.pending = false;
-      const answer = {content: data.answer, sources: data.sources, truncated: data.truncated === true, finish_reason: data.finish_reason, figures: data.figures || [], continuation: data.continuation || '', usage: data.usage || {}};
+      const answer = {respondedAt: Date.now(), elapsedMs: Math.round(performance.now() - started)
+        + (mode === 'continue' ? replacement?.elapsedMs || 0 : 0), content: data.answer, sources: data.sources, truncated: data.truncated === true, finish_reason: data.finish_reason, figures: data.figures || [], continuation: data.continuation || '', usage: data.usage || {}};
       if (replacement) {
         if (mode !== 'continue') {
           replacement.versions ||= [responseSnapshot(replacement)];
@@ -935,6 +936,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (record.role === "assistant") {
         const formatted = render(record.content, record.sources || [], output.content, output.sources, false, record.figures || []);
         if (!formatted && !current.status) current.status = "排版资源未加载，暂以纯文本显示。";
+        if (Number.isFinite(record.respondedAt) && record.respondedAt > 0) {
+          const meta = document.createElement("p"); meta.className = "notebook-ai-response-meta";
+          const time = document.createElement("time");
+          time.dateTime = new Date(record.respondedAt).toISOString();
+          time.textContent = new Date(record.respondedAt).toLocaleString("zh-CN", {hour12: false});
+          meta.append(time);
+          if (Number.isFinite(record.elapsedMs) && record.elapsedMs >= 0) {
+            meta.append(` · 耗时 ${(record.elapsedMs / 1000).toFixed(1)} 秒`);
+          }
+          output.message.append(meta);
+        }
         const remember = document.createElement("button");
         remember.type = "button"; remember.textContent = "记住";
         remember.addEventListener("click", () => {
@@ -1049,7 +1061,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) { get("session-status").textContent = error.name === "Error" ? error.message : "文件内容不正确，请选择本站导出的 JSON 文件。"; }
     get("import-file").value = "";
   });
-  const responseSnapshot = record => ({content: record.content, sources: structuredClone(record.sources || []), figures: structuredClone(record.figures || []), continuation: record.continuation || '', usage: record.usage || {},
+  const responseSnapshot = record => ({respondedAt: record.respondedAt, elapsedMs: record.elapsedMs, content: record.content, sources: structuredClone(record.sources || []), figures: structuredClone(record.figures || []), continuation: record.continuation || '', usage: record.usage || {},
     truncated: record.truncated === true, finish_reason: record.finish_reason});
   const originalRequest = (session, index) => {
     const user = session.messages[index - 1];

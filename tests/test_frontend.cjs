@@ -1326,3 +1326,14 @@ test('unsupported file types do not get previews, persisted data, or model reque
 });
 
 require('./test_outputs.cjs');
+
+test('answer completion time and elapsed time survive reload and old answers get no invented time', async t => {
+  const indexedDB = new IDBFactory();
+  const first = await setup(t, answerResponse('timed answer'), {indexedDB});
+  await first.submit(); await first.window.NotebookAIFlush();
+  const meta = first.get('messages').querySelector('.notebook-ai-response-meta');
+  assert.match(meta.textContent, /耗时 \d+\.\d 秒/);
+  assert.ok(Number.isFinite(Date.parse(meta.querySelector('time').dateTime)));
+  const next = await setup(t, answerResponse('next'), {indexedDB, autoSave: false});
+  assert.equal(next.get('messages').querySelector('.notebook-ai-response-meta').textContent, meta.textContent);
+});

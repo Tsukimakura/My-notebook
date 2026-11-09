@@ -27,7 +27,11 @@ window.NotebookConversations = (() => {
   });
   const usage = value => Object.fromEntries(['input_tokens', 'output_tokens', 'reasoning_tokens']
     .filter(key => Number.isSafeInteger(value?.[key]) && value[key] >= 0 && value[key] <= 1000000000).map(key => [key, value[key]]));
-  const response = value => ({content: text(value.content, 262144), sources: sources(value.sources),
+  const timing = value => ({
+    respondedAt: Number.isSafeInteger(value.respondedAt) && value.respondedAt > 0 && value.respondedAt <= 8640000000000000 ? value.respondedAt : null,
+    elapsedMs: Number.isSafeInteger(value.elapsedMs) && value.elapsedMs >= 0 && value.elapsedMs <= 86400000 ? value.elapsedMs : null,
+  });
+  const response = value => ({...timing(value), content: text(value.content, 262144), sources: sources(value.sources),
     truncated: value.truncated === true, finish_reason: text(value.finish_reason, 30), figures: figures(value.figures), continuation: text(value.continuation, 600065), usage: usage(value.usage)});
   const request = value => {
     if (!value || !['openai', 'deepseek', 'anthropic'].includes(value.provider)
@@ -61,6 +65,7 @@ window.NotebookConversations = (() => {
         const result = {role: message.role, content: message.content, failed: message.failed === true,
           pending: message.pending === true, quote: quote(message.quote), truncated: message.truncated === true,
           finish_reason: text(message.finish_reason, 30), scope: cleanScope(message.scope), sources: sources(message.sources)};
+        Object.assign(result, timing(message));
         result.figures = figures(message.figures);
         result.continuation = text(message.continuation, 600065);
         result.usage = usage(message.usage);
