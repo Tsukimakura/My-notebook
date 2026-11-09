@@ -72,7 +72,7 @@ extra_javascript:
   - javascripts/katex.js?v=2
   - assets/vendor/markdown-it/markdown-it.min.js
   - assets/vendor/dompurify/purify.min.js
-  - javascripts/notebook-ai-models.js?v=2
+  - javascripts/notebook-ai-models.js?v=3
   - javascripts/notebook-ai-scope.js?v=3
   - javascripts/notebook-ai-store.js?v=8
   - javascripts/notebook-ai-attachments.js?v=2
