@@ -5,8 +5,6 @@ import json
 import resource
 import sys
 import warnings
-import zipfile
-from xml.etree import ElementTree
 
 # Bound parser memory and CPU use separately from the serving process.
 resource.setrlimit(resource.RLIMIT_AS, (192 * 1024 * 1024,) * 2)
@@ -54,23 +52,6 @@ def process(files):
             if pages > 40:
                 raise ValueError()
             item.update(kind='pdf', data=file['data'], pages=len(pdf.pages))
-        elif mime == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-            # Read one bounded member without extracting a ZIP or following relationships.
-            with zipfile.ZipFile(io.BytesIO(raw)) as archive:
-                if len(archive.infolist()) > 1000 or sum(info.file_size for info in archive.infolist()) > 20 * 1024 * 1024:
-                    raise ValueError()
-                info = archive.getinfo('word/document.xml')
-                if info.file_size > 1024 * 1024 or info.flag_bits & 1:
-                    raise ValueError()
-                xml = archive.read(info).decode('utf-8-sig')
-            if '<!DOCTYPE' in xml.upper() or '<!ENTITY' in xml.upper():
-                raise ValueError()
-            root = ElementTree.fromstring(xml)
-            text = '\n'.join(''.join(node.text or '' for node in paragraph.iter() if node.tag.endswith('}t'))
-                             for paragraph in root.iter() if paragraph.tag.endswith('}p'))
-            if not text.strip() or len(text) > 60000:
-                raise ValueError()
-            item.update(kind='text', text=text)
         else:
             text = raw.decode('utf-8-sig')
             if '\x00' in text or len(text) > 60000:

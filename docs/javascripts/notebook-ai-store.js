@@ -50,7 +50,7 @@ window.NotebookConversations = (() => {
         || value.messages.length > 2000 || !['openai', 'deepseek', 'anthropic'].includes(value.provider)) throw new Error('会话格式不正确。');
     const now = Date.now();
     return {id: value.id, title: text(value.title, 100) || '新对话', provider: value.provider,
-      model: text(value.model, 100), noteImages: value.noteImages === true, scope: cleanScope(value.scope), draftQuote: quote(value.draftQuote), draft: text(value.draft, 4000),
+      model: text(value.model, 100), scope: cleanScope(value.scope), draftQuote: quote(value.draftQuote), draft: text(value.draft, 4000),
       createdAt: Number.isFinite(value.createdAt) ? Math.min(now, value.createdAt) : now,
       updatedAt: Number.isFinite(value.updatedAt) ? Math.min(now, value.updatedAt) : now,
       revision: Number.isSafeInteger(value.revision) && value.revision >= 0 ? value.revision : 0,

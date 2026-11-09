@@ -69,20 +69,9 @@ class AttachmentValidationTests(unittest.TestCase):
         with self.assertRaises(AttachmentError):
             asyncio.run(normalize(checked_files([upload(b'\xff\x00', 'text/plain', 'note.txt')])))
 
-    def test_docx_reads_bounded_body_text_without_dtd_or_external_resources(self):
-        import zipfile
-        mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        def document(xml):
-            stream=io.BytesIO()
-            with zipfile.ZipFile(stream,'w') as archive: archive.writestr('word/document.xml',xml)
-            return upload(stream.getvalue(),mime,'test.docx')
-        xml='<w:document xmlns:w="urn:word"><w:body><w:p><w:r><w:t>电荷</w:t></w:r></w:p></w:body></w:document>'
-        result=asyncio.run(normalize(checked_files([document(xml)])))
-        self.assertEqual(result[0]['kind'],'text')
-        self.assertEqual(result[0]['text'],'电荷')
-        for bad in ['<!DOCTYPE x [<!ENTITY secret SYSTEM "file:///etc/passwd">]>'+xml, xml.encode('utf-16')]:
-            with self.assertRaises(AttachmentError):
-                asyncio.run(normalize(checked_files([document(bad)])))
+    def test_docx_is_not_accepted(self):
+        with self.assertRaises(AttachmentError):
+            checked_files([upload(b'zip file', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'unused.docx')])
 
     def test_provider_content_uses_native_parts_without_remote_urls(self):
         files = [{'kind': 'image', 'name': 'x.jpg', 'mime': 'image/jpeg', 'data': 'abc'},
@@ -151,6 +140,22 @@ class AttachmentWireTests(unittest.TestCase):
             self.assertNotIn('fake-secret',json.dumps(body))
 
 
+    def test_deepseek_flash_image_wire_format(self):
+        import httpx
+        from backend.providers import complete
+        seen=[]
+        def handler(request):
+            seen.append(json.loads(request.content))
+            return httpx.Response(200,json={'choices':[{'finish_reason':'stop','message':{'content':'ok'}}]})
+        constructor=httpx.AsyncClient
+        def client(**kwargs):return constructor(transport=httpx.MockTransport(handler),**kwargs)
+        with patch('backend.providers.httpx.AsyncClient',client):
+            asyncio.run(complete('deepseek','fake-secret','deepseek-flash','system','question',
+                attachments=[{'name':'personal.jpg','kind':'image','mime':'image/jpeg','data':'AA=='}]))
+        self.assertEqual(seen[0]['messages'][-1]['role'],'user')
+        self.assertEqual(seen[0]['messages'][-1]['content'][2],{'type':'image_url','image_url':{'url':'data:image/jpeg;base64,AA=='}})
+
+
 class AttachmentAPITests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory(); self.root=Path(self.temp.name)
@@ -175,11 +180,12 @@ class AttachmentAPITests(unittest.TestCase):
         self.assertEqual(mock.await_args_list[0].kwargs['attachments'][0]['kind'],'image')
         self.assertEqual(mock.await_args_list[1].kwargs['attachments'][0]['mime'],'image/jpeg')
 
-    def test_note_vision_is_opt_in_and_figures_are_server_verified(self):
-        for enabled in (False,True):
+    def test_note_vision_is_automatic_and_legacy_opt_out_still_works(self):
+        for setting in (None,False,True):
+            enabled = setting is not False
             mock=AsyncMock(side_effect=[Completion('高斯定律'),Completion('answer')])
             with TestClient(self.app,base_url='https://notes.example.com') as client, patch('backend.app.complete',mock):
-                response=client.post('/api/ask',headers=self.headers,json={**self.body,'note_images':enabled})
+                response=client.post('/api/ask',headers=self.headers,json={**self.body,**({'note_images':setting} if setting is not None else {})})
             self.assertEqual(response.status_code,200,response.text)
             self.assertEqual(len(response.json()['figures']),int(enabled))
             self.assertNotIn('attachments',mock.await_args_list[0].kwargs)
@@ -254,3 +260,18 @@ class AttachmentAPITests(unittest.TestCase):
                 self.assertEqual(result.status_code,400)
                 self.assertNotIn('Traceback',result.text)
         mock.assert_not_called()
+
+
+    def test_deepseek_flash_accepts_non_notebook_images_and_pro_uses_text_only(self):
+        mock=AsyncMock(side_effect=[Completion('高斯定律'),Completion('answer')])
+        with TestClient(self.app,base_url='https://notes.example.com') as client, patch('backend.app.complete',mock):
+            response=client.post('/api/ask',headers=self.headers,json={**self.body,'provider':'deepseek','model':'deepseek-flash',
+                'attachments':[upload(png(),name='my-own-photo.png')]})
+        self.assertEqual(response.status_code,200,response.text)
+        self.assertEqual(mock.await_args_list[0].kwargs['attachments'][0]['name'],'my-own-photo.png')
+        self.assertEqual(len(response.json()['figures']),1)
+        with TestClient(self.app,base_url='https://notes.example.com') as client, patch('backend.app.complete',AsyncMock(side_effect=[Completion('高斯定律'),Completion('answer')])) as mock:
+            response=client.post('/api/ask',headers=self.headers,json={**self.body,'provider':'deepseek','model':'deepseek-v4-pro'})
+        self.assertEqual(response.status_code,200,response.text)
+        self.assertEqual(response.json()['figures'],[])
+        self.assertNotIn('attachments',mock.await_args_list[-1].kwargs)

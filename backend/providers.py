@@ -32,6 +32,10 @@ class ProviderError(Exception):
         self.status = status
 
 
+def supports_images(provider, model):
+    return provider in ('openai', 'anthropic') or (provider == 'deepseek' and model in ('deepseek-flash', 'deepseek-v4-flash-vision-exp'))
+
+
 def attachment_content(provider, prompt, attachments):
     content = [{"type": "input_text" if provider == "openai" else "text", "text": prompt}]
     for file in attachments:
@@ -45,18 +49,20 @@ def attachment_content(provider, prompt, attachments):
             data = f"data:{file['mime']};base64,{file['data']}"
             content.append({"type": "input_image", "image_url": data, "detail": "auto"} if file['kind'] == 'image'
                            else {"type": "input_file", "filename": file['name'], "file_data": data})
+        elif provider == 'deepseek' and file['kind'] == 'image':
+            content.append({'type': 'image_url', 'image_url': {'url': f"data:{file['mime']};base64,{file['data']}"}})
         elif provider == 'anthropic':
             content.append({"type": "image" if file['kind'] == 'image' else "document",
                             "source": {"type": "base64", "media_type": file['mime'], "data": file['data']}})
         else:
-            raise ProviderError('当前 DeepSeek 接口仅接入文字附件；图片和 PDF 请使用支持视觉的 OpenAI 或 Anthropic 模型。', 400)
+            raise ProviderError('当前 DeepSeek 接口未接入 PDF；请改用支持 PDF 的模型，或上传题目截图。', 400)
     return content
 
 
 async def complete(provider, key, model, system, prompt, max_tokens=DEFAULT_MAX_TOKENS, *, reasoning=True, attachments=None, previous_answer=None):
     headers = {"Authorization": "Bearer " + key}
     content = attachment_content(provider, prompt, attachments) if attachments else prompt
-    if provider == 'deepseek' and attachments:
+    if provider == 'deepseek' and attachments and all(file['kind'] == 'text' for file in attachments):
         content = '\n\n'.join(part['text'] for part in content)
     if provider == "openai":
         body = {"model": model, "instructions": system, "input": [{"role": "user", "content": content}] if attachments else prompt,

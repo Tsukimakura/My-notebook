@@ -19,7 +19,7 @@ from starlette.responses import JSONResponse, StreamingResponse
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
-from backend.providers import complete, ProviderError
+from backend.providers import complete, ProviderError, supports_images
 from backend.retrieval import Index
 from backend.jobs import Job, JobStore, MAX_JOBS
 from backend.continuation import checked_continuation, seal_context, open_context, restart_at, MAX_ANSWER_CHARACTERS
@@ -169,17 +169,21 @@ def create_app(site_dir=None, index_path=None, origin=None):
         return JSONResponse({"status": "ok"})
 
     async def prepare_attachments(data, provider, options):
-        if not isinstance(data.get("note_images", False), bool):
+        requested = data.get('note_images', True)
+        if not isinstance(requested, bool):
             raise AttachmentError('笔记配图选项无效。')
         files = checked_files(data.get('attachments', []))
-        if options.get('task') == 'summary' and (files or data.get('note_images')):
+        if options.get('task') == 'summary' and files:
             raise AttachmentError('记忆整理不接收附件。')
-        if provider == 'deepseek' and (data.get('note_images') or any(file['mime'].startswith('image/') or file['mime'] == 'application/pdf' for file in files)):
-            raise AttachmentError('当前 DeepSeek 接口仅接入文字附件；图片和 PDF 请改用支持视觉的 OpenAI 或 Anthropic 模型。')
+        can_see = supports_images(provider, data['model'])
+        if any(file['mime'].startswith('image/') for file in files) and not can_see:
+            raise AttachmentError('此模型未接入图片输入；DeepSeek 请选 deepseek-flash，或使用支持图片的 OpenAI／Anthropic 模型。')
+        if provider == 'deepseek' and any(file['mime'] == 'application/pdf' for file in files):
+            raise AttachmentError('当前 DeepSeek 接口未接入 PDF；请使用支持 PDF 的模型，或上传题目截图。')
         async with asyncio.timeout(15):
             async with attachment_slots:
                 options['attachments'] = await normalize(files)
-        options['note_images'] = data.get('note_images', False)
+        options['note_images'] = requested and can_see and options.get('task') != 'summary'
 
     async def continue_answer(index, provider, model, question, history, key, stage, options):
         continuation = options['continuation']

@@ -31,24 +31,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     <form data-settings-form autocomplete="off">
       <label>供应商<select data-provider><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="anthropic">Anthropic</option></select></label>
       <label>常用模型<select data-model-choice aria-describedby="notebook-ai-model-note"></select></label>
-      <label>模型 ID（可手动修改）<input data-model required maxlength="100" placeholder="选择上方模型，或填写账户可用的模型 ID" autocomplete="off" spellcheck="false" aria-describedby="notebook-ai-model-note"></label>
+      <label data-model-custom hidden>模型 ID<input data-model required maxlength="100" placeholder="选择上方模型，或填写账户可用的模型 ID" autocomplete="off" spellcheck="false" aria-describedby="notebook-ai-model-note"></label>
+      <label>API key<input data-key type="password" required maxlength="512" autocomplete="off" spellcheck="false"></label>
+      <details data-advanced-settings><summary>高级设置</summary>
+      <label>密钥保存时间<select data-retention>
+        <option value="session">临时：当前标签页，最多 2 小时</option>
+        <option value="7">在此浏览器记住 7 天</option>
+        <option value="30">在此浏览器记住 30 天</option>
+      </select></label>
       <p id="notebook-ai-model-note" data-model-note></p>
       <details><summary>模型 ID 是什么？到哪里查看？</summary>
         <p>模型 ID 是 API 调用时识别模型的名称，需要与官方文档中的写法完全一致。打开当前供应商的 <a data-model-docs target="_blank" rel="noopener noreferrer">官方模型目录</a>，复制其中的 API 模型 ID；不要复制网页聊天产品的显示名称或其他平台的 ID。</p>
         <p>也可以按 <a data-model-api-docs target="_blank" rel="noopener noreferrer">官方模型列表 API 文档</a>，使用自己的 key 查询 <code data-model-endpoint></code>，查看返回的 <code>data[].id</code>。请在自己信任的本地工具中操作，不要把 key 粘贴到第三方查询网站。</p>
         <p>常用列表由站点维护者定期更新，不代表当前 key 一定有权限。未列出的模型可选择“自定义”后手动输入；实际可用性、价格及接口支持以供应商和账户为准。</p>
       </details>
-      <label>API key<input data-key type="password" required maxlength="512" autocomplete="off" spellcheck="false"></label>
-      <label>密钥保存时间<select data-retention>
-        <option value="session">临时：当前标签页，最多 2 小时</option>
-        <option value="7">在此浏览器记住 7 天</option>
-        <option value="30">在此浏览器记住 30 天</option>
-      </select></label>
+      </details>
       <details><summary>密钥、隐私与费用说明</summary>
         <p>默认只保留在当前标签页，最多 2 小时。7 天和 30 天会把 key 保存在此浏览器，同源脚本可以读取；请只在自己的设备上启用。到期后停止使用，可随时清除。</p>
         <p>key 经 HTTPS、Cloudflare 和本站后端转发给所选供应商；后端不将 key、问题或回答写入磁盘或应用日志。任务生成最多持续 4 分钟，结果仅在内存中暂存，完成后 2 分钟过期并定期清除，便于网络恢复后查询。</p>
         <p>每次提问通常调用两次模型，回答生成预算上限为 32,768 tokens（推理模型可能将思考计入预算），详细回答可能花费更多时间和费用。当前问题、最近几轮对话及检索到的公开笔记片段会发送给供应商，供应商的数据处理政策仍然适用。</p>
-        <p>选中的附件和开启配图后检索到的相关原图会随问题发送给供应商；图片和 PDF 可能增加费用。附件文件不写入本站磁盘或会话导出；会话仍保存文件名和问答文字。聊天记录保存在此浏览器，不自动同步到其他设备。不要输入其他密码、服务器凭据或敏感个人信息。</p>
+        <p>选中的附件和按需检索到的相关笔记原图会随问题发送给供应商；图片和 PDF 可能增加费用。附件文件不写入本站磁盘或会话导出；会话仍保存文件名和问答文字。聊天记录保存在此浏览器，不自动同步到其他设备。不要输入其他密码、服务器凭据或敏感个人信息。</p>
       </details>
       <label class="notebook-ai-consent"><input type="checkbox" data-consent required>我了解密钥保存与转发、对话发送和费用说明</label>
       <div class="notebook-ai-actions"><button type="submit" data-save>保存设置</button><button type="button" data-clear>清除已保存 key</button></div>
@@ -64,13 +66,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       <input type="file" data-import-file accept="application/json,.json" hidden>
       <p>记录保存在此浏览器。导出文件不含 API key。</p>
     </details></div>
-    <label class="notebook-ai-consent"><input type="checkbox" data-note-images>读取相关笔记配图（最多 4 张，需视觉模型）</label>
     <div data-note-scope></div>
     <details data-memory-view class="notebook-ai-memory"><summary>记忆</summary>
       <label>这段对话的记忆<textarea data-session-memory maxlength="2000" rows="3" placeholder="旧对话的摘要，也可以自己填写"></textarea></label>
       <div class="notebook-ai-actions"><button type="button" data-summarize>整理旧对话</button><button type="button" data-clear-memory>清除这段记忆</button></div>
+      <details><summary>高级</summary>
       <label>所有对话使用的学习偏好<textarea data-learning-notes maxlength="2000" rows="2" placeholder="例如：先讲直觉，再给出推导"></textarea></label>
       <label class="notebook-ai-consent"><input type="checkbox" data-auto-summary>自动整理旧对话（会额外调用模型）</label>
+      </details>
       <p>记忆和学习偏好会随问题发送给所选供应商。最近 3 轮直接保留，更早的对话可以整理成记忆。</p>
     </details></section>
     <button type="button" data-earlier hidden>查看更早的消息</button>
@@ -88,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <details data-attachments hidden class="notebook-ai-attachments"><summary data-attachment-count>附件</summary>
         <div data-attachment-list></div><p>附件随本轮及后续问题发送；移除后停止发送。仅在本标签页保留，刷新后需重选。</p>
       </details>
-      <input type="file" data-attachment-input accept=".png,.jpg,.jpeg,.webp,.pdf,.docx,.txt,.md" multiple hidden>
+      <input type="file" data-attachment-input accept=".png,.jpg,.jpeg,.webp,.pdf,.txt,.md" multiple hidden>
       <label class="notebook-ai-composer-label">你的问题<textarea data-question maxlength="4000" rows="2" placeholder="问一个问题，或选中正文中的一段文字…"></textarea></label>
       <div class="notebook-ai-actions"><button type="button" data-attach>附件</button><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden title="沿用原题和资料补全这条回答，会发起一次模型调用">继续生成</button></div>
     </form></section>`;
@@ -118,9 +121,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const attachments = window.NotebookAttachments?.(panel, () => current, () => {
     get("submit").disabled = Boolean(attachments?.busy || (current && running.has(current.id)));
   }, () => conversations.values());
-  get("note-images").addEventListener("change", () => {
-    current.noteImages = get("note-images").checked; void persist(current);
-  });
   window.NotebookAIFlush = () => writes;
   const composeQuestion = (question, quote) => quote
     ? `${question}\n\n引用笔记《${quote.title || "笔记"}》${quote.url ? "\n" + quote.url : ""}\n\n${quote.markdown}` : question;
@@ -145,6 +145,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const value = get("model").value.trim();
     const known = [...get("model-choice").options].some(option => option.value === value);
     get("model-choice").value = value && known ? value : value ? "custom" : "";
+    get("model-custom").hidden = get("model-choice").value !== 'custom';
   };
   const showModels = provider => {
     const catalog = modelCatalog[provider];
@@ -166,6 +167,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
   get("model-choice").addEventListener("change", () => {
     const choice = get("model-choice").value;
+    get("model-custom").hidden = choice !== 'custom';
     if (choice === "custom") {
       get("model").focus();
       get("model").select();
@@ -555,7 +557,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const payload = {provider: current.provider, model: current.model, question: composeQuestion(question, current.draftQuote), history};
     if (payload.question.length > 4000) return null;
     if (attachments?.files().length) payload.attachments = attachments.files();
-    if (get("note-images").checked) payload.note_images = true;
     if (current.summary || sessionPreferences.notes) payload.memory = {summary: current.summary || "", notes: sessionPreferences.notes || ""};
     if (noteScope?.value().ids.length) payload.scope = noteScope.value();
     const bytes = value => new TextEncoder().encode(JSON.stringify(value)).length;
@@ -728,9 +729,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
     const outgoing = JSON.parse(body), files = outgoing.attachments || [];
-    if (outgoing.provider === 'deepseek' && (outgoing.note_images || files.some(file => /^data:(image\/|application\/pdf;)/.test(file.data_url)))) {
-      get("status").textContent = "当前 DeepSeek 接口仅接入文字附件；图片和 PDF 请使用支持视觉的 OpenAI 或 Anthropic 模型。";
-      return;
+    if (outgoing.provider === 'deepseek' && files.some(file => file.data_url.startsWith('data:application/pdf;'))) {
+      get("status").textContent = "DeepSeek 的 PDF 请先转成截图，或改用支持 PDF 的模型。"; return;
+    }
+    if (outgoing.provider === 'deepseek' && !['deepseek-flash', 'deepseek-v4-flash-vision-exp'].includes(outgoing.model)
+        && files.some(file => file.data_url.startsWith('data:image/'))) {
+      get("status").textContent = "DeepSeek 图片提问请选择 deepseek-flash。"; return;
     }
     if (!turns.length && !get("messages").querySelector("article")) get("messages").replaceChildren();
     const userRecord = replacement ? previousUser : {role: "user", content: question, pending: true,
@@ -977,7 +981,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     restoring = true; noteScope?.restore(session.scope); restoring = false;
     get("question").value = session.draft || "";
     get("quote-details").open = false;
-    get("note-images").checked = session.noteImages === true;
     attachments?.render();
     refreshDraftQuote();
     get("session-title").value = session.title;

@@ -12,8 +12,7 @@ MAX_FILES = 4
 MAX_FILE_BYTES = 4 * 1024 * 1024
 MAX_TOTAL_BYTES = 8 * 1024 * 1024
 MAX_REQUEST_BYTES = 12 * 1024 * 1024
-MIMES = ('image/png', 'image/jpeg', 'image/webp', 'application/pdf', 'text/plain', 'text/markdown',
-         'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+MIMES = ('image/png', 'image/jpeg', 'image/webp', 'application/pdf', 'text/plain', 'text/markdown')
 
 
 class AttachmentError(ValueError):
@@ -34,7 +33,7 @@ def checked_files(value):
             raise AttachmentError('附件名称或大小无效；单个文件最多 4 MiB。')
         match = re.fullmatch(r'data:([^;,]+);base64,([A-Za-z0-9+/]*={0,2})', data)
         if not match or match[1] not in MIMES:
-            raise AttachmentError('仅支持 PNG、JPEG、WebP、PDF、DOCX、UTF-8 TXT 和 Markdown。')
+            raise AttachmentError('仅支持 PNG、JPEG、WebP、PDF、UTF-8 TXT 和 Markdown。')
         try:
             raw = base64.b64decode(match[2], validate=True)
         except (ValueError, binascii.Error):

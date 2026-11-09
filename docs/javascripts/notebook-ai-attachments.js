@@ -1,7 +1,7 @@
 /* Attachments stay in tab memory. Only names, never file contents, enter history storage. */
 window.NotebookAttachments = (panel, session, changed = () => {}, sessions = () => [session()]) => {
   const get = name => panel.querySelector(`[data-${name}]`);
-  const types = {'png':'image/png', 'jpg':'image/jpeg', 'jpeg':'image/jpeg', 'webp':'image/webp', 'pdf':'application/pdf', 'txt':'text/plain', 'md':'text/markdown', 'docx':'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
+  const types = {'png':'image/png', 'jpg':'image/jpeg', 'jpeg':'image/jpeg', 'webp':'image/webp', 'pdf':'application/pdf', 'txt':'text/plain', 'md':'text/markdown'};
   let queue = Promise.resolve(), busy = 0;
   const read = blob => new Promise((resolve, reject) => {
     const reader = new FileReader(); reader.onload = () => resolve(reader.result);
@@ -48,7 +48,7 @@ window.NotebookAttachments = (panel, session, changed = () => {}, sessions = () 
       for (const file of files) {
         const extension = file.name.split('.').pop().toLowerCase();
         const mime = types[extension] || (Object.values(types).includes(file.type) ? file.type : null);
-        if (!mime || extension === 'svg' || file.type === 'image/svg+xml') throw new Error('支持 PNG、JPEG、WebP、PDF、DOCX、TXT 和 Markdown；不支持 SVG 或可执行文件。');
+        if (!mime || extension === 'svg' || file.type === 'image/svg+xml') throw new Error('支持 PNG、JPEG、WebP、PDF、TXT 和 Markdown；不支持 SVG 或可执行文件。');
         if (!file.size || file.size > 4 * 1024 * 1024) throw new Error('单个附件最多 4 MiB。');
         const name = file.name.replace(/[\\/\x00-\x1f]/g, '_').slice(0, 120) || 'attachment';
         const data_url = mime.startsWith('image/') ? await image(file, mime) : await read(new Blob([file], {type:mime}));
