@@ -18,22 +18,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Fixed markup only; model Markdown is parsed and sanitized separately.
   panel.innerHTML = `
     <div data-resize class="notebook-ai-resize" role="separator" tabindex="0" aria-controls="notebook-ai" aria-orientation="vertical" aria-label="调整问答栏宽度"><span></span></div>
-    <div class="notebook-ai-heading"><h2>问笔记</h2><div>
+    <div class="notebook-ai-heading"><h2 class="notebook-ai-sr-only">问笔记</h2>
+      <button type="button" data-close aria-label="返回笔记"><span class="notebook-ai-back">笔记</span><span class="notebook-ai-dismiss" aria-hidden="true">×</span></button>
+      <select data-session aria-label="切换对话"></select>
+      <button type="button" data-new aria-label="新对话">＋</button>
       <button type="button" data-settings aria-expanded="false">设置</button>
-      <button type="button" data-new>新对话</button>
-      <button type="button" data-close aria-label="收起对话栏">×</button>
-    </div></div>
-    <div class="notebook-ai-session-bar"><label>对话<select data-session aria-label="切换对话"></select></label>
-      <details><summary>管理</summary>
-        <label>名称<input data-session-title maxlength="100"></label>
-        <label>记录保存<select data-history-days><option value="0">一直保留</option><option value="30">30 天无新消息后删除</option><option value="90">90 天无新消息后删除</option></select></label>
-        <div class="notebook-ai-actions"><button type="button" data-delete-session>删除此对话</button><button type="button" data-export>导出全部</button><button type="button" data-import>导入</button><button type="button" data-clear-sessions>清空全部</button></div>
-        <input type="file" data-import-file accept="application/json,.json" hidden>
-        <p>记录保存在此浏览器，清除网站数据会删除记录。导出文件不含 API key。</p>
-      </details></div>
+      <button type="button" data-tools aria-expanded="false" aria-controls="notebook-ai-tools">更多</button>
+    </div>
     <p data-session-status role="status"></p>
-    <p data-summary class="notebook-ai-summary"></p>
     <section data-settings-view hidden aria-label="AI 设置">
+    <p data-summary class="notebook-ai-summary"></p>
     <form data-settings-form autocomplete="off">
       <label>供应商<select data-provider><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="anthropic">Anthropic</option></select></label>
       <label>常用模型<select data-model-choice aria-describedby="notebook-ai-model-note"></select></label>
@@ -62,7 +56,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p data-settings-status role="status"></p>
     </section>
     <section data-chat-view class="notebook-ai-chat" aria-label="笔记对话">
-    <div class="notebook-ai-tools">
+    <section id="notebook-ai-tools" data-tools-view class="notebook-ai-tools" aria-label="对话工具" hidden>
+    <div class="notebook-ai-session-bar"><details><summary>对话管理</summary>
+      <label>名称<input data-session-title maxlength="100"></label>
+      <label>记录保存<select data-history-days><option value="0">一直保留</option><option value="30">30 天无新消息后删除</option><option value="90">90 天无新消息后删除</option></select></label>
+      <div class="notebook-ai-actions"><button type="button" data-delete-session>删除此对话</button><button type="button" data-export>导出全部</button><button type="button" data-import>导入</button><button type="button" data-clear-sessions>清空全部</button></div>
+      <input type="file" data-import-file accept="application/json,.json" hidden>
+      <p>记录保存在此浏览器。导出文件不含 API key。</p>
+    </details></div>
     <div data-note-scope></div>
     <details data-memory-view class="notebook-ai-memory"><summary>记忆</summary>
       <label>这段对话的记忆<textarea data-session-memory maxlength="2000" rows="3" placeholder="旧对话的摘要，也可以自己填写"></textarea></label>
@@ -70,19 +71,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       <label>所有对话使用的学习偏好<textarea data-learning-notes maxlength="2000" rows="2" placeholder="例如：先讲直觉，再给出推导"></textarea></label>
       <label class="notebook-ai-consent"><input type="checkbox" data-auto-summary>自动整理旧对话（会额外调用模型）</label>
       <p>记忆和学习偏好会随问题发送给所选供应商。最近 3 轮直接保留，更早的对话可以整理成记忆。</p>
-    </details></div>
+    </details></section>
     <button type="button" data-earlier hidden>查看更早的消息</button>
-    <div data-messages class="notebook-ai-messages" aria-label="对话记录">
-      <p>根据笔记提问，也可以继续追问。回答中的笔记链接会在左侧打开。</p>
-    </div>
+    <div data-messages class="notebook-ai-messages" aria-label="对话记录"></div>
     <section data-quote hidden class="notebook-ai-quote" aria-label="引用笔记">
-      <div class="notebook-ai-quote-heading"><a data-quote-source></a><button type="button" data-remove-quote aria-label="移除引用">×</button></div>
-      <div data-quote-preview class="notebook-ai-answer"></div>
-      <details><summary>编辑引用</summary><textarea data-quote-markdown maxlength="2200" rows="3" aria-label="引用的 Markdown"></textarea></details>
+      <details data-quote-details><summary>引用：<span data-quote-label></span></summary>
+        <div class="notebook-ai-quote-heading"><a data-quote-source></a></div>
+        <div data-quote-preview class="notebook-ai-answer"></div>
+        <details><summary>编辑引用</summary><textarea data-quote-markdown maxlength="2200" rows="3" aria-label="引用的 Markdown"></textarea></details>
+      </details>
+      <button type="button" data-remove-quote aria-label="移除引用">×</button>
     </section>
     <p data-status role="status" aria-live="polite"></p>
     <form data-chat-form autocomplete="off">
-      <label class="notebook-ai-composer-label">你的问题<textarea data-question required maxlength="4000" rows="3" placeholder="问一个问题，或选中正文中的一段文字…"></textarea></label>
+      <label class="notebook-ai-composer-label">你的问题<textarea data-question required maxlength="4000" rows="2" placeholder="问一个问题，或选中正文中的一段文字…"></textarea></label>
       <div class="notebook-ai-actions"><button type="submit" data-submit>发送</button><button type="button" data-stop hidden>停止等待</button><button type="button" data-continue hidden>准备续写</button></div>
     </form></section>`;
   document.body.append(launch, panel);
@@ -216,13 +218,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   get("consent").checked = Boolean(credential);
   summary();
   scheduleExpiry();
+  const showTools = show => {
+    get("tools-view").hidden = !show;
+    get("tools").setAttribute("aria-expanded", String(show));
+  };
+  get("tools").addEventListener("click", () => showTools(get("tools-view").hidden));
+  document.addEventListener("pointerdown", event => {
+    if (!get("tools-view").contains(event.target) && !get("tools").contains(event.target)) showTools(false);
+  });
   const showSettings = show => {
+    showTools(false);
+    get("tools").hidden = show;
     get("settings-view").hidden = !show;
     get("chat-view").hidden = show;
     get("settings").setAttribute("aria-expanded", String(show));
     get("settings").textContent = show ? "返回对话" : "设置";
   };
   const showPanel = show => {
+    if (!show) {
+      showTools(false);
+      if (panel.contains(document.activeElement)) document.activeElement.blur();
+    }
     panel.hidden = !show;
     document.body.classList.toggle("notebook-ai-open", show);
     launch.hidden = show;
@@ -230,9 +246,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
   launch.addEventListener("click", () => {
     showPanel(true);
-
   });
-  get("close").addEventListener("click", () => { showPanel(false); launch.focus(); });
+  get("close").addEventListener("click", () => { showPanel(false); launch.focus({preventScroll: true}); });
   get("settings").addEventListener("click", () => showSettings(get("settings-view").hidden));
   get("clear").addEventListener("click", () => {
     forget();
@@ -454,6 +469,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const quote = current?.draftQuote;
     get("quote").hidden = !quote;
     if (!quote) { get("quote-preview").replaceChildren(); get("quote-markdown").value = ""; return; }
+    get("quote-label").textContent = quote.title || "笔记";
     get("quote-source").textContent = quote.title || "引用笔记";
     const url = safeURL(quote.url);
     if (url) get("quote-source").href = url; else get("quote-source").removeAttribute("href");
@@ -770,6 +786,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
   get("chat-form").addEventListener("submit", event => { event.preventDefault(); void generate(); });
   panel.addEventListener("click", event => {
+    const link = event.target.closest("a[href]");
+    if (link && window.matchMedia?.('(max-width: 900px)').matches
+        && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey
+        && !link.download && link.target !== '_blank' && new URL(link.href).origin === location.origin) {
+      showPanel(false);
+    }
     const prompt = event.target.closest("[data-prompt]")?.dataset.prompt;
     if (!prompt) return;
     get("question").value = "请解释当前笔记的主要内容。";
@@ -784,9 +806,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const session = current;
     showPanel(true); showSettings(false);
     session.draftQuote = quote;
+    get("quote-details").open = false;
     if (!get("question").value.trim()) get("question").value = "请解释这段内容。";
     session.draft = get("question").value;
-    refreshDraftQuote(); void persist(session); get("question").focus();
+    refreshDraftQuote(); void persist(session); get("question").focus({preventScroll: true});
     const selected = await noteScope?.forPage(detail.url);
     if (selected && conversations.has(session.id)) {
       session.scope = selected;
@@ -796,8 +819,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   panel.addEventListener("keydown", event => {
     if (event.key !== "Escape" || event.isComposing || event.defaultPrevented) return;
-    const open = [...panel.querySelectorAll("details[open]")].at(-1);
-    if (open) open.open = false; else get("close").click();
+    const open = [...panel.querySelectorAll("details[open]")]
+      .filter(node => !node.closest('[hidden]') && !node.parentElement.closest('details:not([open])')).at(-1);
+    if (open) open.open = false;
+    else if (!get("tools-view").hidden) { showTools(false); get("tools").focus(); }
+    else get("close").click();
     event.preventDefault();
   });
   get("question").addEventListener("keydown", event => {
@@ -860,7 +886,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           const combined = [current.summary, note].filter(Boolean).join("\n");
           if (combined.length > 2000) { get("status").textContent = "记忆放不下整条回答，请先选中要记住的一小段文字。"; return; }
           current.summary = combined; get("session-memory").value = combined;
-          get("memory-view").open = true; void persist(current); updateMemory();
+          showTools(true); get("memory-view").open = true; void persist(current); updateMemory();
         });
         const actions = replyActions(current, record, output);
         actions.append(remember);
@@ -895,6 +921,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     get("consent").checked = credential?.provider === session.provider;
     restoring = true; noteScope?.restore(session.scope); restoring = false;
     get("question").value = session.draft || "";
+    get("quote-details").open = false;
     refreshDraftQuote();
     get("session-title").value = session.title;
     get("session-memory").value = session.summary || "";

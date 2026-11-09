@@ -927,18 +927,80 @@ test('panel width resizes with keyboard, clamps to reading space, and restores n
   assert.ok(!saved.includes('test-not-a-real-key'));
 });
 
-test('mobile separator changes panel height without consuming the entire notebook viewport', async t => {
-  const {window, get} = await setup(t, answerResponse('answer'), {beforeScript: window => {
+test('mobile chat uses a dedicated viewport and returns to the same notebook and draft', async t => {
+  const listeners = {}, frames = [];
+  const {window, panel, get} = await setup(t, answerResponse('answer'), {beforeScript: window => {
     window.innerWidth = 390; window.innerHeight = 844;
     window.matchMedia = () => ({matches: true, addEventListener() {}});
+    window.visualViewport = {height: 510, offsetTop: 12, addEventListener(type, callback) { listeners[type] = callback; }};
+    window.requestAnimationFrame = callback => { frames.push(callback); return frames.length; };
   }});
-  const handle = get('resize');
-  assert.equal(handle.getAttribute('aria-orientation'), 'horizontal');
-  handle.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'End', bubbles: true}));
-  assert.ok(Number(handle.getAttribute('aria-valuenow')) <= 844 * .85);
-  handle.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'Home', bubbles: true}));
-  assert.equal(handle.getAttribute('aria-valuenow'), '300');
+  assert.equal(get('resize').hidden, true);
+  assert.equal(window.document.documentElement.style.getPropertyValue('--notebook-ai-viewport-height'), '510px');
+  assert.equal(window.document.documentElement.style.getPropertyValue('--notebook-ai-viewport-top'), '12px');
+  window.visualViewport.height = 420;
+  window.visualViewport.offsetTop = 20;
+  listeners.resize(); listeners.scroll();
+  assert.equal(frames.length, 1);
+  frames.shift()();
+  assert.equal(window.document.documentElement.style.getPropertyValue('--notebook-ai-viewport-height'), '420px');
+  assert.equal(window.document.documentElement.style.getPropertyValue('--notebook-ai-viewport-top'), '20px');
+  get('question').value = '保留草稿';
+  window.scrollY = 1800;
+  get('close').click();
+  assert.equal(panel.hidden, true);
+  assert.equal(window.scrollY, 1800);
+  window.document.querySelector('.notebook-ai-launch').click();
+  assert.equal(get('question').value, '保留草稿');
+  assert.equal(window.scrollY, 1800);
+  assert.equal(panel.hidden, false);
+  assert.equal(get('tools-view').hidden, true);
 });
+
+test('dragging batches width updates per frame and persists the final pointer position once', async t => {
+  const frames = new Map(); let frameId = 0;
+  const {window, panel, get} = await setup(t, answerResponse('answer'), {beforeScript: window => {
+    window.requestAnimationFrame = callback => { frames.set(++frameId, callback); return frameId; };
+    window.cancelAnimationFrame = id => frames.delete(id);
+  }});
+  panel.getBoundingClientRect = () => ({width: 400});
+  const pointer = (type, x) => {
+    const event = new window.Event(type, {bubbles: true, cancelable: true});
+    Object.assign(event, {button: 0, pointerId: 7, clientX: x});
+    return event;
+  };
+  const initial = window.document.documentElement.style.getPropertyValue('--notebook-ai-width');
+  get('resize').dispatchEvent(pointer('pointerdown', 800));
+  window.document.dispatchEvent(pointer('pointermove', 780));
+  window.document.dispatchEvent(pointer('pointermove', 740));
+  assert.equal(frames.size, 1);
+  assert.equal(window.document.documentElement.style.getPropertyValue('--notebook-ai-width'), initial);
+  assert.equal(window.localStorage.getItem('notebook-ai.layout.v1'), null);
+  const [id, callback] = frames.entries().next().value; frames.delete(id); callback();
+  assert.equal(window.document.documentElement.style.getPropertyValue('--notebook-ai-width'), '460px');
+  window.document.dispatchEvent(pointer('pointermove', 730));
+  window.document.dispatchEvent(pointer('pointerup', 720));
+  assert.equal(frames.size, 0);
+  assert.equal(window.document.documentElement.style.getPropertyValue('--notebook-ai-width'), '480px');
+  assert.equal(JSON.parse(window.localStorage.getItem('notebook-ai.layout.v1')).width, 480);
+  assert.equal(window.document.body.classList.contains('notebook-ai-resizing'), false);
+});
+
+test('management stays out of the message flow and closes with Escape or outside pointer', async t => {
+  const {window, panel, get} = await setup(t, answerResponse('answer'));
+  assert.equal(get('tools-view').hidden, true);
+  assert.ok(get('settings-view').contains(get('summary')));
+  get('tools').click();
+  assert.equal(get('tools-view').hidden, false);
+  assert.equal(get('tools').getAttribute('aria-expanded'), 'true');
+  panel.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
+  assert.equal(get('tools-view').hidden, true);
+  assert.equal(panel.hidden, false);
+  get('tools').click();
+  window.document.body.dispatchEvent(new window.Event('pointerdown', {bubbles: true}));
+  assert.equal(get('tools-view').hidden, true);
+});
+
 
 test('current-note shortcut fills the question without calling a model and references start folded', async t => {
   let calls = 0;
@@ -982,10 +1044,15 @@ test('selected notebook text carries its source into the draft and preferred sco
 test('Escape closes tools before collapsing the assistant and never sends a request', async t => {
   let calls = 0;
   const {window, panel, get} = await setup(t, async () => { calls++; });
+  get('tools').click();
   get('memory-view').open = true;
   panel.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
   assert.equal(get('memory-view').open, false);
   assert.equal(panel.hidden, false);
+  panel.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
+  assert.equal(get('tools-view').hidden, true);
+  assert.equal(panel.hidden, false);
+  get('memory-view').open = true; // A hidden tool must not intercept Escape.
   panel.dispatchEvent(new window.KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
   assert.equal(panel.hidden, true);
   assert.equal(calls, 0);
@@ -1132,4 +1199,51 @@ test('stopping regeneration leaves the original answer readable and usable', asy
   assert.equal(get('messages').querySelectorAll('[data-user]').length, 1);
   assert.equal(panel.querySelector('[data-regenerate]').disabled, false);
   assert.match(get('status').textContent, /已停止等待/);
+});
+
+
+test('touch selection survives native collapse and opens the quote exactly once without a click', async t => {
+  let modelCalls = 0;
+  const {window, panel, get} = await setup(t, async url => {
+    if (url === '/api/notes') return {ok: true, json: async () => ({pages: [], folders: []})};
+    modelCalls++; return answerResponse('answer')();
+  });
+  get('close').click();
+  const article = window.document.createElement('article');
+  article.className = 'md-content__inner';
+  article.innerHTML = '<h1>测试笔记</h1><p>电荷密度乘以一小段长度，得到这段的电荷。</p>';
+  window.document.body.append(article);
+  window.eval(fs.readFileSync('docs/javascripts/notebook-selection.js', 'utf8'));
+  window.eval(fs.readFileSync('docs/javascripts/notebook-reader.js', 'utf8'));
+  window.Range.prototype.getBoundingClientRect = () => ({top: 100, bottom: 130, left: 20, width: 250});
+  const selection = window.getSelection(), range = window.document.createRange();
+  range.selectNodeContents(article.querySelector('p')); selection.removeAllRanges(); selection.addRange(range);
+  window.document.dispatchEvent(new window.Event('selectionchange'));
+  await new Promise(resolve => setTimeout(resolve, 100));
+  const button = window.document.querySelector('.notebook-selection-ask');
+  assert.equal(button.hidden, false);
+  get('question').value = '';
+  const pointer = type => {
+    const event = new window.Event(type, {bubbles: true, cancelable: true});
+    Object.assign(event, {button: 0, pointerId: 1, pointerType: 'touch', clientX: 90, clientY: 150});
+    button.dispatchEvent(event);
+  };
+  let asks = 0; window.document.addEventListener('notebook:ask-selection', () => asks++);
+  pointer('pointerdown');
+  selection.removeAllRanges();
+  window.document.dispatchEvent(new window.Event('selectionchange'));
+  window.document.dispatchEvent(new window.Event('scroll'));
+  await new Promise(resolve => setTimeout(resolve, 100));
+  assert.equal(button.hidden, false);
+  pointer('pointerup');
+  await new Promise(resolve => setTimeout(resolve, 10));
+  button.click(); // A later compatibility click must not duplicate the action.
+  await window.NotebookAIFlush();
+  assert.equal(asks, 1);
+  assert.equal(panel.hidden, false);
+  assert.equal(get('quote').hidden, false);
+  assert.equal(get('quote-details').open, false);
+  assert.match(get('quote-markdown').value, /电荷密度乘以/);
+  assert.equal(get('question').value, '请解释这段内容。');
+  assert.equal(modelCalls, 0);
 });

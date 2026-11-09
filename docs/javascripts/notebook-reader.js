@@ -6,8 +6,8 @@
     button.type = 'button'; button.className = 'notebook-selection-ask'; button.hidden = true;
     button.textContent = '提问这段内容'; button.setAttribute('aria-label', '把选中的笔记内容放入提问框');
     document.body.append(button);
-    let snapshot = null, scheduled;
-    const hide = () => { button.hidden = true; snapshot = null; };
+    let snapshot = null, pressed = null, scheduled;
+    const hide = () => { clearTimeout(scheduled); button.hidden = true; snapshot = null; pressed = null; };
     const update = () => {
       const selection = window.getSelection();
       if (!selection?.rangeCount || selection.isCollapsed || document.querySelector('.notebook-home')) { hide(); return; }
@@ -30,19 +30,39 @@
       if (innerWidth <= 900 && panel && y + 40 > panel.getBoundingClientRect().top) y = Math.max(64, rect.top - 44);
       button.style.left = `${x}px`; button.style.top = `${y}px`;
     };
-    const schedule = () => { clearTimeout(scheduled); scheduled = setTimeout(update, 80); };
+    const schedule = event => {
+      if (pressed || button.contains(event?.target)) return;
+      clearTimeout(scheduled); scheduled = setTimeout(update, 80);
+    };
     document.addEventListener('selectionchange', schedule);
     document.addEventListener('pointerup', schedule);
+    document.addEventListener('pointerdown', event => { if (!button.contains(event.target)) hide(); });
     document.addEventListener('keyup', event => { if (event.key === 'Escape') hide(); else if (event.shiftKey) schedule(); });
-    document.addEventListener('scroll', hide, true);
+    document.addEventListener('scroll', () => { if (!pressed) hide(); }, true);
     window.addEventListener('resize', hide);
-    button.addEventListener('pointerdown', event => event.preventDefault());
-    button.addEventListener('click', async () => {
-      if (!snapshot) return;
-      const detail = snapshot; hide();
+    window.addEventListener('blur', hide);
+    const ask = async detail => {
+      if (!detail) return;
+      hide();
       await window.NotebookAIReady;
       document.dispatchEvent(new CustomEvent('notebook:ask-selection', {detail}));
+    };
+    button.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      clearTimeout(scheduled);
+      // Mobile selection can collapse before click; keep the excerpt for this gesture.
+      pressed = {detail: snapshot, x: event.clientX, y: event.clientY};
     });
+    button.addEventListener('mousedown', event => event.preventDefault());
+    button.addEventListener('pointerup', event => {
+      if (!pressed || event.pointerType === 'mouse') return;
+      const {detail, x, y} = pressed;
+      if (Math.hypot(event.clientX - x, event.clientY - y) > 12) { hide(); return; }
+      // Do not depend on a compatibility click after the native selection UI closes.
+      void ask(detail);
+    });
+    button.addEventListener('pointercancel', hide);
+    button.addEventListener('click', () => { void ask(pressed?.detail || snapshot); });
     if (typeof document$ !== 'undefined') document$.subscribe(hide);
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once: true});

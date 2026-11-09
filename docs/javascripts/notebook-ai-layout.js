@@ -1,4 +1,4 @@
-/* Responsive pointer and keyboard resizing; only numeric layout preferences persist. */
+/* Desktop split view; mobile uses the visible viewport as a dedicated chat view. */
 window.NotebookPanelLayout = panel => {
   const handle = panel.querySelector('[data-resize]');
   if (!handle) return;
@@ -6,59 +6,85 @@ window.NotebookPanelLayout = panel => {
   const name = 'notebook-ai.layout.v1';
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(name)) || {}; } catch { /* Defaults work without storage. */ }
-  const preferred = {};
-  for (const key of ['width', 'height']) if (Number.isFinite(saved[key]) && saved[key] > 0) preferred[key] = saved[key];
-  const limits = () => mobile.matches
-    ? {key: 'height', min: Math.min(300, innerHeight * .85), max: innerHeight * .85, initial: innerHeight * .60}
-    : {key: 'width', min: 340, max: Math.max(340, Math.min(760, innerWidth - 520)), initial: Math.min(480, innerWidth * .32)};
-  const clamp = (value, bounds) => Math.round(Math.max(bounds.min, Math.min(bounds.max, value)));
+  let preferred = Number.isFinite(saved.width) && saved.width > 0 ? saved.width : null;
+  const root = document.documentElement.style;
+  const bounds = () => ({min: 320, max: Math.max(320, Math.min(760, innerWidth - 480))});
+  const clamp = value => Math.round(Math.max(bounds().min, Math.min(bounds().max, value)));
+  const width = () => clamp(preferred || Math.min(480, innerWidth * .34));
   const apply = () => {
-    const width = clamp(preferred.width || Math.min(480, innerWidth * .32), {min: 340, max: Math.max(340, Math.min(760, innerWidth - 520))});
-    const height = clamp(preferred.height || innerHeight * .60, {min: Math.min(300, innerHeight * .85), max: innerHeight * .85});
-    document.documentElement.style.setProperty('--notebook-ai-width', `${width}px`);
-    document.documentElement.style.setProperty('--notebook-ai-height', `${height}px`);
-    const bounds = limits(), value = bounds.key === 'height' ? height : width;
-    handle.setAttribute('aria-orientation', mobile.matches ? 'horizontal' : 'vertical');
-    handle.setAttribute('aria-label', mobile.matches ? '调整问答栏高度' : '调整问答栏宽度');
-    handle.setAttribute('aria-valuemin', String(Math.round(bounds.min)));
-    handle.setAttribute('aria-valuemax', String(Math.round(bounds.max)));
-    handle.setAttribute('aria-valuenow', String(value));
+    root.setProperty('--notebook-ai-width', `${width()}px`);
+    handle.hidden = mobile.matches;
+    handle.setAttribute('aria-orientation', 'vertical');
+    handle.setAttribute('aria-label', '调整问答栏宽度');
+    handle.setAttribute('aria-valuemin', String(bounds().min));
+    handle.setAttribute('aria-valuemax', String(bounds().max));
+    handle.setAttribute('aria-valuenow', String(width()));
+    const viewport = window.visualViewport;
+    root.setProperty('--notebook-ai-viewport-height', `${viewport?.height || innerHeight}px`);
+    root.setProperty('--notebook-ai-viewport-top', `${viewport?.offsetTop || 0}px`);
   };
-  const persist = () => { try { localStorage.setItem(name, JSON.stringify(preferred)); } catch { /* Page-only resizing still works. */ } };
+  const persist = () => {
+    try { localStorage.setItem(name, JSON.stringify(preferred ? {width: preferred} : {})); } catch { /* Page-only resizing still works. */ }
+  };
   handle.addEventListener('keydown', event => {
-    const bounds = limits();
-    let direction = mobile.matches ? {ArrowUp: 1, ArrowDown: -1}[event.key] : {ArrowLeft: 1, ArrowRight: -1}[event.key];
-    if (direction === undefined && !['Home', 'End'].includes(event.key)) return;
+    if (mobile.matches || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
-    preferred[bounds.key] = event.key === 'Home' ? bounds.min : event.key === 'End' ? bounds.max
-      : Number(handle.getAttribute('aria-valuenow')) + direction * (event.shiftKey ? 48 : 16);
-    preferred[bounds.key] = clamp(preferred[bounds.key], bounds); apply(); persist();
+    preferred = clamp(event.key === 'Home' ? bounds().min : event.key === 'End' ? bounds().max
+      : width() + (event.key === 'ArrowLeft' ? 1 : -1) * (event.shiftKey ? 48 : 16));
+    apply(); persist();
   });
-  handle.addEventListener('dblclick', () => { delete preferred[limits().key]; apply(); persist(); });
+  handle.addEventListener('dblclick', () => { preferred = null; apply(); persist(); });
+  let cancelDrag = () => {};
   handle.addEventListener('pointerdown', event => {
-    if (event.button !== 0) return;
+    if (mobile.matches || event.button !== 0) return;
     event.preventDefault();
-    const bounds = limits(), rect = panel.getBoundingClientRect();
-    const start = mobile.matches ? event.clientY : event.clientX;
-    const initial = mobile.matches ? rect.height : rect.width;
+    cancelDrag();
+    const initial = panel.getBoundingClientRect().width, start = event.clientX;
+    let latest = initial, frame = null;
     document.body.classList.add('notebook-ai-resizing');
+    handle.setPointerCapture?.(event.pointerId);
+    const flush = () => {
+      frame = null;
+      preferred = clamp(latest);
+      // One geometry write per frame; no storage or layout reads during movement.
+      root.setProperty('--notebook-ai-width', `${preferred}px`);
+      handle.setAttribute('aria-valuenow', String(preferred));
+    };
     const move = next => {
       if (next.pointerId !== event.pointerId) return;
-      const position = bounds.key === 'height' ? next.clientY : next.clientX;
-      preferred[bounds.key] = clamp(initial + start - position, bounds); apply();
+      latest = initial + start - next.clientX;
+      if (frame === null) frame = requestAnimationFrame(flush);
     };
     const end = next => {
       if (next?.pointerId !== undefined && next.pointerId !== event.pointerId) return;
+      if (next?.type === 'pointerup') latest = initial + start - next.clientX;
+      if (frame !== null) cancelAnimationFrame(frame);
+      flush();
       window.removeEventListener('blur', end);
       document.removeEventListener('pointermove', move);
-      document.removeEventListener('pointerup', end); document.removeEventListener('pointercancel', end);
-      document.body.classList.remove('notebook-ai-resizing'); persist();
+      document.removeEventListener('pointerup', end);
+      document.removeEventListener('pointercancel', end);
+      handle.removeEventListener('lostpointercapture', end);
+      if (handle.hasPointerCapture?.(event.pointerId)) handle.releasePointerCapture(event.pointerId);
+      document.body.classList.remove('notebook-ai-resizing');
+      cancelDrag = () => {};
+      persist();
     };
+    cancelDrag = end;
     window.addEventListener('blur', end);
     document.addEventListener('pointermove', move);
-    document.addEventListener('pointerup', end); document.addEventListener('pointercancel', end);
+    document.addEventListener('pointerup', end);
+    document.addEventListener('pointercancel', end);
+    handle.addEventListener('lostpointercapture', end);
   });
-  window.addEventListener('resize', apply);
-  mobile.addEventListener?.('change', apply);
+  let viewportFrame = null;
+  const refresh = () => {
+    cancelDrag();
+    if (viewportFrame === null) viewportFrame = requestAnimationFrame(() => { viewportFrame = null; apply(); });
+  };
+  window.addEventListener('resize', refresh);
+  window.visualViewport?.addEventListener('resize', refresh);
+  window.visualViewport?.addEventListener('scroll', refresh);
+  mobile.addEventListener?.('change', refresh);
   apply();
 };
