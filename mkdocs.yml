@@ -68,7 +68,7 @@ extra_javascript:
   - assets/vendor/katex/auto-render.min.js
   - javascripts/notebook-theme.js?v=2
   - javascripts/notebook-selection.js?v=2
-  - javascripts/notebook-reader.js?v=5
+  - javascripts/notebook-reader.js?v=6
   - javascripts/katex.js?v=2
   - assets/vendor/markdown-it/markdown-it.min.js
   - assets/vendor/dompurify/purify.min.js

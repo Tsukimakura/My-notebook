@@ -45,3 +45,33 @@ test('unrendered math retains its original delimiters and supports one-symbol fo
   assert.match(markdown, /\\\(x\\\)/);
   assert.match(markdown, /\$\$\nx\^2\n\$\$/);
 });
+
+
+test('article copying preserves inline and display TeX and leaves ordinary text copying alone', async t => {
+  const {window,root,range}=fixture(t, `<p><strong>定义</strong> ${formula}</p><div class="arithmatex">${formula}</div><p id="plain">ordinary text</p>`);
+  root.className='md-content__inner';
+  if(window.document.readyState==='loading') await new Promise(resolve=>window.document.addEventListener('DOMContentLoaded',resolve,{once:true}));
+  window.eval(fs.readFileSync('docs/javascripts/notebook-reader.js','utf8'));
+  const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);
+  const copy=()=>{
+    let value;
+    const event=new window.Event('copy',{bubbles:true,cancelable:true});
+    Object.defineProperty(event,'clipboardData',{value:{setData(type,text){assert.equal(type,'text/plain');value=text;}}});
+    root.dispatchEvent(event);return {event,value};
+  };
+  const full=copy();
+  assert.equal(full.event.defaultPrevented,true);
+  assert.match(full.value,/\*\*定义\*\*/);
+  assert.ok(full.value.includes(String.raw`\(x_1=\frac{a}{b}\)`));
+  assert.ok(full.value.includes('$$\nx_1=\\frac{a}{b}\n$$'));
+  assert.equal(full.value.match(/\\frac/g).length,2);
+  assert.ok(!full.value.includes('garbled duplicate'));
+  const glyph=root.querySelectorAll('.katex-html')[1].firstChild;
+  range.setStart(glyph,2);range.setEnd(glyph,7);
+  assert.equal(copy().value,'$$\nx_1=\\frac{a}{b}\n$$');
+  range.selectNodeContents(root.querySelector('#plain'));
+  const plain=copy();assert.equal(plain.event.defaultPrevented,false);assert.equal(plain.value,undefined);
+  const outside=window.document.createElement('aside');outside.innerHTML=formula;window.document.body.append(outside);
+  range.selectNodeContents(outside);
+  assert.equal(copy().event.defaultPrevented,false);
+});

@@ -24,7 +24,7 @@
       const selection = window.getSelection();
       if (!selection?.rangeCount || selection.isCollapsed) return;
       const range = selection.getRangeAt(0), selected = selectionRoot(range);
-      if (!selected?.conversation) return;
+      if (!selected) return;
       const hasMath = [...selected.root.querySelectorAll('.katex,.arithmatex')].some(node => range.intersectsNode(node));
       if (!hasMath) return;
       const excerpt = window.NotebookSelection?.markdown(range, selected.root, 262144);
