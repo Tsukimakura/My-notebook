@@ -8,7 +8,7 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 .notebook-ai-open .md-top { right: calc(var(--notebook-ai-width) + 1rem); }
 .notebook-ai-open .md-sidebar--secondary { display: none; }
 @media (min-width: 901px) { .notebook-ai-open .md-content__inner { padding: 1.8rem; } }
-.notebook-ai-launch { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 12; display: inline-flex; align-items: center; gap: .4rem; border: 1px solid color-mix(in srgb, var(--notebook-accent) 55%, var(--notebook-line)); border-radius: 2rem; padding: .7rem 1rem; background: var(--notebook-accent); color: var(--md-primary-bg-color); box-shadow: 0 4px 18px #172a1c1c; cursor: pointer; font: inherit; font-size: .72rem; }
+.notebook-ai-launch { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 12; display: inline-flex; align-items: center; gap: .4rem; border: 1px solid var(--notebook-button-border); border-radius: 2rem; padding: .7rem 1rem; background: var(--notebook-button-bg); color: var(--notebook-button-ink); box-shadow: 0 4px 18px #172a1c1c; cursor: pointer; font: inherit; font-size: .72rem; }
 .notebook-ai-launch:hover { transform: translateY(-3px); box-shadow: 0 8px 24px #172a1c28; }
 .notebook-ai-launch:disabled { opacity: .6; cursor: wait; }
 .notebook-ai { position: fixed; inset: 0 0 0 auto; z-index: 11; width: var(--notebook-ai-width); height: 100dvh; display: flex; flex-direction: column; gap: .35rem; padding: .65rem; border-left: 1px solid var(--notebook-line); color: var(--notebook-ink); background: var(--notebook-paper); font-family: var(--md-text-font); box-shadow: -8px 0 30px #172a1c04; }
@@ -46,8 +46,8 @@ body.notebook-ai-open { padding-right: var(--notebook-ai-width); }
 .notebook-ai .notebook-ai-consent { display: flex; align-items: start; gap: .4rem; }
 .notebook-ai-consent input { width: auto; flex-shrink: 0; margin-top: .2rem; }
 .notebook-ai-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem; }
-.notebook-ai [data-submit], .notebook-ai [data-save] { border-color: var(--notebook-accent); background: var(--notebook-accent); color: var(--md-primary-bg-color); }
-.notebook-ai [data-submit]:hover, .notebook-ai [data-save]:hover { filter: brightness(1.08); }
+.notebook-ai [data-submit], .notebook-ai [data-save] { border-color: var(--notebook-button-border); background: var(--notebook-button-bg); color: var(--notebook-button-ink); }
+.notebook-ai [data-submit]:hover, .notebook-ai [data-save]:hover { background: var(--notebook-button-bg); border-color: var(--notebook-button-border); filter: brightness(1.08); }
 .notebook-ai [data-submit] { margin-left: auto; min-width: 3.8rem; }
 .notebook-ai [data-stop] { color: var(--notebook-muted); }
 .notebook-ai-chat { display: flex; flex: 1; flex-direction: column; min-height: 0; gap: .55rem; }

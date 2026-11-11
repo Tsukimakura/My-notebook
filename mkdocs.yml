@@ -82,9 +82,9 @@ extra_javascript:
 
 extra_css:
   - assets/vendor/katex/katex.min.css
-  - stylesheets/notebook-theme.css?v=2
-  - stylesheets/notebook-reader.css?v=2
-  - stylesheets/notebook-ai.css?v=17
+  - stylesheets/notebook-theme.css?v=3
+  - stylesheets/notebook-reader.css?v=3
+  - stylesheets/notebook-ai.css?v=18
 
 copyright: Copyright © 2025 Tsukimakura
 

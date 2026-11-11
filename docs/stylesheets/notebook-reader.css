@@ -1,4 +1,4 @@
-.notebook-selection-ask { position: fixed; z-index: 15; display: inline-flex; align-items: center; gap: .3rem; padding: .45rem .7rem; border: 1px solid var(--notebook-accent); border-radius: .5rem; background: var(--notebook-accent); color: var(--md-primary-bg-color); box-shadow: 0 4px 16px #12251822; font-family: var(--md-text-font); font-size: .65rem; line-height: 1.5; cursor: pointer; }
+.notebook-selection-ask { position: fixed; z-index: 15; display: inline-flex; align-items: center; gap: .3rem; padding: .45rem .7rem; border: 1px solid var(--notebook-button-border); border-radius: .5rem; background: var(--notebook-button-bg); color: var(--notebook-button-ink); box-shadow: 0 4px 16px #12251822; font-family: var(--md-text-font); font-size: .65rem; line-height: 1.5; cursor: pointer; }
 .notebook-selection-ask[hidden] { display: none !important; }
 .notebook-selection-ask:hover { transform: translateY(-2px); }
 .notebook-selection-ask { min-height: 44px; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
