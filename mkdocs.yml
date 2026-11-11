@@ -76,7 +76,7 @@ extra_javascript:
   - javascripts/notebook-ai-scope.js?v=3
   - javascripts/notebook-ai-store.js?v=8
   - javascripts/notebook-ai-attachments.js?v=2
-  - javascripts/notebook-ai-outputs.js?v=2
+  - javascripts/notebook-ai-outputs.js?v=3
   - javascripts/notebook-ai-layout.js?v=3
   - javascripts/notebook-ai.js?v=22
 

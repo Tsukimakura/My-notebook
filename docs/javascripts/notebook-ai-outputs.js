@@ -10,15 +10,34 @@ window.NotebookOutputs = (() => {
     if (label !== undefined) node.textContent = label;
     return node;
   };
+  const figurePalettes = new WeakMap();
   const colors = () => {
-    const style = getComputedStyle(document.documentElement);
+    const style = getComputedStyle(document.body);
     return {ink: style.getPropertyValue('--notebook-ink').trim() || '#26382d', paper: style.getPropertyValue('--notebook-paper').trim() || '#fff', line: style.getPropertyValue('--notebook-line').trim() || '#d5ded1'};
   };
+  const refreshFigure = svg => {
+    const previous = figurePalettes.get(svg);
+    if (!previous) return;
+    const palette = colors();
+    for (const node of svg.querySelectorAll('[fill],[stroke]')) {
+      for (const attribute of ['fill', 'stroke']) {
+        const role = Object.keys(previous).find(key => previous[key] === node.getAttribute(attribute));
+        if (role) node.setAttribute(attribute, palette[role]);
+      }
+    }
+    figurePalettes.set(svg, palette);
+  };
+  const watchTheme = () => new MutationObserver(() => {
+    for (const svg of document.querySelectorAll('.notebook-ai-figure svg')) refreshFigure(svg);
+  }).observe(document.body, {attributes: true, attributeFilter: ['data-md-color-scheme']});
+  if (document.body) watchTheme();
+  else document.addEventListener('DOMContentLoaded', watchTheme, {once: true});
   const base = title => {
     const palette = colors();
     const svg = element('svg', {width: 600, height: 360, viewBox: '0 0 600 360', 'font-family': 'system-ui, sans-serif', role: 'img', 'aria-label': title || '示意图'});
     svg.append(element('title', {}, title || '示意图'), element('rect', {x: 0, y: 0, width: 600, height: 360, fill: palette.paper}));
     if (title) svg.append(element('text', {x: 300, y: 26, 'text-anchor': 'middle', 'font-size': 19, fill: palette.ink}, title));
+    figurePalettes.set(svg, palette);
     return {svg, palette};
   };
   const plot = spec => {
@@ -292,7 +311,7 @@ window.NotebookOutputs = (() => {
       viewport.setAttribute('role', 'region'); viewport.setAttribute('aria-label', '示意图，可横向滚动'); viewport.append(svg); block.append(viewport);
     } else block.append(svg);
     const tools = document.createElement('figcaption'); tools.className = 'notebook-ai-output-tools';
-    const serialize = () => new XMLSerializer().serializeToString(svg);
+    const serialize = () => { refreshFigure(svg); return new XMLSerializer().serializeToString(svg); };
     tools.append(button('下载 SVG', () => download(serialize(), 'figure.svg', 'image/svg+xml')),
       button('下载 PNG', () => new Promise((resolve, reject) => {
         const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(serialize()), img = new Image();

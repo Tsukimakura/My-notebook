@@ -142,3 +142,24 @@ test('dense diagrams retain all connections without drawing through unrelated no
   assert.equal(svg.querySelectorAll('[data-diagram-edge]').length,2);
   assert.equal(svg.querySelector('foreignObject,script,[href],[onload]'),null);
 });
+
+test('figures use the active body palette and existing figures update when the theme changes', async t => {
+  const {window,root,output}=fixture(t);
+  const light={ink:'#29372e',paper:'#fdfdf9',line:'#dfe4d9'},dark={ink:'#c7c7c2',paper:'#000000',line:'#292929'};
+  for(const [key,value] of Object.entries(light)) window.document.documentElement.style.setProperty('--notebook-'+key,value);
+  const setBody=palette=>{for(const [key,value] of Object.entries(palette)) window.document.body.style.setProperty('--notebook-'+key,value);};
+  setBody(dark);window.document.body.dataset.mdColorScheme='slate';
+  const pre=window.document.createElement('pre'),code=window.document.createElement('code');code.className='language-diagram';
+  code.textContent=JSON.stringify({title:'Theme test',nodes:[{id:'a',label:'A',x:10,y:50},{id:'b',label:'B',x:90,y:50}],edges:[{from:'a',to:'b'}]});
+  pre.append(code);root.append(pre);output.render(root);
+  const svg=root.querySelector('svg');
+  assert.equal(svg.querySelector('rect').getAttribute('fill'),dark.paper);
+  assert.equal(svg.querySelector('[data-diagram-node] text').getAttribute('fill'),dark.ink);
+  const viewBox=svg.getAttribute('viewBox');
+  setBody(light);window.document.body.dataset.mdColorScheme='default';
+  await new Promise(resolve=>window.setTimeout(resolve,0));
+  assert.equal(svg.querySelector('rect').getAttribute('fill'),light.paper);
+  assert.equal(svg.querySelector('[data-diagram-node] text').getAttribute('fill'),light.ink);
+  assert.equal(svg.getAttribute('viewBox'),viewBox);
+  assert.equal(root.querySelectorAll('svg').length,1);
+});
