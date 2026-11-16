@@ -3,7 +3,7 @@ title: "Lecture 3: Inverted File Index"
 status: draft
 tags: [cs, algorithms, inverted-index, information-retrieval]
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-11-16
 sources:
   - https://www.icourse163.org/course/ZJU1-1460402161
   - https://nlp.stanford.edu/IR-book/html/htmledition/irbook.html
@@ -11,7 +11,7 @@ sources:
 
 # Lecture 3: Inverted File Index（倒排索引）
 
-**主线：term → documents（词项定位文档）→ scalable indexing（可扩展建索引）→ relevance evaluation（相关性评价）。** Search trees/hash tables locate dictionary entries; posting lists identify matching documents.
+**Term → postings → scalable indexing → relevance evaluation.** Search structures locate terms; postings locate documents.
 
 [Course overview（课程信息）](index.md) · [HW3: Document Distance（文档距离）](hw3-document-distance.md)
 
@@ -19,7 +19,7 @@ sources:
 
 ### 1.1 From scanning to an inverted index（从扫描到倒排）
 
-A search engine has three broad stages: **crawl（爬取）→ index（整理并建索引）→ query service（检索服务）**. A **spider / crawler（爬虫）** collects pages; indexing prepares them for repeated queries.
+**Crawl（爬取）→ index（建索引）→ query（检索）.** A crawler/spider collects pages; the index supports repeated queries.
 
 | Approach | Representation | Cost / limitation |
 | --- | --- | --- |
@@ -27,9 +27,9 @@ A search engine has three broad stages: **crawl（爬取）→ index（整理并
 | Term-document incidence matrix（词项—文档关联矩阵） | $A[t,d]=1$ iff document $d$ contains term $t$. | Boolean operations are easy, but a dense $V\times N$ matrix wastes space on zeros. |
 | Inverted file index（倒排文件索引） | Dictionary entry → list of documents containing the term. | Store nonzero associations; process relevant postings rather than every page. |
 
-$V$ = vocabulary size（词汇表规模）, $N$ = document count（文档数）. Incidence rows can be bitsets（位集）; sparsity motivates postings, but a frequent term can also suit a bitmap representation.
+$V$=vocabulary size, $N$=document count. Incidence rows may be bitsets; sparse terms favor postings, frequent terms may favor bitmaps.
 
-**Index（索引）：** a mechanism for locating a term in text. **Forward index（正排索引）：** document → terms. **Inverted index（倒排索引）：** term → documents/occurrences. **Posting list（倒排列表／出现记录表）：** the records associated with one term; pointers can be document IDs, offsets or positions, not necessarily memory addresses or linked-list nodes.
+**Index（索引）:** locates terms. **Forward（正排）:** document→terms; **inverted（倒排）:** term→documents/occurrences. A **posting list（倒排列表）** holds docIDs, offsets or positions—not necessarily pointers or linked nodes.
 
 **WK3 T/F4:** “Inverted file contains a list of pointers to all occurrences of a term in the text.” **True**, by the definition; a document-only index stores document references, and a positional index adds exact occurrence locations.
 
@@ -64,7 +64,7 @@ For this example only: case folding（大小写归一化）, **no stemming or st
 - **Term frequency, $tf(t,d)$（词频）：** occurrence count of $t$ **within document $d$**. For silver, $df=2$, but $tf(\text{silver},D3)=2$ and total occurrences = 3.
 - The slide's “Times” uses **$df$**, not total occurrence count. **“低频更重要”和“先处理短列表”中的频率主要指 $df$。**
 
-**Discussion: how to print matching sentences and highlight words?** Keep positions（词位置）and access to original text; character offsets/sentence boundaries（字符偏移／句界）help reconstruct snippets（摘要片段）and highlights（高亮）. A list of document IDs alone cannot locate the matched sentence. Preserve original positions when filtering tokens if phrase/proximity queries（短语／邻近查询）are required.
+**Snippets/highlights（摘要／高亮）:** keep original text and token positions; character offsets/sentence boundaries help reconstruct sentences. DocIDs alone cannot. Preserve original positions through filtering for phrase/proximity queries.
 
 ### 1.3 Query operations and processing order（查询运算与处理顺序）
 
@@ -73,7 +73,7 @@ For this example only: case folding（大小写归一化）, **no stemming or st
 - **Phrase query（短语查询）:** after finding common documents, require compatible positions. “silver truck” needs a truck at position $p+1$ after silver; D3 matches at positions **7,8**, not 3,8. Boolean AND alone does not enforce adjacency.
 - Sorted lists of lengths $a,b$ can be intersected by two pointers in **$O(a+b)$** time: advance the smaller docID, emit equal IDs, stop when either list ends. Skip pointers（跳跃指针）can bypass ranges that cannot match. [Intersection reference](https://nlp.stanford.edu/IR-book/html/htmledition/faster-postings-list-intersection-via-skip-pointers-1.html).
 
-**Discussion: why keep frequency?** For a conjunctive query, start with the smallest $df$ to reduce intermediate candidates（中间候选集）. `truck AND silver AND delivery`: lengths **3,2,1**; start with delivery's **[D3]**, then check the other two → **D3**. Frequency also informs ranking; list length and within-document frequency serve different roles.
+**AND query order:** smallest $df$ first reduces intermediate candidates. `truck AND silver AND delivery`: list lengths 3,2,1 → start `[D3]`, then check silver/truck → **D3**. df guides candidate filtering; within-document tf can guide ranking.
 
 ## 2. Index construction and modules（构建与模块）
 
@@ -90,7 +90,7 @@ For each document D:
 write the inverted index to disk
 ```
 
-Repeated occurrences in a document update that document's posting; do not accidentally increase $df$ on every occurrence. Building an index and scoring a query are different stages.
+Repeated occurrences update one document posting, not $df$. Construction and query scoring are separate.
 
 | Module | Responsibility（职责） |
 | --- | --- |
@@ -106,17 +106,17 @@ Repeated occurrences in a document update that document's posting; do not accide
 - **C.** Check the dictionary and insert missing terms.
 - **D.** Get each term's posting list and calculate precision.
 
-**Answer: D.** Getting/updating postings is part of construction; **precision requires query results and relevance judgments（相关性标注）**, not just the index.
+**D:** postings belong to construction; precision needs query results and relevance judgments（相关性标注）.
 
 ### 2.2 Tokenization, stemming and stop words（分词、词干提取与停用词）
 
-**Tokenization（分词）：** identify token boundaries. English whitespace/punctuation are useful cues; Chinese needs segmentation（词语切分）because boundaries are not explicit. The offline name-search example illustrates that matching the characters “陈越” inside an unrelated phrase is not equivalent to identifying a person's name.
+**Tokenization（分词）：** English whitespace/punctuation help locate boundaries; Chinese needs segmentation. A character match for “陈越” inside an unrelated phrase does not identify a person.
 
-**Stemming（词干提取）：** map morphological variants（词形变体）to a common stem. `process / processing / processes / processed → process` is the course example. Apply **the same normalization to indexed documents and queries（索引端与查询端规则一致）**.
+**Stemming（词干提取）：** `process/processing/processes/processed → process`. Index and query must use the same normalization.
 
-**词干不一定是字典中的完整词。** The slide's `say / says / said / saying → say` expresses the desired grouping; regular suffix stripping alone need not recognize **said**. Lemmatization（词形还原）uses vocabulary/morphology; Porter stemming is a suffix-based heuristic, not a general irregular-verb dictionary. [Stemming versus lemmatization](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html).
+A stem need not be a dictionary word. `say/says/said/saying → say` expresses desired grouping; suffix stripping need not handle irregular **said**. **Lemmatization（词形还原）** uses vocabulary/morphology; Porter is a suffix heuristic. [Reference](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html).
 
-**Stop words（停用词）：** very common words, e.g. `a, the, it`, often have little discriminative value（区分能力）and huge postings. Filtering saves space/work; it is a configurable policy, not a claim that those words never matter. In the offline example, a dictionary article specifically explaining “a” should remain retrievable. Context, phrase support and the application determine retention; “remove” here means exclude from indexing, not destroy source documents.
+**Stop words（停用词）：** common terms (`a,the,it`) have huge postings/low discrimination. Optional filtering saves work but must respect context and phrase support: an article explaining “a” needs that term indexed. Exclude from the index, not from source text.
 
 **Quiz 3.2 Q3 / WK3 T/F1:** “Word stemming eliminates commonly used words.” **False**: that describes stop filtering. **HW3 explicitly retains stop words**; do not reuse the lecture's optional filter blindly.
 
@@ -128,9 +128,9 @@ Repeated occurrences in a document update that document's posting; do not accide
 | Tries（字典树／前缀树） | Branch on characters; natural prefix access. | Memory/layout and alphabet size matter. |
 | Hashing（哈希） | Expected fast exact-word access with suitable hashing/load control. | No lexical order; range scan generally needs examining many entries or an extra ordered index. |
 
-For a large disk-resident dictionary, the course favors page-oriented B/B+ trees over binary AVL/RBT layouts. Its “RBT is 10–20% faster than AVL with many updates” is a workload-dependent observation, not an asymptotic guarantee; layout, caching and scale determine practical speed.
+B/B+ pages suit large disk dictionaries. The cited RBT-vs-AVL 10–20% timing is workload-specific; scale, layout and caching determine actual speed.
 
-**MOOC 3.2.2 discussion:** hashing versus search trees? **Faster for a single word in the course's expected-cost model, but expensive for range search.** Hash lookup still processes the key and can suffer collisions; “faster” is not a worst-case or universal timing guarantee.
+**MOOC 3.2.2:** hashing favors expected exact lookup but lacks ordered range access; processing key bytes/collisions still costs work.
 
 | Source | Statement | Answer |
 | --- | --- | --- |
@@ -138,11 +138,11 @@ For a large disk-resident dictionary, the course favors page-oriented B/B+ trees
 | Quiz 3.2 Q2 | Hashing is faster than search trees for term access. | **True in the course's ideal/expected exact-lookup model**, with the qualifications above. |
 | HW3 T/F4 | Hash-based dictionary range searches are expensive. | **True** without an additional ordered structure. |
 
-Misspelling suggestions（拼写纠错）need candidate generation and similarity checking. Ordered/prefix structures help generate candidates; **字典序相邻不等于编辑距离最小**. Hashing can also be combined with separate correction indexes. The offline narrow-domain example motivates tuning hashing for a small vocabulary, not assuming every dictionary must use a B+ tree.
+**Spelling correction（拼写纠错）：** generate candidates, then compare similarity. Ordered/prefix indexes help, but lexical proximity ≠ minimum edit distance. Hashing can use a separate correction index; small-domain vocabularies may favor specialized hashes.
 
 ### 2.4 Memory-limited construction（内存受限构建）
 
-Build an in-memory **block index（分块索引）**; when capacity is near its limit, sort/write it to disk, free buffers, and continue. **Flush the final nonempty block（别漏最后未满的一块）**. Merge sorted blocks by term and docID; combine duplicate document postings, frequencies and positions as appropriate.
+Build a memory-bounded block; sort/flush near capacity, free buffers, and **flush the final partial block**. Merge by term/docID, combining duplicate postings, counts and positions.
 
 ```text
 blocks = []
@@ -153,7 +153,7 @@ flush the remaining block
 merge all sorted blocks into the final index
 ```
 
-Sorted order permits sequential merging; blocking bounds working memory instead of requiring the whole index in RAM. Terms appearing across blocks must map to the same final term; do not treat unrelated block-local IDs as globally unique.
+Sorted blocks allow sequential merge. Reconcile block-local term IDs into one global dictionary.
 
 ## 3. Scaling, updates and compression（扩展、更新与压缩）
 
@@ -168,7 +168,7 @@ A cluster node（集群节点）stores an index of part of the collection. Two p
 
 ![Term versus document partitioning and the different query paths](assets/index-partitioning.svg)
 
-Real systems may combine both. A shard can omit absent terms physically while retaining the logical vocabulary; a “node” here means a machine/service, not a tree node.
+Term/document partitioning can be combined. A document shard may physically omit absent terms; a cluster node is a machine/service, not a tree node.
 
 **Quiz 3.3 Q1 / WK3 T/F13 / WK4 T/F8:** each document-partitioned node contains a subset of documents within a specified index range. **True**: “index” means **document ID range（文档编号区间）** here.
 
@@ -176,17 +176,17 @@ Real systems may combine both. A shard can omit absent terms physically while re
 
 ### 3.2 Dynamic indexing（动态索引）
 
-New documents require updates to existing postings and insertion of new terms; documents can also change or be deleted. Rewriting large sorted postings on every arrival is expensive.
+Arrivals add terms/postings; edits/deletions modify old ones. Rewriting a large sorted index for each change is expensive.
 
-Maintain a large **main index（主索引）** and small **auxiliary index（辅助／增量索引）**. Write incoming changes to the auxiliary index; queries consult both, merge results and filter deleted documents. Periodically merge the auxiliary into the main index in the background and publish a consistent new version.
+Write updates to a small **auxiliary index（增量索引）**; queries merge it with the **main index（主索引）** and filter deletions. Periodically merge/publish a consistent new main index.
 
-**Offline discussion:** when to re-index and how to delete? Balance auxiliary size/query overhead against merge cost and freshness（新鲜度）. A deletion bitmap/tombstone（删除位图／墓碑标记）can hide obsolete docIDs immediately; later merging physically removes their postings. These are implementation options beyond the slide's open questions.
+**Merge timing:** balance auxiliary size/query overhead against merge cost/freshness. A deletion bitmap/tombstone hides old docIDs immediately; merging later removes them physically.
 
-**辅助索引不是查询缓存。** It contains new index data; a cache stores prior results or frequently used data. Searching only the recent auxiliary can be a deliberate approximation, but complete retrieval must also cover the main index. Distributed arrival order and updates to existing IDs can require insertion in the middle of a posting list even when newly assigned IDs are monotone.
+**Auxiliary index ≠ query cache:** it holds new index data, not cached results. Querying only it sacrifices completeness. Distributed arrivals/edits may insert inside lists even with monotone new docIDs.
 
 ### 3.3 Dictionary and posting compression（词典与倒排列表压缩）
 
-**Dictionary:** fixed-width string slots waste space when term lengths differ. Pack term bytes into one concatenated string and store **start offsets plus lengths/boundaries（起始偏移与长度／边界）**. Filtering optional stop terms reduces entries but is separate from lossless encoding（无损编码）.
+**Dictionary compression:** concatenate variable-length terms and store offsets + lengths/boundaries. Stop filtering is separate from lossless encoding（无损编码）.
 
 **Gap / delta encoding（差分编码）：** for sorted docIDs $d_1<\cdots<d_p$, store
 
@@ -194,7 +194,7 @@ $$
 g_1=d_1,\qquad g_i=d_i-d_{i-1}\ (i>1),\qquad d_i=\sum_{j=1}^{i}g_j.
 $$
 
-Example: `2,15,47,…,58879,58890,… → 2,13,32,…,11,…`. Small gaps need fewer bits **when combined with variable-length coding（变长编码）**, such as variable-byte or gamma codes; storing every gap in the same fixed-width integer does not by itself save bytes. Rare-term gaps can still be large; “fewer than 20 bits” is an example observation, not a universal bound. Absolute restart IDs must remain representable. [Postings compression](https://nlp.stanford.edu/IR-book/html/htmledition/postings-file-compression-1.html).
+`2,15,47,…,58879,58890,… → 2,13,32,…,11,…`. Gaps save bytes only with **variable-length coding（变长编码）**, e.g. variable-byte/gamma; fixed-width gaps alone do not. Rare gaps/restart IDs may be large; “<20 bits” is an observation, not a bound. [Reference](https://nlp.stanford.edu/IR-book/html/htmledition/postings-file-compression-1.html).
 
 ![Gap encoding with block restart points for bounded decoding](assets/posting-gap-blocks.svg)
 
@@ -209,16 +209,16 @@ Example: `2,15,47,…,58879,58890,… → 2,13,32,…,11,…`. Small gaps need f
 | Mid-list insertion/deletion plus packed variable-length storage causes movement | Buffer updates in the auxiliary index; rebuild compressed blocks during merging. |
 | Dense skip metadata can erase space savings | Tune block/skip density to query and update patterns. |
 
-**关键区分：数学差值更新 ≠ 整段编码移动。** Insert $x$ between $a<b$: replace gap $b-a$ by **$x-a$ and $b-x$**; all later adjacent-ID gaps are unchanged if IDs are stable. Deleting $x$ merges these two gaps. Packed bytes may shift; fixed “every fourth entry” skip/restart positions may need rebuilding. The instructor clarified this distinction in the post-class discussion. Renumbering IDs is a separate source of widespread changes.
+Insert $x$ between $a<b$: replace $b-a$ by $x-a,b-x$; delete x by merging those gaps. Stable IDs leave later gaps unchanged, **but packed bytes can shift and fixed-position skips need repair**. Renumbering IDs is a separate global change.
 
 Other class proposals:
 
-- **Block-base offsets（块基值偏移）：** store one absolute base and each entry's offset from it. Direct decoding within a located fixed-width block is easy, but offsets may exceed adjacent gaps; layout/codec determine access cost.
-- **Multilevel skips / skip lists（多级跳跃／跳表）：** express lanes reduce traversal. Storing $\log p$ jump fields at **every** posting costs $O(p\log p)$ fields, plus their bit widths; it is not $O(\log p)$ total space. Sparse/randomized levels reduce overhead. Exact fixed-position skips and probabilistic skip lists have different update behavior; expected bounds are not per-operation worst-case guarantees.
-- **Hot-term policy（热词策略）：** use smaller blocks, more restart points, or uncompressed/bitmap representations for frequently accessed/updated terms; tune total byte cost as well as operation count.
-- **“取对数存大 ID”** cannot be lossless just by storing a rounded exponent: many IDs share that exponent. Preserve all identifying bits or a reversible encoding; compression must reconstruct exact docIDs.
+- **Block offsets（块偏移）：** absolute base + per-entry offsets; fixed-width entries support direct decode, but may exceed adjacent-gap sizes.
+- **Multilevel skips（多级跳跃）：** log p fields per posting cost **O(p log p) fields**, plus bit widths. Sparse/randomized levels reduce space; fixed-position and probabilistic skips have different updates/guarantees.
+- **Hot terms（热词）：** smaller blocks, more restarts, bitmap/uncompressed representations; compare byte cost and operation count.
+- Rounded **log IDs** lose information: preserve exact identifying bits in a reversible codec.
 
-**列表顺序不可混用：**gap compression and merge intersection assume **docID order**; the dictionary is in **term order**; displayed hits are in **score/rank order**. Ranking postings by score may make docID differences negative and invalidate this positive-gap codec. Keep ranked access as a separate representation/processing step when needed.
+Keep three orders distinct: **docID** for gap/intersection, **term** for dictionary, **score** for display. Score-sorting postings can create negative docID gaps and invalidate the positive-gap codec.
 
 ### 3.5 Thresholding（阈值截断）
 
@@ -227,9 +227,9 @@ Other class proposals:
 | Document thresholding（文档截断） | Rank documents by weight; retain only top $k$. | Can lose relevant results. Truncating individual term lists **before** AND does not preserve exact Boolean results. |
 | Query thresholding（查询截断） | Sort query terms by increasing $df$; use only an initial fraction. | Saves work by retaining discriminative terms, but changes the original query. |
 
-Example: ten query terms → try **20%, 40%, 80%**; compare answer sets. Offline incremental example: 10,000 candidates → 5,000 after another term → little change after the next; stop when change is small enough. **结果稳定只是启发式停止条件，不保证完整查询的答案或相关性。** For AND, dropping terms broadens the candidate set; do not confuse this with merely reordering all terms, which preserves the exact answer.
+Ten query terms: try **20%,40%,80%**. Candidate counts might change **10000→5000→little change**, suggesting a heuristic stop, not completeness/relevance. Dropping AND terms broadens candidates; reordering all terms preserves exact answers.
 
-**MOOC 3.3.4 Q1:** given high- and low-frequency words, which is generally more important? Choices **A high / B low / C unrelated / D unknown**. **Answer: B** under the course's discriminativeness heuristic: low **document** frequency distinguishes fewer documents. **WK3 T/F9:** very long posting lists are generally less important than short ones — **True** in this sense; rarity alone does not prove semantic relevance.
+**MOOC 3.3.4:** high/low/unrelated/unknown importance → **B: low df**, greater discrimination. **WK3 TF9:** long lists generally less informative → **True**, but rarity alone does not imply relevance.
 
 **Quiz 3.3 Q2 / WK3 T/F3:** “Thresholding for query retrieves top $k$ documents by weight.” **False**: that is **document** thresholding; query thresholding selects **terms**. 中文是“阈值”，不是“阀值”。
 
@@ -244,11 +244,11 @@ Example: ten query terms → try **20%, 40%, 80%**; compare answer sets. Offline
 | Query-language expressiveness（查询语言表达能力） | Complex needs, e.g. `apple NOT company`, phrases, combinations; also speed on complex queries. |
 | User happiness（用户满意度） | In this lecture, efficient correct retrieval plus relevant results. |
 
-**Data retrieval（数据检索）:** establish correctness of exact matching, then measure response time/index space. **Information retrieval, IR（信息检索）:** also evaluate relevance（相关性）to the information need. `red` and `apple` occurring together can mean a red balloon outside Apple Inc., not a red fruit.
+**Data retrieval（数据检索）：** exact correctness, response time, space. **IR（信息检索）：** additionally relevance to the need. Co-occurrence of `red` and `apple` could describe a balloon outside Apple Inc., not fruit.
 
-**HW3 T/F2:** measuring answer-set relevance is important for **data retrieval** performance — **False in the course's terminology**; that extra criterion distinguishes IR. Do not read this as “relevance is unimportant to search engines.”
+**HW3 TF2:** relevance is a data-retrieval performance measure → **False in course terminology**; it distinguishes IR.
 
-**HW3 MC2: which is NOT among the stated search-engine measures?** **A** indexing speed; **B** search speed; **C** interface friendliness; **D** answer relevance. **Answer: C** for this lecture's list. Interface usability can matter in broader product evaluation; the question's scope is the stated technical measures.
+**HW3 MC2:** NOT in the stated measures? A indexing speed / B search speed / C interface friendliness / D relevance → **C**, though usability matters in broader evaluation.
 
 ### 4.2 Precision and recall（查准率与查全率）
 
@@ -266,7 +266,7 @@ $$
 
 ![Retrieved and relevant sets: precision and recall use different denominators](assets/precision-recall-sets.svg)
 
-**P 问“返回的有多准”，R 问“该找的找全了吗”。** Precision is not accuracy（准确率，分类中通常指 $(TP+TN)/\text{total}$）. Empty denominators need an explicit evaluation convention; do not silently divide by zero.
+**P：检出的有多准；R：相关的找全没。** Precision ≠ accuracy $(TP+TN)/\text{total}$. Specify conventions for zero denominators.
 
 | Behavior | Precision | Recall |
 | --- | --- | --- |
@@ -274,7 +274,7 @@ $$
 | Return the entire collection | Relevant fraction of collection | 100% if relevant documents exist |
 | Return exactly the relevant set | 100% | 100% |
 
-The slide's precision–recall curve illustrates a tradeoff, not an identity forcing one metric to decrease whenever the other increases.
+The P–R tradeoff curve is illustrative, not an identity requiring one to fall when the other rises.
 
 **WK3 T/F5:** “Precision measures the quality of all retrieved documents.” **True**: it measures the relevant fraction of that returned set.
 
@@ -291,15 +291,15 @@ The slide's precision–recall curve illustrates a tradeoff, not an identity for
 
 ### 4.3 Priorities and improving relevance（指标取舍与相关性改进）
 
-**Offline discussion:** when is precision or recall more important? Define the **positive class（正类）** and compare the costs of **false positives（误报）** and **false negatives（漏报）**.
+Define the **positive class（正类）** and compare **FP（误报）/FN（漏报）costs**.
 
-- Prioritize **precision** when unwanted returned/flagged items are costly: avoid blocking legitimate mail; show a small, useful set of recommendations rather than many irrelevant ones.
-- Prioritize **recall** when omissions are costly: evidence gathering, exhaustive code/paper search, initial screening of suspicious items. **HW3 T/F3:** precision is more important than recall for airport explosive detection — **False in the question's scenario**; detecting dangerous positives is the priority.
-- A two-stage pipeline（两阶段流程）can seek broad recall first, then verify/rank candidates to improve precision. **WK4 T/F7:** recall is more important than precision for cheating detection in an Online Monitor System — **True in the stated initial-alert scenario**. Broad detection is followed by human verification; an automatic alert is not a final misconduct judgment. The class also contrasts broad initial screening with later confirmation: priority depends on the stage and error costs.
+- **Precision:** costly unwanted hits—blocking legitimate mail or irrelevant recommendations.
+- **Recall:** costly omissions—evidence, exhaustive code/paper search. **HW3 TF3:** airport detection prioritizes precision → **False**, missed dangers dominate.
+- **Two stages:** broad recall, then verification/ranking. **WK4 TF7:** recall priority for initial monitor alerts → **True**; human review decides misconduct. Screening and confirmation need different error costs.
 
-**Shopping/paper-search debate:** information density or corpus size alone does not choose the metric. A comprehensive literature search may emphasize recall; top recommendations may emphasize precision. Personalization（个性化／用户画像）can improve relevance for a particular user, with evaluation tied to that need.
+Exhaustive literature search favors recall; a few shopping recommendations favor precision. Corpus size/density alone does not decide. Personalization（用户画像）must be evaluated against the user’s information need.
 
-**MOOC 3.4.2 discussion: how to improve relevance?** The course names **PageRank（网页链接重要性排序）** and **Semantic Web（语义网）**. Add context/meaning and user preferences to distinguish senses such as fruit/company. PageRank is an importance signal, not proof of query relevance; keyword overlap alone does not capture meaning. Evaluate improvements against the same relevance benchmark.
+**MOOC 3.4.2:** improve relevance using **PageRank** (link importance) and **Semantic Web（语义网）** (context/meaning), plus preferences. Neither PageRank nor keyword overlap alone proves relevance; compare on one benchmark.
 
 ## 5. Integrated exercises（综合题）
 
@@ -316,7 +316,7 @@ Positive = **spam**, retrieved = **flagged as spam**:
 | A | 1800 | 200 | 219 | $1800/2000=90\%$ | $1800/2019\approx89.15\%$ |
 | B | 1500 | 160 | 519 | $1500/1660\approx90.36\%$ | $1500/2019\approx74.29\%$ |
 
-**Answer: C.** B has higher spam precision and also flags fewer legitimate emails in this dataset. A catches more spam. 若把普通邮件改成正类，指标名称与分母也必须重新解释，不能只凭“保护邮件”猜 recall。
+**C:** B has higher spam precision/fewer flagged legitimate mails; A catches more spam. Changing the positive class changes the metric’s interpretation.
 
 **WK4 MC2 (different dataset):** 10,000 legitimate + 2,000 spam emails; A flags 300 legitimate + 1,600 spam, B flags 315 legitimate + 1,800 spam. Choices: **A** precision/A better; **B** recall/B better; **C** precision/B better; **D** recall/A better. Protecting important legitimate mail again selects **C** under the course's precision criterion:
 
@@ -325,7 +325,7 @@ Positive = **spam**, retrieved = **flagged as spam**:
 | A | $1600/1900\approx84.21\%$ | $1600/2000=80\%$ | $300/10000=3\%$ |
 | B | $1800/2115\approx85.11\%$ | $1800/2000=90\%$ | $315/10000=3.15\%$ |
 
-**指标与代价要分开：**B has higher precision, yet deletes **15 more** legitimate messages on this fixed dataset. If “safe” means minimizing their absolute loss/false-positive rate alone, A is better. The accepted answer **C** follows the lecture's use of spam precision; it is not a universal guarantee of fewer false deletions. Set the operational objective explicitly rather than substituting one metric for another.
+**C under spam precision**, but B flags **15 more legitimate mails**. If safety means minimizing their loss/false-positive rate, A wins. Precision and absolute false deletions measure different objectives.
 
 ### 5.2 Recall calculation（查全率计算）· HW3 MC3
 
@@ -358,18 +358,12 @@ $P=10000/(10000+40000)=20\%$; $R=10000/(10000+30000)=25\%$. The whole-collection
 - **C.** Distributed index, backtracking, query.
 - **D.** Posting list, thresholding, recall.
 
-**Answer: C.** Backtracking（回溯搜索）is not one of this lesson's indexing/query modules; all other listed concepts are. This does not claim no search-related implementation could ever use backtracking.
+**C:** backtracking is outside this lesson’s indexing modules; the other concepts are covered.
 
 ## 6. Review and references（复习与来源）
 
-**复习抓手：**正排／倒排方向；$df$ 与 $tf$；位置与短语匹配；短列表优先；stemming 与 stop filtering；分块后最终 flush；词项／文档分片；主索引＋增量索引；差值局部更新与编码移动；docID／词项／排序分数三种顺序；文档／查询截断；P/R 分母、正类和误报／漏报成本。
+History: FTP discovery **Archie** → crawling **Wanderer** → manual portals **Yahoo/Sohu** → engines **Tianwang/Google/Baidu**. Inverted indexes predate Web search (e.g. patent keyword retrieval). Historical traffic/index-size/company examples are not algorithm guarantees.
 
-**Historical context（线下背景）：** the lecture traces early FTP-directory discovery (Archie), Web crawling (Wanderer), manually curated portals (Yahoo/Sohu), Tianwang, and automated engines (Google/Baidu). The technical progression is **collect → organize → serve**, from manual organization to scalable automatic indexing/ranking. Inverted indexing predates Web search, including patent keyword retrieval. Slide traffic rankings, index-size estimates and company anecdotes are historical examples, not current measurements or algorithm guarantees.
+资料：慕课、线下记录及小测／作业；配图沿用课程／PTA 图或重绘。
 
-Sources: all supplied `~/ADS-docs/3` MOOC merged/lesson exports and manifest (units **1320673534–1320673550**), **111** video captures, the **21-page** courseware PDF, offline `lecture-record-17/course_content.md` and **24** captures, plus WK3/HW3 archives. This page covers all **11** MOOC questions and all **10** current-topic WK3 questions; duplicated questions share an explanation. **WK4 supplements** from `~/ADS-docs/4/[Archive] ZJUADS_cy2026_QuizWK4.md` and the offline review: all **five** inverted-index/evaluation questions are integrated here (two new datasets and three shared explanations). HW3's **seven** nonprogramming questions appear here; its programming task has a [separate complete problem and solution](hw3-document-distance.md).
-
-- [ZJU MOOC](https://www.icourse163.org/course/ZJU1-1460402161), supplied term 1488053496.
-- [Manning, Raghavan & Schütze, *Introduction to Information Retrieval*](https://nlp.stanford.edu/IR-book/html/htmledition/irbook.html): Boolean/positional indexes, construction, compression and evaluation; supplementary clarification, not an assigned page range.
-- The supplied slides name `InvertedFileIndex.zip`: *The Google File System*, *Building an Inverted Index*, *Inverted Index Construction (ppt)*, *Compression*. **That archive and its individual files are not present in the supplied directory**; the notes cover the provided sources and do not imply those additional readings were inspected.
-
-Four editable SVG figures are original diagrams. Status remains `draft` pending instructor/textbook review.
+[Introduction to Information Retrieval](https://nlp.stanford.edu/IR-book/html/htmledition/irbook.html). Slides also list `InvertedFileIndex.zip` (*Google File System*, *Building an Inverted Index*, *Inverted Index Construction*, *Compression*); those files were not supplied.

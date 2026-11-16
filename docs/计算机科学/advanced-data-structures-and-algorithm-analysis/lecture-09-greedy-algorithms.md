@@ -14,11 +14,11 @@ sources:
 
 ## 1. Safe local choices（安全的局部选择）
 
-A **feasible solution（可行解）** obeys constraints; an **optimal solution（最优解）** optimizes the objective. Greedy algorithms make irrevocable local choices（不可撤销局部决策）. An appealing rule is not automatically correct.
+**Feasible（可行）:** obeys constraints; **optimal（最优）:** best objective. Greedy uses irrevocable local choices; intuition alone proves nothing.
 
-To prove a greedy algorithm: define the residual problem → prove some optimum contains the greedy choice (**exchange argument，交换论证**) → prove the residual solution is optimal (**optimal substructure，最优子结构**). It is enough that **some**, not **all**, optimal solutions can take that choice. A failure to find a counterexample is not a proof.
+**Proof:** define residual problem → exchange an optimum to contain the greedy choice → prove optimal residual solutions extend optimally. **Some optimum**, not every optimum, must permit the choice. No known counterexample ≠ proof.
 
-**Quiz 9.1:** local choices must lead to a global optimum for an exact solver; decisions are not revised — **both True** in the lecture's intended sense. A heuristic（启发式）has no general approximation guarantee; an approximation algorithm（近似算法）needs a proved bound. The slide's suggestion that greedy is “generally close” supplies no such bound. Dijkstra and MST are earlier greedy examples with their own preconditions; a theorem for one problem does not transfer to another.
+**Quiz 9.1: both True**—safe local choices must reach a global optimum, and decisions are not revised. **Heuristic（启发式）** supplies no approximation ratio; **approximation（近似算法）** needs a proved bound. “Generally close” is no theorem. Dijkstra/MST need their own preconditions.
 
 ## 2. Activity selection（活动选择）
 
@@ -30,7 +30,7 @@ Sort by finish time. Select the earliest-finishing activity compatible with the 
 
 For starts `1,3,0,5,3,5,6,8,8,2,12` and finishes `4,5,6,7,9,9,10,11,12,14,16`, one answer is **activities 1,4,8,11**. There may be other optimal sets.
 
-**Proof:** let a be earliest-finishing and b the first activity in an optimum. Replace b by a: since $f_a\le f_b$, every later activity remains feasible and cardinality is unchanged. Solve the suffix after a similarly. This proves existence of an optimum containing a, not necessity in every optimum. **Quiz 9.2 existential claim: True; HW9 TF1 universal claim: False.** Two overlapping intervals can form two different singleton optima.
+**Exchange:** replace an optimum’s first activity b by earliest-finishing a; $f_a\le f_b$ preserves all later choices/cardinality. Recurse on the suffix. **Quiz 9.2: some optimum contains a → True; HW9 TF1: all optima contain a → False.** Two overlapping activities can be alternative singleton optima.
 
 ### Wrong rules and DP alternatives（错误规则与 DP）
 
@@ -44,9 +44,9 @@ For starts `1,3,0,5,3,5,6,8,8,2,12` and finishes `4,5,6,7,9,9,10,11,12,14,16`, o
 
 Different objective: **schedule all activities, minimize rooms**. Sort by **start** time; reuse any available room, or open one if every existing room is occupied. A min-heap of room finish times implements this in O(n log n). At a tie, a room finishing at s is available at s.
 
-**Lower-bound proof（峰值重叠下界）：** opening room k means the k−1 existing rooms are occupied at the new activity's start; those activities and the new one overlap. Every schedule needs at least k rooms. The greedy schedule uses exactly that many → optimal.
+Opening room k means k−1 rooms are occupied at that start: these activities overlap the new one, so every schedule needs ≥k rooms. Greedy uses exactly k → optimal.
 
-**Quiz 9.2 / offline discussion:** Greedy1 repeatedly extracts a maximum compatible one-room subset; Greedy2 uses start-order room assignment. **C: only Greedy2 is always optimal.** Solving one room optimally can leave a badly arranged remainder. Counterexample to repeated earliest-finish extraction: `[0,2),[1,4),[3,7),[5,6),[6,8)`; first extract `[0,2),[5,6),[6,8)`, leaving the overlapping middle intervals → 3 rooms, although peak overlap and optimum are 2.
+**Quiz 9.2: C.** Greedy1 repeatedly fills one room maximally; Greedy2 assigns rooms in start order. Only 2 is always optimal. Counterexample to 1: `[0,2),[1,4),[3,7),[5,6),[6,8)`; extract `[0,2),[5,6),[6,8)`, leaving two overlapping intervals → 3 rooms, versus optimum/peak overlap 2.
 
 ## 4. Huffman coding（哈夫曼编码）
 
@@ -54,7 +54,7 @@ Fixed-width binary codes for C symbols need $\lceil\log_2 C\rceil$ bits/symbol. 
 
 **Prefix-free（前缀无歧义）：** no complete symbol code is a prefix of another; symbols occur only at **leaves of a binary trie（字典树）**. Decode by following bits from the root, emit a symbol at a leaf and restart. A truncated/invalid bit sequence must be detected; not every arbitrary bit string necessarily ends at a leaf.
 
-A prefix trie need not initially be full, but with positive weights an **optimal** binary prefix tree has no one-child internal nodes: contracting one reduces weighted length. Thus an optimal tree can be taken full (each internal node has two children).
+A prefix trie need not be full; an **optimal positive-weight** trie has no unary internal node, since contraction lowers cost. Thus take a full tree (two children per internal node).
 
 Example `aaaxuaxz`: counts a=4,u=1,x=2,z=1. Fixed codes use 16 bits. Codes `a=0,u=110,x=10,z=111` use **14 bits**; `00010110010111` decodes as **aaaxuaxz** (MOOC checkpoint). Code-table overhead matters for short files.
 
@@ -68,11 +68,11 @@ $$
 
 ![Supplied Huffman merge example and resulting code table](assets/lecture-09-slide-13.png)
 
-**Greedy-choice lemma:** there is an optimal tree in which the two least frequent symbols x,y are deepest sibling leaves. Starting with deepest siblings, swapping smaller weights down cannot increase WPL; assign x,y there. **Optimal-substructure lemma:** contract x,y into z of weight $f_x+f_y$. Expanding an optimum for the contracted alphabet increases cost by exactly $f_x+f_y$. If the expanded tree were nonoptimal, contracting a better tree would contradict the smaller optimum. These two lemmas establish global optimality, not uniqueness.
+**Greedy choice:** swap the two smallest weights x/y into deepest sibling leaves; weighted length cannot increase. **Substructure:** contract them into z of weight $f_x+f_y$; expansion adds exactly that cost. A better expanded tree would contract to a better smaller optimum—a contradiction. This proves optimality, not uniqueness.
 
 ![Exchange argument for the least-frequency sibling pair](assets/lecture-09-slide-14.png)
 
-Ties can produce different optimal code tables; left/right bit swaps also preserve cost. Huffman is not the only way to obtain an optimal table. Equal frequencies usually give little/no gain over fixed length; for non-power-of-two alphabet sizes, even equal frequencies can admit a small gain. Avoid claiming equality in every alphabet size.
+Ties/bit swaps permit different optimal codes. Equal frequencies offer little saving; non-power-of-two alphabets can still gain slightly over fixed width.
 
 ### Questions（小测与作业）
 
@@ -93,8 +93,8 @@ Sort stations by distance; coalesce equal locations at the lowest price; append 
 - Otherwise buy as much as needed up to a full tank (or only enough for the destination), then go to the **cheapest reachable station**. Equal-price ties do not affect optimum cost.
 - If none is reachable, maximum reachable distance is current location + full-tank range. If no station at 0, that distance is 0.
 
-**Exchange rationale:** expensive fuel should not be bought for use after a cheaper station becomes available; if no cheaper fuel is reachable, carrying more current fuel cannot cost more than replacing it before the next chosen cheaper opportunity. Preserve fuel left on arrival. Using the cheapest station globally ignores reachability and is wrong. Simple implementation O(N²) after sorting, O(N) memory; sufficient for N≤500. Use careful comparisons and format exactly two decimal places.
+Buy no expensive fuel for use after cheaper fuel becomes reachable; without a cheaper reachable station, extra current fuel cannot be replaced more cheaply en route. Preserve residual fuel. Global cheapest ignores reachability. O(N²) scan/O(N) space suffices for N≤500; compare carefully and print two decimals.
 
-## 6. Sources（来源）
+## 6. References（参考）
 
-`~/ADS-docs/9`: Lecture 9 MOOC transcript/quizzes/PDF and captures, offline `downloads/course_87216_sub_1993131`, HW9. This directory also contains Lecture 8 exports; they are consolidated into Lecture 8. No WK9 quiz archive was supplied. Reading: CLRS 3rd ed. Ch.16 pp.415–437. Images are supplied course material, retained for study. Status `draft`.
+CLRS 3rd ed.: Ch.16 pp.415–437. No WK9 quiz archive was supplied.

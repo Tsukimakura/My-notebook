@@ -14,15 +14,15 @@ sources:
 
 ## Problem（完整题意）
 
-With highways available, driving a car from Hangzhou to any other city is easy.  But since the tank capacity of a car is limited, we have to find gas stations on the way from time to time.  Different gas station may give different price.  You are asked to carefully design the cheapest route to go.
+Find the cheapest fuel purchases along a fixed route; station prices vary, tank capacity is limited and initially empty. If unreachable, report the maximum travel distance.
 
 ## Input Specification:
 
-Each input file contains one test case.  For each case, the first line contains 4 positive numbers: $C_{max} $ ($ \le $ 100), the maximum capacity of the tank; $ D $ ($ \le $30000), the distance between Hangzhou and the destination city; $ D_{avg} $ ($ \le $20), the average distance per unit gas that the car can run; and $ N $ ($ \le $ 500), the total number of gas stations.  Then $ N $ lines follow, each contains a pair of non-negative numbers: $ P_i $, the unit gas price, and $ D_i $ ($ \le D $), the distance between this station and Hangzhou, for $ i=1,\cdots ,N$.  All the numbers in a line are separated by a space.
+One case: positive **Cmax≤100** (tank capacity), **D≤30000** (route length), **Davg≤20** (distance per fuel unit), **N≤500** stations. Each station gives nonnegative `(price,distance)`, with distance≤D. Values are space-separated and may be nonintegral.
 
 ## Output Specification:
 
-For each test case, print the cheapest price in a line, accurate up to 2 decimal places.  It is assumed that the tank is empty at the beginning.  If it is impossible to reach the destination, print `The maximum travel distance = X` where `X` is the maximum possible distance the car can run, accurate up to 2 decimal places.
+Initially empty tank. Print minimum cost to **2 decimal places**, or `The maximum travel distance = X` with X to 2 decimals if unreachable.
 
 ## Sample Input 1:
 
@@ -60,8 +60,6 @@ The maximum travel distance = 1200.00
 
 ## Solution（解法）
 
-See Lecture 9's greedy exchange argument. The linked executable reads one test case, preserves residual fuel, coalesces duplicate positions, and adds the destination sentinel. If the destination is out of reach, the output is maximum distance, not the amount spent before failure. The two supplied samples must output **749.17** and **The maximum travel distance = 1200.00**.
+Use Lecture 9’s greedy rule. The executable preserves residual fuel, coalesces duplicate positions and adds a destination sentinel. On failure output distance, not spending. Samples: **749.17**; **The maximum travel distance = 1200.00**.
 
 Sorting O(N log N), reachable-station scans O(N²), O(N) memory. Prices and distances may be nonintegral; do not truncate fuel or round intermediate costs. The implementation assumes inputs obey the stated bounds.
-
-Source: supplied HW archive in `~/ADS-docs/9`; the problem and samples are retained, submission metadata omitted.

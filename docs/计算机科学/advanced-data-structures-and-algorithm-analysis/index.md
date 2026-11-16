@@ -12,7 +12,7 @@ sources:
 
 **高级数据结构与算法分析 · CHEN Yue（陈越）, Zhejiang University**
 
-Advanced data structures + algorithm analysis: invariants（不变量）, correctness（正确性）, complexity proofs（复杂度证明）, implementation（实现）, and experiments（实验）.
+**Invariants（不变量）· correctness（正确性）· complexity（复杂度）· implementation（实现）**
 
 ## Notes（笔记）
 
@@ -31,7 +31,7 @@ Advanced data structures + algorithm analysis: invariants（不变量）, correc
 - [HW3: Document Distance](hw3-document-distance.md)：完整题目、稀疏词频向量、余弦角距离与 C 实现。
 - [HW1: Root of AVL Tree](hw1-avl-root.md)：完整题目、样例与 C 实现。
 
-**Prerequisites（前置知识）：**BST、递归、指针树、渐近记号与对数。第二课时沿用 BST 顺序与渐近分析，新增黑高和多路树的占用约束。
+**Prerequisites:** BST、递归、指针、渐近记号、对数。
 
 ## Reading（阅读）
 
@@ -47,7 +47,7 @@ Advanced data structures + algorithm analysis: invariants（不变量）, correc
 
 以下为所提供线下课的记录，具体执行以课程公告为准。
 
-**Flipped classroom（翻转课堂）：**首课三节，后续两节，留一节时间预习；记录上课时段为 10:00–11:35。课前看慕课、完成驻点题并总结；课上约 15–20 分钟提纲，再讨论。慕课含驻点题与教师制作的字幕，B 站英文字幕由学生制作。主授课语言为英语，重点可用中文解释。
+**翻转课堂：**首课三节，后续两节；记录时段 10:00–11:35。课前看慕课／做驻点题／总结，课上先提纲约15–20分钟再讨论。英语为主，中文辅助；慕课含教师字幕，B站英文字幕由学生制作。
 
 | Assessment（考核） | 分值与规则 |
 | --- | --- |
@@ -69,4 +69,4 @@ Advanced data structures + algorithm analysis: invariants（不变量）, correc
 
 ### Integrity（学术诚信）
 
-诚信测试须满分才能参加期末。记录规则：学术不端取消期末资格、课程成绩为 0。讨论提交须体现小组自己的推理；项目的 AI 使用范围由教师具体宣布。学习目标是独立思考，并能判断工具输出的正确性。
+诚信测试须满分才能参加期末；学术不端取消期末资格、课程成绩为0。讨论须有本组推理；项目AI使用范围以教师公告为准。

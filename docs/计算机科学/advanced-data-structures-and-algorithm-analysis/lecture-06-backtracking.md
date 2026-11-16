@@ -14,7 +14,7 @@ sources:
 
 ## 1. Search with reversible decisions（可撤销决策的搜索）
 
-**Backtracking = depth-first search of partial solutions + safe pruning（深搜＋剪枝）.** Exhaustive search tests complete candidates; backtracking rejects an infeasible prefix before constructing its descendants. A search tree is an **implicit model**, not a structure to allocate in memory.
+**Backtracking= DFS of partial solutions + safe pruning（剪枝）.** Reject infeasible prefixes before constructing descendants. The search tree is implicit, not allocated.
 
 ```text
 search(state):
@@ -27,9 +27,9 @@ search(state):
             undo every modified value/count before trying the next candidate
 ```
 
-**Correctness:** enumerate all allowed choices; prune only when **no completion can satisfy the goal or improve the incumbent（当前最优解）**. First-solution search may return immediately; all-solutions search must undo even after success. Memory is generally recursion depth plus state, not the entire search tree. More constrained variables first (**minimum remaining values，最少剩余值**) can expose failure earlier; it does not change the set of solutions.
+Enumerate every allowed choice; prune only if **no completion meets the goal/improves the incumbent**. First-solution search may return immediately; all-solutions search must undo after success. Store depth/state, not the whole tree. **MRV（最少剩余值）:** choose a small remaining domain to expose failure earlier without losing solutions.
 
-**Quiz 6.1 / WK6 TF4:** exhaustive search always finds a solution in finite time — **False without finite-search-space and existence assumptions**. Finite exhaustive enumeration does terminate and can certify “no solution”. **WK6 TF3 / WK7 TF3:** surviving partial-solution counts are difficult to predict; that is why a precise backtracking running time is problem/input dependent. **WK7 TF5** claiming universal $\Omega(S)$ work for the entire candidate space is **False**: pruning can skip most candidates. Use $O(\text{visited states}\times\text{work/state})$; outputting all actual answers alone costs their total output size.
+**Quiz 6.1 / WK6 TF4:** exhaustive search always finds a solution in finite time → **False** without finiteness/existence; finite enumeration terminates, possibly with no solution. **WK6 TF3 / WK7 TF3:** surviving-prefix counts are hard to predict → **True**. **WK7 TF5:** universal $\Omega(S)$ over the full candidate space → **False**, since pruning skips candidates. Cost = visited states × work/state; enumerating answers also costs their output size.
 
 ## 2. N queens（N 皇后）
 
@@ -39,7 +39,7 @@ $$
 1\le x_i\le n,\qquad x_i\ne x_j,\qquad |x_i-x_j|\ne|i-j|\ (i\ne j).
 $$
 
-No repeated columns → **$n!$ candidate permutations**, rather than $n^n$ unrestricted row choices. For 4 queens the implicit permutation tree has **24 leaves** (MOOC checkpoint B); valid answers are **(2,4,1,3), (3,1,4,2)**. Check each placement against earlier rows, or maintain columns and the two diagonal sets `row-col`, `row+col` for constant-time conflict tests.
+Distinct columns leave **n!** permutations, rather than nⁿ unrestricted row choices. Four queens: **24 leaves (B)**, solutions **(2,4,1,3), (3,1,4,2)**. Check earlier rows, or use occupied-column/`row-col`/`row+col` sets for O(1) conflict tests.
 
 ![Two-dimensional board represented by column indices; supplied example](assets/lecture-06-slide-04.png)
 
@@ -60,7 +60,7 @@ Let $d=\max D$ among unused distances. The next point must be **$d$ or $L-d$**, 
 
 ![Supplied branch tree for the 15-distance example](assets/lecture-06-slide-07.png)
 
-Course example `1,2,2,2,3,3,3,4,5,5,5,6,7,8,10` → **(0,3,5,6,8,10)**. Choosing a plausible point without multiplicity checks is not sufficient. Reflection $x\mapsto L-x$ preserves distances; normalization at 0 removes translations but not reflections or other ambiguities. Worst-case branching can be exponential; early contradictions often help.
+`1,2,2,2,3,3,3,4,5,5,5,6,7,8,10` → **(0,3,5,6,8,10)**. Verify multiplicities. Fixing x₁=0 removes translations, not reflections $x\mapsto L-x$ or other ambiguities. Branching can be exponential.
 
 | Source | Input / claim | Answer |
 | --- | --- | --- |
@@ -68,13 +68,13 @@ Course example `1,2,2,2,3,3,3,4,5,5,5,6,7,8,10` → **(0,3,5,6,8,10)**. Choosing
 | WK6 MC1 | `1,1,3,3,4,4,4,5,7,8`; A `(x1,x3,x5)=(0,4,8)`; B `(x1,x2,x3)=(0,1,5)`; C `(0,3,5)`; D `(x3,x4,x5)=(4,6,8)`. | **A**, witness `(0,1,4,5,8)` (its reflection is also valid). |
 | WK6 MC5 | After endpoints 0,8 for `1,1,2,2,2,2,3,3,3,4,5,5,6,6,8`, next choices: A `(x2,x5)=(1,6)`; B `(2,6)`; C `(x3,x5)=(3,6)`; D `(1,5)`. | **B** in the supplied right-first search: try $x_5=6$, then $x_2=2$ as required counts dictate. This is a search order, not a uniqueness theorem. |
 
-**Offline discussion:** largest remaining distance guarantees two endpoint-derived candidates. Replacing it by the smallest distance loses that argument: it may lie between two interior points, so two guessed placements are no longer exhaustive. Store a sorted multiset or count map; deletion must remove only one occurrence.
+Largest-unused distance gives the two endpoint-derived candidates. The smallest may connect interior points, so two analogous guesses are incomplete. Use a sorted multiset/count map; remove one occurrence at a time.
 
 ## 4. Minimax and alpha–beta pruning（极小极大与 α–β 剪枝）
 
 Tic-tac-toe has $3^9=19683$ raw board assignments and $9!=362880$ full move permutations; many are **illegal or terminate earlier**, so these are not counts of legal finished games.
 
-A heuristic evaluation can be $f(P)=W_{computer}-W_{human}$, where each $W$ counts rows/columns/diagonals still open to that side. It is an estimate at a search cutoff, not an exact winning probability. Computer nodes maximize; opponent nodes minimize. Terminal wins/losses must receive consistent decisive scores.
+$f(P)=W_{computer}-W_{human}$ counts the difference in unblocked winning lines. It is a cutoff heuristic, not a winning probability; give terminal wins/losses decisive scores.
 
 **Minimax recurrence:** leaf → evaluation; MAX → maximum child; MIN → minimum child. Search children left to right unless specified otherwise.
 
@@ -85,7 +85,7 @@ A heuristic evaluation can be $f(P)=W_{computer}-W_{human}$, where each $W$ coun
 
 ![Alpha and beta cutoffs in the supplied lecture](assets/lecture-06-slide-17.png)
 
-The slide's $O(\sqrt S)$ ideal node count assumes favorable move ordering in a roughly balanced full game tree. Worst case remains $O(S)$; good ordering changes work, not minimax's exact root value at the same depth. **AlphaGo is motivational context; minimax alone is not its full algorithm.**
+Ideal $O(\sqrt S)$ node search assumes favorable ordering in a balanced game tree; worst case O(S). Ordering changes work, not the exact same-depth minimax result. Minimax alone is not AlphaGo’s full algorithm.
 
 ### Game-tree questions（博弈树题）
 
@@ -107,7 +107,7 @@ Root first gets 6, then $\min(13,x)$. Before the last MIN subtree, $\alpha=\max(
 
 ## 5. Branch and bound: 0–1 knapsack（分支限界与背包）
 
-**WK7 code review:** `W` is remaining capacity; `val` is current profit; `r` bounds remaining profit; each object is used 0 or 1 time. For nonnegative profits, `val+r <= optp` cannot improve the incumbent. Keep `n` unchanged, advance `i`, subtract only chosen weight, and undo the profit added in that branch:
+**WK7 knapsack:** W=remaining capacity, val=chosen profit, r=remaining-profit bound. With nonnegative profits, prune when `val+r <= optp`. Keep n fixed, advance i, subtract chosen weight and undo chosen profit:
 
 ```c
 /* Fill the recursive call and the backtrack statement. */
@@ -117,7 +117,7 @@ optp = Knapsack01(W - s[i].w*x[i], n, s, x,
 val -= s[i].p*x[i];
 ```
 
-At the current level first do `r -= s[i].p`, then loop `x[i]=0,1`; at `i==n` copy the improved solution. The archived `W-1, n-1, val+r` call is wrong: it mixes state meanings and can miss the termination condition. Fractions may supply a tighter bound only when their relaxed optimum is computed correctly.
+Do `r -= s[i].p` before trying x[i]=0/1; copy improvements at i==n. The submitted `W-1,n-1,val+r` mixes states/termination. A fractional relaxation can tighten the bound if computed correctly.
 
 ## 6. HW6: Werewolf（狼人杀）
 
@@ -125,8 +125,8 @@ At the current level first do `r -= s[i].p`, then loop `x[i]=0,1`; at `i==n` cop
 
 ## 7. Offline extension: nonogram constraints（数织约束）
 
-The subsequent backtracking presentations use row/column clues consisting of lengths of consecutive filled runs. For line length L and k runs totaling s filled cells, placements must reserve k−1 separating blank cells; if feasible, there are $\binom{L-s+1}{k}$ raw line patterns (k=0 gives the all-blank pattern). Generate feasible line masks, intersect row/column constraints, force cells agreed on by all surviving patterns, and branch on a constrained line/cell when propagation stalls. Undo removals and cell assignments on backtracking. Empty candidate sets certify a contradiction; a complete assignment must satisfy **both** row and column clues. Propagation is a pruning method, not a general polynomial solver; candidate spaces can still grow exponentially. Distinguish first-solution search, uniqueness testing and enumeration of all solutions.
+**Nonogram（数织）：** rows/columns specify filled-run lengths. For length L and k runs totaling s cells, reserve k−1 separators; feasible raw line patterns number $\binom{L-s+1}{k}$ (k=0 → all blank). Generate masks, intersect row/column constraints, force cells common to all surviving masks; branch on a constrained cell/line when propagation stalls. Undo assignments/candidate removals. Empty domain → contradiction; final grid must satisfy both clue directions. Propagation does not remove exponential worst cases. First solution, uniqueness test and full enumeration are different tasks.
 
-## 8. Sources（来源）
+## 8. References（参考）
 
-`~/ADS-docs/6`: MOOC merged/lesson notes/quizzes and PDF; offline `downloads/course_87216_sub_1983135`; WK6/HW6. WK7 backtracking-only review belongs here. Pictures are supplied lecture/PTA figures, retained for study. Heap-only questions belong to Lectures 4–5. Reading: adapted Weiss Ch.10 pp.403–414. Status `draft`; malformed exports are identified rather than silently completed.
+Adapted Weiss C 2nd ed.: Ch.10 pp.403–414.

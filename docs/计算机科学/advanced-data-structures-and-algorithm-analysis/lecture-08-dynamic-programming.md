@@ -14,15 +14,15 @@ sources:
 
 ## 1. State, dependency, reuse（状态、依赖与复用）
 
-**Solve each distinct subproblem once and store its result.** DP is a dependency-ordered computation, implemented by bottom-up tabulation（制表）or top-down memoization（记忆化）, with arrays or hash tables. It does not prohibit recursion. **Quiz 8.1 / WK8 TF1: True.**
+**DP（动态规划）：** compute each subproblem once and retain results in arrays/hash tables. Bottom-up tabulation（制表）or top-down memoization（记忆化）both work; recursion is allowed. **Quiz 8.1 / WK8 TF1: True.**
 
-Design in this order: **state meaning → optimal substructure（最优子结构）→ transition → bases → dependency order → reconstruct choices → time/space**. Prove optimal substructure by replacing a supposedly nonoptimal component with a better one. Overlapping subproblems（重叠子问题）explain the benefit of reuse; independently solved subproblems are better handled by ordinary D&C.
+**State → optimal substructure（最优子结构）→ transitions/bases → dependency order → reconstruction → cost.** Prove substructure by replacing a nonoptimal component. Overlap makes reuse useful; independent subproblems favor D&C.
 
-**History-dependency（历史依赖）** invalidates an insufficient state, not all possible DP solutions: add the necessary history to the state, possibly causing exponential growth. If an assembly discount depends on earlier line choices, `(line,stage)` alone is not enough. Distinguish an invalid state model from a valid but impractical one.
+**History-dependency（历史依赖）** invalidates an insufficient state: add needed history, potentially causing exponential state growth. E.g. assembly discounts based on earlier choices cannot use `(line,stage)` alone.
 
 ## 2. Fibonacci（斐波那契数）
 
-The lecture uses **$F(0)=F(1)=1$**, $F(n)=F(n-1)+F(n-2)$. Naive recursion recomputes the same values, taking $\Theta(\varphi^n)$ unit-cost operations. Memoization/bottom-up DP uses $O(n)$ time; retaining the last two values reduces auxiliary space to $O(1)$. Update both only after computing their sum. Arbitrary-precision arithmetic adds bit costs; machine integers overflow eventually.
+**F(0)=F(1)=1**, F(n)=F(n−1)+F(n−2). Naive recursion repeats work: $\Theta(\varphi^n)$ unit-cost steps. Memoization/tabulation: O(n) time; last-two-value storage: O(1) extra space. Compute the sum before overwriting inputs. Exact arithmetic adds bit costs; fixed-width integers overflow.
 
 ## 3. Matrix-chain multiplication（矩阵链乘）
 
@@ -32,7 +32,7 @@ $$
 m[i,j]=\min_{i\le k<j}\{m[i,k]+m[k+1,j]+r_{i-1}r_kr_j\},\qquad m[i,i]=0.
 $$
 
-Store the winning split `split[i][j]`; reconstruct recursively around it. Compute by increasing **interval length（区间长度）**. There are $n(n+1)/2=\Theta(n^2)$ interval states and O(n) splits per state → **$\Theta(n^3)$ time, $\Theta(n^2)$ space**.
+Store `split[i][j]` and reconstruct its two intervals. Fill by increasing **interval length**: $n(n+1)/2=\Theta(n^2)$ states × O(n) splits → **Θ(n³) time/Θ(n²) space**.
 
 ![Interval filling order and matrix-chain algorithm](assets/lecture-08-slide-06.png)
 
@@ -42,14 +42,14 @@ Example dimensions **10,20,50,1,100**: right-nested $A_1(A_2(A_3A_4))$ costs **1
 
 ## 4. Optimal BST（最优二叉搜索树）
 
-For static ordered keys $w_1<\cdots<w_n$ with successful-search probabilities $p_i$, minimize **$\sum_i p_i(\mathrm{depth}(w_i)+1)$**. BST ordering restricts which keys can lie in each subtree. The most probable key need not be root; AVL minimizes a height constraint rather than this weighted cost.
+For static keys $w_1<\cdots<w_n$ and successful-search probabilities $p_i$, minimize $\sum_i p_i(\mathrm{depth}(w_i)+1)$. BST order restricts subtree keys; highest probability need not be root. AVL targets height, not weighted cost.
 
 $$
 C[i,j]=W[i,j]+\min_{i\le k\le j}\{C[i,k-1]+C[k+1,j]\},\quad
 W[i,j]=\sum_{t=i}^{j}p_t.
 $$
 
-Empty interval cost **0**; singleton cost **$p_i$**, not 0. The slide's `c_ii=0` and exclusive lower split limit are inconsistent with its worked example; these are corrected here. Prefix sums compute W in O(1). Increasing interval length, all possible roots → **O(n³) time, O(n²) space**; `root[i][j]` reconstructs the tree. Knuth root monotonicity permits O(n²) with its valid weight conditions; simply restricting root trials without proving those conditions is unsound. This course model does **not** include unsuccessful-search probabilities; the full textbook OBST model adds them.
+**Bases:** empty=0, singleton=$p_i$; correct the slide’s cᵢᵢ=0/exclusive split limit. Prefix sums give W in O(1). Increasing-length fill over all roots: O(n³) time/O(n²) space; save `root[i][j]`. Knuth’s O(n²) optimization requires root monotonicity/valid weights. This model omits unsuccessful-search probabilities; full OBST includes them.
 
 ![Greedy, AVL and optimal BST for the supplied probability table](assets/lecture-08-slide-07.png)
 
@@ -73,13 +73,13 @@ for intermediate k:
                 D[i][j] = min(D[i][j], D[i][k] + D[k][j])
 ```
 
-**$O(V^3)$ time, $O(V^2)$ space.** Negative edges are allowed. A negative diagonal after the algorithm detects a negative cycle; pairs able to reach and leave such a cycle have **no finite shortest walk**. The algorithm still terminates. **Quiz 8.4 / WK8 MC2: B**; it neither loops forever nor prohibits all negative weights. Repeating suitable single-source algorithms may be preferable on sparse graphs; the exact bound depends on graph representation/priority queue, not always V³.
+**O(V³) time/O(V²) space.** Negative edges are allowed; a negative diagonal detects a negative cycle. Pairs reaching/leaving it have no finite shortest walk, though Floyd terminates. **Quiz 8.4 / WK8 MC2: B.** Sparse graphs may favor repeated single-source algorithms; cost depends on representation/queue.
 
 **Offline / WK8 MC1: loop order is about roles, not variable names.** A `i,k,j` updating D[i][j] uses source outermost → wrong. B `i,j,k` → wrong. **C `i,k,j` updating D[k][j] via D[k][i]+D[i][j] is correct**: i is actually the intermediate vertex. D `k,i,j` with that same update uses source outermost → wrong. The archived answer D is incorrect.
 
-**Concrete counterexample to `i,j,k`:** edges `0→3→2→1`, all weight 1. When pair `(0,1)` is processed, neither required suffix nor intermediate entry is ready; it remains infinite although the true distance is 3. Swapping the inner source/destination loops while keeping the intermediate outermost is safe.
+**Counterexample to i,j,k:** unit edges `0→3→2→1`; processing (0,1) too early leaves ∞ instead of 3. Swapping inner source/destination loops is safe if intermediate stays outermost.
 
-**Dijkstra viewed through DP（线下讨论）：** maintain best-known distances, relax $d[v]\gets\min(d[v],d[u]+w(u,v))$. With nonnegative edges, the unsettled minimum can be finalized greedily; its optimal prefix cannot later improve via a longer route. With negative edges that finalization proof fails. The state invariant concerns settled vertices, not merely a vertex-number order. Keeping distances is DP-style reuse; the choice of the next vertex is a separate greedy correctness argument.
+**Dijkstra:** reuse distances and relax $d[v]\gets\min(d[v],d[u]+w(u,v))$. Nonnegative edges let the unsettled minimum be finalized; negative edges break that proof. The state invariant follows **settled vertices**, not numerical vertex order. Reuse and greedy finalization are separate arguments.
 
 ## 6. Product assembly（装配线）
 
@@ -93,7 +93,7 @@ Add entry costs in the bases and exit costs at the end when specified. The slide
 
 ![Assembly graph and the two predecessor choices](assets/lecture-08-slide-15.png)
 
-Store the winning predecessor line `L[line][stage]`; choose the best final line and backtrack to reconstruct the plan. Time **O(n)**; O(n) space with plan reconstruction, O(1) extra value space with rolling previous-stage values. Read both old-line states before overwriting them. Exhaustive line choices take O(2ⁿ). **Optimal substructure proof:** replace a nonoptimal prefix reaching the same line/stage by the better prefix; subsequent edge costs are unchanged.
+Save predecessor line `L[line][stage]` and backtrack from the best final line. O(n) time/space with reconstruction; O(1) value space by reading both old states before overwriting. Enumeration costs O(2ⁿ). Substructure: replace a slower prefix reaching the same line/stage; later edge costs stay unchanged.
 
 ## 7. Additional DP exercises（补充题）
 
@@ -129,7 +129,7 @@ Initialize dp[0]=0, other states infinity; update **s decreasing** so the same p
 
 ## 8. Offline extension: contiguous process batching（连续工序分段）
 
-The following lecture's presentations model merging adjacent processes as partitioning their original order into contiguous blocks. Let workload prefix sums be $Q_i$; if a block starts at l, its processing-time contribution is $t_l(Q_r-Q_{l-1})$, using the first process's per-unit time. Add the specified merge-fee contribution separately; optimize **lexicographically（字典序）** by total time first, then fee, rather than adding incomparable objectives.
+For adjacent-process merging, preserve original order as contiguous blocks. With workload prefix Q, block [l,r] costs $t_l(Q_r-Q_{l-1})$ using its first process’s unit time. Track merge fees separately; minimize **(total time,fee) lexicographically**, not their unscaled sum.
 
 For exactly b nonempty blocks:
 
@@ -137,10 +137,10 @@ $$
 F[i,b]=\min_{b\le l\le i}\{F[l-1,b-1]+\operatorname{cost}(l,i)\},\qquad F[0,0]=(0,0).
 $$
 
-Other impossible bases are infinity. Exactly b blocks use i−b merges; **at most K merges** means taking the best feasible final block count b≥n−K, rather than silently forcing exactly K merges. Equivalent states can count used/allowed merges directly, but the semantics and base cases must agree. Prefix sums make block evaluation constant time when the fee model also supports them. Enumerating b,i,l costs O(n³), or O(n²K) with a merges-bounded state. Rolling two b layers gives O(n) value space; recovering a full plan needs saved choices or recomputation.
+Other bases are ∞. Exactly b blocks use i−b merges; **at most K merges** requires the best final b≥n−K, not exactly K. Equivalent merge-count states must use consistent bases. Prefix-sum block costs → O(n³), or O(n²K) for bounded merges. Two rolling b layers give O(n) value space; reconstruction needs choices/recomputation.
 
-**Why not repeatedly take the locally best merge?** Merging changes future block leaders and feasible boundaries, so a local time saving need not preserve the globally best partition. The presented convex-hull optimization rewrites candidate costs into affine functions, e.g. $t_lQ_i+(F[l-1,b-1]-t_lQ_{l-1})$ for the time component. A monotone hull requires proven slope/query order and careful handling of equal time with different fee; it is not a drop-in optimization for arbitrary data or arbitrary lexicographic cost models.
+Local merges change future leaders/boundaries and can lose the best partition. Convex-hull optimization rewrites time candidates as lines, e.g. $t_lQ_i+(F[l-1,b-1]-t_lQ_{l-1})$. A monotone hull needs proven slope/query order; equal-time fee ties and general cost models require separate treatment.
 
-## 9. Sources（来源）
+## 9. References（参考）
 
-`~/ADS-docs/8` and duplicated Lecture 8 exports/PDF in `~/ADS-docs/9`; offline `downloads/course_87216_sub_1990026` plus the subsequent DP review in `1993131`; WK8/HW8. Duplicate questions share one explanation; recurrence-only review is in Lecture 7. Slide screenshots retained for study. Reading: CLRS 3rd ed. Ch.15 pp.359–413 (as supplied). Status `draft`.
+CLRS 3rd ed.: Ch.15 pp.359–413. Lecture 8 exports repeated with Lecture 9 are merged here.

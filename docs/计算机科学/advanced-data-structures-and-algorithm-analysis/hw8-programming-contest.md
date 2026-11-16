@@ -14,7 +14,7 @@ sources:
 
 ## Problem（完整题意）
 
-Bob will participate in a programming contest.  There are altogether `n` problems in the contest.  Unlike in PAT (Programming Ability Test), in a programming contest one can not obtain partial scores.  For problem `i`, Bob will need `time[i]` to solve it and obtains the corresponding `score[i]`, or he may choose not to solve it at all.  Bob will be happy when he obtains a total score no less than `happy_score`.  You are supposed to find the minimum time needed for Bob to be happy. The function `need_time` must return the minimum time, or `-1` if it is impossible for Bob to obtain a score no less than `happy_score`.
+Choose each problem once or skip it. Problem i costs `time[i]` and earns `score[i]` (no partial credit). Return minimum time to reach **at least happy_score**, or **−1** if impossible.
 
 ## Format of function:
 
@@ -22,10 +22,7 @@ Bob will participate in a programming contest.  There are altogether `n` problem
 int need_time(const int time[], const int score[], int happy_score, int n);
 ```
 
-Here `n` (${1\le } $ `n`$\le $ `MAXN`) is the number of problems;
-`happy_score` ($ {1 \le} $ `happy_score` $ \le $ `MAXS`) is the minimum score for Bob to be happy;
-`time[]` is the array to store `time[i]` ($ {1 \le} $`time[i]`$ {\le 100} $) which is the time to solve problem `i`;
-`score[]` is the array to store `score[i]` ($ {1 \le} $`score[i]`$ {\le 100}$) which is the score Bob gets for solving problem `i`.
+**Bounds:** 1≤n≤MAXN, 1≤happy_score≤MAXS; each time/score is 1..100. Sample judge: MAXN=10, MAXS=1000.
 
 ## Sample Input:
 
@@ -45,8 +42,6 @@ Here `n` (${1\le } $ `n`$\le $ `MAXN`) is the number of problems;
 
 ## Solution and invariant（解法与不变量）
 
-`dp[s]` is minimum time to score **at least s** with processed problems; dp[0]=0 and other states start at infinity. Each transition takes a problem once or skips it. Decreasing s preserves the previous-item values, including rest=max(0,s−score[i]). The score cap is the target, so overshooting remains feasible rather than being discarded.
+`dp[s]` = minimum time for at least s points; dp[0]=0, others ∞. For each problem update s **downward**, using rest=max(0,s−score[i]); thus an item is used once and overshooting is retained.
 
-The linked C function matches the supplied judge signature. It uses MAXS=1000 from the sample judge; increase that bound or allocate dynamically if a different judge defines a larger MAXS. Infinity 100n+1 exceeds any attainable total time. Complexity O(n·happy_score) time/O(happy_score) space. The sample optimum is **125** (the 87-time/93-score and 38-time/28-score problems).
-
-Source: supplied HW archive in `~/ADS-docs/8`; the problem and samples are retained, submission metadata omitted.
+The linked judge-compatible C uses MAXS=1000; enlarge/allocate dynamically for a different bound. Infinity=100n+1 exceeds all feasible time. O(n·happy_score) time/O(happy_score) space. Sample 125 = 87+38 time, for 93+28=121 points.

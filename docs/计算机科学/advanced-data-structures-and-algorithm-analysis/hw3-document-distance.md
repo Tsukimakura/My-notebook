@@ -3,7 +3,7 @@ title: "HW3: Document Distance"
 status: draft
 tags: [cs, algorithms, information-retrieval, programming]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-16
 sources:
   - https://www.icourse163.org/course/ZJU1-1460402161
   - https://tartarus.org/martin/PorterStemmer/index.html
@@ -15,7 +15,7 @@ sources:
 
 ## 1. Problem（完整题意）
 
-**HW3 programming 7-1 · 10 points · 周振坤.** Compare documents using word-frequency vectors（词频向量）, as a simplified plagiarism-checking metric（查重度量）.
+**HW3 7-1 · 10 points · 周振坤.** Compare documents by normalized word-frequency vectors（词频向量）.
 
 - A **word（词）** is a maximal continuous sequence of **alphanumeric characters（字母或数字）**, at most **20 characters**. Punctuation/whitespace separates words. For example, `the course data structure is fun` has six distinct words.
 - **Word frequency（词频）** $F_D(w)$ is the number of occurrences of normalized word $w$ in document $D$.
@@ -33,9 +33,9 @@ $$
 {\|\mathbf F_1\|_2\|\mathbf F_2\|_2}\in[0,\pi/2].
 $$
 
-Output the **angle in radians（弧度）**, rather than cosine similarity. Smaller angle means more similar frequency proportions; 0 for proportional nonzero vectors, $\pi/2$ for disjoint vocabularies. Word order is ignored, so this is a **bag-of-words（词袋）** model, not proof of plagiarism.
+Output **radians（弧度）**, not cosine: smaller means closer frequency proportions; proportional nonzero vectors give 0, disjoint vocabulary gives $\pi/2$. Bag-of-words（词袋）ignores order and does not itself prove plagiarism.
 
-**题面勘误：**the supplied statement calls the inner product a “projection”; a scalar projection actually divides by the target vector's norm. It also says “any norm”, then specifies the 2-norm: the angle formula requires the **Euclidean 2-norm（欧几里得二范数）**. Neither shorthand changes the required computation above.
+**Corrections:** inner product is not scalar projection (which divides by the target norm); the angle formula needs the **Euclidean 2-norm**, not “any norm”.
 
 ### Input and output（输入与输出）
 
@@ -88,7 +88,7 @@ $$
 4. **Dot product by two pointers（双指针内积）：** advance the smaller ID; multiply frequencies only when IDs agree. Time $O(u_i+u_j)$ for $u_i,u_j$ distinct terms; no dense vocabulary scan.
 5. **Precompute（预计算）：** store all $N(N+1)/2$ pair angles and mirror them. Repeated/reversed inquiries reuse the same result. Title lookup in the supplied implementation is linear in $N$; a name→index map can make it expected $O(1)$.
 
-**Stemming is not blind suffix deletion（不是直接删后缀）：** `processing → process`, `cities → citi`, `ponies → poni`; the stem need not be an English word. The archive's accepted C solution uses the **original Porter stemmer**, including its measure, vowel and consonant checks; the implementation linked below retains those rules. The problem names required suffixes but does not fully specify a normalization algorithm, so arbitrary suffix rules need not match its tests. [Porter's official description and implementations](https://tartarus.org/martin/PorterStemmer/index.html).
+**Stemming ≠ suffix deletion:** `processing→process`, `cities→citi`, `ponies→poni`; stems need not be words. The accepted archive uses original Porter rules (measure/vowel/consonant checks), retained here. Required suffixes alone do not fully specify normalization. [Porter’s implementation](https://tartarus.org/martin/PorterStemmer/index.html).
 
 ### Core calculation（核心计算）
 
@@ -109,7 +109,7 @@ cosine = clamp(dot / (norm(a) * norm(b)), 0, 1)
 return acos(cosine)
 ```
 
-Use `double` **before multiplication（乘法前转换）** to avoid integer overflow. Clamp only to absorb floating-point rounding; do not round cosine before `acos`. **零向量没有定义夹角**：the task does not specify an empty-document answer; this implementation reports an error rather than inventing one.
+Convert to `double` **before multiplication**; clamp cosine for rounding before acos, but do not round it early. Zero-vector angles are undefined; the task gives no convention, so the program reports an error.
 
 ### Complexity（复杂度）
 
@@ -123,11 +123,11 @@ Let $S$ be total input text length, $V$ the vocabulary size and $u_i$ the distin
 | $M$ inquiries | $O(MN)$ with this source's linear name lookup; expected $O(M)$ with a hash map. |
 | Space | $O(V+\sum_i u_i+N^2+H)$, including the dictionary, sparse counts, cache and $H$ hash buckets. |
 
-With $N\le100$ and potentially 100000 inquiries, cached pair distances avoid repeatedly scanning document terms. A dense frequency matrix would unnecessarily allocate $N\times V$ entries.
+With $N\le100$ and up to 100000 inquiries, cache pair angles. Dense N×V storage wastes sparse coordinates.
 
 ## 3. Complete C implementation（完整 C 实现）
 
-[Download / inspect hw3-document-distance.c](assets/hw3-document-distance.c). The full tokenizer, dictionary, Porter stemmer, sparse counting, pair cache and I/O are included. This version adapts the supplied accepted submission with EOF/token-boundary handling, allocation/capacity checks, the short-`ion` stemming boundary fix, cosine clamping and buffer cleanup.
+[Complete C source](assets/hw3-document-distance.c): tokenizer, hash dictionary, Porter stemmer, sparse counts and pair cache. Fixes include EOF/token boundaries, allocation/capacity checks, short-`ion` bounds, cosine clamping and cleanup.
 
 ```sh
 cc -std=c11 -O2 -Wall -Wextra -Wpedantic \
@@ -135,4 +135,4 @@ cc -std=c11 -O2 -Wall -Wextra -Wpedantic \
 ./document-distance < input.txt
 ```
 
-**检查点：**大小写混用；标点与换行；`#` 前尚未入表的词；20 字符上界；词频而非出现与否；保留 `a/the`；不相交文档；相同或比例相同文档；词干变化；多次与反向查询。The supplied archive records this algorithm as accepted; the adapted implementation is checked locally, not resubmitted to PTA.
+**Checks:** case, punctuation/newlines, final token before #, 20-character words, repeated counts, retained stop words, disjoint/proportional vectors, stemming and repeated/reversed inquiries.

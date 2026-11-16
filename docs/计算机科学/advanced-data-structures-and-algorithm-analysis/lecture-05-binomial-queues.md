@@ -35,7 +35,7 @@ sources:
 | DeleteMin | Find winning root, detach its tree, remove root, form child forest, merge back. | $O(\log N)$ worst/amortized bound. |
 | Find arbitrary key | Traverse candidates; prune a subtree whose root exceeds the key. | Worst $O(N)$, not logarithmic. |
 
-**Implementation（实现）：** array `TheTrees[k]` stores the root of $B_k$; `CurrentSize` counts all nodes, not trees. Each node has `Element, LeftChild, NextSibling`. Children are linked in **decreasing rank/size（按规模递减）**, not increasing size or key order. Linking the new largest child at the list front is constant time:
+**Representation:** `TheTrees[k]` roots $B_k$; `CurrentSize` counts nodes. Node fields: `Element,LeftChild,NextSibling`. Link children in **decreasing rank/size**, not key order: prepend the new largest child in O(1).
 
 ```c
 /* Preconditions: nonnull disjoint trees of equal rank. */
@@ -62,9 +62,9 @@ At rank $i$, let `A,B,C` denote the two input trees and carry. Each tree represe
 
 ![Complete eight-case merge code; supplied slide 10](assets/lecture-05-slide-10.png)
 
-Stop only after all ranks capable of contributing to the total size are processed. Clear moved slots and the consumed input's size, check capacity, and avoid overflowing `1<<rank` or doubling counters. An unconditional scan of a large fixed-capacity array would defeat the **constant amortized Insert** implementation. Destructive merge requires disjoint ownership.
+Process every rank contributing to the total size. Clear moved slots/consumed size, enforce disjoint ownership, check capacity and counter/shift overflow. Insert must stop at the first empty slot; a full fixed-capacity scan loses its constant amortized bound.
 
-**DeleteMin details:** removing $B_k$ exposes child ranks $k-1,\ldots,0$. Detach **every sibling link** and put each root into the matching rank slot; the child queue has size $2^k-1$. Remove $2^k$ from the old queue's size before merging it back; final size is old size − 1. Free the removed root and temporary collection header, not the transferred subtrees.
+**DeleteMin:** expose children $B_{k-1},\ldots,B_0$, detach each `NextSibling`, and place them in matching slots. Child forest size $2^k-1$; subtract $2^k$ before melding back → old size−1. Free removed root/temporary header, not transferred subtrees.
 
 ## 3. Why Insert is amortized constant（插入摊还分析）
 
@@ -74,9 +74,9 @@ $$
 \Delta\Phi=1-i=2-c,\qquad \widehat c=c+\Delta\Phi=2.
 $$
 
-Starting empty, $N$ insertions cost $2N-\Phi_N\le2N=O(N)$; reading/allocating nodes gives $\Theta(N)$. Equivalently, total links are **$N-\operatorname{popcount}(N)$**; carries of length $k$ occur with geometrically decreasing frequency. This is a deterministic sequence bound, not a probabilistic average.
+From empty, $2N-\Phi_N\le2N$ work plus a node-allocation lower bound gives $\Theta(N)$. Total links **$N-\operatorname{popcount}(N)$**; long carries occur geometrically less often. This is amortized, not probabilistic.
 
-**Offline comparison:** pairwise leftist BuildHeap is also linear; binary-tree linking and right-path merging have different constants. No universal timing ratio follows from the asymptotic bounds. Ordinary binary heaps offer locality; binomial queues offer efficient meld and amortized insertion. Fibonacci heaps defer consolidation and use cuts/cascading cuts: Insert/Meld/DecreaseKey amortized $O(1)$, DeleteMin $O(\log N)$; this is supplementary comparison from the heap presentations, not an implementation requirement. Distinguish true DecreaseKey from lazy duplicate insertion in Dijkstra tests, and compare the same workloads, allocation policy and correctness checks.
+**Heap comparison:** pairwise leftist BuildHeap is also linear; link-vs-right-path-merge constants imply no universal timing ratio. Binary heaps favor locality; binomial queues favor meld/insertion. Fibonacci heaps defer consolidation and use cascading cuts: amortized Insert/Meld/DecreaseKey O(1), DeleteMin O(log N). Dijkstra benchmarks must distinguish true DecreaseKey from lazy duplicate insertion and match workloads, allocation and correctness checks.
 
 ## 4. Exercises（小测与作业）
 
@@ -103,7 +103,7 @@ Starting empty, $N$ insertions cost $2N-\Phi_N\le2N=O(N)$; reading/allocating no
 
 ![Original queue before deleting minimum 2](assets/lecture-05-1320673575-question-001.jpg)
 
-A result has $B_1,B_2$; B 11 and 15 can be children of 4; C 29 can never be a result root; D if 29 is child of 4 then 15 roots $B_1$. **False: C**. Removing 2 leaves six nodes; among three rank-0 trees, one can be kept as carry/result so that 29 later roots a $B_1$ tree. Different permissible three-tree choices matter.
+Which must be false? A ranks $B_1,B_2$; B 11/15 can be children of 4; C 29 can never root a tree; D if 29 child of 4, 15 roots $B_1$. **C:** after deleting 2, six nodes remain. Of three rank-1 candidates, retain 29 as $B_1$ and link the other two into $B_2$.
 
 ![WK6 variant replaces 11,29 with 16,9](assets/ads-question-33eada418c.png)
 
@@ -111,9 +111,9 @@ A result has $B_1,B_2$; B 11 and 15 can be children of 4; C 29 can never be a re
 
 ### Code completions（程序填空）
 
-**WK5 Insert:** `Carry = CombineTrees(Carry, H->TheTrees[i]);` then clear that slot and advance; after the loop **`H->TheTrees[i] = Carry`**. Initialize singleton links to NULL, N increments once, check allocation/capacity first.
+**WK5 Insert blanks:** `H->TheTrees[i]`, then `H->TheTrees[i] = Carry`. Clear occupied slots while carrying; initialize singleton links, increment size once, check allocation/capacity.
 
-**HW5 / WK6 Find:** archived blanks are **`>= T->Element`** and **`T->NextSibling != NULL`**. The supplied caller lacks a null-root check. A safe version is:
+**HW5 / WK6 Find blanks:** `>= T->Element`, `T->NextSibling != NULL`. Guard empty root slots; a safe traversal is:
 
 ```c
 BinTree Recur_Find(BinTree t, ElementType x) {
@@ -132,8 +132,8 @@ BinTree Recur_Find(BinTree t, ElementType x) {
 
 Do not prune an entire sibling list because its first key is too large: sibling keys are unordered. Worst-case search remains $O(N)$.
 
-**WK6 “Legal Binomial Queue”:** export contains only a sample placeholder, explicitly saying **C (28)**, with options 6/26/28/1041; its actual predicate/figure is absent. Preserve this as **incomplete source**, not an invented exercise.
+**WK6 “Legal Binomial Queue”:** only options 6/26/28/1041 and placeholder answer **C (28)** are supplied; the substantive condition/figure is missing.
 
-## 5. Sources（来源）
+## 5. References（参考）
 
-Based on `~/ADS-docs/5`: merged and lesson MOOC notes/quizzes, PDF, video captures, offline `downloads/course_87216_sub_1978951`, HW5/WK5; later binomial-only WK6 review is integrated above. Images are supplied course/PTA figures, retained for study with attribution here. Reading: adapted Weiss C 2nd ed. Ch.5 pp.170–180, Ch.11 pp.430–435; CLRS 3rd ed. Ch.19 pp.505–530 (Fibonacci heaps, distinguish the structure). `draft`: no claim of instructor approval.
+Adapted Weiss C 2nd ed.: Ch.5 pp.170–180, Ch.11 pp.430–435; CLRS 3rd ed. Ch.19 pp.505–530 (Fibonacci heaps).

@@ -3,7 +3,7 @@ title: "HW1: Root of AVL Tree"
 status: draft
 tags: [cs, avl, c, exercises]
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-11-16
 sources:
   - https://www.icourse163.org/course/ZJU1-1460402161
 ---
@@ -34,7 +34,7 @@ Sample output 2:
 
 ## Implementation（实现）
 
-**思路：**递归插入 → 回溯更新 height（高度）→ 根据 BF（平衡因子）选择单旋或双旋。 A rotation updates the **demoted** node first, then the promoted node, and returns the new subtree root. The supplied submission uses empty height 0 and leaf height 1, which is also valid if used consistently; the implementation below uses the lecture's −1/0 convention.
+BST insert → update cached height on return → choose rotations by BF. Update the demoted node before the promoted one; return the new root. This implementation uses empty/leaf heights −1/0; the archived 0/1 convention is equivalent.
 
 ```c
 #include <stdio.h>
@@ -133,12 +133,10 @@ int main(void) {
 
 ## Complexity and tests（复杂度与测试）
 
-**Complexity:** $O(N\log(N+1))$ total insertion time, $O(N)$ allocated nodes, and $O(\log(N+1))$ recursion depth. Test LL, RR, LR, RL, rotations below the root, single-node input, ascending/descending keys, and the maximum $N=20$. The archived accepted submission explicitly covers all four rotation cases, deep LL/RL cases, and minimum/maximum input sizes.
+**Cost:** $O(N\log(N+1))$ time, $O(N)$ nodes, $O(\log(N+1))$ stack. Test LL/RR/LR/RL, deep repairs, singleton, sorted/reversed keys and N=20.
 
 For sample 1, inserting 61 causes LL at 88 and inserting 120 causes RR at 88; root remains 70. In sample 2, inserting 90 causes RL at 70 and promotes 88; inserting 65 does not change the root.
 
 ## Week 2 discussion（第二周线下补充）
 
-**Why is printing only the root a weak test?（为何只输出根容易漏检？）** With at most 20 keys, guessing a value near the sorted median can pass some cases, but the AVL root depends on insertion order and rotations; the median is not a correctness rule. Requiring a **preorder traversal（前序遍历）** checks much more of the constructed shape without increasing input size. For distinct keys, BST order lets preorder determine the tree; additionally check cached heights and balance factors in implementation tests.
-
-课堂用此讨论说明 partial credit（部分分）与 boundary cases（边界样例）：单元素等边界答案、只适用小规模的 brute force（暴力法）可能获得部分分，但不能证明一般算法正确或满足复杂度。练习应完成正确实现；测试应覆盖能区分“猜根”与真正旋转的输入。
+**Root-only tests are weak:** a median guess may pass cases, but AVL root depends on insertion order/rotations. For distinct BST keys, preorder determines shape; also check cached heights/BFs. Small/boundary cases or brute force can earn partial credit without establishing general correctness/complexity.
