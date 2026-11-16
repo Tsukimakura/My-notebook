@@ -85,15 +85,17 @@ Ties/bit swaps permit different optimal codes. Equal frequencies offer little sa
 
 ## 5. HW9: To Fill or Not to Fill（加油问题）
 
-[Full problem, samples and executable Python solution](hw9-to-fill-or-not-to-fill.md).
+[Problem, samples and C / Python implementations](hw9-to-fill-or-not-to-fill.md).
 
 Sort stations by distance; coalesce equal locations at the lowest price; append destination as price-0 station. Start with an **empty tank**, requiring a station at distance 0.
 
-- If a **strictly cheaper reachable station** exists, go to the **first** such station; buy only enough to reach it, retaining existing fuel.
-- Otherwise buy as much as needed up to a full tank (or only enough for the destination), then go to the **cheapest reachable station**. Equal-price ties do not affect optimum cost.
-- If none is reachable, maximum reachable distance is current location + full-tank range. If no station at 0, that distance is 0.
+- Scan reachable stations in distance order. At the **first station priced ≤ current price**, buy only enough to reach it: `target = distance / mileage`.
+- If all reachable stations cost more, **fill the tank** and choose the **cheapest reachable station**. Buy only `max(0, target − fuel)`; keep residual fuel on arrival.
+- No reachable next station → maximum distance = current position + full-tank range. No station at 0 → maximum distance 0.
 
-Buy no expensive fuel for use after cheaper fuel becomes reachable; without a cheaper reachable station, extra current fuel cannot be replaced more cheaply en route. Preserve residual fuel. Global cheapest ignores reachability. O(N²) scan/O(N) space suffices for N≤500; compare carefully and print two decimals.
+**Exchange:** before a cheaper station, buy only the fuel needed to reach it; before more expensive stations, buy as much cheaper current fuel as capacity allows. At an equal-price station, buying later costs the same. The supplied C uses **≤**; Python uses **<** and handles ties in the fill/cheapest branch. Both are optimal, though their chosen stops may differ.
+
+C sorts by **(distance, price)**, keeping the cheapest station first at a shared position; Python coalesces those positions. Both append a price-0 destination, so no unnecessary final fill is needed. Each move advances the station index. Total **O(N²) time/O(N) space** for N≤500; round only the final output to two decimals.
 
 ## 6. References（参考）
 
