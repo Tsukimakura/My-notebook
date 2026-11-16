@@ -14,6 +14,12 @@ sources:
 
 **Invariants（不变量）· correctness（正确性）· complexity（复杂度）· implementation（实现）**
 
+## Midterm review（期中复习）
+
+- [180 分钟精要](midterm/essential-notes.md)：第 1–9 课知识、解题步骤、易错条件与配图，按三小时安排复习。
+- [22 分钟英文原题自测](midterm/practice.md)：17 道原题，保留英文题干，答案与解析折叠。
+- [考前速查](midterm/quick-reference.md)：树与堆、摊还、递推、DP、贪心及代码填空。
+
 ## Notes（笔记）
 
 - [Lecture 1: AVL Trees, Splay Trees, and Amortized Analysis](lecture-01-avl-splay-amortized-analysis.md)：英中对照笔记、小测与 HW1 解析。
