@@ -3,7 +3,7 @@ title: "Lecture 4: Leftist Heaps and Skew Heaps"
 status: draft
 tags: [cs, algorithms, leftist-heaps, skew-heaps, amortized-analysis]
 created: 2026-10-13
-updated: 2026-10-13
+updated: 2026-11-16
 sources:
   - https://www.icourse163.org/course/ZJU1-1460402161
   - https://www.cs.cmu.edu/~sleator/papers/Adjusting-Heaps.htm
@@ -325,6 +325,14 @@ Which is false? **A** root 3; **B** 17 is right child of 16; **C** 39 is right c
 ![HW4 skew merge using the course's complete-right-path convention](assets/skew-hw4-merge.svg)
 
 Which is false? **A** 15 is right child of 8; **B** 14 is right child of 6; **C** root 1; **D** 9 is right child of 3. **Answer: A:** 15 remains **left** child of 8. Merged right path is **`1,3,5,6,13`**; swap at **1,3,5,6**, leaving terminal 13 unchanged. This is why the tail-processing convention in §3.1 matters.
+
+### 5.8 Week 5 review（第五周复习）
+
+**WK5 TF3:** leftist Insert/DeleteMin/Merge all have worst-case $\Theta(N)$ — **False**, logarithmic upper bounds. **WK5 TF6** repeats HW4 TF1's perfect tree after increasing insertions — **True**, see §5.6. **WK5 TF7:** leftist always more balanced than skew under the same operations — **False**; reversing the comparison does not create a universal shape ordering. **WK5 MC1** repeats HW4 MC2: pairwise leftist BuildHeap is $\Theta(N)$, so D is false.
+
+![WK5 leftist merge input](assets/ads-question-edea6aa723.png)
+
+**WK5 MC5:** A root 6/right child 7; B same depths for 24 and 8; C 37 is left child of 7; D equal NPL for 7 and 12. **False: C**. Merge right paths `8` and `6,7,18`: after repair, 7 has **left child 8, right child 37**; 24 and 8 are both at depth 2, NPL(7)=NPL(12)=1.
 
 ## 6. Review, code and references（复习、代码与来源）
 

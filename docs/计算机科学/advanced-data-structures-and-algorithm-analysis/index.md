@@ -3,7 +3,7 @@ title: "Advanced Data Structures and Algorithm Analysis"
 status: draft
 tags: [cs, algorithms, data-structures, course]
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-11-16
 sources:
   - https://www.icourse163.org/course/ZJU1-1460402161
 ---
@@ -20,6 +20,14 @@ Advanced data structures + algorithm analysis: invariants（不变量）, correc
 - [Lecture 2: Red-Black Trees and B+ Trees](lecture-02-red-black-bplus-trees.md)：红黑树、B+ 树、第二周小测／HW2 与线下讨论解析。
 - [Lecture 3: Inverted File Index](lecture-03-inverted-file-index.md)：倒排索引、构建／压缩／更新、检索评价与第三周小测／HW3 解析。
 - [Lecture 4: Leftist Heaps and Skew Heaps](lecture-04-leftist-skew-heaps.md)：左式堆、斜堆、摊还证明、DecreaseKey 讨论及第四周小测／HW4 解析。
+- [Lecture 5: Binomial Queues（二项队列）](lecture-05-binomial-queues.md)
+- [Lecture 6: Backtracking（回溯）](lecture-06-backtracking.md)
+- [Lecture 7: Divide and Conquer（分治）](lecture-07-divide-and-conquer.md)
+- [Lecture 8: Dynamic Programming（动态规划）](lecture-08-dynamic-programming.md)
+- [Lecture 9: Greedy Algorithms（贪心算法）](lecture-09-greedy-algorithms.md)
+- [HW6: Werewolf](hw6-werewolf.md)
+- [HW8: Programming Contest](hw8-programming-contest.md)
+- [HW9: To Fill or Not to Fill](hw9-to-fill-or-not-to-fill.md)
 - [HW3: Document Distance](hw3-document-distance.md)：完整题目、稀疏词频向量、余弦角距离与 C 实现。
 - [HW1: Root of AVL Tree](hw1-avl-root.md)：完整题目、样例与 C 实现。
 
