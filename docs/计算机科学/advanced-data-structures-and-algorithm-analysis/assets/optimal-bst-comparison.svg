@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 490" role="img" aria-labelledby="title">
+  <title id="title">Same probabilities: three different BST objectives</title>
+  <desc>Original vector diagram redrawn from the supplied ADS course material.</desc>
+  <rect width="100%" height="100%" fill="white" />
+  <style>text{font-family:Arial,sans-serif;fill:#172d4d;font-size:18px} .small{font-size:14px;fill:#53667b} .heading{font-size:22px;font-weight:bold}</style>
+  <text x="24" y="32" text-anchor="start" class="heading">Same probabilities: three different BST objectives</text>
+  <text x="185" y="75" text-anchor="middle" class="">Greedy: largest probability</text>
+  <path d="M233.57142857142858,137 L39.285714285714285,181" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M39.285714285714285,215 L136.42857142857144,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M136.42857142857144,293 L87.85714285714286,337" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="61.85714285714286" y="337" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="87.85714285714286" y="360" text-anchor="middle" class="">case</text>
+  <path d="M136.42857142857144,293 L185.0,337" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="164.0" y="337" width="42" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="185.0" y="360" text-anchor="middle" class="">do</text>
+  <rect x="110.42857142857144" y="259" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="136.42857142857144" y="282" text-anchor="middle" class="">char</text>
+  <rect x="8.785714285714285" y="181" width="61" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="39.285714285714285" y="204" text-anchor="middle" class="">break</text>
+  <path d="M233.57142857142858,137 L330.7142857142857,181" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M330.7142857142857,215 L282.14285714285717,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="247.14285714285717" y="259" width="70" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="282.14285714285717" y="282" text-anchor="middle" class="">switch</text>
+  <rect x="304.7142857142857" y="181" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="330.7142857142857" y="204" text-anchor="middle" class="">void</text>
+  <rect x="198.57142857142858" y="103" width="70" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="233.57142857142858" y="126" text-anchor="middle" class="">return</text>
+  <text x="185" y="405" text-anchor="middle" class="">Expected comparisons = 2.43</text>
+  <text x="555" y="75" text-anchor="middle" class="">AVL: height balance</text>
+  <path d="M555.0,137 L457.8571428571429,181" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M457.8571428571429,215 L409.2857142857143,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="378.7857142857143" y="259" width="61" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="409.2857142857143" y="282" text-anchor="middle" class="">break</text>
+  <path d="M457.8571428571429,215 L506.42857142857144,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="480.42857142857144" y="259" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="506.42857142857144" y="282" text-anchor="middle" class="">char</text>
+  <rect x="431.8571428571429" y="181" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="457.8571428571429" y="204" text-anchor="middle" class="">case</text>
+  <path d="M555.0,137 L652.1428571428571,181" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M652.1428571428571,215 L603.5714285714286,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="568.5714285714286" y="259" width="70" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="603.5714285714286" y="282" text-anchor="middle" class="">return</text>
+  <path d="M652.1428571428571,215 L700.7142857142858,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="674.7142857142858" y="259" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="700.7142857142858" y="282" text-anchor="middle" class="">void</text>
+  <rect x="617.1428571428571" y="181" width="70" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="652.1428571428571" y="204" text-anchor="middle" class="">switch</text>
+  <rect x="534.0" y="103" width="42" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="555.0" y="126" text-anchor="middle" class="">do</text>
+  <text x="555" y="405" text-anchor="middle" class="">Expected comparisons = 2.70</text>
+  <text x="925" y="75" text-anchor="middle" class="">Optimal: weighted cost</text>
+  <path d="M876.4285714285714,137 L779.2857142857143,181" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M779.2857142857143,215 L827.8571428571429,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="801.8571428571429" y="259" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="827.8571428571429" y="282" text-anchor="middle" class="">case</text>
+  <rect x="748.7857142857143" y="181" width="61" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="779.2857142857143" y="204" text-anchor="middle" class="">break</text>
+  <path d="M876.4285714285714,137 L973.5714285714286,181" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M973.5714285714286,215 L925.0,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="904.0" y="259" width="42" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="925.0" y="282" text-anchor="middle" class="">do</text>
+  <path d="M973.5714285714286,215 L1070.7142857142858,259" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M1070.7142857142858,293 L1022.1428571428571,337" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="987.1428571428571" y="337" width="70" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="1022.1428571428571" y="360" text-anchor="middle" class="">switch</text>
+  <rect x="1044.7142857142858" y="259" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="1070.7142857142858" y="282" text-anchor="middle" class="">void</text>
+  <rect x="938.5714285714286" y="181" width="70" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="973.5714285714286" y="204" text-anchor="middle" class="">return</text>
+  <rect x="850.4285714285714" y="103" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="876.4285714285714" y="126" text-anchor="middle" class="">char</text>
+  <text x="925" y="405" text-anchor="middle" class="">Expected comparisons = 2.15</text>
+  <text x="25" y="455" text-anchor="start" class="small">p(break, case, char, do, return, switch, void) = (.22, .18, .20, .05, .25, .02, .08)</text>
+</svg>

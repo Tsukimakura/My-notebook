@@ -33,7 +33,7 @@ Exhaustive search checks **$n(n-1)/2$ pairs**, $\Theta(n^2)$ (checkpoint D). Dup
 3. Only cross pairs in the **width-$2\delta$ vertical strip** can improve the result.
 4. Scan strip points in **y order**, comparing each to at most the next **7** points, stopping when y difference exceeds $\delta$.
 
-![Packing argument and y-ordered strip scan; supplied slide 5](assets/lecture-07-slide-05.png)
+![Closest-pair strip packing: eight cells and at most seven later candidates](assets/closest-pair-strip.svg)
 
 **Packing proof（装箱论证）：** the $2\delta\times\delta$ candidate rectangle divides into two $\delta\times\delta$ halves. Split each half into four $\delta/2$ squares; each can hold at most one point **from that side** because its diagonal is $\delta/\sqrt2<\delta$. At most eight points including the current point → seven later candidates. Boundary ties may be resolved consistently; pairs at distance exactly $\delta$ need not improve the answer.
 
@@ -55,14 +55,14 @@ Choose c for all bases. The linear guess fails: $(c+1)n=O(n)$ does not prove $T(
 
 At level $j$: $a^j$ problems of size $n/b^j$, work $a^jf(n/b^j)$; height $\log_b n$, leaves $n^{\log_ba}$. Sum internal levels **plus leaves**.
 
-![Recursion tree and per-level geometric costs](assets/lecture-07-slide-09.png)
+![Three quarter-size subproblems: decreasing per-level geometric cost](assets/recursion-tree-geometric.svg)
 
 - $2T(n/2)+cn$: each level cn, $\log_2n$ levels → $\Theta(n\log n)$.
 - $2T(n/2)+cn^2$: level ratio 1/2 → $\Theta(n^2)$ (checkpoint **C**).
 - $3T(n/4)+cn^2$: height **$\log_4n$ (checkpoint C)**, ratio 3/16, leaves $n^{\log_43}$ → $\Theta(n^2)$.
 - $T(n/3)+T(2n/3)+cn$: unequal-depth tree, height at most $\log_{3/2}n$; substitution yields $\Theta(n\log n)$. For an upper bound choose $d\ge c/(\log_23-2/3)$. Do not apply the equal-size Master theorem directly.
 
-![Unequal-size split: the recursion tree is not complete](assets/lecture-07-slide-10.png)
+![Unequal-size recurrence with different branch depths](assets/recursion-tree-unequal.svg)
 
 ### Master theorem（主定理）
 

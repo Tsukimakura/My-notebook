@@ -26,7 +26,7 @@ Each activity occupies a **half-open interval $[s_i,f_i)$（左闭右开）**; c
 
 Sort by finish time. Select the earliest-finishing activity compatible with the previously selected activity, then repeat. Sorting O(n log n), scan O(n); already sorted input needs only O(n).
 
-![Supplied activity-selection input and interval times](assets/lecture-09-slide-04.png)
+![Half-open activity intervals with a maximum compatible selection](assets/activity-selection.svg)
 
 For starts `1,3,0,5,3,5,6,8,8,2,12` and finishes `4,5,6,7,9,9,10,11,12,14,16`, one answer is **activities 1,4,8,11**. There may be other optimal sets.
 
@@ -66,11 +66,11 @@ $$
 \text{WPL}=\sum_c f_c\,\mathrm{depth}(c)=\sum_{\text{merges}}(\text{two merged weights}).
 $$
 
-![Supplied Huffman merge example and resulting code table](assets/lecture-09-slide-13.png)
+![Huffman tree, code table and total merge cost for the course example](assets/huffman-construction.svg)
 
 **Greedy choice:** swap the two smallest weights x/y into deepest sibling leaves; weighted length cannot increase. **Substructure:** contract them into z of weight $f_x+f_y$; expansion adds exactly that cost. A better expanded tree would contract to a better smaller optimum—a contradiction. This proves optimality, not uniqueness.
 
-![Exchange argument for the least-frequency sibling pair](assets/lecture-09-slide-14.png)
+![Exchanging the two lightest symbols into deepest sibling leaves](assets/huffman-exchange.svg)
 
 Ties/bit swaps permit different optimal codes. Equal frequencies offer little saving; non-power-of-two alphabets can still gain slightly over fixed width.
 

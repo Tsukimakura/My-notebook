@@ -21,7 +21,7 @@ sources:
 - The present ranks are precisely the **1-bits of $N$（二进制表示）**. Thus the rank set is unique, but key assignments/tree labels need not be unique.
 - Root count is **popcount$(N)$**, bounded by $\lfloor\log_2N\rfloor+1$, not exactly $\log N$. The slide's ceiling-only bound fails at $N=1$ and $N=2^k-1$.
 
-![Binomial tree construction and depth counts; supplied slide 2](assets/lecture-05-slide-02.png)
+![Binomial trees B0–B3: equal-rank linking and node counts](assets/binomial-tree-structure.svg)
 
 **Checkpoints 5.1–5.2:** root degree $k$; size $2^k$; root count logarithmically bounded. **Quiz 5.1 / HW5 MC1:** $42=101010_2=2^5+2^3+2$ → **B: $B_1,B_3,B_5$** (other rank sets represent 63, 34 and 20).
 
@@ -47,7 +47,7 @@ BinTree CombineTrees(BinTree a, BinTree b) {
 }
 ```
 
-![Root array and left-child-next-sibling representation; supplied slide 7](assets/lecture-05-slide-07.png)
+![Binomial root slots with explicit LeftChild and NextSibling links](assets/binomial-queue-links.svg)
 
 ### Merge = full adder（合并就是全加器）
 
@@ -60,7 +60,39 @@ At rank $i$, let `A,B,C` denote the two input trees and carry. Each tree represe
 | A+B / A+C / B+C | empty | link the pair |
 | A+B+C | one tree (course code keeps C) | link the other two |
 
-![Complete eight-case merge code; supplied slide 10](assets/lecture-05-slide-10.png)
+```c
+/* At rank i: A = H1->TheTrees[i], B = H2->TheTrees[i].
+   Carry is either NULL or a rank-i tree. CombineTrees takes equal ranks. */
+switch (!!A + 2 * !!B + 4 * !!Carry) {
+case 0: case 1:
+    break;
+case 2:
+    H1->TheTrees[i] = B;
+    H2->TheTrees[i] = NULL;
+    break;
+case 3:
+    Carry = CombineTrees(A, B);
+    H1->TheTrees[i] = H2->TheTrees[i] = NULL;
+    break;
+case 4:
+    H1->TheTrees[i] = Carry;
+    Carry = NULL;
+    break;
+case 5:
+    Carry = CombineTrees(A, Carry);
+    H1->TheTrees[i] = NULL;
+    break;
+case 6:
+    Carry = CombineTrees(B, Carry);
+    H2->TheTrees[i] = NULL;
+    break;
+case 7:
+    H1->TheTrees[i] = Carry;
+    Carry = CombineTrees(A, B);
+    H2->TheTrees[i] = NULL;
+    break;
+}
+```
 
 Process every rank contributing to the total size. Clear moved slots/consumed size, enforce disjoint ownership, check capacity and counter/shift overflow. Insert must stop at the first empty slot; a full fixed-capacity scan loses its constant amortized bound.
 

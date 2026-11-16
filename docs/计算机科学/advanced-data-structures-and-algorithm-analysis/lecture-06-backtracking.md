@@ -41,7 +41,7 @@ $$
 
 Distinct columns leave **n!** permutations, rather than nⁿ unrestricted row choices. Four queens: **24 leaves (B)**, solutions **(2,4,1,3), (3,1,4,2)**. Check earlier rows, or use occupied-column/`row-col`/`row+col` sets for O(1) conflict tests.
 
-![Two-dimensional board represented by column indices; supplied example](assets/lecture-06-slide-04.png)
+![Eight queens represented by one column index per row](assets/n-queens-state.svg)
 
 **MOOC request for two 8-queen solutions:** `(4,6,8,2,7,1,3,5)` and its reflection `(5,3,1,7,2,8,6,4)`.
 
@@ -58,7 +58,7 @@ Let $d=\max D$ among unused distances. The next point must be **$d$ or $L-d$**, 
 3. Subtract the counts, recurse, and restore **exactly those counts** on failure.
 4. Success requires the right number of distinct points and no leftover distances.
 
-![Supplied branch tree for the 15-distance example](assets/lecture-06-slide-07.png)
+![Turnpike candidate branches, failed subtrees and a valid point set](assets/turnpike-branching.svg)
 
 `1,2,2,2,3,3,3,4,5,5,5,6,7,8,10` → **(0,3,5,6,8,10)**. Verify multiplicities. Fixing x₁=0 removes translations, not reflections $x\mapsto L-x$ or other ambiguities. Branching can be exponential.
 
@@ -83,7 +83,7 @@ $f(P)=W_{computer}-W_{human}$ counts the difference in unblocked winning lines. 
 - MAX updates $\alpha\gets\max(\alpha,v)$; MIN updates $\beta\gets\min(\beta,v)$.
 - **Prune when $\alpha\ge\beta$**: remaining children cannot change an ancestor's decision. Bounds are passed down; updates are local to the current search context.
 
-![Alpha and beta cutoffs in the supplied lecture](assets/lecture-06-slide-17.png)
+![Dual alpha and beta cutoffs skip remaining children](assets/alpha-beta-cutoffs.svg)
 
 Ideal $O(\sqrt S)$ node search assumes favorable ordering in a balanced game tree; worst case O(S). Ordering changes work, not the exact same-depth minimax result. Minimax alone is not AlphaGo’s full algorithm.
 

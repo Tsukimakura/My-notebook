@@ -34,7 +34,7 @@ $$
 
 Store `split[i][j]` and reconstruct its two intervals. Fill by increasing **interval length**: $n(n+1)/2=\Theta(n^2)$ states × O(n) splits → **Θ(n³) time/Θ(n²) space**.
 
-![Interval filling order and matrix-chain algorithm](assets/lecture-08-slide-06.png)
+![Matrix-chain interval table filled by increasing length](assets/matrix-chain-fill-order.svg)
 
 Example dimensions **10,20,50,1,100**: right-nested $A_1(A_2(A_3A_4))$ costs **125000**; **$(A_1(A_2A_3))A_4$ costs 2200**, the optimum. Cost counts scalar multiplications, not just the n−1 matrix products.
 
@@ -51,9 +51,9 @@ $$
 
 **Bases:** empty=0, singleton=$p_i$; correct the slide’s cᵢᵢ=0/exclusive split limit. Prefix sums give W in O(1). Increasing-length fill over all roots: O(n³) time/O(n²) space; save `root[i][j]`. Knuth’s O(n²) optimization requires root monotonicity/valid weights. This model omits unsuccessful-search probabilities; full OBST includes them.
 
-![Greedy, AVL and optimal BST for the supplied probability table](assets/lecture-08-slide-07.png)
+![Greedy, AVL and optimal BSTs with their weighted search costs](assets/optimal-bst-comparison.svg)
 
-Keys `break,case,char,do,return,switch,void`, probabilities `.22,.18,.20,.05,.25,.02,.08`: greedy root=return cost **2.43**; shown AVL root=do cost **2.70**; optimal root=char cost **2.15**. Optimal tree: char → left break (right case), right return (left do with right switch; right void). **MOOC interval case..do:** cost **0.66**, root **char**. **Quiz 8.3 / WK8 TF2:** highest-probability key always root — **False**. **WK8 MC3:** loop by `k=j-i`, then valid i, then candidate roots → **C**; initialize singletons first.
+Keys `break,case,char,do,return,switch,void`, probabilities `.22,.18,.20,.05,.25,.02,.08`: greedy root=return cost **2.43**; shown AVL root=do cost **2.70**; optimal root=char cost **2.15**. Optimal tree: char → left break (right case), right return (left do; right void with left switch). **MOOC interval case..do:** cost **0.66**, root **char**. **Quiz 8.3 / WK8 TF2:** highest-probability key always root — **False**. **WK8 MC3:** loop by `k=j-i`, then valid i, then candidate roots → **C**; initialize singletons first.
 
 ## 5. Floyd–Warshall（全源最短路）
 
@@ -91,7 +91,7 @@ $$
 
 Add entry costs in the bases and exit costs at the end when specified. The slides instead attach **complete edge costs** to stay/move edges; if their `t_transit` already includes processing, do not add processing again. State the convention before applying a formula.
 
-![Assembly graph and the two predecessor choices](assets/lecture-08-slide-15.png)
+![Stay or switch: two predecessor states for an assembly stage](assets/assembly-predecessors.svg)
 
 Save predecessor line `L[line][stage]` and backtrack from the best final line. O(n) time/space with reconstruction; O(1) value space by reading both old states before overwriting. Enumeration costs O(2ⁿ). Substructure: replace a slower prefix reaching the same line/stage; later edge costs stay unchanged.
 

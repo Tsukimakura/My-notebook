@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 930 480" role="img" aria-labelledby="title">
+  <title id="title">Activity selection: finish order, compatible earliest finish</title>
+  <desc>Original vector diagram redrawn from the supplied ADS course material.</desc>
+  <rect width="100%" height="100%" fill="white" />
+  <style>text{font-family:Arial,sans-serif;fill:#172d4d;font-size:18px} .small{font-size:14px;fill:#53667b} .heading{font-size:22px;font-weight:bold}</style>
+  <text x="24" y="32" text-anchor="start" class="heading">Activity selection: finish order, compatible earliest finish</text>
+  <text x="25" y="105" text-anchor="start" class="small">a1</text>
+  <rect x="145" y="91" width="135" height="17" rx="4" fill="#d9efe1" stroke="#34805a" />
+  <text x="288" y="105" text-anchor="start" class="small">[1,4)</text>
+  <text x="25" y="135" text-anchor="start" class="small">a2</text>
+  <rect x="235" y="121" width="90" height="17" rx="4" fill="#eaf2ff" stroke="#8795a8" />
+  <text x="333" y="135" text-anchor="start" class="small">[3,5)</text>
+  <text x="25" y="165" text-anchor="start" class="small">a3</text>
+  <rect x="100" y="151" width="270" height="17" rx="4" fill="#eaf2ff" stroke="#8795a8" />
+  <text x="378" y="165" text-anchor="start" class="small">[0,6)</text>
+  <text x="25" y="195" text-anchor="start" class="small">a4</text>
+  <rect x="325" y="181" width="90" height="17" rx="4" fill="#d9efe1" stroke="#34805a" />
+  <text x="423" y="195" text-anchor="start" class="small">[5,7)</text>
+  <text x="25" y="225" text-anchor="start" class="small">a5</text>
+  <rect x="235" y="211" width="270" height="17" rx="4" fill="#eaf2ff" stroke="#8795a8" />
+  <text x="513" y="225" text-anchor="start" class="small">[3,9)</text>
+  <text x="25" y="255" text-anchor="start" class="small">a6</text>
+  <rect x="325" y="241" width="180" height="17" rx="4" fill="#eaf2ff" stroke="#8795a8" />
+  <text x="513" y="255" text-anchor="start" class="small">[5,9)</text>
+  <text x="25" y="285" text-anchor="start" class="small">a7</text>
+  <rect x="370" y="271" width="180" height="17" rx="4" fill="#eaf2ff" stroke="#8795a8" />
+  <text x="558" y="285" text-anchor="start" class="small">[6,10)</text>
+  <text x="25" y="315" text-anchor="start" class="small">a8</text>
+  <rect x="460" y="301" width="135" height="17" rx="4" fill="#d9efe1" stroke="#34805a" />
+  <text x="603" y="315" text-anchor="start" class="small">[8,11)</text>
+  <text x="25" y="345" text-anchor="start" class="small">a9</text>
+  <rect x="460" y="331" width="180" height="17" rx="4" fill="#eaf2ff" stroke="#8795a8" />
+  <text x="648" y="345" text-anchor="start" class="small">[8,12)</text>
+  <text x="25" y="375" text-anchor="start" class="small">a10</text>
+  <rect x="190" y="361" width="540" height="17" rx="4" fill="#eaf2ff" stroke="#8795a8" />
+  <text x="738" y="375" text-anchor="start" class="small">[2,14)</text>
+  <text x="25" y="405" text-anchor="start" class="small">a11</text>
+  <rect x="640" y="391" width="180" height="17" rx="4" fill="#d9efe1" stroke="#34805a" />
+  <text x="828" y="405" text-anchor="start" class="small">[12,16)</text>
+  <text x="100" y="437" text-anchor="middle" class="small">0</text>
+  <text x="190" y="437" text-anchor="middle" class="small">2</text>
+  <text x="280" y="437" text-anchor="middle" class="small">4</text>
+  <text x="370" y="437" text-anchor="middle" class="small">6</text>
+  <text x="460" y="437" text-anchor="middle" class="small">8</text>
+  <text x="550" y="437" text-anchor="middle" class="small">10</text>
+  <text x="640" y="437" text-anchor="middle" class="small">12</text>
+  <text x="730" y="437" text-anchor="middle" class="small">14</text>
+  <text x="820" y="437" text-anchor="middle" class="small">16</text>
+  <text x="25" y="470" text-anchor="start" class="">Selected: a1, a4, a8, a11. Touching endpoints are compatible.</text>
+</svg>

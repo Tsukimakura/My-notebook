@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 365" role="img" aria-labelledby="title">
+  <title id="title">Unequal splits: T(n/3) + T(2n/3) + cn</title>
+  <desc>Original vector diagram redrawn from the supplied ADS course material.</desc>
+  <rect width="100%" height="100%" fill="white" />
+  <style>text{font-family:Arial,sans-serif;fill:#172d4d;font-size:18px} .small{font-size:14px;fill:#53667b} .heading{font-size:22px;font-weight:bold}</style>
+  <text x="24" y="32" text-anchor="start" class="heading">Unequal splits: T(n/3) + T(2n/3) + cn</text>
+  <path d="M355.0,107 L169.28571428571428,148" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M169.28571428571428,182 L76.42857142857143,223" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="54.92857142857143" y="223" width="43" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="76.42857142857143" y="246" text-anchor="middle" class="">n/9</text>
+  <path d="M169.28571428571428,182 L262.1428571428571,223" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="236.1428571428571" y="223" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="262.1428571428571" y="246" text-anchor="middle" class="">2n/9</text>
+  <rect x="147.78571428571428" y="148" width="43" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="169.28571428571428" y="171" text-anchor="middle" class="">n/3</text>
+  <path d="M355.0,107 L540.7142857142858,148" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M540.7142857142858,182 L447.85714285714283,223" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="421.85714285714283" y="223" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="447.85714285714283" y="246" text-anchor="middle" class="">2n/9</text>
+  <path d="M540.7142857142858,182 L633.5714285714286,223" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="607.5714285714286" y="223" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="633.5714285714286" y="246" text-anchor="middle" class="">4n/9</text>
+  <rect x="514.7142857142858" y="148" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="540.7142857142858" y="171" text-anchor="middle" class="">2n/3</text>
+  <rect x="334.0" y="73" width="42" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="355.0" y="96" text-anchor="middle" class="">n</text>
+  <text x="700" y="95" text-anchor="start" class="small">Each full level sums to cn.</text>
+  <text x="700" y="150" text-anchor="start" class="small">Branches stop at different depths.</text>
+  <text x="700" y="205" text-anchor="start" class="small">Maximum depth: log_(3/2) n</text>
+  <text x="700" y="260" text-anchor="start" class="small">Total: Theta(n log n).</text>
+  <text x="35" y="335" text-anchor="start" class="">Do not assume equal leaf depths.</text>
+</svg>

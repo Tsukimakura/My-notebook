@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 340" role="img" aria-labelledby="title">
+  <title id="title">Alpha-beta cutoffs: skip only the remaining children</title>
+  <desc>Original vector diagram redrawn from the supplied ADS course material.</desc>
+  <rect width="100%" height="100%" fill="white" />
+  <style>text{font-family:Arial,sans-serif;fill:#172d4d;font-size:18px} .small{font-size:14px;fill:#53667b} .heading{font-size:22px;font-weight:bold}</style>
+  <text x="24" y="32" text-anchor="start" class="heading">Alpha-beta cutoffs: skip only the remaining children</text>
+  <rect x="188.5" y="73" width="43" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="210" y="96" text-anchor="middle" class="">MAX</text>
+  <rect x="74.0" y="163" width="42" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="95" y="186" text-anchor="middle" class="">6</text>
+  <rect x="299.0" y="163" width="52" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="325" y="186" text-anchor="middle" class="">&lt;= 4</text>
+  <path d="M210,107 L95,163" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M210,107 L325,163" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="234.0" y="248" width="42" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="255" y="271" text-anchor="middle" class="">4</text>
+  <rect x="369.0" y="248" width="52" height="34" rx="4" fill="#fff1e7" stroke="#3262ac" />
+  <text x="395" y="271" text-anchor="middle" class="">skip</text>
+  <path d="M325,197 L255,248" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M325,197 L395,248" fill="none" stroke="#8795a8" stroke-width="2" stroke-dasharray="6 5" />
+  <text x="30" y="135" text-anchor="start" class="small">alpha = 6</text>
+  <text x="30" y="315" text-anchor="start" class="">MIN reaches beta &lt;= alpha</text>
+  <rect x="658.5" y="73" width="43" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="680" y="96" text-anchor="middle" class="">MIN</text>
+  <rect x="544.0" y="163" width="42" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="565" y="186" text-anchor="middle" class="">44</text>
+  <rect x="764.5" y="163" width="61" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="795" y="186" text-anchor="middle" class="">&gt;= 68</text>
+  <path d="M680,107 L565,163" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M680,107 L795,163" fill="none" stroke="#8795a8" stroke-width="2" />
+  <rect x="704.0" y="248" width="42" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="725" y="271" text-anchor="middle" class="">68</text>
+  <rect x="839.0" y="248" width="52" height="34" rx="4" fill="#fff1e7" stroke="#3262ac" />
+  <text x="865" y="271" text-anchor="middle" class="">skip</text>
+  <path d="M795,197 L725,248" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M795,197 L865,248" fill="none" stroke="#8795a8" stroke-width="2" stroke-dasharray="6 5" />
+  <text x="500" y="135" text-anchor="start" class="small">beta = 44</text>
+  <text x="500" y="315" text-anchor="start" class="">MAX reaches alpha &gt;= beta</text>
+</svg>

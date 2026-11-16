@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 425" role="img" aria-labelledby="title">
+  <title id="title">Turnpike: branch on the largest unused distance</title>
+  <desc>Original vector diagram redrawn from the supplied ADS course material.</desc>
+  <rect width="100%" height="100%" fill="white" />
+  <style>text{font-family:Arial,sans-serif;fill:#172d4d;font-size:18px} .small{font-size:14px;fill:#53667b} .heading{font-size:22px;font-weight:bold}</style>
+  <text x="24" y="32" text-anchor="start" class="heading">Turnpike: branch on the largest unused distance</text>
+  <rect x="430.5" y="69" width="79" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="470" y="92" text-anchor="middle" class="">{0, 10}</text>
+  <rect x="209.5" y="153" width="61" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="240" y="176" text-anchor="middle" class="">try 8</text>
+  <rect x="631.0" y="153" width="178" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="720" y="176" text-anchor="middle" class="">try 2 (reflection)</text>
+  <rect x="43.5" y="243" width="133" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="110" y="266" text-anchor="middle" class="">7: no completion</text>
+  <rect x="339.5" y="243" width="61" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="370" y="266" text-anchor="middle" class="">try 3</text>
+  <rect x="168.5" y="333" width="133" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="235" y="356" text-anchor="middle" class="">try 4: reject</text>
+  <rect x="438.5" y="333" width="133" height="34" rx="4" fill="#eaf2ff" stroke="#3262ac" />
+  <text x="505" y="356" text-anchor="middle" class="">try 6; then 5</text>
+  <path d="M470,103 L240,153" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M470,103 L720,153" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M240,187 L110,243" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M240,187 L370,243" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M370,277 L235,333" fill="none" stroke="#8795a8" stroke-width="2" />
+  <path d="M370,277 L505,333" fill="none" stroke="#8795a8" stroke-width="2" />
+  <text x="25" y="403" text-anchor="start" class="">Solution: (0, 3, 5, 6, 8, 10). Remove / restore distances with multiplicity.</text>
+</svg>

@@ -398,7 +398,7 @@ MAX 取孩子最大，MIN 取最小。截断叶可用启发式 $f(P)=W_{computer
 
 先按 x 排序并按**排名**均分，坐标相等用点 ID 区分；递归得 $\delta=\min(\delta_L,\delta_R)$。跨区更优对只在宽 $2\delta$ 的条带内。
 
-![按 y 扫描条带：候选矩形分为八个小格](../assets/lecture-07-slide-05.png)
+![按 y 扫描条带：候选矩形分为八个小格](../assets/closest-pair-strip.svg)
 
 按 y 扫，每点只需比较后续至多 **7 点**：$2\delta\times\delta$ 矩形，两侧各分四个边长 $\delta/2$ 格，同侧一格最多一点；含当前点最多 8 点。y 差已超 $\delta$ 即停，重复坐标直接得到 0。
 
